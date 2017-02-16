@@ -284,6 +284,29 @@
 					</div>
                     <hr />
                     <h5>Agregar la tabla aquí</h5>
+                    <label for="idFamilia" class="col-md-4 control-label">Familia</label>
+							<div class="col-md-8">
+								<select name="idMunicipio" class="form-control">
+									<option value="">Seleccione</option>
+                                    <option value="todos">Todos</option>
+									<?php
+
+										mysql_connect('localhost', 'root', '');
+										mysql_select_db('adquisiciones');
+										
+										$sql = "SELECT clave FROM familia";
+										$result = mysql_query($sql);
+										while ($row = mysql_fetch_array($result)) {
+											echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
+										}
+									
+									?>
+								</select>
+							</div>
+						</div>
+                        <div class="nav navbar-right">
+					<a href="<?php echo site_url('proveedor/add'); ?>" class="btn btn-success btn-sm">Agregar</a> 
+				</div>
 					
 					
 					<div class="form-group">
