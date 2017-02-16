@@ -16,6 +16,7 @@
 							<div class="col-md-8">
 								<select name="tipo" class="form-control">
 									<option value="">Seleccione</option>
+                                    <option value="todos">Todos</option>
 									<?php 
 									$tipo_values = array(
 						'B'=>'Bienes',
@@ -33,17 +34,22 @@
 							</div>
 						</div>
 			<div class="form-group">
-							<label for="idMunicipio" class="col-md-4 control-label">Familia</label>
+							<label for="idFamilia" class="col-md-4 control-label">Familia</label>
 							<div class="col-md-8">
 								<select name="idMunicipio" class="form-control">
 									<option value="">Seleccione</option>
-									<?php 
-									foreach($all_listamunicipio as $municipio)
-									{
-										$selected = ($municipio['id'] == $this->input->post('idMunicipio')) ? ' selected="selected"' : "";
+                                    <option value="todos">Todos</option>
+									<?php
 
-										echo '<option value="'.$municipio['id'].'" '.$selected.'>'.$municipio['nombre'].'</option>';
-									} 
+										mysql_connect('localhost', 'root', '');
+										mysql_select_db('adquisiciones');
+										
+										$sql = "SELECT clave FROM familia";
+										$result = mysql_query($sql);
+										while ($row = mysql_fetch_array($result)) {
+											echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
+										}
+									
 									?>
 								</select>
 							</div>
