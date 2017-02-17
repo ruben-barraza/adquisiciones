@@ -30,11 +30,23 @@ class Embalajemodel extends CI_Model
     /*
      * function to add new embalaje
      */
-    function add_embalaje($params)
+	
+	function add_embalaje($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('embalaje',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from embalaje")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update embalaje

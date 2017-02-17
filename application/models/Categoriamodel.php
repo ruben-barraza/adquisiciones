@@ -29,12 +29,24 @@ class Categoriamodel extends CI_Model
     
     /*
      * function to add new categoria
-     */
-    function add_categoria($params)
+     */	
+	    
+	function add_categoria($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('categoria',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from categoria")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update categoria

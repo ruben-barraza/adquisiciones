@@ -30,11 +30,23 @@ class Imconceptomodel extends CI_Model
     /*
      * function to add new im_concepto
      */
-    function add_im_concepto($params)
+	
+	function add_im_concepto($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('im_concepto',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_concepto")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update im_concepto

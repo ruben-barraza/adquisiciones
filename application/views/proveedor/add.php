@@ -44,7 +44,29 @@
 							<input type="text" name="codigoPostal" value="<?php echo $this->input->post('codigoPostal'); ?>" class="form-control" id="codigoPostal" />
 						</div>
 					</div>
-					<div class="form-group">
+                    
+                    <div class="form-group">
+                        <label for="idEstado" class="col-md-4 control-label">Estado</label>
+                                <div class="col-md-8">
+                                    <select name="idEstado" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+    
+                                            mysql_connect('localhost', 'root', '');
+                                            mysql_select_db('adquisiciones');
+                                            
+                                            $sql = "SELECT nombre FROM estado";
+                                            $result = mysql_query($sql);
+                                            while ($row = mysql_fetch_array($result)) {
+                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
+                                            }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+						</div>
+					
+                    <div class="form-group">
 							<label for="idMunicipio" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
 								<select name="idMunicipio" class="form-control">
@@ -116,6 +138,28 @@
 							<input type="text" name="direccion1" value="<?php echo $this->input->post('direccion1'); ?>" class="form-control" id="direccion1" />
 						</div>
 					</div>
+                    
+                    <div class="form-group">
+                        <label for="idEstado1" class="col-md-4 control-label">Estado</label>
+                                <div class="col-md-8">
+                                    <select name="idEstado" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+    
+                                            mysql_connect('localhost', 'root', '');
+                                            mysql_select_db('adquisiciones');
+                                            
+                                            $sql = "SELECT nombre FROM estado";
+                                            $result = mysql_query($sql);
+                                            while ($row = mysql_fetch_array($result)) {
+                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
+                                            }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+						</div>
+                    
 					<div class="form-group">
 							<label for="idMunicipio1" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
@@ -176,6 +220,28 @@
 							<input type="text" name="direccion2" value="<?php echo $this->input->post('direccion2'); ?>" class="form-control" id="direccion2" />
 						</div>
 					</div>
+                    
+                    <div class="form-group">
+                        <label for="idEstado2" class="col-md-4 control-label">Estado</label>
+                                <div class="col-md-8">
+                                    <select name="idEstado" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+    
+                                            mysql_connect('localhost', 'root', '');
+                                            mysql_select_db('adquisiciones');
+                                            
+                                            $sql = "SELECT nombre FROM estado";
+                                            $result = mysql_query($sql);
+                                            while ($row = mysql_fetch_array($result)) {
+                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
+                                            }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+						</div>
+                    
 					<div class="form-group">
 							<label for="idMunicipio2" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
@@ -236,6 +302,28 @@
 							<input type="text" name="direccion3" value="<?php echo $this->input->post('direccion3'); ?>" class="form-control" id="direccion3" />
 						</div>
 					</div>
+                    
+                    <div class="form-group">
+                        <label for="idEstado3" class="col-md-4 control-label">Estado</label>
+                                <div class="col-md-8">
+                                    <select name="idEstado" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+    
+                                            mysql_connect('localhost', 'root', '');
+                                            mysql_select_db('adquisiciones');
+                                            
+                                            $sql = "SELECT nombre FROM estado";
+                                            $result = mysql_query($sql);
+                                            while ($row = mysql_fetch_array($result)) {
+                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
+                                            }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+						</div>
+                    
 					<div class="form-group">
 							<label for="idMunicipio3" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
@@ -283,29 +371,32 @@
 						</div>
 					</div>
                     <hr />
-                    <h5>Agregar la tabla aquí</h5>
-                    <label for="idFamilia" class="col-md-4 control-label">Familia</label>
-							<div class="col-md-8">
-								<select name="idMunicipio" class="form-control">
-									<option value="">Seleccione</option>
-                                    <option value="todos">Todos</option>
-									<?php
-
-										mysql_connect('localhost', 'root', '');
-										mysql_select_db('adquisiciones');
-										
-										$sql = "SELECT clave FROM familia";
-										$result = mysql_query($sql);
-										while ($row = mysql_fetch_array($result)) {
-											echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
-										}
-									
-									?>
-								</select>
-							</div>
+                    <div class="form-group">
+                        <label for="idFamilia" class="col-md-4 control-label">Familia</label>
+                                <div class="col-md-7">
+                                    <select name="idFamilia" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <?php
+    
+                                            mysql_connect('localhost', 'root', '');
+                                            mysql_select_db('adquisiciones');
+                                            
+                                            $sql = "SELECT clave FROM familia";
+                                            $result = mysql_query($sql);
+                                            while ($row = mysql_fetch_array($result)) {
+                                                echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
+                                            }
+                                        
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                	<button type="submit" class="btn btn-success">
+										<i class="fa fa-plus"></i> Agregar 
+									</button>
+                                </div>
 						</div>
-                        <div class="nav navbar-right">
-					<a href="<?php echo site_url('proveedor/add'); ?>" class="btn btn-success btn-sm">Agregar</a> 
+						 
 				</div>
 					
 					

@@ -30,11 +30,23 @@ class Relacionproveedorfamiliamodel extends CI_Model
     /*
      * function to add new relacionproveedorfamilia
      */
-    function add_relacionproveedorfamilia($params)
+	
+	function add_relacionproveedorfamilia($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('relacionproveedorfamilia',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from relacionproveedorfamilia")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update relacionproveedorfamilia

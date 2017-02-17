@@ -30,11 +30,23 @@ class Empleadomodel extends CI_Model
     /*
      * function to add new empleado
      */
-    function add_empleado($params)
+	
+	function add_empleado($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('empleado',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from empleado")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update empleado

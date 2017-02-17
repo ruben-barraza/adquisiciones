@@ -30,11 +30,22 @@ class Poacusemodel extends CI_Model
     /*
      * function to add new po_acuse
      */
-    function add_po_acuse($params)
+	function add_po_acuse($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('po_acuse',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from po_acuse")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update po_acuse

@@ -30,11 +30,22 @@ class Estadomodel extends CI_Model
     /*
      * function to add new estado
      */
-    function add_estado($params)
+	function add_estado($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('estado',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from estado")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update estado

@@ -30,11 +30,23 @@ class Unidadmedidamodel extends CI_Model
     /*
      * function to add new unidadmedida
      */
-    function add_unidadmedida($params)
+	
+	function add_unidadmedida($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('unidadmedida',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from unidadmedida")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update unidadmedida

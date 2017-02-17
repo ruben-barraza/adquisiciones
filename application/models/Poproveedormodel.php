@@ -30,11 +30,23 @@ class Poproveedormodel extends CI_Model
     /*
      * function to add new po_proveedor
      */
-    function add_po_proveedor($params)
+	
+	function add_po_proveedor($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('po_proveedor',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from po_proveedor")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update po_proveedor

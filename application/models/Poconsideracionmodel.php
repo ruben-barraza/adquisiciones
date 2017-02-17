@@ -30,11 +30,23 @@ class Poconsideracionmodel extends CI_Model
     /*
      * function to add new po_consideracion
      */
-    function add_po_consideracion($params)
+	
+	function add_po_consideracion($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('po_consideracion',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from po_consideracion")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update po_consideracion

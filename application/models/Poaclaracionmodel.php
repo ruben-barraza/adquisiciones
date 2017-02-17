@@ -32,9 +32,20 @@ class Poaclaracionmodel extends CI_Model
      */
     function add_po_aclaracion($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('po_aclaracion',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from po_aclaracion")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update po_aclaracion

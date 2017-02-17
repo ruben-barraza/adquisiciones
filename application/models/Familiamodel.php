@@ -30,11 +30,23 @@ class Familiamodel extends CI_Model
     /*
      * function to add new familia
      */
-    function add_familia($params)
+	
+	function add_familia($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('familia',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from familia")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update familia

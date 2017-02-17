@@ -33,7 +33,7 @@
 								</select>
 							</div>
 						</div>
-			<div class="form-group">
+				<div class="form-group">
 							<label for="idFamilia" class="col-md-4 control-label">Familia</label>
 							<div class="col-md-8">
 								<select name="idMunicipio" class="form-control">
@@ -54,6 +54,7 @@
 								</select>
 							</div>
 						</div>
+                </div>
   				<table class="table table-striped">
 				    <tr>
 						<th>Razón Social</th>

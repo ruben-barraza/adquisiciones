@@ -30,11 +30,23 @@ class Proveedormodel extends CI_Model
     /*
      * function to add new proveedor
      */
-    function add_proveedor($params)
+	
+	function add_proveedor($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('proveedor',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from proveedor")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update proveedor

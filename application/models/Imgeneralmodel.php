@@ -30,11 +30,23 @@ class Imgeneralmodel extends CI_Model
     /*
      * function to add new im_general
      */
-    function add_im_general($params)
+	
+	function add_im_general($params)
     {
+		$params['id'] = $this->get_idConsecutivo();
         $this->db->insert('im_general',$params);
         return $this->db->insert_id();
     }
+    
+    function get_idConsecutivo()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_general")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
     
     /*
      * function to update im_general
