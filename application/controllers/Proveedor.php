@@ -69,9 +69,11 @@ class Proveedor extends CI_Controller{
 				'razonSocial' => $this->input->post('razonSocial'),
 				'direccion' => $this->input->post('direccion'),
 				'codigoPostal' => $this->input->post('codigoPostal'),
+				'idEstado' => $this->input->post('idEstado'),
 				'idMunicipio' => $this->input->post('idMunicipio'),
 				'nombre1' => $this->input->post('nombre1'),
 				'direccion1' => $this->input->post('direccion1'),
+				'idEstado1' => $this->input->post('idEstado1'),
 				'idMunicipio1' => $this->input->post('idMunicipio1'),
 				'codigoPostal1' => $this->input->post('codigoPostal1'),
 				'telefonoFijo1' => $this->input->post('telefonoFijo1'),
@@ -80,6 +82,7 @@ class Proveedor extends CI_Controller{
 				'extension1' => $this->input->post('extension1'),
 				'nombre2' => $this->input->post('nombre2'),
 				'direccion2' => $this->input->post('direccion2'),
+				'idEstado2' => $this->input->post('idEstado2'),
 				'idMunicipio2' => $this->input->post('idMunicipio2'),
 				'codigoPostal2' => $this->input->post('codigoPostal2'),
 				'telefonoFijo2' => $this->input->post('telefonoFijo2'),
@@ -88,6 +91,7 @@ class Proveedor extends CI_Controller{
 				'extension2' => $this->input->post('extension2'),
 				'nombre3' => $this->input->post('nombre3'),
 				'direccion3' => $this->input->post('direccion3'),
+				'idEstado3' => $this->input->post('idEstado3'),
 				'idMunicipio3' => $this->input->post('idMunicipio3'),
 				'codigoPostal3' => $this->input->post('codigoPostal3'),
 				'telefonoFijo3' => $this->input->post('telefonoFijo3'),
@@ -103,12 +107,23 @@ class Proveedor extends CI_Controller{
         }
         else
         {
+			
+			$this->load->model('Estadomodel');
+			$data['all_listaestado'] = $this->Estadomodel->get_all_listaestado();
+			// Para contacto 1
+			$data['all_listaestado1'] = $this->Estadomodel->get_all_listaestado();
+			// Para contacto 2
+			$data['all_listaestado2'] = $this->Estadomodel->get_all_listaestado();
+			// Para contacto 3
+			$data['all_listaestado3'] = $this->Estadomodel->get_all_listaestado();
+
+			
 			$this->load->model('Municipiomodel');
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-            
+			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
+			$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
+			$data['all_listamunicipio2'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
+			$data['all_listamunicipio3'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
+            			
             $data['_view'] = 'proveedor/add';
             $this->load->view('layouts/main',$data);
         }
@@ -166,9 +181,11 @@ class Proveedor extends CI_Controller{
 					'razonSocial' => $this->input->post('razonSocial'),
 					'direccion' => $this->input->post('direccion'),
 					'codigoPostal' => $this->input->post('codigoPostal'),
+					'idEstado' => $this->input->post('idEstado'),
 					'idMunicipio' => $this->input->post('idMunicipio'),
 					'nombre1' => $this->input->post('nombre1'),
 					'direccion1' => $this->input->post('direccion1'),
+					'idEstado1' => $this->input->post('idEstado1'),
 					'idMunicipio1' => $this->input->post('idMunicipio1'),
 					'codigoPostal1' => $this->input->post('codigoPostal1'),
 					'telefonoFijo1' => $this->input->post('telefonoFijo1'),
@@ -177,6 +194,7 @@ class Proveedor extends CI_Controller{
 					'extension1' => $this->input->post('extension1'),
 					'nombre2' => $this->input->post('nombre2'),
 					'direccion2' => $this->input->post('direccion2'),
+					'idEstado2' => $this->input->post('idEstado2'),
 					'idMunicipio2' => $this->input->post('idMunicipio2'),
 					'codigoPostal2' => $this->input->post('codigoPostal2'),
 					'telefonoFijo2' => $this->input->post('telefonoFijo2'),
@@ -185,6 +203,7 @@ class Proveedor extends CI_Controller{
 					'extension2' => $this->input->post('extension2'),
 					'nombre3' => $this->input->post('nombre3'),
 					'direccion3' => $this->input->post('direccion3'),
+					'idEstado3' => $this->input->post('idEstado3'),
 					'idMunicipio3' => $this->input->post('idMunicipio3'),
 					'codigoPostal3' => $this->input->post('codigoPostal3'),
 					'telefonoFijo3' => $this->input->post('telefonoFijo3'),
@@ -200,11 +219,20 @@ class Proveedor extends CI_Controller{
             }
             else
             {
+				$this->load->model('Estadomodel');
+				$data['all_listaestado'] = $this->Estadomodel->get_all_listaestado();
+				// Para contacto 1
+				$data['all_listaestado1'] = $this->Estadomodel->get_all_listaestado();
+				// Para contacto 2
+				$data['all_listaestado2'] = $this->Estadomodel->get_all_listaestado();
+				// Para contacto 3
+				$data['all_listaestado3'] = $this->Estadomodel->get_all_listaestado();
+				
 				$this->load->model('Municipiomodel');
 				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
+				$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipio();
+				$data['all_listamunicipio2'] = $this->Municipiomodel->get_all_listamunicipio();
+				$data['all_listamunicipio3'] = $this->Municipiomodel->get_all_listamunicipio();
 
                 $data['_view'] = 'proveedor/edit';
                 $this->load->view('layouts/main',$data);

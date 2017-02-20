@@ -12,6 +12,7 @@
           	</div>
           	<div class="x_content">
 				<?php echo validation_errors(); ?>
+                
 				<?php echo form_open('proveedor/add',array("class"=>"form-horizontal")); ?>
 
 					<div class="form-group">
@@ -45,22 +46,22 @@
 						</div>
 					</div>
                     
+                    
+                    
+                    
                     <div class="form-group">
                         <label for="idEstado" class="col-md-4 control-label">Estado</label>
                                 <div class="col-md-8">
                                     <select name="idEstado" class="form-control">
-                                        <option value="">Seleccione</option>
+                                        <!-- <option value="">Seleccione</option> -->
                                         <?php
-    
-                                            mysql_connect('localhost', 'root', '');
-                                            mysql_select_db('adquisiciones');
-                                            
-                                            $sql = "SELECT nombre FROM estado";
-                                            $result = mysql_query($sql);
-                                            while ($row = mysql_fetch_array($result)) {
-                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
-                                            }
-                                        
+											/*foreach($all_listaestado as $estado)
+									{
+										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
+
+										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+									} */
+                							echo form_dropdown('estado', $estado, set_value('estado'), $attributes); 
                                         ?>
                                     </select>
                                 </div>
@@ -72,7 +73,7 @@
 								<select name="idMunicipio" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									foreach($all_listamunicipio as $municipio)
+									foreach($all_listamunicipioestado as $municipio)
 									{
 										$selected = ($municipio['id'] == $this->input->post('idMunicipio')) ? ' selected="selected"' : "";
 
@@ -82,6 +83,10 @@
 								</select>
 							</div>
 						</div>
+                        
+                        
+                        
+                        
                         <div class="form-group">
 							<label for="estatus" class="col-md-4 control-label">Estatus</label>
 							<div class="col-md-8">
@@ -145,16 +150,12 @@
                                     <select name="idEstado" class="form-control">
                                         <option value="">Seleccione</option>
                                         <?php
-    
-                                            mysql_connect('localhost', 'root', '');
-                                            mysql_select_db('adquisiciones');
-                                            
-                                            $sql = "SELECT nombre FROM estado";
-                                            $result = mysql_query($sql);
-                                            while ($row = mysql_fetch_array($result)) {
-                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
-                                            }
-                                        
+											foreach($all_listaestado1 as $estado)
+									{
+										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
+
+										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+									} 
                                         ?>
                                     </select>
                                 </div>
@@ -227,16 +228,12 @@
                                     <select name="idEstado" class="form-control">
                                         <option value="">Seleccione</option>
                                         <?php
-    
-                                            mysql_connect('localhost', 'root', '');
-                                            mysql_select_db('adquisiciones');
-                                            
-                                            $sql = "SELECT nombre FROM estado";
-                                            $result = mysql_query($sql);
-                                            while ($row = mysql_fetch_array($result)) {
-                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
-                                            }
-                                        
+											foreach($all_listaestado2 as $estado)
+									{
+										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
+
+										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+									} 
                                         ?>
                                     </select>
                                 </div>
@@ -309,16 +306,12 @@
                                     <select name="idEstado" class="form-control">
                                         <option value="">Seleccione</option>
                                         <?php
-    
-                                            mysql_connect('localhost', 'root', '');
-                                            mysql_select_db('adquisiciones');
-                                            
-                                            $sql = "SELECT nombre FROM estado";
-                                            $result = mysql_query($sql);
-                                            while ($row = mysql_fetch_array($result)) {
-                                                echo "<option value='" . $row['nombre'] . "'>" . $row['nombre'] . "</option>";
-                                            }
-                                        
+											foreach($all_listaestado3 as $estado)
+									{
+										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
+
+										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+									} 
                                         ?>
                                     </select>
                                 </div>
@@ -413,3 +406,25 @@
     	</div>
   	</div>
 </div>
+
+<script src="<?php echo base_url("assets/js/jquery-1.10.2.js"); ?>" type="text/javascript"></script>
+<script type="text/javascript">
+$('#estado').change(function(){
+    var idEstado = $(this).val();
+    $("#estado > opcion").remove();
+    $.ajax({
+        type: "POST",
+        url: "<?php echo site_url('dropdown_municipioestado/populate_municipio'); ?>",
+        data: {id: id},
+        dataType: 'json',
+        success:function(data){
+            $.each(data,function(k, v){
+                var opt = $('<option />');
+                opt.val(k);
+                opt.text(v);
+                $('#estado').append(opt);
+            });
+            //$('#state').append('<option value="' + id + '">' + name + '</option>');
+        }
+    });
+});

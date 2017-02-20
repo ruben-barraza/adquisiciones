@@ -27,6 +27,11 @@ class Municipiomodel extends CI_Model
         return $this->db->get('municipio')->result_array();
     }
     
+    function get_all_listamunicipioestado($idEstado)
+    {
+        return $this->db->query("select id, idestado, nombre from municipio where idestado = " . $idEstado)->result_array();
+    }
+
     /*
      * function to add new municipio
      */
