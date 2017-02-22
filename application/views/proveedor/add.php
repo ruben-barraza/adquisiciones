@@ -73,7 +73,7 @@
 								<select name="idMunicipio" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									foreach($all_listamunicipio as $municipio)
+									foreach($all_listamunicipioestado as $municipio)
 									{
 										$selected = ($municipio['id'] == $this->input->post('idMunicipio')) ? ' selected="selected"' : "";
 
@@ -83,10 +83,7 @@
 								</select>
 							</div>
 						</div>
-                        
-                        
-                        
-                        
+                                                                                             
                         <div class="form-group">
 							<label for="estatus" class="col-md-4 control-label">Estatus</label>
 							<div class="col-md-8">
@@ -167,7 +164,7 @@
 								<select name="idMunicipio1" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									foreach($all_listamunicipio as $municipio)
+									foreach($all_listamunicipio1 as $municipio)
 									{
 										$selected = ($municipio['id'] == $this->input->post('idMunicipio1')) ? ' selected="selected"' : "";
 
@@ -245,7 +242,7 @@
 								<select name="idMunicipio2" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									foreach($all_listamunicipio as $municipio)
+									foreach($all_listamunicipio2 as $municipio)
 									{
 										$selected = ($municipio['id'] == $this->input->post('idMunicipio2')) ? ' selected="selected"' : "";
 
@@ -323,7 +320,7 @@
 								<select name="idMunicipio3" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									foreach($all_listamunicipio as $municipio)
+									foreach($all_listamunicipio3 as $municipio)
 									{
 										$selected = ($municipio['id'] == $this->input->post('idMunicipio3')) ? ' selected="selected"' : "";
 

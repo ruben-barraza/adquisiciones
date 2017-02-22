@@ -119,8 +119,8 @@ class Proveedor extends CI_Controller{
 
 			
 			$this->load->model('Municipiomodel');
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio('0');
-			$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipio('0');
+			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio($params['idEstado']);
+			$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
 			$data['all_listamunicipio2'] = $this->Municipiomodel->get_all_listamunicipio('0');
 			$data['all_listamunicipio3'] = $this->Municipiomodel->get_all_listamunicipio('0');
             			
