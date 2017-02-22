@@ -62,11 +62,11 @@ class Municipiomodel extends CI_Model
         $response = $this->db->update('municipio',$params);
         if($response)
         {
-            return "municipio updated successfully";
+            return "Municipio actualizado exitosamente";
         }
         else
         {
-            return "Error occuring while updating municipio";
+            return "Ocurrió un error al actualizar el municipio";
         }
     }
     
@@ -78,11 +78,11 @@ class Municipiomodel extends CI_Model
         $response = $this->db->delete('municipio',array('id'=>$id));
         if($response)
         {
-            return "municipio deleted successfully";
+            return "Municipio eliminado exitosamente";
         }
         else
         {
-            return "Error occuring while deleting municipio";
+            return "Ocurrió un error al eliminar el municipio";
         }
     }
 }

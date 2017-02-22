@@ -87,7 +87,7 @@ class Municipio extends CI_Controller{
             }
         }
         else
-            show_error('The municipio you are trying to edit does not exist.');
+            show_error('El municipio que está tratando de editar no existe.');
     } 
 
     /*
@@ -104,7 +104,7 @@ class Municipio extends CI_Controller{
             redirect('municipio/index');
         }
         else
-            show_error('The municipio you are trying to delete does not exist.');
+            show_error('El municipio que está tratando de eliminar no existe.');
     }
     
 }

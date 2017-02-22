@@ -2,7 +2,7 @@
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Edit</h2>
+                <h2>Editar familia</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   	<li>
                   		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -21,7 +21,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="descripcion" class="col-md-4 control-label">Descripcion</label>
+						<label for="descripcion" class="col-md-4 control-label">Descripción</label>
 						<div class="col-md-8">
 							<input type="text" name="descripcion" value="<?php echo ($this->input->post('descripcion') ? $this->input->post('descripcion') : $familia['descripcion']); ?>" class="form-control" id="descripcion" />
 						</div>
@@ -30,7 +30,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Save
+								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
 					</div>

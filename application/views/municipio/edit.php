@@ -2,7 +2,7 @@
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Edit</h2>
+                <h2>Editar municipio</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   	<li>
                   		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -15,10 +15,10 @@
 				<?php echo form_open('municipio/edit/'.$municipio['id'],array("class"=>"form-horizontal")); ?>
 
 					<div class="form-group">
-							<label for="idEstado" class="col-md-4 control-label">IdEstado</label>
+							<label for="idEstado" class="col-md-4 control-label">Estado</label>
 							<div class="col-md-8">
 								<select name="idEstado" class="form-control">
-									<option value="">select estado</option>
+									<option value="">Seleccione</option>
 									<?php 
 									foreach($all_listaestado as $estado)
 									{
@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Save
+								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
 					</div>

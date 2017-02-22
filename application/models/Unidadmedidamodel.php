@@ -57,11 +57,11 @@ class Unidadmedidamodel extends CI_Model
         $response = $this->db->update('unidadmedida',$params);
         if($response)
         {
-            return "unidadmedida updated successfully";
+            return "Unidad de medida actualizada exitosamente";
         }
         else
         {
-            return "Error occuring while updating unidadmedida";
+            return "Ocurrió un error al actualizar la unidad de medida";
         }
     }
     
@@ -73,11 +73,11 @@ class Unidadmedidamodel extends CI_Model
         $response = $this->db->delete('unidadmedida',array('id'=>$id));
         if($response)
         {
-            return "unidadmedida deleted successfully";
+            return "Unidad de medida eliminada exitosamente";
         }
         else
         {
-            return "Error occuring while deleting unidadmedida";
+            return "Ocurrió un error al eliminar la unidad de medida";
         }
     }
 }

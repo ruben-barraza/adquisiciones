@@ -77,7 +77,7 @@ class Estado extends CI_Controller{
             }
         }
         else
-            show_error('The estado you are trying to edit does not exist.');
+            show_error('El estado que está tratando de editar no existe.');
     } 
 
     /*
@@ -94,7 +94,7 @@ class Estado extends CI_Controller{
             redirect('estado/index');
         }
         else
-            show_error('The estado you are trying to delete does not exist.');
+            show_error('El estado que está tratando de eliminar no existe.');
     }
     
 }

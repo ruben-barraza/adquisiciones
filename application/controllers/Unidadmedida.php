@@ -81,7 +81,7 @@ class Unidadmedida extends CI_Controller{
             }
         }
         else
-            show_error('The unidadmedida you are trying to edit does not exist.');
+            show_error('La unidad de medida que está tratando de editar no existe.');
     } 
 
     /*
@@ -98,7 +98,7 @@ class Unidadmedida extends CI_Controller{
             redirect('unidadmedida/index');
         }
         else
-            show_error('The unidadmedida you are trying to delete does not exist.');
+            show_error('La unidad de medida que está tratando de eliminar no existe.');
     }
     
 }
