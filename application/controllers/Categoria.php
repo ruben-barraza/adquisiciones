@@ -77,7 +77,7 @@ class Categoria extends CI_Controller{
             }
         }
         else
-            show_error('The categoria you are trying to edit does not exist.');
+            show_error('La categoría que está tratando editar no existe.');
     } 
 
     /*
@@ -94,7 +94,7 @@ class Categoria extends CI_Controller{
             redirect('categoria/index');
         }
         else
-            show_error('The categoria you are trying to delete does not exist.');
+            show_error('La categoría que está tratando eliminar no existe.');
     }
     
 }

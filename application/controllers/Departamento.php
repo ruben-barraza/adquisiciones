@@ -77,7 +77,7 @@ class Departamento extends CI_Controller{
             }
         }
         else
-            show_error('The departamento you are trying to edit does not exist.');
+            show_error('El departamento que está tratando editar no existe.');
     } 
 
     /*
@@ -94,7 +94,7 @@ class Departamento extends CI_Controller{
             redirect('departamento/index');
         }
         else
-            show_error('The departamento you are trying to delete does not exist.');
+            show_error('El departamento que está tratando eliminar no existe.');
     }
     
 }
