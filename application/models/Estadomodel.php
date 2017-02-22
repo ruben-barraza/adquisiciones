@@ -56,11 +56,11 @@ class Estadomodel extends CI_Model
         $response = $this->db->update('estado',$params);
         if($response)
         {
-            return "estado updated successfully";
+            return "Estado actualizado exitosamente";
         }
         else
         {
-            return "Error occuring while updating estado";
+            return "Ocurrió un error al actualizar el estado";
         }
     }
     
@@ -72,11 +72,11 @@ class Estadomodel extends CI_Model
         $response = $this->db->delete('estado',array('id'=>$id));
         if($response)
         {
-            return "estado deleted successfully";
+            return "Estado eliminado exitosamente";
         }
         else
         {
-            return "Error occuring while deleting estado";
+            return "Ocurrió un error al eliminar el estado";
         }
     }
 }

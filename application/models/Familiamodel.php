@@ -57,11 +57,11 @@ class Familiamodel extends CI_Model
         $response = $this->db->update('familia',$params);
         if($response)
         {
-            return "familia updated successfully";
+            return "Familia actualizada exitosamente";
         }
         else
         {
-            return "Error occuring while updating familia";
+            return "Ocurrió un error al actualizar la familia";
         }
     }
     
@@ -73,11 +73,11 @@ class Familiamodel extends CI_Model
         $response = $this->db->delete('familia',array('id'=>$id));
         if($response)
         {
-            return "familia deleted successfully";
+            return "Familia eliminada exitosamente";
         }
         else
         {
-            return "Error occuring while deleting familia";
+            return "Ocurrió un error al actualizar la familia";
         }
     }
 }

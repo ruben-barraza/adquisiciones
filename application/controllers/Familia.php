@@ -81,7 +81,7 @@ class Familia extends CI_Controller{
             }
         }
         else
-            show_error('The familia you are trying to edit does not exist.');
+            show_error('La familia que está tratando de editar no existe.');
     } 
 
     /*
@@ -98,7 +98,7 @@ class Familia extends CI_Controller{
             redirect('familia/index');
         }
         else
-            show_error('The familia you are trying to delete does not exist.');
+            show_error('La familia que está tratando de eliminar no existe.');
     }
     
 }
