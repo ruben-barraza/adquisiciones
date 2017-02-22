@@ -57,11 +57,11 @@ class Categoriamodel extends CI_Model
         $response = $this->db->update('categoria',$params);
         if($response)
         {
-            return "categoria updated successfully";
+            return "Categoría actualizada existosamente";
         }
         else
         {
-            return "Error occuring while updating categoria";
+            return "Ocurrió un error al actualizar la categoría";
         }
     }
     
@@ -73,11 +73,11 @@ class Categoriamodel extends CI_Model
         $response = $this->db->delete('categoria',array('id'=>$id));
         if($response)
         {
-            return "categoria deleted successfully";
+            return "Categoría eliminada exitosamente";
         }
         else
         {
-            return "Error occuring while deleting categoria";
+            return "Ocurrió un error al actualizar la categoría";
         }
     }
 }

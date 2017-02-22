@@ -56,11 +56,11 @@ class Departamentomodel extends CI_Model
         $response = $this->db->update('departamento',$params);
         if($response)
         {
-            return "departamento updated successfully";
+            return "Departamento actualizado exitosamente";
         }
         else
         {
-            return "Error occuring while updating departamento";
+            return "Ocurrió un error al actualizar el departamento";
         }
     }
     
@@ -72,11 +72,11 @@ class Departamentomodel extends CI_Model
         $response = $this->db->delete('departamento',array('id'=>$id));
         if($response)
         {
-            return "departamento deleted successfully";
+            return "Departamento eliminado exitosamente";
         }
         else
         {
-            return "Error occuring while deleting departamento";
+            return "Ocurrió un error al actualizar el departamento";
         }
     }
 }
