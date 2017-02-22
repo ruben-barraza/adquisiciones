@@ -1,3 +1,4 @@
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -53,15 +54,14 @@
                         <label for="idEstado" class="col-md-4 control-label">Estado</label>
                                 <div class="col-md-8">
                                     <select name="idEstado" class="form-control">
-                                        <!-- <option value="">Seleccione</option> -->
+                                        <option value="">Seleccione</option>
                                         <?php
-											/*foreach($all_listaestado as $estado)
-									{
-										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
+											foreach($all_listaestado as $estado)
+											{
+												$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
 
-										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
-									} */
-                							echo form_dropdown('estado', $estado, set_value('estado'), $attributes); 
+												echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+											} 
                                         ?>
                                     </select>
                                 </div>
@@ -73,7 +73,7 @@
 								<select name="idMunicipio" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									foreach($all_listamunicipioestado as $municipio)
+									foreach($all_listamunicipio as $municipio)
 									{
 										$selected = ($municipio['id'] == $this->input->post('idMunicipio')) ? ' selected="selected"' : "";
 
@@ -407,24 +407,3 @@
   	</div>
 </div>
 
-<script src="<?php echo base_url("assets/js/jquery-1.10.2.js"); ?>" type="text/javascript"></script>
-<script type="text/javascript">
-$('#estado').change(function(){
-    var idEstado = $(this).val();
-    $("#estado > opcion").remove();
-    $.ajax({
-        type: "POST",
-        url: "<?php echo site_url('dropdown_municipioestado/populate_municipio'); ?>",
-        data: {id: id},
-        dataType: 'json',
-        success:function(data){
-            $.each(data,function(k, v){
-                var opt = $('<option />');
-                opt.val(k);
-                opt.text(v);
-                $('#estado').append(opt);
-            });
-            //$('#state').append('<option value="' + id + '">' + name + '</option>');
-        }
-    });
-});
