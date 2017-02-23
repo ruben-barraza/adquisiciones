@@ -17,6 +17,7 @@ class Proveedor extends CI_Controller{
     function index()
     {
         $data['listaproveedor'] = $this->Proveedormodel->get_all_listaproveedor();
+		
 
         $data['_view'] = 'proveedor/index';
         $this->load->view('layouts/main',$data);
@@ -107,7 +108,11 @@ class Proveedor extends CI_Controller{
         }
         else
         {
+
+			$this->load->model('Comboboxesmodel');
+        	$data['estados'] = $this->Comboboxesmodel->getEstados();
 			
+			/*
 			$this->load->model('Estadomodel');
 			$data['all_listaestado'] = $this->Estadomodel->get_all_listaestado();
 			// Para contacto 1
@@ -116,14 +121,14 @@ class Proveedor extends CI_Controller{
 			$data['all_listaestado2'] = $this->Estadomodel->get_all_listaestado();
 			// Para contacto 3
 			$data['all_listaestado3'] = $this->Estadomodel->get_all_listaestado();
-
+			
 			
 			$this->load->model('Municipiomodel');
 			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio($params['idEstado']);
 			$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
 			$data['all_listamunicipio2'] = $this->Municipiomodel->get_all_listamunicipio('0');
 			$data['all_listamunicipio3'] = $this->Municipiomodel->get_all_listamunicipio('0');
-            			
+        	*/		
             $data['_view'] = 'proveedor/add';
             $this->load->view('layouts/main',$data);
         }

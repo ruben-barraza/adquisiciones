@@ -1,3 +1,5 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
@@ -53,16 +55,16 @@
                     <div class="form-group">
                         <label for="idEstado" class="col-md-4 control-label">Estado</label>
                                 <div class="col-md-8">
-                                    <select name="idEstado" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <?php
-											foreach($all_listaestado as $estado)
-											{
-												$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
+                                    <select id="idEstado" name="idEstado" class="form-control">
 
-												echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
-											} 
-                                        ?>
+										<option value="0">Seleccione</option>
+										<?php 
+											foreach ($estados as $i) {
+												echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
+											}
+										?>
+
+
                                     </select>
                                 </div>
 						</div>
@@ -70,16 +72,8 @@
                     <div class="form-group">
 							<label for="idMunicipio" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
-								<select name="idMunicipio" class="form-control">
-									<option value="">Seleccione</option>
-									<?php 
-									foreach($all_listamunicipioestado as $municipio)
-									{
-										$selected = ($municipio['id'] == $this->input->post('idMunicipio')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$municipio['id'].'" '.$selected.'>'.$municipio['nombre'].'</option>';
-									} 
-									?>
+								<select id="idMunicipio" name="idMunicipio" class="form-control">
+									<option value="0">Seleccione</option>
 								</select>
 							</div>
 						</div>
@@ -404,3 +398,17 @@
   	</div>
 </div>
 
+<script type="text/javascript">   
+    $(document).ready(function() {                       
+    	$("#idEstado").change(function() {
+    		$("#idEstado option:selected").each(function() {
+                idEstado = $('#idEstado').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+                	idEstado : idEstado
+                }, function(data) {
+                   $("#idMunicipio").html(data);
+                });
+            });
+        });
+    });
+</script>
