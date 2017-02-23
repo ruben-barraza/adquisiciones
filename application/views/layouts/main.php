@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>adquisiciones</title>
+        <title>Adquisiciones</title>
 
         <!-- Bootstrap -->
         <link href="<?php echo site_url('resources/css/bootstrap.min.css');?>" rel="stylesheet">
@@ -36,7 +36,7 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>adquisiciones</span></a>
+                            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Adquisiciones</span></a>
                         </div>
                         <div class="clearfix"></div>
 
@@ -46,7 +46,7 @@
                                 <img src="<?php echo site_url('resources/img/img.jpg');?>" alt="..." class="img-circle profile_img">
                             </div>
                             <div class="profile_info">
-                                <span>Welcome,</span>
+                                <span>Bienvenido,</span>
                                 <h2>John Doe</h2>
                             </div>
                         </div>
@@ -59,20 +59,22 @@
                                 <h3>General</h3>
                                 <ul class="nav side-menu">
 						<li>
-                                        <a href="<?php echo site_url('almacen/index');?>"><i class="fa fa-table"></i> Almacen</a>
+                                        <a href="<?php echo site_url('almacen/index');?>"><i class="fa fa-table"></i> Almacén</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('articulo/index');?>"><i class="fa fa-table"></i> Articulo</a>
+                                        <a href="<?php echo site_url('articulo/index');?>"><i class="fa fa-table"></i> Artículo</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('categoria/index');?>"><i class="fa fa-table"></i> Categoria</a>
+                                        <a href="<?php echo site_url('categoria/index');?>"><i class="fa fa-table"></i> Categoría</a>
                                     </li>
 						<li>
                                         <a href="<?php echo site_url('departamento/index');?>"><i class="fa fa-table"></i> Departamento</a>
                                     </li>
-						<li>
+						<!--
+            <li>
                                         <a href="<?php echo site_url('embalaje/index');?>"><i class="fa fa-table"></i> Embalaje</a>
                                     </li>
+                                    -->
 						<li>
                                         <a href="<?php echo site_url('empleado/index');?>"><i class="fa fa-table"></i> Empleado</a>
                                     </li>
@@ -83,40 +85,40 @@
                                         <a href="<?php echo site_url('familia/index');?>"><i class="fa fa-table"></i> Familia</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Consideraciformularioconsideracion</a>
+                                        <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('im_concepto/index');?>"><i class="fa fa-table"></i> Im concepto</a>
+                                        <a href="<?php echo site_url('im_concepto/index');?>"><i class="fa fa-table"></i> IM Concepto</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> Im general</a>
+                                        <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> IM General</a>
                                     </li>
 						<li>
                                         <a href="<?php echo site_url('municipio/index');?>"><i class="fa fa-table"></i> Municipio</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('po_aclaracion/index');?>"><i class="fa fa-table"></i> Po aclaracion</a>
+                                        <a href="<?php echo site_url('po_aclaracion/index');?>"><i class="fa fa-table"></i> PO Aclaración</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('po_acuse/index');?>"><i class="fa fa-table"></i> Po acuse</a>
+                                        <a href="<?php echo site_url('po_acuse/index');?>"><i class="fa fa-table"></i> PO Acuse</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('po_consideracion/index');?>"><i class="fa fa-table"></i> Po consideracion</a>
+                                        <a href="<?php echo site_url('po_consideracion/index');?>"><i class="fa fa-table"></i> PO Consideración</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('po_general/index');?>"><i class="fa fa-table"></i> Po general</a>
+                                        <a href="<?php echo site_url('po_general/index');?>"><i class="fa fa-table"></i> PO General</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> Po proveedor</a>
+                                        <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> PO Proveedor</a>
                                     </li>
 						<li>
                                         <a href="<?php echo site_url('proveedor/index');?>"><i class="fa fa-table"></i> Proveedor</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('relacionproveedorfamilia/index');?>"><i class="fa fa-table"></i> Relacionproveedorfamilia</a>
+                                        <a href="<?php echo site_url('relacionproveedorfamilia/index');?>"><i class="fa fa-table"></i> Relación Proveedor Familia</a>
                                     </li>
 						<li>
-                                        <a href="<?php echo site_url('unidadmedida/index');?>"><i class="fa fa-table"></i> Unidadmedida</a>
+                                        <a href="<?php echo site_url('unidadmedida/index');?>"><i class="fa fa-table"></i> Unidad de medida</a>
                                     </li>
                                 </ul>
                             </div>
@@ -140,8 +142,8 @@
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                        <li><a href="javascript:;"> Profile</a></li>
-                                        <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                        <li><a href="javascript:;"> Perfil</a></li>
+                                        <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Cerrar sesión</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -155,7 +157,7 @@
                     <div class="">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3>Form Elements</h3>
+                                <h3></h3>
                             </div>
                         </div>
                         <div class="clearfix"></div>
