@@ -63,6 +63,7 @@
 												echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
 											}
 										?>
+										
 
 
                                     </select>
@@ -121,7 +122,9 @@
 							</div>
 						</div>
                         <hr />
-                        <h4>Datos del contacto 1</h4>
+                        
+						
+						<h4>Datos del contacto 1</h4>
 					<div class="form-group">
 						<label for="nombre1" class="col-md-4 control-label">Nombre</label>
 						<div class="col-md-8">
@@ -138,16 +141,13 @@
                     <div class="form-group">
                         <label for="idEstado1" class="col-md-4 control-label">Estado</label>
                                 <div class="col-md-8">
-                                    <select name="idEstado" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <?php
-											foreach($all_listaestado1 as $estado)
-									{
-										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
-									} 
-                                        ?>
+                                    <select id="idEstado1" name="idEstado1" class="form-control">
+                                        <option value="0">Seleccione</option>
+										<?php 
+											foreach ($estados1 as $i) {
+												echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
+											}
+										?>
                                     </select>
                                 </div>
 						</div>
@@ -155,16 +155,8 @@
 					<div class="form-group">
 							<label for="idMunicipio1" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
-								<select name="idMunicipio1" class="form-control">
-									<option value="">Seleccione</option>
-									<?php 
-									foreach($all_listamunicipio1 as $municipio)
-									{
-										$selected = ($municipio['id'] == $this->input->post('idMunicipio1')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$municipio['id'].'" '.$selected.'>'.$municipio['nombre'].'</option>';
-									} 
-									?>
+								<select id="idMunicipio1" name="idMunicipio1" class="form-control">
+									<option value="0">Seleccione</option>
 								</select>
 							</div>
 						</div>
@@ -199,6 +191,7 @@
 						</div>
 					</div>
                     <hr  />
+
                     <h4>Datos del contacto 2</h4>
 					<div class="form-group">
 						<label for="nombre2" class="col-md-4 control-label">Nombre</label>
@@ -216,16 +209,13 @@
                     <div class="form-group">
                         <label for="idEstado2" class="col-md-4 control-label">Estado</label>
                                 <div class="col-md-8">
-                                    <select name="idEstado" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <?php
-											foreach($all_listaestado2 as $estado)
-									{
-										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
-									} 
-                                        ?>
+                                    <select id="idEstado2" name="idEstado2" class="form-control">
+                                        <option value="0">Seleccione</option>
+										<?php 
+											foreach ($estados2 as $i) {
+												echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
+											}
+										?>
                                     </select>
                                 </div>
 						</div>
@@ -233,19 +223,13 @@
 					<div class="form-group">
 							<label for="idMunicipio2" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
-								<select name="idMunicipio2" class="form-control">
-									<option value="">Seleccione</option>
-									<?php 
-									foreach($all_listamunicipio2 as $municipio)
-									{
-										$selected = ($municipio['id'] == $this->input->post('idMunicipio2')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$municipio['id'].'" '.$selected.'>'.$municipio['nombre'].'</option>';
-									} 
-									?>
+								<select id="idMunicipio2" name="idMunicipio2" class="form-control">
+									<option value="0">Seleccione</option>
 								</select>
 							</div>
 						</div>
+
+
 					<div class="form-group">
 						<label for="codigoPostal2" class="col-md-4 control-label">Código Postal</label>
 						<div class="col-md-8">
@@ -294,16 +278,13 @@
                     <div class="form-group">
                         <label for="idEstado3" class="col-md-4 control-label">Estado</label>
                                 <div class="col-md-8">
-                                    <select name="idEstado" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <?php
-											foreach($all_listaestado3 as $estado)
-									{
-										$selected = ($estado['id'] == $this->input->post('idEstado')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
-									} 
-                                        ?>
+                                    <select id="idEstado3" name="idEstado3" class="form-control">
+                                        <option value="0">Seleccione</option>
+										<?php 
+											foreach ($estados3 as $i) {
+												echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
+											}
+										?>
                                     </select>
                                 </div>
 						</div>
@@ -311,16 +292,8 @@
 					<div class="form-group">
 							<label for="idMunicipio3" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
-								<select name="idMunicipio3" class="form-control">
-									<option value="">Seleccione</option>
-									<?php 
-									foreach($all_listamunicipio3 as $municipio)
-									{
-										$selected = ($municipio['id'] == $this->input->post('idMunicipio3')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$municipio['id'].'" '.$selected.'>'.$municipio['nombre'].'</option>';
-									} 
-									?>
+								<select id="idMunicipio3" name="idMunicipio3" class="form-control">
+									<option value="0">Seleccione</option>
 								</select>
 							</div>
 						</div>
@@ -359,19 +332,12 @@
                         <label for="idFamilia" class="col-md-4 control-label">Familia</label>
                                 <div class="col-md-7">
                                     <select name="idFamilia" class="form-control">
-                                        <option value="">Seleccione</option>
-                                        <?php
-    
-                                            mysql_connect('localhost', 'root', '');
-                                            mysql_select_db('adquisiciones');
-                                            
-                                            $sql = "SELECT clave FROM familia";
-                                            $result = mysql_query($sql);
-                                            while ($row = mysql_fetch_array($result)) {
-                                                echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
-                                            }
-                                        
-                                        ?>
+                                        <option value="0">Seleccione</option>
+										<?php 
+											foreach ($familias as $i) {
+											echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+											}
+										?>
                                     </select>
                                 </div>
                                 <div class="col-md-1">
@@ -410,5 +376,45 @@
                 });
             });
         });
+
+		$("#idEstado1").change(function() {
+    		$("#idEstado1 option:selected").each(function() {
+                idEstado = $('#idEstado1').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+                	idEstado : idEstado
+                }, function(data) {
+                   $("#idMunicipio1").html(data);
+                });
+            });
+        });
+
+		$("#idEstado2").change(function() {
+    		$("#idEstado2 option:selected").each(function() {
+                idEstado = $('#idEstado2').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+                	idEstado : idEstado
+                }, function(data) {
+                   $("#idMunicipio2").html(data);
+                });
+            });
+        });
+
+		$("#idEstado3").change(function() {
+    		$("#idEstado3 option:selected").each(function() {
+                idEstado = $('#idEstado3').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+                	idEstado : idEstado
+                }, function(data) {
+                   $("#idMunicipio3").html(data);
+                });
+            });
+        });
     });
+</script>
+
+<script type="text/javascript">
+	$("#idEstado").find("option").eq(1).remove();
+	$("#idEstado1").find("option").eq(1).remove();
+	$("#idEstado2").find("option").eq(1).remove();
+	$("#idEstado3").find("option").eq(1).remove();
 </script>

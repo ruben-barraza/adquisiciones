@@ -19,4 +19,13 @@ class Comboboxesmodel extends CI_Model{
             return $municipios->result();
         }
     }
+
+    public function getFamilias(){
+        $this->db->order_by('clave', 'asc');
+        $familias = $this->db->get('familia');
+
+        if($familias->num_rows() > 0){
+            return $familias->result();
+        }
+    }
 }
