@@ -337,12 +337,13 @@
 									?>
 								</select>
 							</div>
+
                             <div class="col-md-1">
                                 	<button type="submit" class="btn btn-success">
 										<i class="fa fa-plus"></i> Agregar 
 									</button>
                             </div>
-						</div>
+					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">

@@ -327,28 +327,41 @@
 							<input type="text" name="extension3" value="<?php echo $this->input->post('extension3'); ?>" class="form-control" id="extension3" />
 						</div>
 					</div>
-                    <hr />
-                    <div class="form-group">
-                        <label for="idFamilia" class="col-md-4 control-label">Familia</label>
-                                <div class="col-md-7">
-                                    <select name="idFamilia" class="form-control">
-                                        <option value="0">Seleccione</option>
-										<?php 
-											foreach ($familias as $i) {
-											echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
-											}
-										?>
-                                    </select>
-                                </div>
-                                <div class="col-md-1">
-                                	<button type="submit" class="btn btn-success">
-										<i class="fa fa-plus"></i> Agregar 
-									</button>
-                                </div>
-						</div>
-						 
-				</div>
+                    
+					<!-- Sección para agregar las familias asociadas con el proveedor -->
 					
+					<hr />
+					<h4>Familias asociadas con el proveedor</h4>
+
+					<div class="form-group">
+                		<label for="idFamilia" class="col-md-4 control-label">Familias</label>
+                        <div class="col-md-7">
+                        	<select id="idFamilia" name="idFamilia" class="form-control">
+                            	<option value="0">Seleccione</option>
+									<?php 
+										foreach ($familias as $i) {
+											echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+										}
+									?>
+                            </select>
+                        </div>
+                        
+						<div class="col-md-1">
+                        	<button type="" id="agregarFamilia" class="btn">
+								<i class="fa fa-plus"></i> Agregar 
+							</button>
+                        </div>
+						<a title="Eliminar"  class="btn btn-danger btn-xs"><span class="fa fa-plus"></span></a>
+
+					</div>
+
+					<div class="form-group">
+                    	<label for="nombresFamilia" class="col-md-4 control-label"></label>
+                        	<div class="col-md-7">
+                            	<select multiple id="nombresFamilia" name="nombresFamilia" class="form-control">
+                                </select>
+                            </div>
+					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
@@ -409,6 +422,16 @@
                 });
             });
         });
+
+		$("#agregarFamilia").click(function(){
+      		var names = $('#idFamilia').val();
+      
+      		var newOption = $('<option></option>');
+      		newOption.val(names);
+      		newOption.html(names);
+      		$("#nombresFamilia").append(newOption);
+     	});
+
     });
 </script>
 
