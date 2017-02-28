@@ -335,7 +335,7 @@
 
 					<div class="form-group">
                 		<label for="idFamilia" class="col-md-4 control-label">Familias</label>
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                         	<select id="idFamilia" name="idFamilia" class="form-control">
                             	<option value="0">Seleccione</option>
 									<?php 
@@ -346,21 +346,26 @@
                             </select>
                         </div>
                         
-						<div class="col-md-1">
-                        	<button type="" id="agregarFamilia" class="btn">
-								<i class="fa fa-plus"></i> Agregar 
-							</button>
+						<div class="col-md-2">
+							<a style="display:block;width:131px" id="agregarFamilia" class="btn btn-success">
+								<span class="fa fa-plus"> Agregar</span>
+							</a>
                         </div>
-						<a title="Eliminar"  class="btn btn-danger btn-xs"><span class="fa fa-plus"></span></a>
+						
 
 					</div>
 
 					<div class="form-group">
                     	<label for="nombresFamilia" class="col-md-4 control-label"></label>
-                        	<div class="col-md-7">
-                            	<select multiple id="nombresFamilia" name="nombresFamilia" class="form-control">
-                                </select>
-                            </div>
+                        <div class="col-md-6">
+                           	<select multiple id="nombresFamilia" name="nombresFamilia" class="form-control">
+                            </select>
+                        </div>
+						<div class="col-md-2">
+							<a id="removerFamilia" class="btn btn-danger">
+								<i class="fa fa-minus"> Quitar selección</i>
+							</a>
+                        </div>
 					</div>
 					
 					<div class="form-group">
@@ -424,12 +429,32 @@
         });
 
 		$("#agregarFamilia").click(function(){
-      		var names = $('#idFamilia').val();
-      
-      		var newOption = $('<option></option>');
-      		newOption.val(names);
-      		newOption.html(names);
-      		$("#nombresFamilia").append(newOption);
+			if($('#idFamilia').val() > 0){
+				var names = $('#idFamilia').find('option:selected').text();
+      			var newOption = $('<option></option>');
+      			newOption.val(names);
+      			newOption.html(names);
+      			$("#nombresFamilia").append(newOption);
+				$("#idFamilia option:selected").remove();
+			}
+     	});
+		
+		$("#removerFamilia").click(function(){
+			var length = $('#idFamilia').children('option').length;
+			var names = $('#nombresFamilia').find('option:selected').text();
+			$("#nombresFamilia option:selected").remove();
+			$("#idFamilia").append($("<option></option>").val(length+1).html(names));
+			$("#idFamilia option[value='0']").remove();
+
+			//organizar el select alfabeticamente
+			var sel = $('#idFamilia');
+			var selected = sel.val(); // cache selected value, before reordering
+			var opts_list = sel.find('option');
+			opts_list.sort(function(a, b) { 
+				return $(a).text() > $(b).text() ? 1 : -1; 
+			});
+			sel.html('').append(opts_list);
+			sel.val(selected); // set cached selected value
      	});
 
     });
