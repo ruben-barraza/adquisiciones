@@ -48,6 +48,10 @@ class Proveedormodel extends CI_Model
 		return $maxid;
 	}
     
+    function add_uk_proveedor_familia($id, $params){
+
+    }
+
     /*
      * function to update proveedor
      */

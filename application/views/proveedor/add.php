@@ -103,13 +103,13 @@
 					<div class="form-group">
 							<label for="tipo" class="col-md-4 control-label">Tipo</label>
 							<div class="col-md-8">
-								<select name="tipo" class="form-control">
+								<select id="tipoProveedor" name="tipo" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
 									$tipo_values = array(
-						'B'=>'Bienes',
-						'S'=>'Servicios',
-					);
+										'B'=>'Bienes',
+										'S'=>'Servicios',
+									);
 
 									foreach($tipo_values as $value => $display_text)
 									{
@@ -327,46 +327,53 @@
 							<input type="text" name="extension3" value="<?php echo $this->input->post('extension3'); ?>" class="form-control" id="extension3" />
 						</div>
 					</div>
-                    
-					<!-- Sección para agregar las familias asociadas con el proveedor -->
-					
 					<hr />
-					<h4>Familias asociadas con el proveedor</h4>
 
-					<div class="form-group">
-                		<label for="idFamilia" class="col-md-4 control-label">Familias</label>
-                        <div class="col-md-6">
-                        	<select id="idFamilia" name="idFamilia" class="form-control">
-                            	<option value="0">Seleccione</option>
-									<?php 
-										foreach ($familias as $i) {
-											echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
-										}
-									?>
-                            </select>
-                        </div>
-                        
-						<div class="col-md-2">
-							<a style="display:block;width:131px" id="agregarFamilia" class="btn btn-success">
-								<span class="fa fa-plus"> Agregar</span>
-							</a>
-                        </div>
-						
+					<div class="familiaOcultar opcion_B">
+						<!-- Sección para agregar las familias asociadas con el proveedor -->
+					
+					
+						<h4>Familias asociadas con el proveedor</h4>
 
+						<div class="form-group">
+							<label for="idFamilia" class="col-md-4 control-label">Familias</label>
+							<div class="col-md-6">
+								<select id="idFamilia" name="idFamilia" class="form-control">
+									<option value="0">Seleccione</option>
+										<?php 
+											foreach ($familias as $i) {
+												echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+											}
+										?>
+								</select>
+							</div>
+							
+							<div class="col-md-2">
+								<a style="display:block;width:145px" id="agregarFamilia" class="btn btn-primary">
+									<span class="fa fa-plus"></span> Agregar
+								</a>
+							</div>
+							
+
+						</div>
+
+						<div class="form-group">
+							<label for="nombresFamilia" class="col-md-4 control-label"></label>
+							<div class="col-md-6">
+								<select multiple id="nombresFamilia" name="nombresFamilia" class="form-control">
+								</select>
+							</div>
+							<div class="col-md-2">
+								<a style="display:block;width:145px" id="removerFamilia" class="btn btn-danger">
+									<i class="fa fa-minus"></i> Quitar selección
+								</a>
+							</div>
+						</div>
+						<hr />
 					</div>
-
-					<div class="form-group">
-                    	<label for="nombresFamilia" class="col-md-4 control-label"></label>
-                        <div class="col-md-6">
-                           	<select multiple id="nombresFamilia" name="nombresFamilia" class="form-control">
-                            </select>
-                        </div>
-						<div class="col-md-2">
-							<a id="removerFamilia" class="btn btn-danger">
-								<i class="fa fa-minus"> Quitar selección</i>
-							</a>
-                        </div>
-					</div>
+										
+                    
+					
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
@@ -444,20 +451,30 @@
 			var names = $('#nombresFamilia').find('option:selected').text();
 			$("#nombresFamilia option:selected").remove();
 			$("#idFamilia").append($("<option></option>").val(length+1).html(names));
-			$("#idFamilia option[value='0']").remove();
-
-			//organizar el select alfabeticamente
-			var sel = $('#idFamilia');
-			var selected = sel.val(); // cache selected value, before reordering
-			var opts_list = sel.find('option');
-			opts_list.sort(function(a, b) { 
-				return $(a).text() > $(b).text() ? 1 : -1; 
-			});
-			sel.html('').append(opts_list);
-			sel.val(selected); // set cached selected value
+			
+			//Organiza la lista alfabeticamente dejando "Seleccione" al inicio
+			var foption = $('#idFamilia option:first');
+    		var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
+       			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+    		});
+    		$('#idFamilia').html(soptions).prepend(foption);
      	});
 
+		$('.familiaOcultar').addClass('collapse');
+
+		$('#tipoProveedor').change(function(){
+			//Saves in a variable the wanted div
+			var selector = '.opcion_' + $(this).val();
+
+			//hide all elements
+			$('.familiaOcultar').collapse('hide');
+
+			//show only element connected to selected option
+			$(selector).collapse('show');
+		});
     });
+
+
 </script>
 
 <script type="text/javascript">
