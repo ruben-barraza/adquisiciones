@@ -98,8 +98,17 @@ class Proveedor extends CI_Controller{
 				'estatus' => $this->input->post('estatus'),
 				'tipo' => $this->input->post('tipo'),
             );
+
+
             
             $proveedor_id = $this->Proveedormodel->add_proveedor($params);
+
+			
+			$idProveedor = $this->Proveedormodel->get_proveedor($id);
+			$params_familia = $this->input->post('nombresFamilia');
+			$data['nombresFamilia'] = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $params_familia);
+
+
             redirect('proveedor/index');
         }
         else

@@ -360,7 +360,7 @@
 						<div class="form-group">
 							<label for="nombresFamilia" class="col-md-4 control-label"></label>
 							<div class="col-md-6">
-								<select multiple id="nombresFamilia" name="nombresFamilia" class="form-control">
+								<select multiple id="nombresFamilia" name="nombresFamilia[]" class="form-control">
 								</select>
 							</div>
 							<div class="col-md-2">
