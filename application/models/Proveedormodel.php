@@ -51,7 +51,7 @@ class Proveedormodel extends CI_Model
     function add_uk_proveedor_familia($id, $params){
         foreach($param as $clave){
             $clave = $this->db->query("SELECT id FROM familia WHERE clave=" . $param);
-            $this->db->query("INSERT INTO 'relacionproveedorfamilia' ('idProveedor', 'idFamilia') VALUES ('" . $id + "', '" . $clave ."')");
+            $this->db->query("INSERT INTO 'relacionproveedorfamilia' ('idProveedor', 'idFamilia') VALUES ('$id', '$clave')");
         }
         
     }

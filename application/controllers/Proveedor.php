@@ -105,8 +105,10 @@ class Proveedor extends CI_Controller{
 
 			
 			$idProveedor = $this->Proveedormodel->get_proveedor($id);
-			$params_familia = $this->input->post('nombresFamilia');
-			$data['nombresFamilia'] = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $params_familia);
+			$params_familia = array(
+				'nombresFamilia' => $this->input->post('nombresFamilia')
+			);
+			$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $params_familia);
 
 
             redirect('proveedor/index');
