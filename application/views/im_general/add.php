@@ -153,10 +153,8 @@
 								<input type="text" name="" class="form-control"/>
 							</td>
 							<td>
-								<form class="form-inline">
-									<input type="text" name="" class="form-control" disabled/>
-									<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
-								</form>
+								<input type="text" name="" class="form-control" disabled/>
+								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
 							</td>
 							<td>
 								<input type="text" name="" class="form-control" disabled/>
