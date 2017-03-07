@@ -37,8 +37,8 @@
 
 					<div class="form-group">
 						<label for="idEmpleadoFormula" class="col-md-1 control-label">Elabora</label>
-						<div class="col-md-3">
-							<input type="text" name="empleadoElabora" class="form-control"/>
+						<div class="col-md-2">
+							<input type="text" name="empleadoElabora" maxlength="5" class="form-control"/>
 						</div>
 						
 						<div class="col-md-1">
@@ -54,8 +54,8 @@
 					
 					<div class="form-group">
 						<label for="idEmpleadoAutoriza" class="col-md-1 control-label">Aprueba</label>
-						<div class="col-md-3">
-							<input type="text" name="empleadoAutoriza" class="form-control"/>
+						<div class="col-md-2">
+							<input type="text" name="empleadoAutoriza" maxlength="5" class="form-control"/>
 						</div>
 						
 						<div class="col-md-1">
@@ -68,6 +68,8 @@
 							<input type="text" name="empleadoAutoriza2" class="form-control"/>
 						</div>
 					</div>
+
+					<hr />
 
 					<div class="form-group">
 						<div class="col-md-2">
@@ -90,23 +92,34 @@
 							<th></th>
 						</thead>
 						<tbody>
-							<td class="col-md-1"></td>
-							<td class="col-md-1">
+							<td >
+								<input type="text" name="" class="form-control" disabled/>
+							</td>
+							<td >
 								<input type="text" name="" class="form-control"/>
 							</td>
-							<td class="col-md-2"></td>
-							<td class="col-md-1">
+							<td >
+								<input type="text" name="" class="form-control" disabled/>
+							</td>
+							<td >
+								<input type="text" name="" class="form-control"/>
+							</td>
+							<td >
 								<input type="text" name="" class="form-control"/>
 							</td>
 							<td class="col-md-1">
-								<input type="text" name="" class="form-control"/>
+								<input type="text" name="" class="form-control" disabled/>
 							</td>
-							<td class="col-md-1"></td>
-							<td class="col-md-1"></td>
+							<td >
+								<select></select>
+							</td>
 							<td class="col-md-2">
 								<input type="text" name="" class="form-control"/>
 							</td>
-							<td class="col-md-1">Eliminar/Detalle</td>
+							<td >
+								<a title="Eliminar" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+								<a title="Detalles" class="btn btn-info btn-xs"><span class="fa fa-info-circle"></span></a>
+							</td>
 						</tbody>
 					</table>
 					
@@ -139,10 +152,23 @@
 							<td class="col-md-3">
 								<input type="text" name="" class="form-control"/>
 							</td>
-							<td class="col-md-2"></td>
-							<td class="col-md-2"></td>
-							<td class="col-md-2"></td>
-							<td class="col-md-1">Eliminar/Detalle</td>
+							<td>
+								<form class="form-inline">
+									<input type="text" name="" class="form-control" disabled/>
+									<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+								</form>
+							</td>
+							<td>
+								<input type="text" name="" class="form-control" disabled/>
+								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+							</td>
+							<td>
+								<input type="text" name="" class="form-control" disabled/>
+								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+							</td>
+							<td>
+								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+							</td>
 						</tbody>
 					</table>
 					<!--
@@ -204,6 +230,9 @@
 							</div>
 						</div>
 					-->
+
+					<hr />
+
 					<div class="form-group">
 						<div class="col-sm-10">
 							<button type="submit" class="btn btn-success">

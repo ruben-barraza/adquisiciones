@@ -61,6 +61,7 @@ class Proveedor extends CI_Controller{
 		$this->form_validation->set_rules('correoElectronico3','CorreoElectronico3','max_length[100]');
 		$this->form_validation->set_rules('extension3','Extension3','max_length[11]');
 		$this->form_validation->set_rules('estatus','Estatus','required');
+		$this->form_validation->set_rules('nombresFamilia[]','NombresFamilia');
 		
 		if($this->form_validation->run())     
         {   
@@ -99,19 +100,20 @@ class Proveedor extends CI_Controller{
 				'tipo' => $this->input->post('tipo'),
             );
 
-
+			$idProveedor = $this->Proveedormodel->get_idConsecutivo();
             
             $proveedor_id = $this->Proveedormodel->add_proveedor($params);
-
 			
-			$idProveedor = $this->Proveedormodel->get_proveedor($id);
-			$params_familia = array(
-				'nombresFamilia' => $this->input->post('nombresFamilia')
-			);
+			//$params_familia = array(
+    		//	'nombresFamilia' => implode(",", $this->input->post('nombresFamilia'))
+			//);
+			$params_familia = $this->input->post('nombresFamilia');
 			$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $params_familia);
-
+			
 
             redirect('proveedor/index');
+			//log_message('error',$params_familia);
+			//log_message('error',print_r($params_familia,TRUE));
         }
         else
         {
