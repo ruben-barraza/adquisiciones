@@ -1,3 +1,24 @@
+<style>
+	td .btn.aligned {
+  		position: absolute;
+  		margin-top: 7px;
+  		float: right;
+  		margin-left: 5px;
+	}
+
+	td .btn.lowered {
+  		margin-top: 7px;
+	}
+
+	td input {
+  		float: left;
+	}
+
+	.spacer {
+  		padding-left: 30px !important;
+	}
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -116,7 +137,7 @@
 							<td class="col-md-2">
 								<input type="text" name="" class="form-control"/>
 							</td>
-							<td >
+							<td id="td-not">
 								<a title="Eliminar" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 								<a title="Detalles" class="btn btn-info btn-xs"><span class="fa fa-info-circle"></span></a>
 							</td>
@@ -154,18 +175,18 @@
 							</td>
 							<td>
 								<input type="text" name="" class="form-control" disabled/>
-								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+								<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
 							</td>
-							<td>
+							<td class="spacer">
 								<input type="text" name="" class="form-control" disabled/>
-								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+								<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
 							</td>
-							<td>
+							<td class="spacer">
 								<input type="text" name="" class="form-control" disabled/>
-								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+								<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
 							</td>
-							<td>
-								<a title="Quitar" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></a>
+							<td class="spacer">
+								<a title="Quitar" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
 							</td>
 						</tbody>
 					</table>

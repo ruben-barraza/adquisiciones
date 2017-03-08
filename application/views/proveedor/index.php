@@ -10,51 +10,60 @@
           	</div>
             
             <div class="x_content">
-            	
-            	<div class="form-group">
-							<label for="tipo" class="col-md-4 control-label">Tipo</label>
-							<div class="col-md-8">
-								<select name="tipo" class="form-control">
-									<option value="">Seleccione</option>
-                                    <option value="todos">Todos</option>
-									<?php 
-									$tipo_values = array(
-						'B'=>'Bienes',
-						'S'=>'Servicios',
-					);
+            	<form action="" class="form-horizontal">
 
+					<div class="form-group">
+						<label for="busqueda" class="col-md-4 control-label">Búsqueda rápida</label>
+						<div class="col-md-4 input-group">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-search"></i>	
+							</span>
+							<input type="text" name="busqueda" class="form-control" id="busqueda"/>
+							
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="tipo" class="col-md-4 control-label">Tipo</label>
+						<div class="col-md-4">
+							<select name="tipo" class="form-control">
+								<option value="">Seleccione</option>
+								<option value="todos">Todos</option>
+								<?php 
+									$tipo_values = array(
+										'B'=>'Bienes',
+										'S'=>'Servicios',
+									);
 									foreach($tipo_values as $value => $display_text)
 									{
 										$selected = ($value == $this->input->post('tipo')) ? ' selected="selected"' : "";
-
 										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
 									} 
-									?>
-								</select>
-							</div>
+								?>
+							</select>
 						</div>
-				<div class="form-group">
-							<label for="idFamilia" class="col-md-4 control-label">Familia</label>
-							<div class="col-md-8">
-								<select name="idMunicipio" class="form-control">
-									<option value="">Seleccione</option>
-                                    <option value="todos">Todos</option>
-									<?php
+					</div>
 
-										mysql_connect('localhost', 'root', '');
-										mysql_select_db('adquisiciones');
-										
-										$sql = "SELECT clave FROM familia";
-										$result = mysql_query($sql);
-										while ($row = mysql_fetch_array($result)) {
-											echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
-										}
-									
-									?>
-								</select>
-							</div>
+					<div class="form-group">
+						<label for="idFamilia" class="col-md-4 control-label">Familia</label>
+						<div class="col-md-4">
+							<select name="idMunicipio" class="form-control">
+								<option value="">Seleccione</option>
+								<option value="todos">Todos</option>
+								<?php
+									mysql_connect('localhost', 'root', '');
+									mysql_select_db('adquisiciones');						
+									$sql = "SELECT clave FROM familia";
+									$result = mysql_query($sql);
+									while ($row = mysql_fetch_array($result)) {
+										echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
+									}	
+								?>
+							</select>
 						</div>
-                </div>
+					</div>
+            	</form>
+				
   				<table class="table table-striped">
 				    <tr>
 						<th>Razón Social</th>

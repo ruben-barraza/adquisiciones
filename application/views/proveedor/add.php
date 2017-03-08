@@ -208,17 +208,17 @@
                     
                     <div class="form-group">
                         <label for="idEstado2" class="col-md-4 control-label">Estado</label>
-                                <div class="col-md-8">
-                                    <select id="idEstado2" name="idEstado2" class="form-control">
-                                        <option value="0">Seleccione</option>
-										<?php 
-											foreach ($estados2 as $i) {
-												echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
-											}
-										?>
-                                    </select>
-                                </div>
-						</div>
+                        <div class="col-md-8">
+                        	<select id="idEstado2" name="idEstado2" class="form-control">
+                            	<option value="0">Seleccione</option>
+								<?php 
+									foreach ($estados2 as $i) {
+										echo '<option value="'. $i->id .'">'. $i->nombre .'</option>';
+									}
+								?>
+                         	</select>
+                		</div>
+					</div>
                     
 					<div class="form-group">
 							<label for="idMunicipio2" class="col-md-4 control-label">Municipio</label>
