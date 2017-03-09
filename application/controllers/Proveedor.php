@@ -17,7 +17,8 @@ class Proveedor extends CI_Controller{
     function index()
     {
         $data['listaproveedor'] = $this->Proveedormodel->get_all_listaproveedor();
-		
+		$this->load->model('Comboboxesmodel');
+		$data['familias'] = $this->Comboboxesmodel->getFamilias();
 
         $data['_view'] = 'proveedor/index';
         $this->load->view('layouts/main',$data);
