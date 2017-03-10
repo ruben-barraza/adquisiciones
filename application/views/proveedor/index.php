@@ -47,7 +47,7 @@
 						</div>
 					</div>
 
-					<div class="familiaOcultar opcion_B">
+					<div class="familiaOcultar B">
 						<div class="form-group">
 							<label for="idFamilia" class="col-md-4 control-label">Familia</label>
 							<div class="col-md-4">
@@ -82,7 +82,7 @@
 					
 					<tbody>
 						<?php foreach($listaproveedor as $p){ ?>
-						<tr>
+						<tr class="<?php echo $p['tipo']; ?>">
 							<td><?php echo $p['razonSocial']; ?></td>
 							<td><?php echo $p['direccion']; ?></td>
 							<td><?php echo $p['nombre1']; ?></td>
@@ -110,13 +110,28 @@
 
 		$('#tipoProveedor').change(function(){
 			//Saves in a variable the wanted div
-			var selector = '.opcion_' + $(this).val();
-
+			//var selector = '.opcion_' + $(this).val();
 			//hide all elements
 			$('.familiaOcultar').collapse('hide');
-
 			//show only element connected to selected option
-			$(selector).collapse('show');
+			//$(selector).collapse('show');
+			$('.familiaOcultar.B').hide();
+			var val = $(this).val();
+			if (val == "todos"){
+				$('.B td').show();
+         		$('.S td').show();
+				$('.familiaOcultar.B').hide();
+			} else if (val == 'B'){
+				$('.B td').show();
+         		$('.S td').hide();
+				$('.familiaOcultar.B').show();
+			} else {
+				$('.B td').hide();
+         		$('.S td').show();
+				$('.familiaOcultar.B').hide(); 
+			}
+
+
 		});
 
 		var $rows = $('#table tbody tr');
