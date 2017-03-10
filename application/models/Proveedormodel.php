@@ -48,6 +48,14 @@ class Proveedormodel extends CI_Model
 		return $maxid;
 	}
     
+    function add_uk_proveedor_familia($id, $params){
+        foreach($params as $clave){
+            $valor = $this->db->query("SELECT id FROM familia WHERE clave= '$clave'");
+            $this->db->query("INSERT INTO 'relacionproveedorfamilia' ('idProveedor', 'idFamilia') VALUES ('$id', '$valor')");
+        }
+        
+    }
+
     /*
      * function to update proveedor
      */

@@ -80,4 +80,15 @@ class Familiamodel extends CI_Model
             return "Ocurrió un error al actualizar la familia";
         }
     }
+
+    /*
+     * funcion para agregar familia al select multiple
+    
+     public function agregarFamiliasLista($id){
+         $this->db->select('clave');
+         $familia = $this->db->where('id', $id);
+         return $familia;
+
+     }
+     */     
 }
