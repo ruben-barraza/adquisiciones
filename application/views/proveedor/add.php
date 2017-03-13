@@ -372,7 +372,11 @@
 						<hr />
 					</div>
 										
-                    
+                    <?php
+						echo "<pre>";
+						var_dump($params_familia);
+						echo "</pre>";
+					?>
 					
 					
 					<div class="form-group">
