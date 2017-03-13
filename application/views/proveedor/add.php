@@ -373,9 +373,9 @@
 					</div>
 										
                     <?php
-						echo "<pre>";
-						var_dump($params_familia);
-						echo "</pre>";
+					//	echo "<pre>";
+					//	var_dump($params_familia);
+					//	echo "</pre>";
 					?>
 					
 					
