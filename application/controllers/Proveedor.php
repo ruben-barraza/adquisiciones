@@ -120,6 +120,8 @@ class Proveedor extends CI_Controller{
 			var_dump($nombresFamilia);
 			echo "</pre>";
 
+			
+			$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $nombresFamilia);
         	//foreach($nombresFamilia as $data_view) {
          	//	$data['params_familia']= $data_view;
          	//	$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $data);  
