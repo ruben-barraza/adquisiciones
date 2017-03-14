@@ -373,9 +373,7 @@
 					</div>
 										
                     <?php
-					//	echo "<pre>";
-					//	var_dump($params_familia);
-					//	echo "</pre>";
+					
 					?>
 					
 					
@@ -386,7 +384,7 @@
 							</button>
 				        </div>
 					</div>
-
+$
 				<?php echo form_close(); ?>
 			</div>
     	</div>
@@ -442,7 +440,7 @@
 		$("#agregarFamilia").click(function(){
 			if($('#idFamilia').val() > 0){
 				var names = $('#idFamilia').find('option:selected').text();
-      			var newOption = $('<option></option>');
+      			var newOption = $('<option></option>').attr("selected", "selected");
       			newOption.val(names);
       			newOption.html(names);
       			$("#nombresFamilia").append(newOption);
