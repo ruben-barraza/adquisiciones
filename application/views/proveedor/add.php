@@ -371,10 +371,6 @@
 						</div>
 						<hr />
 					</div>
-										
-                    <?php
-					
-					?>
 					
 					
 					<div class="form-group">

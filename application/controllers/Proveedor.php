@@ -100,40 +100,12 @@ class Proveedor extends CI_Controller{
 				'estatus' => $this->input->post('estatus'),
 				'tipo' => $this->input->post('tipo'),
             );
-
-			$idProveedor = $this->Proveedormodel->get_idConsecutivo();
             
+			$idProveedor = $this->Proveedormodel->get_idConsecutivo();
             $proveedor_id = $this->Proveedormodel->add_proveedor($params);
-			
-			//$params_familia = array(
-    		//	'nombresFamilia' => implode(",", $this->input->post('nombresFamilia'))
-			//);
-			//$data['nombresFamilia'] = $this->input->post('nombresFamilia[]');
-
-			//$params_familia = array(
-    		//	'nombresFamilia' => implode(",", $this->input->post('nombresFamilia[]'))
-			//);
-
-			
-			$nombresFamilia = $this->input->post('nombresFamilia');
-			echo "<pre>";
-			var_dump($nombresFamilia);
-			echo "</pre>";
-
-			
 			$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $nombresFamilia);
-        	//foreach($nombresFamilia as $data_view) {
-         	//	$data['params_familia']= $data_view;
-         	//	$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $data);  
-        	//}
-
-			//$params_familia = $this->input->post('nombresFamilia[]');
-			//$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $params_familia);
-			
-
-            redirect('proveedor/index');
-			//log_message('error',$params_familia);
-			//log_message('error',print_r($params_familia,TRUE));
+            
+			redirect('proveedor/index');
         }
         else
         {
