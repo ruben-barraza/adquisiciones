@@ -348,7 +348,7 @@
 									<option value="0">Seleccione</option>
 										<?php 
 											foreach ($familias as $i) {
-												echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+												echo '<option value="'. $i->clave .'">'. $i->clave .'</option>';
 											}
 										?>
 								</select>
@@ -434,10 +434,10 @@
         });
 
 		$("#agregarFamilia").click(function(){
-			if($('#idFamilia').val() > 0){
+			if($('#idFamilia').val() != 0){
 				var names = $('#idFamilia').find('option:selected').text();
 				$("#idFamilia option:selected").remove();
-				$('#selectedList').append('<li>'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
+				$('#selectedList').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
 			}
      	});
 		
@@ -445,7 +445,6 @@
 			var name = $(this).parent().text().replace(/Quitar/,'');
 			$(this).parent().remove();
 			$("#idFamilia").append($("<option></option>").val(name).html(name));
-
 			//Returns the removed item to the dropdown list in alphabetical position
 			var foption = $('#idFamilia option:first');
 			var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
