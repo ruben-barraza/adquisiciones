@@ -1,6 +1,12 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
+<style>
+	#selectedList li {
+		margin-bottom:10px
+	}
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -353,20 +359,15 @@
 									<span class="fa fa-plus"></span> Agregar
 								</a>
 							</div>
-							
-
 						</div>
 
 						<div class="form-group">
-							<label for="nombresFamilia" class="col-md-4 control-label"></label>
+							<label class="col-md-4 control-label"></label>
 							<div class="col-md-6">
-								<select multiple="multiple" id="nombresFamilia" name="nombresFamilia[]" class="form-control">
-								</select>
+								<ul id="selectedList"></ul>
 							</div>
 							<div class="col-md-2">
-								<a style="display:block;width:145px" id="removerFamilia" class="btn btn-danger">
-									<i class="fa fa-minus"></i> Quitar selección
-								</a>
+								
 							</div>
 						</div>
 						<hr />
@@ -435,27 +436,23 @@
 		$("#agregarFamilia").click(function(){
 			if($('#idFamilia').val() > 0){
 				var names = $('#idFamilia').find('option:selected').text();
-      			var newOption = $('<option></option>').attr("selected", "selected");
-      			newOption.val(names);
-      			newOption.html(names);
-      			$("#nombresFamilia").append(newOption);
 				$("#idFamilia option:selected").remove();
+				$('#selectedList').append('<li>'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
 			}
      	});
 		
-		$("#removerFamilia").click(function(){
-			var length = $('#idFamilia').children('option').length;
-			var names = $('#nombresFamilia').find('option:selected').text();
-			$("#nombresFamilia option:selected").remove();
-			$("#idFamilia").append($("<option></option>").val(length+1).html(names));
-			
-			//Organiza la lista alfabeticamente dejando "Seleccione" al inicio
+		$("body").on("click",".delete", function() {
+			var name = $(this).parent().text().replace(/Quitar/,'');
+			$(this).parent().remove();
+			$("#idFamilia").append($("<option></option>").val(name).html(name));
+
+			//Returns the removed item to the dropdown list in alphabetical position
 			var foption = $('#idFamilia option:first');
-    		var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
-       			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-    		});
-    		$('#idFamilia').html(soptions).prepend(foption);
-     	});
+			var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
+				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+			});
+			$('#idFamilia').html(soptions).prepend(foption);
+		});
 
 		$('.familiaOcultar').addClass('collapse');
 
