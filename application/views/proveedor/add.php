@@ -2,7 +2,7 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <style>
-	#selectedList li {
+	#listaSeleccion li {
 		margin-bottom:10px
 	}
 </style>
@@ -364,7 +364,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-6">
-								<ul id="selectedList"></ul>
+								<ul id="listaSeleccion"></ul>
 							</div>
 							<div class="col-md-2">
 								
@@ -372,11 +372,10 @@
 						</div>
 						<hr />
 					</div>
-					
-					
+
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
+							<button id="botonGuardar" type="submit" class="btn btn-success">
 								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
@@ -437,7 +436,7 @@
 			if($('#idFamilia').val() != 0){
 				var names = $('#idFamilia').find('option:selected').text();
 				$("#idFamilia option:selected").remove();
-				$('#selectedList').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
+				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
 			}
      	});
 		
@@ -465,6 +464,23 @@
 			//show only element connected to selected option
 			$(selector).collapse('show');
 		});
+
+		$("#botonGuardar").click(function(){
+			var seleccion = $("#listaSeleccion li");
+			var familias_seleccion = [];
+
+			seleccion.each(function() {
+				familias_seleccion.push($(this).text().replace(/Quitar/,''));
+			});
+
+			$.ajax({
+				url: 'Proveedor/crearRelacion',
+				method: 'POST',
+				data: {familias_seleccion: familias_seleccion}
+			});
+     	});
+
+
     });
 
 

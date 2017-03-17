@@ -11,6 +11,13 @@ class Proveedor extends CI_Controller{
         $this->load->model('Proveedormodel');
     } 
 
+
+	function crearRelacion($data){
+		$familias_seleccion = $this->input->post($data);
+		$idProveedor = $this->Proveedormodel->get_idConsecutivo();
+		$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $familias_seleccion);
+	}
+
     /*
      * Listing of listaproveedor
      */
@@ -101,15 +108,13 @@ class Proveedor extends CI_Controller{
 				'tipo' => $this->input->post('tipo'),
             );
             
-			$idProveedor = $this->Proveedormodel->get_idConsecutivo();
+			//$idProveedor = $this->Proveedormodel->get_idConsecutivo();
             $proveedor_id = $this->Proveedormodel->add_proveedor($params);
-			$nombresFamilia = $this->input->post('nombresFamilia');
-			$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $nombresFamilia);
-
 			
-			echo "<pre>";
- 			var_dump($nombresFamilia);
- 			echo "</pre>";
+			// Old method
+			//$nombresFamilia = $this->input->post('nombresFamilia');
+			//$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $nombresFamilia);
+
            
             
 			redirect('proveedor/index');
