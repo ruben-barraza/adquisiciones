@@ -1,6 +1,12 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
+<style>
+	#listaSeleccion li {
+		margin-bottom:10px
+	}
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -331,8 +337,6 @@
 
 					<div class="familiaOcultar opcion_B">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
-					
-					
 						<h4>Familias asociadas con el proveedor</h4>
 
 						<div class="form-group">
@@ -342,7 +346,7 @@
 									<option value="0">Seleccione</option>
 										<?php 
 											foreach ($familias as $i) {
-												echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+												echo '<option value="'. $i->clave .'">'. $i->clave .'</option>';
 											}
 										?>
 								</select>
@@ -353,36 +357,27 @@
 									<span class="fa fa-plus"></span> Agregar
 								</a>
 							</div>
-							
-
 						</div>
 
 						<div class="form-group">
-							<label for="nombresFamilia" class="col-md-4 control-label"></label>
+							<label class="col-md-4 control-label"></label>
 							<div class="col-md-6">
-								<select multiple="multiple" id="nombresFamilia" name="nombresFamilia[]" class="form-control">
-								</select>
+								<ul id="listaSeleccion"></ul>
 							</div>
 							<div class="col-md-2">
-								<a style="display:block;width:145px" id="removerFamilia" class="btn btn-danger">
-									<i class="fa fa-minus"></i> Quitar selección
-								</a>
+								
 							</div>
 						</div>
 						<hr />
 					</div>
-										
-                    
-					
-					
+
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
+							<button id="botonGuardar" type="submit" class="btn btn-success">
 								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
 					</div>
-
 				<?php echo form_close(); ?>
 			</div>
     	</div>
@@ -436,29 +431,24 @@
         });
 
 		$("#agregarFamilia").click(function(){
-			if($('#idFamilia').val() > 0){
+			if($('#idFamilia').val() != 0){
 				var names = $('#idFamilia').find('option:selected').text();
-      			var newOption = $('<option></option>');
-      			newOption.val(names);
-      			newOption.html(names);
-      			$("#nombresFamilia").append(newOption);
 				$("#idFamilia option:selected").remove();
+				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
 			}
      	});
 		
-		$("#removerFamilia").click(function(){
-			var length = $('#idFamilia').children('option').length;
-			var names = $('#nombresFamilia').find('option:selected').text();
-			$("#nombresFamilia option:selected").remove();
-			$("#idFamilia").append($("<option></option>").val(length+1).html(names));
-			
-			//Organiza la lista alfabeticamente dejando "Seleccione" al inicio
+		$("body").on("click",".delete", function() {
+			var name = $(this).parent().text().replace(/Quitar/,'');
+			$(this).parent().remove();
+			$("#idFamilia").append($("<option></option>").val(name).html(name));
+			//Regresa el elemento removido a la lista en orden alfabético
 			var foption = $('#idFamilia option:first');
-    		var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
-       			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-    		});
-    		$('#idFamilia').html(soptions).prepend(foption);
-     	});
+			var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
+				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+			});
+			$('#idFamilia').html(soptions).prepend(foption);
+		});
 
 		$('.familiaOcultar').addClass('collapse');
 
@@ -472,6 +462,22 @@
 			//show only element connected to selected option
 			$(selector).collapse('show');
 		});
+
+		$("#botonGuardar").click(function(){
+			var seleccion = $("#listaSeleccion li");
+			var familias_seleccion = [];
+
+			seleccion.each(function() {
+				familias_seleccion.push($(this).text().replace(/Quitar/,''));
+			});
+			$.ajax({
+				url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+				method: 'POST',
+				data: {familias_seleccion: familias_seleccion}
+			});
+     	});
+
+
     });
 
 

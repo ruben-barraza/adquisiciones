@@ -47,13 +47,23 @@ class Proveedormodel extends CI_Model
 		}
 		return $maxid;
 	}
-    
+
+    /*
+     * función para guardar en la tabla relacionproveedofamilia
+     */
     function add_uk_proveedor_familia($id, $params){
         foreach($params as $clave){
-            $valor = $this->db->query("SELECT id FROM familia WHERE clave= '$clave'");
-            $this->db->query("INSERT INTO 'relacionproveedorfamilia' ('idProveedor', 'idFamilia') VALUES ('$id', '$valor')");
-        }
-        
+            $this->db->select('id')->from('familia')->where('clave', $clave);
+            $valor = $this->db->get();
+
+            $vl = $valor->row_array();
+            $familia = $vl['id'];
+
+            $this->db->insert('relacionproveedorfamilia', array(
+                'idProveedor' => $id,
+                'idFamilia' => $familia
+            ));
+        }    
     }
 
     /*

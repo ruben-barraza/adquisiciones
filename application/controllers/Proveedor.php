@@ -11,6 +11,14 @@ class Proveedor extends CI_Controller{
         $this->load->model('Proveedormodel');
     } 
 
+
+	function crearRelacion(){
+		$this->load->model('Proveedormodel');
+		$familias_seleccion = $_POST['familias_seleccion'];
+		$idProveedor = $this->Proveedormodel->get_idConsecutivo();
+		$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $familias_seleccion);
+	}
+
     /*
      * Listing of listaproveedor
      */
@@ -62,7 +70,7 @@ class Proveedor extends CI_Controller{
 		$this->form_validation->set_rules('correoElectronico3','CorreoElectronico3','max_length[100]');
 		$this->form_validation->set_rules('extension3','Extension3','max_length[11]');
 		$this->form_validation->set_rules('estatus','Estatus','required');
-		$this->form_validation->set_rules('nombresFamilia[]','NombresFamilia');
+		//$this->form_validation->set_rules('nombresFamilia[]','NombresFamilia');
 		
 		if($this->form_validation->run())     
         {   
@@ -100,21 +108,19 @@ class Proveedor extends CI_Controller{
 				'estatus' => $this->input->post('estatus'),
 				'tipo' => $this->input->post('tipo'),
             );
-
-			$idProveedor = $this->Proveedormodel->get_idConsecutivo();
             
+			//$idProveedor = $this->Proveedormodel->get_idConsecutivo();
             $proveedor_id = $this->Proveedormodel->add_proveedor($params);
 			
-			//$params_familia = array(
-    		//	'nombresFamilia' => implode(",", $this->input->post('nombresFamilia'))
-			//);
-			$params_familia = $this->input->post('nombresFamilia');
-			$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $params_familia);
-			
+			// Old method
+			//$nombresFamilia = $this->input->post('nombresFamilia');
+			//$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $nombresFamilia);
 
-            redirect('proveedor/index');
-			//log_message('error',$params_familia);
-			//log_message('error',print_r($params_familia,TRUE));
+
+
+           
+            
+			redirect('proveedor/index');
         }
         else
         {
@@ -125,24 +131,6 @@ class Proveedor extends CI_Controller{
 			$data['estados2'] = $this->Comboboxesmodel->getEstados();
 			$data['estados3'] = $this->Comboboxesmodel->getEstados();
 			$data['familias'] = $this->Comboboxesmodel->getFamilias();
-			
-			/*
-			$this->load->model('Estadomodel');
-			$data['all_listaestado'] = $this->Estadomodel->get_all_listaestado();
-			// Para contacto 1
-			$data['all_listaestado1'] = $this->Estadomodel->get_all_listaestado();
-			// Para contacto 2
-			$data['all_listaestado2'] = $this->Estadomodel->get_all_listaestado();
-			// Para contacto 3
-			$data['all_listaestado3'] = $this->Estadomodel->get_all_listaestado();
-			
-			
-			$this->load->model('Municipiomodel');
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio($params['idEstado']);
-			$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipioestado('0');
-			$data['all_listamunicipio2'] = $this->Municipiomodel->get_all_listamunicipio('0');
-			$data['all_listamunicipio3'] = $this->Municipiomodel->get_all_listamunicipio('0');
-        	*/		
             $data['_view'] = 'proveedor/add';
             $this->load->view('layouts/main',$data);
         }
@@ -241,23 +229,6 @@ class Proveedor extends CI_Controller{
 				$data['estados2'] = $this->Comboboxesmodel->getEstados();
 				$data['estados3'] = $this->Comboboxesmodel->getEstados();
 				$data['familias'] = $this->Comboboxesmodel->getFamilias();
-				
-				/*
-				$this->load->model('Estadomodel');
-				$data['all_listaestado'] = $this->Estadomodel->get_all_listaestado();
-				// Para contacto 1
-				$data['all_listaestado1'] = $this->Estadomodel->get_all_listaestado();
-				// Para contacto 2
-				$data['all_listaestado2'] = $this->Estadomodel->get_all_listaestado();
-				// Para contacto 3
-				$data['all_listaestado3'] = $this->Estadomodel->get_all_listaestado();
-				
-				$this->load->model('Municipiomodel');
-				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-				$data['all_listamunicipio1'] = $this->Municipiomodel->get_all_listamunicipio();
-				$data['all_listamunicipio2'] = $this->Municipiomodel->get_all_listamunicipio();
-				$data['all_listamunicipio3'] = $this->Municipiomodel->get_all_listamunicipio();
-				*/
 
                 $data['_view'] = 'proveedor/edit';
                 $this->load->view('layouts/main',$data);
