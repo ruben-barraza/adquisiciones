@@ -337,8 +337,6 @@
 
 					<div class="familiaOcultar opcion_B">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
-					
-					
 						<h4>Familias asociadas con el proveedor</h4>
 
 						<div class="form-group">
@@ -444,7 +442,7 @@
 			var name = $(this).parent().text().replace(/Quitar/,'');
 			$(this).parent().remove();
 			$("#idFamilia").append($("<option></option>").val(name).html(name));
-			//Returns the removed item to the dropdown list in alphabetical position
+			//Regresa el elemento removido a la lista en orden alfabético
 			var foption = $('#idFamilia option:first');
 			var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
 				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
@@ -472,9 +470,8 @@
 			seleccion.each(function() {
 				familias_seleccion.push($(this).text().replace(/Quitar/,''));
 			});
-
 			$.ajax({
-				url: 'Proveedor/crearRelacion',
+				url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
 				method: 'POST',
 				data: {familias_seleccion: familias_seleccion}
 			});
