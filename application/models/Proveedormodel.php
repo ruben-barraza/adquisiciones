@@ -98,4 +98,9 @@ class Proveedormodel extends CI_Model
             return "Error occuring while deleting proveedor";
         }
     }
+
+    function get_estado_del_proveedor()
+    {
+        
+    }
 }

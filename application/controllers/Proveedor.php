@@ -70,7 +70,6 @@ class Proveedor extends CI_Controller{
 		$this->form_validation->set_rules('correoElectronico3','CorreoElectronico3','max_length[100]');
 		$this->form_validation->set_rules('extension3','Extension3','max_length[11]');
 		$this->form_validation->set_rules('estatus','Estatus','required');
-		//$this->form_validation->set_rules('nombresFamilia[]','NombresFamilia');
 		
 		if($this->form_validation->run())     
         {   

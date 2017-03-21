@@ -66,6 +66,7 @@
 							<label for="idMunicipio" class="col-md-4 control-label">Municipio</label>
 							<div class="col-md-8">
 								<select id="idMunicipio" name="idMunicipio" class="form-control">
+									
 									<option value="0">Seleccione</option>
 								</select>
 							</div>

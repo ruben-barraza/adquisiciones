@@ -9,6 +9,18 @@ class Comboboxesmodel extends CI_Model{
             return $estados->result();
         }
     }
+
+    public function editEstados($idProveedor) {
+        $this->db->select('idMunicipio')->from('proveedor')->where('id', $idProveedor);
+        $valorMunicipio = $this->db->get();
+        $vlMunicipio = $valorMunicipio->row_array();
+        $municipio = $vlMunicipio['idMunicipio'];
+
+        $this->db->select('idEstado')->from('municipio')->where('id', $municipio);
+        $valorEstado = $this->db->get();
+        $vlEstado = $valorEstado->row_array();
+        $estado = $vlEstado['idEstado'];
+    }
     
     public function getMunicipios($idEstado) {
         $this->db->where('idEstado', $idEstado);
