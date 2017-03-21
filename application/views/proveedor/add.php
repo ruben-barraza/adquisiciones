@@ -91,17 +91,17 @@
 								<select name="estatus" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									$estatus_values = array(
-						'A'=>'Activo',
-						'B'=>'Bloqueado',
-					);
+										$estatus_values = array(
+											'A'=>'Activo',
+											'B'=>'Bloqueado',
+										);
 
-									foreach($estatus_values as $value => $display_text)
-									{
-										$selected = ($value == $this->input->post('estatus')) ? ' selected="selected"' : "";
+										foreach($estatus_values as $value => $display_text)
+										{
+											$selected = ($value == $this->input->post('estatus')) ? ' selected="selected"' : "";
 
-										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-									} 
+											echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+										} 
 									?>
 								</select>
 							</div>

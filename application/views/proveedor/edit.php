@@ -76,17 +76,17 @@
 								<select name="estatus" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									$estatus_values = array(
-						'A'=>'Activo',
-						'B'=>'Bloqueado',
-					);
+										$estatus_values = array(
+											'A'=>'Activo',
+											'B'=>'Bloqueado',
+										);
 
-									foreach($estatus_values as $value => $display_text)
-									{
-										$selected = ($value == $proveedor['estatus']) ? ' selected="selected"' : "";
+										foreach($estatus_values as $value => $display_text)
+										{
+											$selected = ($value == $proveedor['estatus']) ? ' selected="selected"' : "";
 
-										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-									} 
+											echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+										} 
 									?>
 								</select>
 							</div>
@@ -94,20 +94,20 @@
 					<div class="form-group">
 							<label for="tipo" class="col-md-4 control-label">Tipo</label>
 							<div class="col-md-8">
-								<select name="tipo" class="form-control">
+								<select id="tipoProveedor" name="tipo" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
-									$tipo_values = array(
-						'B'=>'Bienes',
-						'S'=>'Servicios',
-					);
+										$tipo_values = array(
+											'B'=>'Bienes',
+											'S'=>'Servicios',
+										);
 
-									foreach($tipo_values as $value => $display_text)
-									{
-										$selected = ($value == $proveedor['tipo']) ? ' selected="selected"' : "";
+										foreach($tipo_values as $value => $display_text)
+										{
+											$selected = ($value == $proveedor['tipo']) ? ' selected="selected"' : "";
 
-										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-									} 
+											echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+										} 
 									?>
 								</select>
 							</div>
@@ -317,32 +317,43 @@
 						</div>
 					</div>
                     <hr />
-					<div class="form-group">
-							<label for="idFamilia" class="col-md-4 control-label">Familia</label>
-							<div class="col-md-7">
-								<select name="idMunicipio" class="form-control">
-									<option value="">Seleccione</option>
-                                    <option value="todos">Todos</option>
-									<?php
+					
 
-										mysql_connect('localhost', 'root', '');
-										mysql_select_db('adquisiciones');
-										
-										$sql = "SELECT clave FROM familia";
-										$result = mysql_query($sql);
-										while ($row = mysql_fetch_array($result)) {
-											echo "<option value='" . $row['clave'] . "'>" . $row['clave'] . "</option>";
-										}
-									
-									?>
+					<div class="familiaOcultar opcion_B">
+						<!-- Sección para agregar las familias asociadas con el proveedor -->
+						<h4>Familias asociadas con el proveedor</h4>
+
+						<div class="form-group">
+							<label for="idFamilia" class="col-md-4 control-label">Familias</label>
+							<div class="col-md-6">
+								<select id="idFamilia" name="idFamilia" class="form-control">
+									<option value="0">Seleccione</option>
+										<?php 
+											foreach ($familias as $i) {
+												echo '<option value="'. $i->clave .'">'. $i->clave .'</option>';
+											}
+										?>
 								</select>
 							</div>
+							
+							<div class="col-md-2">
+								<a style="display:block;width:145px" id="agregarFamilia" class="btn btn-primary">
+									<span class="fa fa-plus"></span> Agregar
+								</a>
+							</div>
+						</div>
 
-                            <div class="col-md-1">
-                                	<button type="submit" class="btn btn-success">
-										<i class="fa fa-plus"></i> Agregar 
-									</button>
-                            </div>
+						<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-6">
+								<ul id="listaSeleccion"></ul>
+							</div>
+							<div class="col-md-2">
+								
+							</div>
+						</div>
+
+						<hr />
 					</div>
 					
 					<div class="form-group">
@@ -404,6 +415,32 @@
                 });
             });
         });
+
+		$('.familiaOcultar').addClass('collapse');
+
+		/* Muestra por default el campo para editar las familias si es proveedor de Bienes
+		 * Lo oculta si es proveedor de servicios
+		 */
+		var tipo = document.getElementById("tipoProveedor");
+		var tipoSeleccion = tipo.options[tipo.selectedIndex].value;
+		if(tipoSeleccion == 'B'){
+			$('.familiaOcultar').collapse('show');
+		}
+		
+
+		
+
+		$('#tipoProveedor').change(function(){
+			//Saves in a variable the wanted div
+			var selector = '.opcion_' + $(this).val();
+
+			//hide all elements
+			$('.familiaOcultar').collapse('hide');
+
+			//show only element connected to selected option
+			$(selector).collapse('show');
+		});
+
     });
 </script>
 
