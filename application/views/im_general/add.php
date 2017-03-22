@@ -36,7 +36,7 @@
 				<?php echo form_open('im_general/add',array("class"=>"form-horizontal")); ?>
 
 					<div class="form-group">
-							<label for="idFamilia" class="col-md-1 control-label">Familias</label>
+							<label for="idFamilia" class="col-md-1 control-label">Familia</label>
 							<div class="col-md-6">
 								<select id="idFamilia" name="idFamilia" class="form-control">
 									<option value="0">Seleccione</option>
