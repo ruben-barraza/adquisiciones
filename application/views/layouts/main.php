@@ -39,15 +39,14 @@
           color: #fff;
         }
 
-        a.elemento {
-          color: #fff;
+        a {
+          color: #b6bac1;
         }
 
         .no-padding{
           padding:0px;
         }
-        ul.nav-menu-list-style .nav-header .menu-collapsible-icon{position:absolute; right:3px; top:16px; font-size:9px; }
-
+        
         ul.nav-menu-list-style{
           margin:0;
         }
@@ -105,7 +104,7 @@
                             <div class="menu_section">
                                 <h3>General</h3>
                                 <ul class="nav side-menu nav-list nav-menu-list-style">
-                                    <li><label class="tree-toggle nav-header"> Investigación de Mercado <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span></label>
+                                    <li><label class="tree-toggle nav-header"> Investigación de Mercado</span></label>
                                       <ul class="nav nav-list tree">
                                         <li>
                                             <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
@@ -135,7 +134,7 @@
                                     </li>
                                     <li class="divider"></li>  
 
-                                    <li><label class="tree-toggle nav-header"> Catálogos <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span></label>
+                                    <li><label class="tree-toggle nav-header"> Catálogos</label>
                                       <ul class="nav nav-list tree">
                                         <li>
                                             <a href="<?php echo site_url('almacen/index');?>"><i class="fa fa-table"></i> Almacén</a>

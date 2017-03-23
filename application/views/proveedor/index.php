@@ -2,6 +2,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
+
+<style>
+	
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -17,8 +22,7 @@
             	<form action="" class="form-horizontal">
 
 					<div class="form-group">
-						<label for="busqueda" class="col-md-4 control-label"></label>
-						<div class="col-md-4 input-group">
+						<div class="col-md-4 input-group pull-right">
 							<span class="input-group-addon">
 								<i class="glyphicon glyphicon-search"></i>	
 							</span>
@@ -27,39 +31,37 @@
 						</div>
 					</div>
 					
-					<div class="form-group">
-						<label for="tipo" class="col-md-4 control-label">Tipo</label>
-						<div class="col-md-4">
-							<select name="tipo" id="tipoProveedor" data-col="6" class="form-control">
-								<option value="todos">Todos</option>
+					<div class="form-group pull-right">
+						<label for="tipo" class="control-label">Tipo</label>
+						<select name="tipo" id="tipoProveedor" style="width: 344px" class="form-control">
+							<option value="todos">Todos</option>
+							<?php 
+								$tipo_values = array(
+									'B'=>'Bienes',
+									'S'=>'Servicios',
+								);
+								foreach($tipo_values as $value => $display_text)
+								{
+									$selected = ($value == $this->input->post('tipo')) ? ' selected="selected"' : "";
+									echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+								} 
+								?>
+						</select>
+					</div>
+					<br />
+					<br />
+					<br />
+					<div class="familiaOcultar B pull-right">
+						<div class="form-group">
+							<label for="idFamilia" class="control-label">Familia</label>
+							<select id="idFamilia" style="width: 344px" name="idFamilia" class="form-control">
+								<option value="0">Seleccione</option>
 								<?php 
-									$tipo_values = array(
-										'B'=>'Bienes',
-										'S'=>'Servicios',
-									);
-									foreach($tipo_values as $value => $display_text)
-									{
-										$selected = ($value == $this->input->post('tipo')) ? ' selected="selected"' : "";
-										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-									} 
+									foreach ($familias as $i) {
+										echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+									}
 								?>
 							</select>
-						</div>
-					</div>
-
-					<div class="familiaOcultar B">
-						<div class="form-group">
-							<label for="idFamilia" class="col-md-4 control-label">Familia</label>
-							<div class="col-md-4">
-								<select id="idFamilia" name="idFamilia" class="form-control">
-									<option value="0">Seleccione</option>
-									<?php 
-										foreach ($familias as $i) {
-											echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
-										}
-									?>
-								</select>
-							</div>
 						</div>
 					</div>
 					
@@ -70,7 +72,6 @@
 				    <thead>
 						<tr>
 							<th>Razón Social</th>
-							<th>Dirección</th>
 							<th>Contacto</th>
 							<th>Teléfono Fijo</th>
 							<th>Teléfono Móvil</th>
@@ -84,7 +85,6 @@
 						<?php foreach($listaproveedor as $p){ ?>
 						<tr class="<?php echo $p['tipo']; ?>">
 							<td><?php echo $p['razonSocial']; ?></td>
-							<td><?php echo $p['direccion']; ?></td>
 							<td><?php echo $p['nombre1']; ?></td>
 							<td><?php echo $p['telefonoFijo1']; ?></td>
 							<td><?php echo $p['telefonoMovil1']; ?></td>
