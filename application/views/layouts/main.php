@@ -28,6 +28,53 @@
 
         <!-- Custom Theme Style -->
         <link href="<?php echo site_url('resources/css/custom.min.css');?>" rel="stylesheet">
+
+        <style>
+
+        .nav li {
+          color: #fff;
+        }
+
+        .li {
+          color: #fff;
+        }
+
+        a.elemento {
+          color: #fff;
+        }
+
+        .no-padding{
+          padding:0px;
+        }
+        ul.nav-menu-list-style .nav-header .menu-collapsible-icon{position:absolute; right:3px; top:16px; font-size:9px; }
+
+        ul.nav-menu-list-style{
+          margin:0;
+        }
+        ul.nav-menu-list-style .nav-header{
+          display:block;
+          margin:0;
+          line-height:42px;
+          padding:0 8px;
+          font-weight:600;
+        }
+        ul.nav-menu-list-style> li{
+          position:relative; }
+        ul.nav-menu-list-style> li a{
+          padding:0 10px;
+          line-height:32px;
+        }
+        ul.nav-menu-list-style> li:first-child a{
+        }
+
+
+        ul.nav-menu-list-style{list-style:none; padding:0px; margin:0px;}
+        ul.nav-menu-list-style li .badge,ul.nav-menu-list-style li .pull-right,ul.nav-menu-list-style li span.badge,ul.nav-menu-list-style li label.badge{float:right; margin-top:7px;}
+        
+        ul.numerics{list-style:inside decimal}
+        .ul.kas-icon-aero{}
+        ul.kas-icon-aero li a:before{font-family: 'Glyphicons Halflings'; font-size:9px; content: "\e258"; padding-right:8px; }
+        </style>
     </head>
 
     <body class="nav-md">
@@ -58,8 +105,8 @@
                             <div class="menu_section">
                                 <h3>General</h3>
                                 <ul class="nav side-menu nav-list nav-menu-list-style">
-                                    <li><label class="tree-toggle nav-header"><i class="fa fa-table"></i> Investigación de Mercado <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span></label>
-                                      <ul class="nav nav-list tree bullets">
+                                    <li><label class="tree-toggle nav-header"> Investigación de Mercado <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span></label>
+                                      <ul class="nav nav-list tree">
                                         <li>
                                             <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
                                         </li>
@@ -88,7 +135,7 @@
                                     </li>
                                     <li class="divider"></li>  
 
-                                    <li><label class="tree-toggle nav-header"><i class="fa fa-table"></i> Catálogos <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span></label>
+                                    <li><label class="tree-toggle nav-header"> Catálogos <span class="menu-collapsible-icon glyphicon glyphicon-chevron-down"></span></label>
                                       <ul class="nav nav-list tree">
                                         <li>
                                             <a href="<?php echo site_url('almacen/index');?>"><i class="fa fa-table"></i> Almacén</a>
@@ -438,17 +485,7 @@
             });
           });
         </script>
-        <!-- /Starrr -->
 
-        <script>
-          $(document).ready(function () {
-            $('.tree-toggle').click(function () {	
-                $(this).parent().children('ul.tree').toggle(200);
-            });
-            $(function(){
-                $('.tree-toggle').parent().children('ul.tree').toggle(200);
-            })
-          });
-        </script>
+        
     </body>
 </html>
