@@ -3,9 +3,7 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 
-<style>
-	
-</style>
+
 
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
@@ -21,53 +19,50 @@
             <div class="x_content">
             	<form action="" class="form-horizontal">
 
-					<div class="form-group">
-						<div class="col-md-4 input-group pull-right">
-							<span class="input-group-addon">
-								<i class="glyphicon glyphicon-search"></i>	
-							</span>
-							<input type="text" name="busqueda" id="search" placeholder="Búsqueda" class="form-control" id="busqueda"/>
-							
+					<div class="container">
+						<div class="row">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<div class="input-group">
+										<input type="text" name="busqueda" id="search" style="width: 344px" placeholder="Búsqueda" class="form-control pull-right" id="busqueda"/>
+										<span class="input-group-addon">
+											<i class="glyphicon glyphicon-search"></i>	
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<select name="tipo" id="tipoProveedor" style="width: 383px" class="form-control pull-right">
+										<option value="todos">Todos</option>
+										<?php 
+											$tipo_values = array(
+												'B'=>'Bienes',
+												'S'=>'Servicios',
+											);
+											foreach($tipo_values as $value => $display_text)
+											{
+												$selected = ($value == $this->input->post('tipo')) ? ' selected="selected"' : "";
+												echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+											} 
+										?>
+									</select>
+									<label for="tipo" class="control-label col-sm-2 pull-right">Tipo</label>
+								</div>
+								<div class="form-group familiaOcultar B">
+									<select name="idFamilia" id="idFamilia" style="width: 383px" class="form-control pull-right">
+										<option value="0">Seleccione</option>
+										<?php 
+											foreach ($familias as $i) {
+												echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+											}
+										?>
+									</select>
+									<label for="idFamilia" class="control-label col-sm-2 pull-right">Familia</label>
+								</div>
+							</form>
 						</div>
-					</div>
-					
-					<div class="form-group pull-right">
-						<label for="tipo" class="control-label">Tipo</label>
-						<select name="tipo" id="tipoProveedor" style="width: 344px" class="form-control">
-							<option value="todos">Todos</option>
-							<?php 
-								$tipo_values = array(
-									'B'=>'Bienes',
-									'S'=>'Servicios',
-								);
-								foreach($tipo_values as $value => $display_text)
-								{
-									$selected = ($value == $this->input->post('tipo')) ? ' selected="selected"' : "";
-									echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-								} 
-								?>
-						</select>
-					</div>
-					<br />
-					<br />
-					<br />
-					<div class="familiaOcultar B pull-right">
-						<div class="form-group">
-							<label for="idFamilia" class="control-label">Familia</label>
-							<select id="idFamilia" style="width: 344px" name="idFamilia" class="form-control">
-								<option value="0">Seleccione</option>
-								<?php 
-									foreach ($familias as $i) {
-										echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
-									}
-								?>
-							</select>
-						</div>
-					</div>
-					
-					
+					</div>	
             	</form>
-				
+				<hr />
   				<table id="table" class="table table-striped">
 				    <thead>
 						<tr>
