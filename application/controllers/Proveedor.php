@@ -123,7 +123,6 @@ class Proveedor extends CI_Controller{
         }
         else
         {
-
 			$this->load->model('Comboboxesmodel');
         	$data['estados'] = $this->Comboboxesmodel->getEstados();
 			$data['estados1'] = $this->Comboboxesmodel->getEstados();
