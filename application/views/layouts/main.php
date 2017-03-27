@@ -28,6 +28,38 @@
 
         <!-- Custom Theme Style -->
         <link href="<?php echo site_url('resources/css/custom.min.css');?>" rel="stylesheet">
+
+        <style>
+
+        .nav li {
+          color: #fff;
+        }
+
+        .li {
+          color: #fff;
+        }
+
+        a {
+          color: #b6bac1;
+        }
+        
+        ul.nav-menu-list-style{
+          margin:0;
+        }
+
+        ul.nav-menu-list-style .nav-header{
+          display:block;
+          margin:0;
+          line-height:42px;
+          padding:0 8px;
+          font-weight:600;
+        }
+        
+        ul.nav-menu-list-style> li a{
+          padding:0 10px;
+          line-height:32px;
+        }
+        </style>
     </head>
 
     <body class="nav-md">
@@ -57,69 +89,80 @@
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                             <div class="menu_section">
                                 <h3>General</h3>
-                                <ul class="nav side-menu">
-						<li>
-                                        <a href="<?php echo site_url('almacen/index');?>"><i class="fa fa-table"></i> Almacén</a>
+                                <ul class="nav side-menu nav-list nav-menu-list-style">
+                                    <li><label class="tree-toggle nav-header"> Investigación de Mercado</span></label>
+                                      <ul class="nav nav-list tree">
+                                        <li>
+                                            <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('im_concepto/index');?>"><i class="fa fa-table"></i> IM Concepto</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> IM General</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('po_aclaracion/index');?>"><i class="fa fa-table"></i> PO Aclaración</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('po_acuse/index');?>"><i class="fa fa-table"></i> PO Acuse</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('po_consideracion/index');?>"><i class="fa fa-table"></i> PO Consideración</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('po_general/index');?>"><i class="fa fa-table"></i> PO General</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> PO Proveedor</a>
+                                        </li>
+                                      </ul>
                                     </li>
-						<li>
-                                        <a href="<?php echo site_url('articulo/index');?>"><i class="fa fa-table"></i> Artículo</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('categoria/index');?>"><i class="fa fa-table"></i> Categoría</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('departamento/index');?>"><i class="fa fa-table"></i> Departamento</a>
-                                    </li>
-						<!--
-            <li>
-                                        <a href="<?php echo site_url('embalaje/index');?>"><i class="fa fa-table"></i> Embalaje</a>
-                                    </li>
-                                    -->
-						<li>
-                                        <a href="<?php echo site_url('empleado/index');?>"><i class="fa fa-table"></i> Empleado</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('estado/index');?>"><i class="fa fa-table"></i> Estado</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('familia/index');?>"><i class="fa fa-table"></i> Familia</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('im_concepto/index');?>"><i class="fa fa-table"></i> IM Concepto</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> IM General</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('municipio/index');?>"><i class="fa fa-table"></i> Municipio</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('po_aclaracion/index');?>"><i class="fa fa-table"></i> PO Aclaración</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('po_acuse/index');?>"><i class="fa fa-table"></i> PO Acuse</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('po_consideracion/index');?>"><i class="fa fa-table"></i> PO Consideración</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('po_general/index');?>"><i class="fa fa-table"></i> PO General</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> PO Proveedor</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('proveedor/index');?>"><i class="fa fa-table"></i> Proveedor</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('relacionproveedorfamilia/index');?>"><i class="fa fa-table"></i> Relación Proveedor Familia</a>
-                                    </li>
-						<li>
-                                        <a href="<?php echo site_url('unidadmedida/index');?>"><i class="fa fa-table"></i> Unidad de medida</a>
-                                    </li>
+                                    <li class="divider"></li>  
+
+
+                                    <li><label class="tree-toggle nav-header"> Catálogos</label>
+                                      <ul class="nav nav-list tree">
+                                        <li>
+                                            <a href="<?php echo site_url('almacen/index');?>"><i class="fa fa-table"></i> Almacén</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('articulo/index');?>"><i class="fa fa-table"></i> Artículo</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('categoria/index');?>"><i class="fa fa-table"></i> Categoría</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('departamento/index');?>"><i class="fa fa-table"></i> Departamento</a>
+                                        </li>
+                                        <!--
+                                        <li>
+                                            <a href="<?php echo site_url('embalaje/index');?>"><i class="fa fa-table"></i> Embalaje</a>
+                                        </li>
+                                        -->
+                                        <li>
+                                            <a href="<?php echo site_url('empleado/index');?>"><i class="fa fa-table"></i> Empleado</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('estado/index');?>"><i class="fa fa-table"></i> Estado</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('familia/index');?>"><i class="fa fa-table"></i> Familia</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('municipio/index');?>"><i class="fa fa-table"></i> Municipio</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('proveedor/index');?>"><i class="fa fa-table"></i> Proveedor</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('relacionproveedorfamilia/index');?>"><i class="fa fa-table"></i> Relación Proveedor Familia</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo site_url('unidadmedida/index');?>"><i class="fa fa-table"></i> Unidad de medida</a>
+                                        </li>
+                                      </ul>
+                                    </li>  
                                 </ul>
                             </div>
                         </div>
@@ -428,6 +471,7 @@
             });
           });
         </script>
-        <!-- /Starrr -->
+
+        
     </body>
 </html>
