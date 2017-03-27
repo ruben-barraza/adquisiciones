@@ -98,4 +98,39 @@ class Proveedormodel extends CI_Model
             return "Error occuring while deleting proveedor";
         }
     }
+
+    /*
+     * función para obtener el estado seleccionado de la base de datos
+     */
+     public function editEstados($idProveedor) {
+        $this->db->select('idMunicipio')->from('proveedor')->where('id', $idProveedor);
+        $valorMunicipio = $this->db->get();
+        $vlMunicipio = $valorMunicipio->row_array();
+        $municipio = $vlMunicipio['idMunicipio'];
+
+        $this->db->select('idEstado')->from('municipio')->where('id', $municipio);
+        $valorEstado = $this->db->get('estado');
+        $vlEstado = $valorEstado->row_array();
+        $estado = $vlEstado['idEstado'];
+    }
+
+    public function obtenerStringMunicipio($idMunicipio) {
+        $this->db->select('nombre')->from('municipio')->where('id', $idMunicipio);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['nombre'];
+    }
+
+    public function obtenerStringEstado($idMunicipio){
+        $this->db->select('idEstado')->from('municipio')->where('id', $idMunicipio);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        $idEstado = $vl['idEstado'];
+
+        $this->db->select('nombre')->from('estado')->where('id', $idEstado);
+        $valorEstado = $this->db->get();
+        $vlEstado = $valorEstado->row_array();
+        return $vlEstado['nombre'];    
+    }
+     
 }
