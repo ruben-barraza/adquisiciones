@@ -42,14 +42,11 @@
         a {
           color: #b6bac1;
         }
-
-        .no-padding{
-          padding:0px;
-        }
         
         ul.nav-menu-list-style{
           margin:0;
         }
+
         ul.nav-menu-list-style .nav-header{
           display:block;
           margin:0;
@@ -57,22 +54,11 @@
           padding:0 8px;
           font-weight:600;
         }
-        ul.nav-menu-list-style> li{
-          position:relative; }
+        
         ul.nav-menu-list-style> li a{
           padding:0 10px;
           line-height:32px;
         }
-        ul.nav-menu-list-style> li:first-child a{
-        }
-
-
-        ul.nav-menu-list-style{list-style:none; padding:0px; margin:0px;}
-        ul.nav-menu-list-style li .badge,ul.nav-menu-list-style li .pull-right,ul.nav-menu-list-style li span.badge,ul.nav-menu-list-style li label.badge{float:right; margin-top:7px;}
-        
-        ul.numerics{list-style:inside decimal}
-        .ul.kas-icon-aero{}
-        ul.kas-icon-aero li a:before{font-family: 'Glyphicons Halflings'; font-size:9px; content: "\e258"; padding-right:8px; }
         </style>
     </head>
 
@@ -133,6 +119,7 @@
                                       </ul>
                                     </li>
                                     <li class="divider"></li>  
+
 
                                     <li><label class="tree-toggle nav-header"> Catálogos</label>
                                       <ul class="nav nav-list tree">
