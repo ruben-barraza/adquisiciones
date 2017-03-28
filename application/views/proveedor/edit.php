@@ -177,7 +177,16 @@
 					<div class="form-group">
 						<label for="extension1" class="col-md-4 control-label">Extensión</label>
 						<div class="col-md-8">
-							<input type="text" name="extension1" value="<?php echo ($this->input->post('extension1') ? $this->input->post('extension1') : $proveedor['extension1']); ?>" class="form-control" id="extension1" />
+							<input type="text" name="extension1" value=
+							"<?php 
+								$extension1 = $proveedor['extension1']; 
+								if ($extension1 != 0) {
+									echo ($this->input->post('extension1') ? $this->input->post('extension1') : $proveedor['extension1']); 
+								} else {
+									echo "";
+								}
+							?>" 
+							class="form-control" id="extension1" />
 						</div>
 					</div>
                     
@@ -355,6 +364,21 @@
 
 						<hr />
 					</div>
+
+					<pre>
+						ID del Proveedor: <?php echo $hola?> <br />
+						Estado seleccionado: <?php echo $estadoSeleccionado?> <br />
+						Municipio seleccionado: <?php echo $municipioSeleccionado?> <br />
+						Estado seleccionado1: <?php echo $estadoSeleccionado1?> <br />
+						Municipio seleccionado1: <?php echo $municipioSeleccionado1?> <br />
+						Estado seleccionado2: <?php echo $estadoSeleccionado2?> <br />
+						Municipio seleccionado2: <?php echo $municipioSeleccionado2?> <br />
+						Estado seleccionado3: <?php echo $estadoSeleccionado3?> <br />
+						Municipio seleccionado3: <?php echo $municipioSeleccionado3?> <br />
+						<?php echo $proveedor['extension1']?> <br />
+						
+
+					</pre>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
@@ -371,8 +395,74 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {                       
-    	$("#idEstado").change(function() {
+    $(document).ready(function() { 
+		//console.log('');
+
+		/*
+		* Muestra los valores de estado y municipio que se habían asignado al momento
+		*/
+
+		seleccionEstado = '<?php echo $estadoSeleccionado; ?>';
+		if(seleccionEstado != 0){
+			$("#idEstado").val(seleccionEstado);
+			$("#idEstado option:selected").each(function() {
+				idEstado = $('#idEstado').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio").html(data);
+					$("#idMunicipio").val('<?php echo $municipioSeleccionado; ?>');
+				});
+			});
+		}
+			
+		seleccionEstado1 = '<?php echo $estadoSeleccionado1; ?>';
+		if(seleccionEstado1 != 0) {
+			$("#idEstado1").val(seleccionEstado1);
+			$("#idEstado1 option:selected").each(function() {
+				idEstado = $('#idEstado1').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio1").html(data);
+					$("#idMunicipio1").val('<?php echo $municipioSeleccionado1; ?>');
+				});
+			});
+		}
+
+		seleccionEstado2 =  '<?php echo $estadoSeleccionado2; ?>';
+		if(seleccionEstado2 != 0) {
+			$("#idEstado2").val(seleccionEstado2);
+			$("#idEstado2 option:selected").each(function() {
+				idEstado = $('#idEstado2').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio2").html(data);
+					$("#idMunicipio2").val('<?php echo $municipioSeleccionado2; ?>');
+				});
+			});
+		}
+
+		seleccionEstado3 =  '<?php echo $estadoSeleccionado3; ?>';
+		if(seleccionEstado3 != 0) {
+			$("#idEstado3").val(seleccionEstado3);
+			$("#idEstado3 option:selected").each(function() {
+				idEstado = $('#idEstado3').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio3").html(data);
+					$("#idMunicipio3").val('<?php echo $municipioSeleccionado3; ?>');
+				});
+			});
+		}
+		
+		/*
+		* Las siguientes tres funciones actualizan los municipios cada vez que se cambia el estado
+		*/
+		
+		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();
                 $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {

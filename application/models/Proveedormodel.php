@@ -114,23 +114,45 @@ class Proveedormodel extends CI_Model
         $estado = $vlEstado['idEstado'];
     }
 
-    public function obtenerStringMunicipio($idMunicipio) {
-        $this->db->select('nombre')->from('municipio')->where('id', $idMunicipio);
+    /*
+     * funcies para obtener el ID del municipio que corresponde al proveedor que se quiere editar
+     */
+    public function obtenerIdMunicipio($idProveedor){
+        $this->db->select('idMunicipio')->from('proveedor')->where('id', $idProveedor);
         $valor = $this->db->get();
         $vl = $valor->row_array();
-        return $vl['nombre'];
+        return $vl['idMunicipio'];
     }
 
-    public function obtenerStringEstado($idMunicipio){
+    public function obtenerIdMunicipio1($idProveedor){
+        $this->db->select('idMunicipio1')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio1'];
+    }
+
+    public function obtenerIdMunicipio2($idProveedor){
+        $this->db->select('idMunicipio2')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio2'];
+    }
+
+    public function obtenerIdMunicipio3($idProveedor){
+        $this->db->select('idMunicipio3')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio3'];
+    }
+    
+    /*
+     * función para obtener el estado seleccionado de la base de datos
+     */
+    public function obtenerIdEstado($idMunicipio){
         $this->db->select('idEstado')->from('municipio')->where('id', $idMunicipio);
         $valor = $this->db->get();
         $vl = $valor->row_array();
-        $idEstado = $vl['idEstado'];
-
-        $this->db->select('nombre')->from('estado')->where('id', $idEstado);
-        $valorEstado = $this->db->get();
-        $vlEstado = $valorEstado->row_array();
-        return $vlEstado['nombre'];    
+        return $vl['idEstado'];  
     }
      
 }
