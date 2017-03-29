@@ -154,5 +154,22 @@ class Proveedormodel extends CI_Model
         $vl = $valor->row_array();
         return $vl['idEstado'];  
     }
+
+    /*
+     * función para obtener los ids de las familias que corresponden 
+     * un proveedor de tipo bienes
+     */
+
+     public function obtenerIdFamiliaProveedor($idProveedor){
+         $this->db->select('idFamilia')->from('relacionproveedorfamilia')->where('idProveedor', $idProveedor);
+         $query = $this->db->get();
+         $arrayFamilias = array();
+
+         foreach($query->result() as $row){
+             $arrayFamilias = $row['idFamilia'];
+         }
+         
+         return $arrayFamilias;
+     }
      
 }

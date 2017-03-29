@@ -240,6 +240,8 @@ class Proveedor extends CI_Controller{
 				$idMunicipioSeleccionado3 = $this->Proveedormodel->obtenerIdMunicipio3($id);
 				$data['municipioSeleccionado3'] = $idMunicipioSeleccionado3;
 
+				$data['familiasSeleccionadas'] = $this->Proveedormodel->obtenerIdFamiliaProveedor($id);
+
 				$data['estadoSeleccionado'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado);
 				$data['estadoSeleccionado1'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado1);
 				$data['estadoSeleccionado2'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado2);
