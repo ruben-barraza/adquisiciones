@@ -1,6 +1,12 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
+<style>
+	#listaSeleccion li {
+		margin-bottom:10px
+	}
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -181,12 +187,11 @@
 							"<?php 
 								$extension1 = $proveedor['extension1']; 
 								if ($extension1 != 0) {
-									echo ($this->input->post('extension1') ? $this->input->post('extension1') : $proveedor['extension1']); 
+									echo ($this->input->post('extension1') ? $this->input->post('extension1') : $extension1); 
 								} else {
 									echo "";
 								}
-							?>" 
-							class="form-control" id="extension1" />
+							?>" class="form-control" id="extension1" />
 						</div>
 					</div>
                     
@@ -237,13 +242,30 @@
 					<div class="form-group">
 						<label for="telefonoFijo2" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo2" value="<?php echo ($this->input->post('telefonoFijo2') ? $this->input->post('telefonoFijo2') : $proveedor['telefonoFijo2']); ?>" class="form-control" id="telefonoFijo2" />
+							<input type="text" name="telefonoFijo2" value=
+							"<?php 
+								$telefonoFijo2 = $proveedor['telefonoFijo2'];
+								if ($telefonoFijo2 != 0){
+									echo ($this->input->post('telefonoFijo2') ? $this->input->post('telefonoFijo2') : $telefonoFijo2);
+								} else {
+									echo "";
+								}
+								 
+							?>" class="form-control" id="telefonoFijo2" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil2" class="col-md-4 control-label">Teléfono Móvil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil2" value="<?php echo ($this->input->post('telefonoMovil2') ? $this->input->post('telefonoMovil2') : $proveedor['telefonoMovil2']); ?>" class="form-control" id="telefonoMovil2" />
+							<input type="text" name="telefonoMovil2" value=
+							"<?php 
+								$telefonoMovil2 = $proveedor['telefonoMovil2'];
+								if ($telefonoMovil2 != 0){
+									echo ($this->input->post('telefonoMovil2') ? $this->input->post('telefonoMovil2') : $telefonoMovil2); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="telefonoMovil2" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -255,7 +277,15 @@
 					<div class="form-group">
 						<label for="extension2" class="col-md-4 control-label">Extensión</label>
 						<div class="col-md-8">
-							<input type="text" name="extension2" value="<?php echo ($this->input->post('extension2') ? $this->input->post('extension2') : $proveedor['extension2']); ?>" class="form-control" id="extension2" />
+							<input type="text" name="extension2" value=
+							"<?php 
+								$extension2 = $proveedor['extension2'];
+								if ($extension2 != 0) {
+									echo ($this->input->post('extension2') ? $this->input->post('extension2') : $extension2); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="extension2" />
 						</div>
 					</div>
                     <hr />
@@ -304,13 +334,29 @@
 					<div class="form-group">
 						<label for="telefonoFijo3" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo3" value="<?php echo ($this->input->post('telefonoFijo3') ? $this->input->post('telefonoFijo3') : $proveedor['telefonoFijo3']); ?>" class="form-control" id="telefonoFijo3" />
+							<input type="text" name="telefonoFijo3" value=
+							"<?php 
+								$telefonoFijo3 = $proveedor['telefonoFijo3'];
+								if ($telefonoFijo3 != 0) {
+									echo ($this->input->post('telefonoFijo3') ? $this->input->post('telefonoFijo3') : $telefonoFijo3);
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="telefonoFijo3" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil3" class="col-md-4 control-label">Teléfono Movil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil3" value="<?php echo ($this->input->post('telefonoMovil3') ? $this->input->post('telefonoMovil3') : $proveedor['telefonoMovil3']); ?>" class="form-control" id="telefonoMovil3" />
+							<input type="text" name="telefonoMovil3" value=
+							"<?php 
+								$telefonoMovil3 = $proveedor['telefonoMovil3'];
+								if ($telefonoMovil3 != 0) {
+									echo ($this->input->post('telefonoMovil3') ? $this->input->post('telefonoMovil3') : $telefonoMovil3); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="telefonoMovil3" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -322,11 +368,19 @@
 					<div class="form-group">
 						<label for="extension3" class="col-md-4 control-label">Extensión</label>
 						<div class="col-md-8">
-							<input type="text" name="extension3" value="<?php echo ($this->input->post('extension3') ? $this->input->post('extension3') : $proveedor['extension3']); ?>" class="form-control" id="extension3" />
+							<input type="text" name="extension3" value=
+							"<?php 
+								$extension3 = $proveedor['extension3'];
+								if ($extension3 != 0) {
+									echo ($this->input->post('extension3') ? $this->input->post('extension3') : $extension3); 
+								} else {
+									echo "";
+								}
+								
+							?>" class="form-control" id="extension3" />
 						</div>
 					</div>
                     <hr />
-					
 
 					<div class="familiaOcultar opcion_B">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
@@ -399,7 +453,8 @@
 		//console.log('');
 
 		/*
-		* Muestra los valores de estado y municipio que se habían asignado al momento
+		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
+		* (Valores obtenidos de la base de datos)
 		*/
 
 		seleccionEstado = '<?php echo $estadoSeleccionado; ?>';
