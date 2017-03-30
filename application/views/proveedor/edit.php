@@ -430,7 +430,13 @@
 						Estado seleccionado3: <?php echo $estadoSeleccionado3?> <br />
 						Municipio seleccionado3: <?php echo $municipioSeleccionado3?> <br />
 						<?php echo $proveedor['extension1']?> <br />
-						Familias seleccionadas : <?php echo $familiasSeleccionadas?> <br />
+						Familias seleccionadas : 
+						<?php
+							foreach ($familiasSeleccionadas as $key => $val) {
+   								echo $val;
+							}
+							//echo $familiasSeleccionadas
+						?> <br />
 						
 
 					</pre>

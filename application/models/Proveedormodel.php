@@ -159,16 +159,20 @@ class Proveedormodel extends CI_Model
      * función para obtener los ids de las familias que corresponden 
      * un proveedor de tipo bienes
      */
-
      public function obtenerIdFamiliaProveedor($idProveedor){
-         $this->db->select('idFamilia')->from('relacionproveedorfamilia')->where('idProveedor', $idProveedor);
-         $query = $this->db->get();
+         $query = $this->db->select('idFamilia')->from('relacionproveedorfamilia')->where('idProveedor', $idProveedor);
+         //$query = $this->db->get();
          $arrayFamilias = array();
 
-         foreach($query->result() as $row){
-             $arrayFamilias = $row['idFamilia'];
+         while($row = mysql_fetch_array($query)){
+             $arrayFamilias[] = $row['idFamilia'];
          }
          
+         //foreach($query->result() as $row){
+         //    $arrayFamilias = $row['idFamilia'];
+         //}
+         
+         //return $arrayFamilias;
          return $arrayFamilias;
      }
      
