@@ -432,10 +432,10 @@
 						<?php echo $proveedor['extension1']?> <br />
 						Familias seleccionadas : 
 						<?php
-							foreach ($familiasSeleccionadas as $key => $val) {
-   								echo $val;
-							}
-							//echo $familiasSeleccionadas
+							
+   							
+							
+							print_r($familiasSeleccionadas);
 						?> <br />
 						
 
