@@ -457,7 +457,9 @@
 
 <script type="text/javascript">   
     $(document).ready(function() { 
-		//console.log('');
+		//console.log("");
+
+		
 
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
@@ -519,6 +521,13 @@
 				});
 			});
 		}
+
+		/*
+		 * Muestra al cargar la página las familias que se habían seleccionado para
+		 * el proveedor que se quiere editar
+		 */
+
+
 		
 		/*
 		* Las siguientes tres funciones actualizan los municipios cada vez que se cambia el estado

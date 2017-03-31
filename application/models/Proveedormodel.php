@@ -163,17 +163,22 @@ class Proveedormodel extends CI_Model
          $this->db->select('idFamilia')->from('relacionproveedorfamilia')->where('idProveedor', $idProveedor);
          $query = $this->db->get();
          $arrayFamilias = array();
+         $arrayClaves = array();
 
          foreach($query->result_array() as $row){
              $arrayFamilias[] = $row['idFamilia'];
          }
-         
-         //foreach($query->result() as $row){
-         //    $arrayFamilias = $row['idFamilia'];
-         //}
-         
+       
          //return $arrayFamilias;
-         return $arrayFamilias;
-     }
+
+         foreach($arrayFamilias as $idFamilia){
+            $this->db->select('clave')->from('familia')->where('id', $idFamilia);
+            $query = $this->db->get();
+            $clave = $query->row_array();
+            $arrayClaves[] = $clave['clave']; 
+        }
+
+        return $arrayClaves;
+     }    
      
 }
