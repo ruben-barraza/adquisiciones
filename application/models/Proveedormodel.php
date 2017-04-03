@@ -67,6 +67,24 @@ class Proveedormodel extends CI_Model
     }
 
     /*
+     * función para actualizar en la tabla relacionproveedofamilia
+     */
+    function update_uk_proveedor_familia($id, $params){
+        foreach($params as $clave){
+            $this->db->select('id')->from('familia')->where('clave', $clave);
+            $valor = $this->db->get();
+
+            $vl = $valor->row_array();
+            $familia = $vl['id'];
+
+            $this->db->insert('relacionproveedorfamilia', array(
+                'idProveedor' => $id,
+                'idFamilia' => $familia
+            ));
+        }    
+    }
+
+    /*
      * function to update proveedor
      */
     function update_proveedor($id,$params)

@@ -443,8 +443,8 @@
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
+							<button id="botonEditar" type="submit" class="btn btn-success">
+								<i class="fa fa-check"></i> Guardar cambios
 							</button>
 				        </div>
 					</div>
@@ -457,9 +457,12 @@
 
 <script type="text/javascript">   
     $(document).ready(function() { 
-		//console.log("");
+		//console.log(<?php echo $proveedor['id'] ?>);
 
-		
+		$("#idEstado").find("option").eq(1).remove();
+		$("#idEstado1").find("option").eq(1).remove();
+		$("#idEstado2").find("option").eq(1).remove();
+		$("#idEstado3").find("option").eq(1).remove();
 
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
@@ -526,8 +529,41 @@
 		 * Muestra al cargar la página las familias que se habían seleccionado para
 		 * el proveedor que se quiere editar
 		 */
+		var familiasProveedor = <?php echo json_encode($familiasSeleccionadas); ?>;
+		//console.log(familiasProveedor);
+		var longitudArray = familiasProveedor.length;
+		for (var i=0; i < longitudArray; i++){
+			$("#idFamilia option[value='"+ familiasProveedor[i] +"']").remove();
+			$('#listaSeleccion').append('<li name="nombresFamilia[]">'+familiasProveedor[i]+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
+		}
 
+		/*
+		* Agrega más familias a la lista haciendo clic en el botón "Agregar +"
+		*/
 
+		$("#agregarFamilia").click(function(){
+			if($('#idFamilia').val() != 0){
+				var names = $('#idFamilia').find('option:selected').text();
+				$("#idFamilia option:selected").remove();
+				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
+			}
+     	});
+
+		/*
+		* Quita las familias de la lista con el botón "Quitar" y las regresa al select en orden alfabético
+		*/
+
+		$("body").on("click",".delete", function() {
+			var name = $(this).parent().text().replace(/Quitar/,'');
+			$(this).parent().remove();
+			$("#idFamilia").append($("<option></option>").val(name).html(name));
+			//Regresa el elemento removido a la lista en orden alfabético
+			var foption = $('#idFamilia option:first');
+			var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
+				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+			});
+			$('#idFamilia').html(soptions).prepend(foption);
+		});
 		
 		/*
 		* Las siguientes tres funciones actualizan los municipios cada vez que se cambia el estado
@@ -587,9 +623,6 @@
 		if(tipoSeleccion == 'B'){
 			$('.familiaOcultar').collapse('show');
 		}
-		
-
-		
 
 		$('#tipoProveedor').change(function(){
 			//Saves in a variable the wanted div
@@ -602,12 +635,26 @@
 			$(selector).collapse('show');
 		});
 
-    });
-</script>
+		/*
+		 *
+		 */
+		$("#botonEditar").click(function(){
+			var seleccion = $("#listaSeleccion li");
+			var familias_seleccion = [];
+			var idProveedor = <?php echo $proveedor['id'] ?>;
 
-<script type="text/javascript">
-	$("#idEstado").find("option").eq(1).remove();
-	$("#idEstado1").find("option").eq(1).remove();
-	$("#idEstado2").find("option").eq(1).remove();
-	$("#idEstado3").find("option").eq(1).remove();
+			seleccion.each(function() {
+				familias_seleccion.push($(this).text().replace(/Quitar/,''));
+			});
+			$.ajax({
+				url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+				method: 'POST',
+				data: {
+					familias_seleccion: familias_seleccion,
+					idProveedor: idProveedor
+				}
+			});
+     	}); 
+
+    });
 </script>

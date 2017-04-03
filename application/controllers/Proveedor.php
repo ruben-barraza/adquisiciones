@@ -11,12 +11,20 @@ class Proveedor extends CI_Controller{
         $this->load->model('Proveedormodel');
     } 
 
-
+    
 	function crearRelacion(){
 		$this->load->model('Proveedormodel');
 		$familias_seleccion = $_POST['familias_seleccion'];
 		$idProveedor = $this->Proveedormodel->get_idConsecutivo();
 		$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $familias_seleccion);
+	}
+	
+
+	function editarRelacion(){
+		$this->load->model('Proveedormodel');
+		$familias_seleccion = $_POST['familias_seleccion'];
+		$idProveedor = $_POST['idProveedor'];
+		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
 	}
 
     /*

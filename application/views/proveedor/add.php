@@ -386,7 +386,13 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {                       
+    $(document).ready(function() {    
+
+		$("#idEstado").find("option").eq(1).remove();
+		$("#idEstado1").find("option").eq(1).remove();
+		$("#idEstado2").find("option").eq(1).remove();
+		$("#idEstado3").find("option").eq(1).remove();
+
     	$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();
@@ -435,7 +441,7 @@
 			if($('#idFamilia').val() != 0){
 				var names = $('#idFamilia').find('option:selected').text();
 				$("#idFamilia option:selected").remove();
-				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>')
+				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
 			}
      	});
 		
@@ -482,11 +488,4 @@
     });
 
 
-</script>
-
-<script type="text/javascript">
-	$("#idEstado").find("option").eq(1).remove();
-	$("#idEstado1").find("option").eq(1).remove();
-	$("#idEstado2").find("option").eq(1).remove();
-	$("#idEstado3").find("option").eq(1).remove();
 </script>
