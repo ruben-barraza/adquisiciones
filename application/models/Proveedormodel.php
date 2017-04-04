@@ -68,21 +68,26 @@ class Proveedormodel extends CI_Model
 
     /*
      * función para actualizar en la tabla relacionproveedofamilia
+     * primero borra los registros existentes y después los vuelve a crear
+     * mandando los valores a la función add_uk_proveedor_familia
      */
     function update_uk_proveedor_familia($id, $params){
-        foreach($params as $clave){
-            $this->db->select('id')->from('familia')->where('clave', $clave);
-            $valor = $this->db->get();
-
-            $vl = $valor->row_array();
-            $familia = $vl['id'];
-
-            $this->db->insert('relacionproveedorfamilia', array(
-                'idProveedor' => $id,
-                'idFamilia' => $familia
-            ));
-        }    
+        $this->db->where('idProveedor', $id);
+        $this->db->delete('relacionproveedorfamilia');
+        if (!empty($params)) {
+            $this->add_uk_proveedor_familia($id, $params);  
+        } 
     }
+
+    /*
+     * si el proveedor cambia de tipo bienes a servicios hay que eliminar los registros
+     * en la tabla relacionproveedorfamilia
+     */
+    function delete_uk_proveedor_familia($id){
+        $this->db->where('idProveedor', $id);
+        $this->db->delete('relacionproveedorfamilia');
+    }
+    
 
     /*
      * function to update proveedor

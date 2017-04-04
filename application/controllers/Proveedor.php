@@ -27,6 +27,12 @@ class Proveedor extends CI_Controller{
 		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
 	}
 
+	function eliminarRelacion(){
+		$this->load->model('Proveedormodel');
+		$idProveedor = $_POST['idProveedor'];
+		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
+	}
+
     /*
      * Listing of listaproveedor
      */

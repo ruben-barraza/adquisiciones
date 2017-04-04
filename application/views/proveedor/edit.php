@@ -457,12 +457,27 @@
 
 <script type="text/javascript">   
     $(document).ready(function() { 
-		//console.log(<?php echo $proveedor['id'] ?>);
+		//console.log("<?php echo $proveedor['tipo'] ?>");
+		
+		/* Si el proveedor que se quiere editar es originalmente de bienes
+		* se debe detectar cuando cambie a servicios y al guardar los cambios
+		* se eliminarán los registros con ese proveedor en la tabla
+		* relacioonproveedorfamilia
+		* Muestra por default el campo para editar las familias si es proveedor de Bienes
+		* Lo oculta si es proveedor de servicios
+		*/
+		var cambioAServicio;
+		var tipoProveedor = $("#tipoProveedor").val();
+		if(tipoProveedor == "B"){
+			cambioAServicio = false;
+			$('.familiaOcultar').collapse('show');
+		}
 
 		$("#idEstado").find("option").eq(1).remove();
 		$("#idEstado1").find("option").eq(1).remove();
 		$("#idEstado2").find("option").eq(1).remove();
 		$("#idEstado3").find("option").eq(1).remove();
+		$('.familiaOcultar').addClass('collapse');
 
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
@@ -613,20 +628,18 @@
             });
         });
 
-		$('.familiaOcultar').addClass('collapse');
-
-		/* Muestra por default el campo para editar las familias si es proveedor de Bienes
-		 * Lo oculta si es proveedor de servicios
-		 */
-		var tipo = document.getElementById("tipoProveedor");
-		var tipoSeleccion = tipo.options[tipo.selectedIndex].value;
-		if(tipoSeleccion == 'B'){
-			$('.familiaOcultar').collapse('show');
-		}
-
 		$('#tipoProveedor').change(function(){
 			//Saves in a variable the wanted div
 			var selector = '.opcion_' + $(this).val();
+			if($(this).val == "S"){
+				//cambioAServicio=true;
+				console.log("Sale");
+			} else if ($(this).val == "B"){
+				//cambioAServicio=false;
+				console.log("bye");
+			}
+
+			//console.log(cambioAServicio);
 
 			//hide all elements
 			$('.familiaOcultar').collapse('hide');
@@ -647,7 +660,7 @@
 				familias_seleccion.push($(this).text().replace(/Quitar/,''));
 			});
 			$.ajax({
-				url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+				url: '<?php echo base_url();?>index.php/Proveedor/editarRelacion',
 				method: 'POST',
 				data: {
 					familias_seleccion: familias_seleccion,
