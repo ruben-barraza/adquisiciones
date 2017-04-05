@@ -11,12 +11,30 @@ class Proveedor extends CI_Controller{
         $this->load->model('Proveedormodel');
     } 
 
-
+    //Crea las relaciones proveedor-familia cuando se añade un proveedor
+	//de tipo bienes
 	function crearRelacion(){
 		$this->load->model('Proveedormodel');
 		$familias_seleccion = $_POST['familias_seleccion'];
 		$idProveedor = $this->Proveedormodel->get_idConsecutivo();
 		$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $familias_seleccion);
+	}
+	
+	//Edita las relaciones proveedor-familia si se agregan o quitan familias
+	//al editar un proveedor
+	function editarRelacion(){
+		$this->load->model('Proveedormodel');
+		$familias_seleccion = $_POST['familias_seleccion'];
+		$idProveedor = $_POST['idProveedor'];
+		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
+	}
+
+	//Elimina las relaciones cuando un proveedor cambia de bienes a servicios
+	//Elimina las relaciones cuando se elimina un proveedor de la BD
+	function eliminarRelacion(){
+		$this->load->model('Proveedormodel');
+		$idProveedor = $_POST['idProveedor'];
+		$this->Proveedormodel->delete_uk_proveedor_familia($idProveedor);
 	}
 
     /*
@@ -52,7 +70,7 @@ class Proveedor extends CI_Controller{
 		$this->form_validation->set_rules('telefonoFijo1','TelefonoFijo1','max_length[11]|required');
 		$this->form_validation->set_rules('telefonoMovil1','TelefonoMovil1','max_length[11]|required');
 		$this->form_validation->set_rules('correoElectronico1','CorreoElectronico1','max_length[100]|required');
-		$this->form_validation->set_rules('extension1','Extension1','max_length[11]|required');
+		$this->form_validation->set_rules('extension1','Extension1','max_length[11]');
 		$this->form_validation->set_rules('nombre2','Nombre2','max_length[100]');
 		$this->form_validation->set_rules('direccion2','Direccion2','max_length[150]');
 		$this->form_validation->set_rules('idMunicipio2','IdMunicipio2');
@@ -70,7 +88,6 @@ class Proveedor extends CI_Controller{
 		$this->form_validation->set_rules('correoElectronico3','CorreoElectronico3','max_length[100]');
 		$this->form_validation->set_rules('extension3','Extension3','max_length[11]');
 		$this->form_validation->set_rules('estatus','Estatus','required');
-		//$this->form_validation->set_rules('nombresFamilia[]','NombresFamilia');
 		
 		if($this->form_validation->run())     
         {   
@@ -115,16 +132,11 @@ class Proveedor extends CI_Controller{
 			// Old method
 			//$nombresFamilia = $this->input->post('nombresFamilia');
 			//$relacion_proveedor = $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $nombresFamilia);
-
-
-
-           
             
 			redirect('proveedor/index');
         }
         else
         {
-
 			$this->load->model('Comboboxesmodel');
         	$data['estados'] = $this->Comboboxesmodel->getEstados();
 			$data['estados1'] = $this->Comboboxesmodel->getEstados();
@@ -143,9 +155,10 @@ class Proveedor extends CI_Controller{
     {   
         // check if the proveedor exists before trying to edit it
         $data['proveedor'] = $this->Proveedormodel->get_proveedor($id);
-        
+
         if(isset($data['proveedor']['id']))
         {
+			
             $this->load->library('form_validation');
 
 			$this->form_validation->set_rules('clave','Clave','max_length[15]|required');
@@ -161,7 +174,7 @@ class Proveedor extends CI_Controller{
 			$this->form_validation->set_rules('telefonoFijo1','TelefonoFijo1','max_length[11]|required');
 			$this->form_validation->set_rules('telefonoMovil1','TelefonoMovil1','max_length[11]|required');
 			$this->form_validation->set_rules('correoElectronico1','CorreoElectronico1','max_length[100]|required');
-			$this->form_validation->set_rules('extension1','Extension1','max_length[11]|required');
+			$this->form_validation->set_rules('extension1','Extension1','max_length[11]');
 			$this->form_validation->set_rules('nombre2','Nombre2','max_length[100]');
 			$this->form_validation->set_rules('direccion2','Direccion2','max_length[150]');
 			$this->form_validation->set_rules('idMunicipio2','IdMunicipio2');
@@ -217,6 +230,7 @@ class Proveedor extends CI_Controller{
 					'tipo' => $this->input->post('tipo'),
                 );
 
+
                 $this->Proveedormodel->update_proveedor($id,$params);            
                 redirect('proveedor/index');
             }
@@ -229,6 +243,29 @@ class Proveedor extends CI_Controller{
 				$data['estados2'] = $this->Comboboxesmodel->getEstados();
 				$data['estados3'] = $this->Comboboxesmodel->getEstados();
 				$data['familias'] = $this->Comboboxesmodel->getFamilias();
+
+				$this->load->model('Proveedormodel');
+				
+				$idMunicipioSeleccionado = $this->Proveedormodel->obtenerIdMunicipio($id);
+				$data['municipioSeleccionado'] = $idMunicipioSeleccionado;
+
+				$idMunicipioSeleccionado1 = $this->Proveedormodel->obtenerIdMunicipio1($id);
+				$data['municipioSeleccionado1'] = $idMunicipioSeleccionado1;
+				
+				$idMunicipioSeleccionado2 = $this->Proveedormodel->obtenerIdMunicipio2($id);
+				$data['municipioSeleccionado2'] = $idMunicipioSeleccionado2;
+				
+				$idMunicipioSeleccionado3 = $this->Proveedormodel->obtenerIdMunicipio3($id);
+				$data['municipioSeleccionado3'] = $idMunicipioSeleccionado3;
+
+				$data['familiasSeleccionadas'] = $this->Proveedormodel->obtenerIdFamiliaProveedor($id);
+
+				$data['estadoSeleccionado'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado);
+				$data['estadoSeleccionado1'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado1);
+				$data['estadoSeleccionado2'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado2);
+				$data['estadoSeleccionado3'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado3);
+				
+				$data['hola'] = $id;
 
                 $data['_view'] = 'proveedor/edit';
                 $this->load->view('layouts/main',$data);
@@ -249,6 +286,8 @@ class Proveedor extends CI_Controller{
         if(isset($proveedor['id']))
         {
             $this->Proveedormodel->delete_proveedor($id);
+			//elimina las relaciones proveedor-familia existentes
+			$this->Proveedormodel->delete_uk_proveedor_familia($id);
             redirect('proveedor/index');
         }
         else

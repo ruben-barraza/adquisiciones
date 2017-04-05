@@ -67,6 +67,29 @@ class Proveedormodel extends CI_Model
     }
 
     /*
+     * función para actualizar en la tabla relacionproveedofamilia
+     * primero borra los registros existentes y después los vuelve a crear
+     * mandando los valores a la función add_uk_proveedor_familia
+     */
+    function update_uk_proveedor_familia($id, $params){
+        $this->db->where('idProveedor', $id);
+        $this->db->delete('relacionproveedorfamilia');
+        if (!empty($params)) {
+            $this->add_uk_proveedor_familia($id, $params);  
+        } 
+    }
+
+    /*
+     * si el proveedor cambia de tipo bienes a servicios hay que eliminar los registros
+     * en la tabla relacionproveedorfamilia
+     */
+    function delete_uk_proveedor_familia($id){
+        $this->db->where('idProveedor', $id);
+        $this->db->delete('relacionproveedorfamilia');
+    }
+    
+
+    /*
      * function to update proveedor
      */
     function update_proveedor($id,$params)
@@ -98,4 +121,87 @@ class Proveedormodel extends CI_Model
             return "Error occuring while deleting proveedor";
         }
     }
+
+    /*
+     * función para obtener el estado seleccionado de la base de datos
+     */
+     public function editEstados($idProveedor) {
+        $this->db->select('idMunicipio')->from('proveedor')->where('id', $idProveedor);
+        $valorMunicipio = $this->db->get();
+        $vlMunicipio = $valorMunicipio->row_array();
+        $municipio = $vlMunicipio['idMunicipio'];
+
+        $this->db->select('idEstado')->from('municipio')->where('id', $municipio);
+        $valorEstado = $this->db->get('estado');
+        $vlEstado = $valorEstado->row_array();
+        $estado = $vlEstado['idEstado'];
+    }
+
+    /*
+     * funcies para obtener el ID del municipio que corresponde al proveedor que se quiere editar
+     */
+    public function obtenerIdMunicipio($idProveedor){
+        $this->db->select('idMunicipio')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio'];
+    }
+
+    public function obtenerIdMunicipio1($idProveedor){
+        $this->db->select('idMunicipio1')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio1'];
+    }
+
+    public function obtenerIdMunicipio2($idProveedor){
+        $this->db->select('idMunicipio2')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio2'];
+    }
+
+    public function obtenerIdMunicipio3($idProveedor){
+        $this->db->select('idMunicipio3')->from('proveedor')->where('id', $idProveedor);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio3'];
+    }
+    
+    /*
+     * función para obtener el estado seleccionado de la base de datos
+     */
+    public function obtenerIdEstado($idMunicipio){
+        $this->db->select('idEstado')->from('municipio')->where('id', $idMunicipio);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idEstado'];  
+    }
+
+    /*
+     * función para obtener los ids de las familias que corresponden 
+     * un proveedor de tipo bienes
+     */
+     public function obtenerIdFamiliaProveedor($idProveedor){
+         $this->db->select('idFamilia')->from('relacionproveedorfamilia')->where('idProveedor', $idProveedor);
+         $query = $this->db->get();
+         $arrayFamilias = array();
+         $arrayClaves = array();
+
+         foreach($query->result_array() as $row){
+             $arrayFamilias[] = $row['idFamilia'];
+         }
+       
+         //return $arrayFamilias;
+
+         foreach($arrayFamilias as $idFamilia){
+            $this->db->select('clave')->from('familia')->where('id', $idFamilia);
+            $query = $this->db->get();
+            $clave = $query->row_array();
+            $arrayClaves[] = $clave['clave']; 
+        }
+
+        return $arrayClaves;
+     }    
+     
 }

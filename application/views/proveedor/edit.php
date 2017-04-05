@@ -1,6 +1,12 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
+<style>
+	#listaSeleccion li {
+		margin-bottom:10px
+	}
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -177,7 +183,15 @@
 					<div class="form-group">
 						<label for="extension1" class="col-md-4 control-label">Extensión</label>
 						<div class="col-md-8">
-							<input type="text" name="extension1" value="<?php echo ($this->input->post('extension1') ? $this->input->post('extension1') : $proveedor['extension1']); ?>" class="form-control" id="extension1" />
+							<input type="text" name="extension1" value=
+							"<?php 
+								$extension1 = $proveedor['extension1']; 
+								if ($extension1 != 0) {
+									echo ($this->input->post('extension1') ? $this->input->post('extension1') : $extension1); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="extension1" />
 						</div>
 					</div>
                     
@@ -228,13 +242,30 @@
 					<div class="form-group">
 						<label for="telefonoFijo2" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo2" value="<?php echo ($this->input->post('telefonoFijo2') ? $this->input->post('telefonoFijo2') : $proveedor['telefonoFijo2']); ?>" class="form-control" id="telefonoFijo2" />
+							<input type="text" name="telefonoFijo2" value=
+							"<?php 
+								$telefonoFijo2 = $proveedor['telefonoFijo2'];
+								if ($telefonoFijo2 != 0){
+									echo ($this->input->post('telefonoFijo2') ? $this->input->post('telefonoFijo2') : $telefonoFijo2);
+								} else {
+									echo "";
+								}
+								 
+							?>" class="form-control" id="telefonoFijo2" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil2" class="col-md-4 control-label">Teléfono Móvil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil2" value="<?php echo ($this->input->post('telefonoMovil2') ? $this->input->post('telefonoMovil2') : $proveedor['telefonoMovil2']); ?>" class="form-control" id="telefonoMovil2" />
+							<input type="text" name="telefonoMovil2" value=
+							"<?php 
+								$telefonoMovil2 = $proveedor['telefonoMovil2'];
+								if ($telefonoMovil2 != 0){
+									echo ($this->input->post('telefonoMovil2') ? $this->input->post('telefonoMovil2') : $telefonoMovil2); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="telefonoMovil2" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -246,7 +277,15 @@
 					<div class="form-group">
 						<label for="extension2" class="col-md-4 control-label">Extensión</label>
 						<div class="col-md-8">
-							<input type="text" name="extension2" value="<?php echo ($this->input->post('extension2') ? $this->input->post('extension2') : $proveedor['extension2']); ?>" class="form-control" id="extension2" />
+							<input type="text" name="extension2" value=
+							"<?php 
+								$extension2 = $proveedor['extension2'];
+								if ($extension2 != 0) {
+									echo ($this->input->post('extension2') ? $this->input->post('extension2') : $extension2); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="extension2" />
 						</div>
 					</div>
                     <hr />
@@ -295,13 +334,29 @@
 					<div class="form-group">
 						<label for="telefonoFijo3" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo3" value="<?php echo ($this->input->post('telefonoFijo3') ? $this->input->post('telefonoFijo3') : $proveedor['telefonoFijo3']); ?>" class="form-control" id="telefonoFijo3" />
+							<input type="text" name="telefonoFijo3" value=
+							"<?php 
+								$telefonoFijo3 = $proveedor['telefonoFijo3'];
+								if ($telefonoFijo3 != 0) {
+									echo ($this->input->post('telefonoFijo3') ? $this->input->post('telefonoFijo3') : $telefonoFijo3);
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="telefonoFijo3" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil3" class="col-md-4 control-label">Teléfono Movil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil3" value="<?php echo ($this->input->post('telefonoMovil3') ? $this->input->post('telefonoMovil3') : $proveedor['telefonoMovil3']); ?>" class="form-control" id="telefonoMovil3" />
+							<input type="text" name="telefonoMovil3" value=
+							"<?php 
+								$telefonoMovil3 = $proveedor['telefonoMovil3'];
+								if ($telefonoMovil3 != 0) {
+									echo ($this->input->post('telefonoMovil3') ? $this->input->post('telefonoMovil3') : $telefonoMovil3); 
+								} else {
+									echo "";
+								}
+							?>" class="form-control" id="telefonoMovil3" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -313,11 +368,19 @@
 					<div class="form-group">
 						<label for="extension3" class="col-md-4 control-label">Extensión</label>
 						<div class="col-md-8">
-							<input type="text" name="extension3" value="<?php echo ($this->input->post('extension3') ? $this->input->post('extension3') : $proveedor['extension3']); ?>" class="form-control" id="extension3" />
+							<input type="text" name="extension3" value=
+							"<?php 
+								$extension3 = $proveedor['extension3'];
+								if ($extension3 != 0) {
+									echo ($this->input->post('extension3') ? $this->input->post('extension3') : $extension3); 
+								} else {
+									echo "";
+								}
+								
+							?>" class="form-control" id="extension3" />
 						</div>
 					</div>
                     <hr />
-					
 
 					<div class="familiaOcultar opcion_B">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
@@ -358,8 +421,8 @@
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
+							<button id="botonEditar" type="submit" class="btn btn-success">
+								<i class="fa fa-check"></i> Guardar cambios
 							</button>
 				        </div>
 					</div>
@@ -371,8 +434,135 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {                       
-    	$("#idEstado").change(function() {
+    $(document).ready(function() { 
+		//console.log("<?php echo $proveedor['tipo'] ?>");
+		
+		/* Si el proveedor que se quiere editar es originalmente de bienes
+		* se debe detectar cuando cambie a servicios y al guardar los cambios
+		* se eliminarán los registros con ese proveedor en la tabla
+		* relacioonproveedorfamilia
+		* Muestra por default el campo para editar las familias si es proveedor de Bienes
+		* Lo oculta si es proveedor de servicios
+		*/
+		var cambioAServicio;
+		var tipoProveedor = $("#tipoProveedor").val();
+		if(tipoProveedor == "B"){
+			cambioAServicio = false;
+			$('.familiaOcultar').collapse('show');
+		}
+
+		$("#idEstado").find("option").eq(1).remove();
+		$("#idEstado1").find("option").eq(1).remove();
+		$("#idEstado2").find("option").eq(1).remove();
+		$("#idEstado3").find("option").eq(1).remove();
+		$('.familiaOcultar').addClass('collapse');
+
+		/*
+		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
+		* (Valores obtenidos de la base de datos)
+		*/
+
+		seleccionEstado = '<?php echo $estadoSeleccionado; ?>';
+		if(seleccionEstado != 0){
+			$("#idEstado").val(seleccionEstado);
+			$("#idEstado option:selected").each(function() {
+				idEstado = $('#idEstado').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio").html(data);
+					$("#idMunicipio").val('<?php echo $municipioSeleccionado; ?>');
+				});
+			});
+		}
+			
+		seleccionEstado1 = '<?php echo $estadoSeleccionado1; ?>';
+		if(seleccionEstado1 != 0) {
+			$("#idEstado1").val(seleccionEstado1);
+			$("#idEstado1 option:selected").each(function() {
+				idEstado = $('#idEstado1').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio1").html(data);
+					$("#idMunicipio1").val('<?php echo $municipioSeleccionado1; ?>');
+				});
+			});
+		}
+
+		seleccionEstado2 =  '<?php echo $estadoSeleccionado2; ?>';
+		if(seleccionEstado2 != 0) {
+			$("#idEstado2").val(seleccionEstado2);
+			$("#idEstado2 option:selected").each(function() {
+				idEstado = $('#idEstado2').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio2").html(data);
+					$("#idMunicipio2").val('<?php echo $municipioSeleccionado2; ?>');
+				});
+			});
+		}
+
+		seleccionEstado3 =  '<?php echo $estadoSeleccionado3; ?>';
+		if(seleccionEstado3 != 0) {
+			$("#idEstado3").val(seleccionEstado3);
+			$("#idEstado3 option:selected").each(function() {
+				idEstado = $('#idEstado3').val();
+				$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+					idEstado : idEstado
+				}, function(data) {
+					$("#idMunicipio3").html(data);
+					$("#idMunicipio3").val('<?php echo $municipioSeleccionado3; ?>');
+				});
+			});
+		}
+
+		/*
+		 * Muestra al cargar la página las familias que se habían seleccionado para
+		 * el proveedor que se quiere editar
+		 */
+		var familiasProveedor = <?php echo json_encode($familiasSeleccionadas); ?>;
+		//console.log(familiasProveedor);
+		var longitudArray = familiasProveedor.length;
+		for (var i=0; i < longitudArray; i++){
+			$("#idFamilia option[value='"+ familiasProveedor[i] +"']").remove();
+			$('#listaSeleccion').append('<li name="nombresFamilia[]">'+familiasProveedor[i]+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
+		}
+
+		/*
+		* Agrega más familias a la lista haciendo clic en el botón "Agregar +"
+		*/
+
+		$("#agregarFamilia").click(function(){
+			if($('#idFamilia').val() != 0){
+				var names = $('#idFamilia').find('option:selected').text();
+				$("#idFamilia option:selected").remove();
+				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
+			}
+     	});
+
+		/*
+		* Quita las familias de la lista con el botón "Quitar" y las regresa al select en orden alfabético
+		*/
+
+		$("body").on("click",".delete", function() {
+			var name = $(this).parent().text().replace(/Quitar/,'');
+			$(this).parent().remove();
+			$("#idFamilia").append($("<option></option>").val(name).html(name));
+			//Regresa el elemento removido a la lista en orden alfabético
+			var foption = $('#idFamilia option:first');
+			var soptions = $('#idFamilia option:not(:first)').sort(function(a, b) {
+				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+			});
+			$('#idFamilia').html(soptions).prepend(foption);
+		});
+		
+		/*
+		* Las siguientes tres funciones actualizan los municipios cada vez que se cambia el estado
+		*/
+		
+		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();
                 $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
@@ -416,23 +606,16 @@
             });
         });
 
-		$('.familiaOcultar').addClass('collapse');
-
-		/* Muestra por default el campo para editar las familias si es proveedor de Bienes
-		 * Lo oculta si es proveedor de servicios
-		 */
-		var tipo = document.getElementById("tipoProveedor");
-		var tipoSeleccion = tipo.options[tipo.selectedIndex].value;
-		if(tipoSeleccion == 'B'){
-			$('.familiaOcultar').collapse('show');
-		}
-		
-
-		
-
 		$('#tipoProveedor').change(function(){
 			//Saves in a variable the wanted div
 			var selector = '.opcion_' + $(this).val();
+			
+			//Detecta si un proveedor cambia de ser originalmente bienes a servicio
+			if ($(this).val() == "S" && tipoProveedor == "B"){
+				cambioAServicio=true;
+			} else {
+				cambioAServicio=false;
+			}
 
 			//hide all elements
 			$('.familiaOcultar').collapse('hide');
@@ -441,12 +624,41 @@
 			$(selector).collapse('show');
 		});
 
-    });
-</script>
+		/*
+		 * Si se agregaron o quitaron nuevas familias al proveedor tipo bienes
+		 * se actualiza la tabla relacionproveedorfamilia
+		 * Si el proveedor cambió de bienes a servicios, se eliminan los registros
+		 * en la tabla relacion proveedor familia
+		 */
+		$("#botonEditar").click(function(){
+			if($('#tipoProveedor').val() == "B"){
+				var seleccion = $("#listaSeleccion li");
+				var familias_seleccion = [];
+				var idProveedor = <?php echo $proveedor['id'] ?>;
 
-<script type="text/javascript">
-	$("#idEstado").find("option").eq(1).remove();
-	$("#idEstado1").find("option").eq(1).remove();
-	$("#idEstado2").find("option").eq(1).remove();
-	$("#idEstado3").find("option").eq(1).remove();
+				seleccion.each(function() {
+					familias_seleccion.push($(this).text().replace(/Quitar/,''));
+				});
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Proveedor/editarRelacion',
+					method: 'POST',
+					data: {
+						familias_seleccion: familias_seleccion,
+						idProveedor: idProveedor
+					}
+				});
+			} else if ($('#tipoProveedor').val() == "S" && cambioAServicio==true){
+				var idProveedor = <?php echo $proveedor['id'] ?>;
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Proveedor/eliminarRelacion',
+					method: 'POST',
+					data: {
+						idProveedor: idProveedor
+					}
+				});
+			}
+			
+     	}); 
+
+    });
 </script>
