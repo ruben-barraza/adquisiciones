@@ -11,7 +11,8 @@ class Proveedor extends CI_Controller{
         $this->load->model('Proveedormodel');
     } 
 
-    
+    //Crea las relaciones proveedor-familia cuando se añade un proveedor
+	//de tipo bienes
 	function crearRelacion(){
 		$this->load->model('Proveedormodel');
 		$familias_seleccion = $_POST['familias_seleccion'];
@@ -19,7 +20,8 @@ class Proveedor extends CI_Controller{
 		$this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $familias_seleccion);
 	}
 	
-
+	//Edita las relaciones proveedor-familia si se agregan o quitan familias
+	//al editar un proveedor
 	function editarRelacion(){
 		$this->load->model('Proveedormodel');
 		$familias_seleccion = $_POST['familias_seleccion'];
@@ -27,10 +29,12 @@ class Proveedor extends CI_Controller{
 		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
 	}
 
+	//Elimina las relaciones cuando un proveedor cambia de bienes a servicios
+	//Elimina las relaciones cuando se elimina un proveedor de la BD
 	function eliminarRelacion(){
 		$this->load->model('Proveedormodel');
 		$idProveedor = $_POST['idProveedor'];
-		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
+		$this->Proveedormodel->delete_uk_proveedor_familia($idProveedor);
 	}
 
     /*
@@ -265,10 +269,6 @@ class Proveedor extends CI_Controller{
 
                 $data['_view'] = 'proveedor/edit';
                 $this->load->view('layouts/main',$data);
-
-				
-				
-
             }
         }
         else
@@ -286,6 +286,8 @@ class Proveedor extends CI_Controller{
         if(isset($proveedor['id']))
         {
             $this->Proveedormodel->delete_proveedor($id);
+			//elimina las relaciones proveedor-familia existentes
+			$this->Proveedormodel->delete_uk_proveedor_familia($id);
             redirect('proveedor/index');
         }
         else

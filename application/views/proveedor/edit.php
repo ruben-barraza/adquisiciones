@@ -418,28 +418,6 @@
 
 						<hr />
 					</div>
-
-					<pre>
-						ID del Proveedor: <?php echo $hola?> <br />
-						Estado seleccionado: <?php echo $estadoSeleccionado?> <br />
-						Municipio seleccionado: <?php echo $municipioSeleccionado?> <br />
-						Estado seleccionado1: <?php echo $estadoSeleccionado1?> <br />
-						Municipio seleccionado1: <?php echo $municipioSeleccionado1?> <br />
-						Estado seleccionado2: <?php echo $estadoSeleccionado2?> <br />
-						Municipio seleccionado2: <?php echo $municipioSeleccionado2?> <br />
-						Estado seleccionado3: <?php echo $estadoSeleccionado3?> <br />
-						Municipio seleccionado3: <?php echo $municipioSeleccionado3?> <br />
-						<?php echo $proveedor['extension1']?> <br />
-						Familias seleccionadas : 
-						<?php
-							
-   							
-							
-							print_r($familiasSeleccionadas);
-						?> <br />
-						
-
-					</pre>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
@@ -631,15 +609,13 @@
 		$('#tipoProveedor').change(function(){
 			//Saves in a variable the wanted div
 			var selector = '.opcion_' + $(this).val();
-			if($(this).val == "S"){
-				//cambioAServicio=true;
-				console.log("Sale");
-			} else if ($(this).val == "B"){
-				//cambioAServicio=false;
-				console.log("bye");
+			
+			//Detecta si un proveedor cambia de ser originalmente bienes a servicio
+			if ($(this).val() == "S" && tipoProveedor == "B"){
+				cambioAServicio=true;
+			} else {
+				cambioAServicio=false;
 			}
-
-			//console.log(cambioAServicio);
 
 			//hide all elements
 			$('.familiaOcultar').collapse('hide');
@@ -649,24 +625,39 @@
 		});
 
 		/*
-		 *
+		 * Si se agregaron o quitaron nuevas familias al proveedor tipo bienes
+		 * se actualiza la tabla relacionproveedorfamilia
+		 * Si el proveedor cambió de bienes a servicios, se eliminan los registros
+		 * en la tabla relacion proveedor familia
 		 */
 		$("#botonEditar").click(function(){
-			var seleccion = $("#listaSeleccion li");
-			var familias_seleccion = [];
-			var idProveedor = <?php echo $proveedor['id'] ?>;
+			if($('#tipoProveedor').val() == "B"){
+				var seleccion = $("#listaSeleccion li");
+				var familias_seleccion = [];
+				var idProveedor = <?php echo $proveedor['id'] ?>;
 
-			seleccion.each(function() {
-				familias_seleccion.push($(this).text().replace(/Quitar/,''));
-			});
-			$.ajax({
-				url: '<?php echo base_url();?>index.php/Proveedor/editarRelacion',
-				method: 'POST',
-				data: {
-					familias_seleccion: familias_seleccion,
-					idProveedor: idProveedor
-				}
-			});
+				seleccion.each(function() {
+					familias_seleccion.push($(this).text().replace(/Quitar/,''));
+				});
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Proveedor/editarRelacion',
+					method: 'POST',
+					data: {
+						familias_seleccion: familias_seleccion,
+						idProveedor: idProveedor
+					}
+				});
+			} else if ($('#tipoProveedor').val() == "S" && cambioAServicio==true){
+				var idProveedor = <?php echo $proveedor['id'] ?>;
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Proveedor/eliminarRelacion',
+					method: 'POST',
+					data: {
+						idProveedor: idProveedor
+					}
+				});
+			}
+			
      	}); 
 
     });

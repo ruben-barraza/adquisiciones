@@ -470,21 +470,26 @@
 			$(selector).collapse('show');
 		});
 
+		/*
+		 * Si el proveedor es de tipo bienes, primero se guarda en un arreglo
+		 * las familias seleccionadas y después se envía a la base de datos
+		 * para guardar en la tabla relacionproveedorfamilia
+		 */
 		$("#botonGuardar").click(function(){
-			var seleccion = $("#listaSeleccion li");
-			var familias_seleccion = [];
+			if($('#tipoProveedor').val() == "B"){
+				var seleccion = $("#listaSeleccion li");
+				var familias_seleccion = [];
 
-			seleccion.each(function() {
-				familias_seleccion.push($(this).text().replace(/Quitar/,''));
-			});
-			$.ajax({
-				url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
-				method: 'POST',
-				data: {familias_seleccion: familias_seleccion}
-			});
+				seleccion.each(function() {
+					familias_seleccion.push($(this).text().replace(/Quitar/,''));
+				});
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+					method: 'POST',
+					data: {familias_seleccion: familias_seleccion}
+				});
+			}
      	});
-
-
     });
 
 
