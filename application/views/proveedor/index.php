@@ -103,13 +103,24 @@
 	$(document).ready(function() {
 		$('.familiaOcultar').addClass('collapse');
 
+		//Función para la búsqueda de proveedores
+		var $rows = $('#table tbody tr');
+		
+		$('#search').keyup(function() {
+			var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+        		reg = RegExp(val, 'i'),
+        		text;
+
+    		$rows.show().filter(function() {
+        		text = $(this).text().replace(/\s+/g, ' ');
+        		return !reg.test(text);
+    		}).hide();
+		});
+		
+		//Funcion para mostrar ocultar el select Familia
+		//dependiendo del tipo de proveedor que se seleccione
 		$('#tipoProveedor').change(function(){
-			//Saves in a variable the wanted div
-			//var selector = '.opcion_' + $(this).val();
-			//hide all elements
 			$('.familiaOcultar').collapse('hide');
-			//show only element connected to selected option
-			//$(selector).collapse('show');
 			$('.familiaOcultar.B').hide();
 			var val = $(this).val();
 			if (val == "todos"){
@@ -125,22 +136,9 @@
          		$('.S td').show();
 				$('.familiaOcultar.B').hide(); 
 			}
-
-
 		});
 
-		var $rows = $('#table tbody tr');
 		
-		$('#search').keyup(function() {
-			var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-        		reg = RegExp(val, 'i'),
-        		text;
-
-    		$rows.show().filter(function() {
-        		text = $(this).text().replace(/\s+/g, ' ');
-        		return !reg.test(text);
-    		}).hide();
-		});
 
 	});
 </script>

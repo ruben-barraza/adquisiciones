@@ -26,6 +26,14 @@ class Proveedormodel extends CI_Model
     {
         return $this->db->get('proveedor')->result_array();
     }
+
+    /*
+     * Obtiene todas los 
+     */
+    function get_all_listaproveedorfamilia()
+    {
+
+    }
     
     /*
      * function to add new proveedor
