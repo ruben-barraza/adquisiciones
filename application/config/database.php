@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'hostname' => 'admondes.db0.cfemex.com',
+	'username' => 'adquisiciones',
+	'password' => 'adquisiciones',
 	'database' => 'adquisiciones',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
