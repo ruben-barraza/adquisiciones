@@ -93,6 +93,13 @@
 						<?php } ?>
 					</tbody>
 				</table>
+
+				<div id="tablaprueba">
+				</div>
+
+				<pre id="prueba">
+				</pre>
+
           	</div>
         </div>
   	</div>
@@ -138,6 +145,55 @@
 			}
 		});
 
+		$('#idFamilia').change(function(){
+			var clave = $("#idFamilia option:selected").text();
+			$.ajax({
+				url: '<?php echo base_url();?>index.php/Proveedor/obtenerListaProveedorFamilia',
+				method: 'POST',
+				data: {
+					clave: clave
+				}
+			});
+
+			$('#prueba').append(print_r($listaproveedorfamilia));
+
+
+			$('#tablaprueba').append(
+				"<table id=\"table\" class=\"table table-striped\">" +
+					"<thead>" +
+						"<tr>" +
+							"<th>Razón Social</th>" +
+							"<th>Contacto</th>" +
+							"<th>Teléfono Fijo</th>" +
+							"<th>Teléfono Móvil</th>" +
+							"<th>Correo Electrónico</th>" +
+							"<th>Tipo</th>" + 
+							"<th>Familia</th>" + 
+							"<th></th>" +
+						"</tr>" +
+					"</thead>" +
+					"<tbody>" +
+					/*
+						"<?php foreach($listaproveedorfamilia as $p){ ?>" +
+						"<tr>" +
+							"<td><?php echo $p['razonSocial']; ?></td>" +
+							"<td><?php echo $p['nombre1']; ?></td>" +
+							"<td><?php echo $p['telefonoFijo1']; ?></td>" +
+							"<td><?php echo $p['telefonoMovil1']; ?></td>" +
+							"<td><?php echo $p['correoElectronico1']; ?></td>" +
+							"<td><?php echo $p['tipo']; ?></td>" +
+							"<td><?php echo $p['clave']; ?></td>" +
+							"<td>" +
+								"<a title=\"Editar\" href=\"<?php echo site_url('proveedor/edit/'.$p['id']); ?>\" class=\"btn btn-info btn-xs\"><span class=\"fa fa-pencil\"></span></a>" +
+								"<a title=\"Eliminar\" href=\"<?php echo site_url('proveedor/remove/'.$p['id']); ?>\" class=\"btn btn-danger btn-xs\"><span class=\"fa fa-trash\"></span></a>" +
+							"</td>" +
+						"</tr>" 
+						"<?php } ?>" +
+						*/
+					"</tbody>" +
+				"</table>" 
+			);
+		});
 		
 
 	});

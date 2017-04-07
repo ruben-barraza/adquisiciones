@@ -37,6 +37,14 @@ class Proveedor extends CI_Controller{
 		$this->Proveedormodel->delete_uk_proveedor_familia($idProveedor);
 	}
 
+	//Obtiene una lista de los proveedores que ofrecen la familia seleccionada
+	function obtenerListaProveedorFamilia(){
+		$this->load->model('Proveedormodel');
+		$clave = $_POST['clave'];
+		$data['listaproveedorfamilia'] = $this->Proveedormodel->get_all_listaproveedorfamilia($clave);
+		$data['_view'] = 'proveedor/index';
+	}
+
     /*
      * Listing of listaproveedor
      */
