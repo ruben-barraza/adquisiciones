@@ -98,6 +98,7 @@
 				</div>
 
 				<pre id="prueba">
+					Contenido listaproveedorfamilia </br>
 				</pre>
 
           	</div>
@@ -145,6 +146,7 @@
 			}
 		});
 
+		
 		$('#idFamilia').change(function(){
 			var clave = $("#idFamilia option:selected").text();
 			$.ajax({
@@ -154,8 +156,8 @@
 					clave: clave
 				}
 			});
-
-			$('#prueba').append(print_r($listaproveedorfamilia));
+			
+			//var familiasProveedor = <?php echo json_encode($listaproveedorfamilia); ?>;
 
 
 			$('#tablaprueba').append(

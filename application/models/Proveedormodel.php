@@ -32,7 +32,7 @@ class Proveedormodel extends CI_Model
      */
     function get_all_listaproveedorfamilia($clave)
     {
-        $this->db->select('razonSocial, nombre1, telefonoFijo1, telefonoMovil1, correoElectronico1, tipo, clave');
+        $this->db->select('proveedor.razonSocial, proveedor.nombre1, proveedor.telefonoFijo1, proveedor.telefonoMovil1, proveedor.correoElectronico1, proveedor.tipo, familia.clave');
         $this->db->from('proveedor');
         $this->db->join('relacionproveedorfamilia', 'relacionproveedorfamilia.idProveedor = proveedor.id', 'inner');
         $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
