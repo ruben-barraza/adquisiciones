@@ -157,7 +157,7 @@
 				}
 			});
 			
-			//var familiasProveedor = <?php echo json_encode($listaproveedorfamilia); ?>;
+			var familiasProveedor = <?php echo json_encode($listaproveedorfamilia); ?>;
 
 
 			$('#tablaprueba').append(
