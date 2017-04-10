@@ -274,7 +274,6 @@ class Proveedor extends CI_Controller{
 				$data['estadoSeleccionado2'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado2);
 				$data['estadoSeleccionado3'] = $this->Proveedormodel->obtenerIdEstado($idMunicipioSeleccionado3);
 				
-				$data['hola'] = $id;
 
                 $data['_view'] = 'proveedor/edit';
                 $this->load->view('layouts/main',$data);
