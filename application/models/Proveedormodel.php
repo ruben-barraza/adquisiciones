@@ -38,8 +38,10 @@ class Proveedormodel extends CI_Model
         $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
         $this->db->where('familia.clave', $clave);
         $this->db->order_by('proveedor.razonSocial');
-        return $this->db->get()->result_array();
-
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
     }
     
     /*
