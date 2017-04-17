@@ -156,7 +156,6 @@
 		
 		$('#idFamilia').change(function(){
 			var clave = $("#idFamilia option:selected").text();
-
 			if (clave != "Seleccione"){
 				$.ajax({
 					url: '<?php echo base_url(); ?>index.php/Proveedor/obtenerListaProveedorFamilia',
@@ -166,7 +165,8 @@
 					},
             		success: function (returned) {
                 		console.log(returned);
-						
+						var myArray = new Array();
+						myArray = <?php echo json_encode($listaproveedorfamilia); ?>
             		}
 				});
 			}
