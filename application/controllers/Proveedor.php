@@ -42,8 +42,7 @@ class Proveedor extends CI_Controller{
 		$this->load->model('Proveedormodel');
 		$clave = $_POST['clave'];
 		$data['listaproveedorfamilia'] = $this->Proveedormodel->get_all_listaproveedorfamilia($clave);
-		$data['_view'] = 'proveedor/index';
-		$this->load->view('layouts/main',$data);
+		echo json_encode($data);
 	}
 
     /*

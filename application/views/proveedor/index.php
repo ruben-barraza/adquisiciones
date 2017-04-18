@@ -101,12 +101,24 @@
 					</tbody>
 				</table>
 
-				<div id="tablaprueba">
+				<div id="secciontabla">
+					<table id="tablaoculta" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Razón Social</th>
+								<th>Contacto</th>
+								<th>Teléfono Fijo</th>
+								<th>Teléfono Móvil</th>
+								<th>Correo Electrónico</th>
+								<th>Familia</th>
+								<th></th>
+							</tr>
+						</thead>
+						
+						<tbody>
+						</tbody>
+					</table>
 				</div>
-
-				<pre id="prueba">
-					Contenido listaproveedorfamilia </br>
-				</pre>
 
           	</div>
         </div>
@@ -116,6 +128,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+
 		$('.familiaOcultar').addClass('collapse');
 
 		//Función para la búsqueda de proveedores
@@ -153,8 +167,11 @@
 			}
 		});
 
-		
+		var tbody = $('#tablaoculta tbody'),
+    	indices = ["razonSocial", "nombre1", "telefonoFijo1", "telefonoMovil1", "correoElectronico1", "clave"];
+
 		$('#idFamilia').change(function(){
+			$('#tablaoculta tbody').remove();
 			var clave = $("#idFamilia option:selected").text();
 			if (clave != "Seleccione"){
 				$.ajax({
@@ -163,14 +180,72 @@
 					data: {
 						clave: clave
 					},
-            		success: function (returned) {
-                		console.log(returned);
-						var myArray = new Array();
-						myArray = <?php echo json_encode($listaproveedorfamilia); ?>
-            		}
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						var selectArray = [];
+						
+						jQuery.each(returned.listaproveedorfamilia, function(i, val) {                   
+							//alert('razonSocial= '+ val.razonSocial + 'nombre1' + val.nombre1);
+							selectArray.push({
+								"razonSocial": val.razonSocial, 
+								"nombre1": val.nombre1,
+								"telefonoFijo1": val.telefonoFijo1,
+								"telefonoMovil1": val.telefonoMovil1,
+								"correoElectronico1": val.correoElectronico1,
+								"clave": val.clave
+							});
+						});
+
+						$.each(selectArray, function(i, selected) {
+							var tr = $('<tr>');
+							$.each(indices, function(i, indice) {
+								$('<td>').html(selected[indice]).appendTo(tr);  
+							});
+							tbody.append(tr);
+						});
+						
+
+
+					}
 				});
 			}
 		});
+
+		$('#tablaprueba').append(
+				"<table id=\"table\" class=\"table table-striped\">" +
+					"<thead>" +
+						"<tr>" +
+							"<th>Razón Social</th>" +
+							"<th>Contacto</th>" +
+							"<th>Teléfono Fijo</th>" +
+							"<th>Teléfono Móvil</th>" +
+							"<th>Correo Electrónico</th>" +
+							"<th>Tipo</th>" + 
+							"<th>Familia</th>" + 
+							"<th></th>" +
+						"</tr>" +
+					"</thead>" +
+					"<tbody>" +
+					/*
+						"<?php foreach($listaproveedorfamilia as $p){ ?>" +
+						"<tr>" +
+							"<td><?php echo $p['razonSocial']; ?></td>" +
+							"<td><?php echo $p['nombre1']; ?></td>" +
+							"<td><?php echo $p['telefonoFijo1']; ?></td>" +
+							"<td><?php echo $p['telefonoMovil1']; ?></td>" +
+							"<td><?php echo $p['correoElectronico1']; ?></td>" +
+							"<td><?php echo $p['tipo']; ?></td>" +
+							"<td><?php echo $p['clave']; ?></td>" +
+							"<td>" +
+								"<a title=\"Editar\" href=\"<?php echo site_url('proveedor/edit/'.$p['id']); ?>\" class=\"btn btn-info btn-xs\"><span class=\"fa fa-pencil\"></span></a>" +
+								"<a title=\"Eliminar\" href=\"<?php echo site_url('proveedor/remove/'.$p['id']); ?>\" class=\"btn btn-danger btn-xs\"><span class=\"fa fa-trash\"></span></a>" +
+							"</td>" +
+						"</tr>" 
+						"<?php } ?>" +
+						*/
+					"</tbody>" +
+				"</table>" 
+		);
 
 	});
 </script>
