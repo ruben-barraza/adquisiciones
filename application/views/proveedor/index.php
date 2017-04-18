@@ -171,7 +171,7 @@
     	indices = ["razonSocial", "nombre1", "telefonoFijo1", "telefonoMovil1", "correoElectronico1", "clave"];
 
 		$('#idFamilia').change(function(){
-			$('#tablaoculta tbody').remove();
+			$('#tablaoculta tbody').empty();
 			var clave = $("#idFamilia option:selected").text();
 			if (clave != "Seleccione"){
 				$.ajax({
