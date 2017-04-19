@@ -2,7 +2,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
-
+<style>
+	.hidden { 
+		display: none; 
+	}
+</style>
 
 
 <div class="row">
@@ -47,7 +51,7 @@
 									</select>
 									<label for="tipo" class="control-label col-sm-2 pull-right">Tipo</label>
 								</div>
-								<div class="form-group familiaOcultar B">
+								<div id="seccionOculta" class="form-group familiaOcultar B hidden">
 									<select name="idFamilia" id="idFamilia" style="width: 383px" class="form-control pull-right">
 										<option value="0">Seleccione</option>
 										<?php 
@@ -62,12 +66,6 @@
 						</div>
 					</div>	
             	</form>
-				
-				<div class="col-md-2">
-					<a style="display:block;width:145px" id="botonprueba" class="btn btn-primary">
-						<span class="fa fa-plus"></span> Boton prueba
-					</a>
-				</div>
 
 				<hr />
   				<table id="table" class="table table-striped">
@@ -101,8 +99,8 @@
 					</tbody>
 				</table>
 
-				<div id="secciontabla">
-					<table id="tablaoculta" class="table table-striped">
+				<div id="tablaOculta" class="hidden">
+					<table id="tablafamilias" class="table table-striped">
 						<thead>
 							<tr>
 								<th>Razón Social</th>
@@ -130,7 +128,7 @@
 	$(document).ready(function() {
 
 
-		$('.familiaOcultar').addClass('collapse');
+		
 
 		//Función para la búsqueda de proveedores
 		var $rows = $('#table tbody tr');
@@ -156,24 +154,37 @@
 				$('.B td').show();
          		$('.S td').show();
 				$('.familiaOcultar.B').hide();
+				$('#tablaOculta').hide();
+				$('#table').show();
 			} else if (val == 'B'){
 				$('.B td').show();
          		$('.S td').hide();
+				$('#seccionOculta').removeClass('hidden');
 				$('.familiaOcultar.B').show();
+
 			} else {
 				$('.B td').hide();
          		$('.S td').show();
 				$('.familiaOcultar.B').hide(); 
+				$('#tablaOculta').hide();
+				$('#table').show();
 			}
 		});
 
-		var tbody = $('#tablaoculta tbody'),
+		var tbody = $('#tablafamilias tbody'),
     	indices = ["razonSocial", "nombre1", "telefonoFijo1", "telefonoMovil1", "correoElectronico1", "clave"];
+		indiceBotones = ["id"];
 
 		$('#idFamilia').change(function(){
-			$('#tablaoculta tbody').empty();
+			$('#tablaOculta').removeClass('hidden');
+			$('#tablaOculta').show();
+			$('#table').hide();
+			$('#tablafamilias tbody').empty();
 			var clave = $("#idFamilia option:selected").text();
-			if (clave != "Seleccione"){
+			if (clave == "Seleccione"){
+				$('#tablaOculta').hide();
+				$('#table').show();
+			} else {
 				$.ajax({
 					url: '<?php echo base_url(); ?>index.php/Proveedor/obtenerListaProveedorFamilia',
 					method: 'POST',
@@ -187,6 +198,7 @@
 						jQuery.each(returned.listaproveedorfamilia, function(i, val) {                   
 							//alert('razonSocial= '+ val.razonSocial + 'nombre1' + val.nombre1);
 							selectArray.push({
+								"id": val.id,
 								"razonSocial": val.razonSocial, 
 								"nombre1": val.nombre1,
 								"telefonoFijo1": val.telefonoFijo1,
@@ -199,53 +211,17 @@
 						$.each(selectArray, function(i, selected) {
 							var tr = $('<tr>');
 							$.each(indices, function(i, indice) {
-								$('<td>').html(selected[indice]).appendTo(tr);  
+								$('<td>').html(selected[indice]).appendTo(tr);
+							});
+							$.each(indiceBotones, function(i, indiceBoton){
+									$('<td>').html(selected[indiceBoton]).appendTo(tr);
 							});
 							tbody.append(tr);
 						});
-						
-
-
 					}
 				});
 			}
 		});
-
-		$('#tablaprueba').append(
-				"<table id=\"table\" class=\"table table-striped\">" +
-					"<thead>" +
-						"<tr>" +
-							"<th>Razón Social</th>" +
-							"<th>Contacto</th>" +
-							"<th>Teléfono Fijo</th>" +
-							"<th>Teléfono Móvil</th>" +
-							"<th>Correo Electrónico</th>" +
-							"<th>Tipo</th>" + 
-							"<th>Familia</th>" + 
-							"<th></th>" +
-						"</tr>" +
-					"</thead>" +
-					"<tbody>" +
-					/*
-						"<?php foreach($listaproveedorfamilia as $p){ ?>" +
-						"<tr>" +
-							"<td><?php echo $p['razonSocial']; ?></td>" +
-							"<td><?php echo $p['nombre1']; ?></td>" +
-							"<td><?php echo $p['telefonoFijo1']; ?></td>" +
-							"<td><?php echo $p['telefonoMovil1']; ?></td>" +
-							"<td><?php echo $p['correoElectronico1']; ?></td>" +
-							"<td><?php echo $p['tipo']; ?></td>" +
-							"<td><?php echo $p['clave']; ?></td>" +
-							"<td>" +
-								"<a title=\"Editar\" href=\"<?php echo site_url('proveedor/edit/'.$p['id']); ?>\" class=\"btn btn-info btn-xs\"><span class=\"fa fa-pencil\"></span></a>" +
-								"<a title=\"Eliminar\" href=\"<?php echo site_url('proveedor/remove/'.$p['id']); ?>\" class=\"btn btn-danger btn-xs\"><span class=\"fa fa-trash\"></span></a>" +
-							"</td>" +
-						"</tr>" 
-						"<?php } ?>" +
-						*/
-					"</tbody>" +
-				"</table>" 
-		);
 
 	});
 </script>
