@@ -5,6 +5,10 @@
 	#listaSeleccion li {
 		margin-bottom:10px
 	}
+
+	.hidden { 
+		display: none; 
+	}
 </style>
 
 <div class="row">
@@ -382,7 +386,7 @@
 					</div>
                     <hr />
 
-					<div class="familiaOcultar opcion_B">
+					<div id="seccionOculta" class="hidden opcion_B">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
 						<h4>Familias asociadas con el proveedor</h4>
 
@@ -448,14 +452,16 @@
 		var tipoProveedor = $("#tipoProveedor").val();
 		if(tipoProveedor == "B"){
 			cambioAServicio = false;
-			$('.familiaOcultar').collapse('show');
+			$('#seccionOculta').show();
+			$('#seccionOculta').removeClass('hidden');
+		} else {
+			$('#seccionOculta').hide();
 		}
 
 		$("#idEstado").find("option").eq(1).remove();
 		$("#idEstado1").find("option").eq(1).remove();
 		$("#idEstado2").find("option").eq(1).remove();
 		$("#idEstado3").find("option").eq(1).remove();
-		$('.familiaOcultar').addClass('collapse');
 
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
@@ -618,10 +624,11 @@
 			}
 
 			//hide all elements
-			$('.familiaOcultar').collapse('hide');
+			$('#seccionOculta').hide();
 
 			//show only element connected to selected option
-			$(selector).collapse('show');
+			$(selector).show();
+			$('#seccionOculta').removeClass('hidden');
 		});
 
 		/*

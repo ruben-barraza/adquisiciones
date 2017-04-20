@@ -5,6 +5,10 @@
 	#listaSeleccion li {
 		margin-bottom:10px
 	}
+
+	.hidden { 
+		display: none; 
+	}
 </style>
 
 <div class="row">
@@ -335,7 +339,7 @@
 					</div>
 					<hr />
 
-					<div class="familiaOcultar opcion_B">
+					<div id="seccionOculta" class="hidden">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
 						<h4>Familias asociadas con el proveedor</h4>
 
@@ -457,17 +461,14 @@
 			$('#idFamilia').html(soptions).prepend(foption);
 		});
 
-		$('.familiaOcultar').addClass('collapse');
-
 		$('#tipoProveedor').change(function(){
-			//Saves in a variable the wanted div
-			var selector = '.opcion_' + $(this).val();
-
-			//hide all elements
-			$('.familiaOcultar').collapse('hide');
-
-			//show only element connected to selected option
-			$(selector).collapse('show');
+			var val = $(this).val();
+			if (val == "B"){
+				$('#seccionOculta').removeClass('hidden');
+				$('#seccionOculta').show();
+			} else {
+				$('#seccionOculta').hide();
+			}
 		});
 
 		/*
