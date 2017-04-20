@@ -214,7 +214,10 @@
 								$('<td>').html(selected[indice]).appendTo(tr);
 							});
 							$.each(indiceBotones, function(i, indiceBoton){
-									$('<td>').html(selected[indiceBoton]).appendTo(tr);
+								$('<td>').html(
+                     				'<a title="Editar" href="' + SITE_ROOT + 'proveedor/edit/' + selected[indiceBoton] +'" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a>' 
+                   					+ '<a title="Eliminar" href="' + SITE_ROOT + 'proveedor/remove/' + selected[indiceBoton] + '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>'
+                  				).appendTo(tr);
 							});
 							tbody.append(tr);
 						});
