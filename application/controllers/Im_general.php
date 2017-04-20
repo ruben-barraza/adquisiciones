@@ -56,6 +56,9 @@ class Im_general extends CI_Controller{
 
 			$this->load->model('Municipiomodel');
 			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
+
+            $this->load->model('Comboboxesmodel');
+			$data['familias'] = $this->Comboboxesmodel->getFamilias();
             
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);

@@ -47,6 +47,13 @@ class Imgeneralmodel extends CI_Model
 		}
 		return $maxid;
 	}
+
+    function get_empleado($rpe){
+        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        return $this->db->get();
+    }
     
     /*
      * function to update im_general
