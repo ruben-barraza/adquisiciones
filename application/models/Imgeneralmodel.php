@@ -49,6 +49,7 @@ class Imgeneralmodel extends CI_Model
 	}
 
     function get_empleado($rpe){
+        //$this->db->select('CONCAT(nombre, " ", apellidoPaterno, " ", apellidoMaterno)');
         $this->db->select('CONCAT(nombre, " ", apellidoPaterno, " ", apellidoMaterno)');
         $this->db->from('empleado');
         $this->db->where('rpe', $rpe);

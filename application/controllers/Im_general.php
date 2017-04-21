@@ -11,6 +11,12 @@ class Im_general extends CI_Controller{
         $this->load->model('Imgeneralmodel');
     } 
 
+    function obtenerNombreEmpleado(){
+        $rpe = $_POST['rpe'];
+        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
+		echo json_encode($data);
+    }
+
     /*
      * Listing of listaim_general
      */

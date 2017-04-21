@@ -1,3 +1,6 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
 <style>
 	td .btn.aligned {
   		position: absolute;
@@ -59,17 +62,17 @@
 					<div class="form-group">
 						<label for="idEmpleadoFormula" class="col-md-1 control-label">Elabora</label>
 						<div class="col-md-2">
-							<input type="text" name="empleadoElabora" maxlength="5" class="form-control"/>
+							<input type="text" id="empleadoElabora" name="empleadoElabora" maxlength="5" class="form-control"/>
 						</div>
 						
 						<div class="col-md-1">
-							<a id="buscarEmpleado" class="btn btn-primary">
+							<a id="buscarEmpleadoElabora" class="btn btn-primary">
 								<i class="fa"></i> Buscar
 							</a>
 						</div>
 						
 						<div class="col-md-4">
-							<input type="text" name="empleadoElabora2" class="form-control"/>
+							<input type="text" id="empleadoElabora2" name="empleadoElabora2" class="form-control"/>
 						</div>
 					</div>
 					
@@ -80,7 +83,7 @@
 						</div>
 						
 						<div class="col-md-1">
-							<a id="buscarEmpleado" class="btn btn-primary">
+							<a id="buscarEmpleadoAprueba" class="btn btn-primary">
 								<i class="fa "></i> Buscar
 							</a>
 						</div>
@@ -268,3 +271,27 @@
     	</div>
   	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		$("#buscarEmpleadoElabora").click(function(){
+			var rpe = $('#empleadoElabora').val();
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
+				method: 'POST',
+				data: {
+					rpe: rpe
+				},
+				success: function (returned) {
+					var selectArray = [];
+					var returned = JSON.parse(returned);
+					jQuery.each(returned.nombre, function(i, val) {                   
+						console.log(val);
+					});
+				}
+			});
+     	});
+
+	});
+</script>
