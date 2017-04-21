@@ -72,7 +72,7 @@
 						</div>
 						
 						<div class="col-md-4">
-							<input type="text" id="empleadoElabora2" name="empleadoElabora2" class="form-control"/>
+							<input type="text" id="empleadoElabora2" name="empleadoElabora2" class="form-control" readonly/>
 						</div>
 					</div>
 					
@@ -89,7 +89,7 @@
 						</div>
 						
 						<div class="col-md-4">
-							<input type="text" name="empleadoAutoriza2" class="form-control"/>
+							<input type="text" name="empleadoAutoriza2" class="form-control" readonly/>
 						</div>
 					</div>
 
@@ -277,6 +277,7 @@
 		
 		$("#buscarEmpleadoElabora").click(function(){
 			var rpe = $('#empleadoElabora').val();
+			var nombre = "";
 			$.ajax({
 				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
 				method: 'POST',
@@ -284,11 +285,12 @@
 					rpe: rpe
 				},
 				success: function (returned) {
-					var selectArray = [];
 					var returned = JSON.parse(returned);
-					jQuery.each(returned.nombre, function(i, val) {                   
-						console.log(val);
-					});
+					
+            		jQuery.each( returned.nombre, function( i, val ) {                   
+              			nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+            		});
+					$("#empleadoElabora2").val(nombre);
 				}
 			});
      	});
