@@ -24,7 +24,17 @@ class Empleadomodel extends CI_Model
      */
     function get_all_listaempleado()
     {
-        return $this->db->get('empleado')->result_array();
+        //return $this->db->get('empleado')->result_array();
+        
+        $this->db->select('empleado.id, empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno, empleado.titulo, departamento.nombre departamento, categoria.nombre categoria');
+        $this->db->from('empleado');
+        $this->db->join('categoria', 'categoria.id = empleado.idCategoria', 'inner');
+        $this->db->join('departamento', 'departamento.id = empleado.idDepartamento', 'inner');
+        $this->db->order_by('empleado.id');
+        $query = $this->db->get();
+        return $query->result_array();
+        
+        
     }
     
     /*
