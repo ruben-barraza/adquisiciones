@@ -30,7 +30,7 @@ class Empleadomodel extends CI_Model
         $this->db->from('empleado');
         $this->db->join('categoria', 'categoria.id = empleado.idCategoria', 'inner');
         $this->db->join('departamento', 'departamento.id = empleado.idDepartamento', 'inner');
-        $this->db->order_by('empleado.id');
+        $this->db->order_by('empleado.rpe');
         $query = $this->db->get();
         return $query->result_array();
         

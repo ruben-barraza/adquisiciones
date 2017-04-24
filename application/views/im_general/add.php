@@ -117,28 +117,28 @@
 						</thead>
 						<tbody>
 							<td >
-								<input type="text" name="" class="form-control" disabled/>
+								<input type="text" name="partida_1" id="partida_1" class="form-control" disabled/>
 							</td>
 							<td >
-								<input type="text" name="" class="form-control"/>
+								<input type="text" name="codigo_1" id="" class="form-control"/>
 							</td>
 							<td >
-								<input type="text" name="" class="form-control" disabled/>
+								<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
 							</td>
 							<td >
-								<input type="text" name="" class="form-control"/>
+								<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control"/>
 							</td>
 							<td >
-								<input type="text" name="" class="form-control"/>
+								<input type="text" name="cantidad_1" id="cantidad_1" class="form-control"/>
 							</td>
 							<td class="col-md-1">
-								<input type="text" name="" class="form-control" disabled/>
+								<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
 							</td>
 							<td >
-								<select></select>
+								<select name="lugarentrega_1" id="lugarentrega_1"></select>
 							</td>
 							<td class="col-md-2">
-								<input type="text" name="" class="form-control"/>
+								<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control"/>
 							</td>
 							<td id="td-not">
 								<a title="Eliminar" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
