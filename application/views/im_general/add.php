@@ -79,7 +79,7 @@
 					<div class="form-group">
 						<label for="idEmpleadoAutoriza" class="col-md-1 control-label">Aprueba</label>
 						<div class="col-md-2">
-							<input type="text" name="empleadoAutoriza" maxlength="5" class="form-control"/>
+							<input type="text" id="empleadoAutoriza" name="empleadoAutoriza" maxlength="5" class="form-control"/>
 						</div>
 						
 						<div class="col-md-1">
@@ -89,7 +89,7 @@
 						</div>
 						
 						<div class="col-md-4">
-							<input type="text" name="empleadoAutoriza2" class="form-control" readonly/>
+							<input type="text" id="empleadoAutoriza2" name="empleadoAutoriza2" class="form-control" readonly/>
 						</div>
 					</div>
 
@@ -274,6 +274,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
 		
 		$("#buscarEmpleadoElabora").click(function(){
 			var rpe = $('#empleadoElabora').val();
@@ -293,7 +294,30 @@
 					$("#empleadoElabora2").val(nombre);
 				}
 			});
+		});
+
+		$("#buscarEmpleadoAprueba").click(function(){
+			var rpe = $('#empleadoAutoriza').val();
+			var nombre = "";
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
+				method: 'POST',
+				data: {
+					rpe: rpe
+				},
+				success: function (returned) {
+					var returned = JSON.parse(returned);
+					
+            		jQuery.each( returned.nombre, function( i, val ) {                   
+              			nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+            		});
+					$("#empleadoAutoriza2").val(nombre);
+				}
+			});
      	});
+
+
+
 
 	});
 </script>
