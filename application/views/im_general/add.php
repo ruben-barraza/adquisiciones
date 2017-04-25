@@ -97,13 +97,13 @@
 
 					<div class="form-group">
 						<div class="col-md-2">
-							<a class="btn btn-primary">
+							<a id="cargarFamilias" class="btn btn-primary">
 								<i class="fa "></i> Cargar conceptos de familia
 							</a>
 						</div>
 					</div>
 
-					<table class="table table-hover">
+					<table id="tablaFamilias" class="table table-hover">
 						<thead class="thead-inverse">
 							<th>Partida</th>
 							<th>Código</th>
@@ -116,34 +116,36 @@
 							<th></th>
 						</thead>
 						<tbody>
-							<td >
-								<input type="text" name="partida_1" id="partida_1" class="form-control" disabled/>
-							</td>
-							<td >
-								<input type="text" name="codigo_1" id="" class="form-control"/>
-							</td>
-							<td >
-								<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
-							</td>
-							<td >
-								<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control"/>
-							</td>
-							<td >
-								<input type="text" name="cantidad_1" id="cantidad_1" class="form-control"/>
-							</td>
-							<td class="col-md-1">
-								<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
-							</td>
-							<td >
-								<select name="lugarentrega_1" id="lugarentrega_1"></select>
-							</td>
-							<td class="col-md-2">
-								<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control"/>
-							</td>
-							<td id="td-not">
-								<a title="Eliminar" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
-								<a title="Detalles" class="btn btn-info btn-xs"><span class="fa fa-info-circle"></span></a>
-							</td>
+							<tr>
+								<td >
+									<input type="text" name="partida_1" id="partida_1" class="form-control" disabled/>
+								</td>
+								<td >
+									<input type="text" name="codigo_1" id="codigo_1" class="form-control"/>
+								</td>
+								<td >
+									<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
+								</td>
+								<td >
+									<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control"/>
+								</td>
+								<td >
+									<input type="text" name="cantidad_1" id="cantidad_1" class="form-control"/>
+								</td>
+								<td class="col-md-1">
+									<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
+								</td>
+								<td >
+									<select name="lugarentrega_1" id="lugarentrega_1"></select>
+								</td>
+								<td class="col-md-2">
+									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control"/>
+								</td>
+									<td id="td-not">
+									<a title="Eliminar" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+									<a title="Detalles" class="btn btn-info btn-xs"><span class="fa fa-info-circle"></span></a>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 					
@@ -160,6 +162,7 @@
 						</div>
 					</div>
 					
+					
 					<table class="table table-hover">
 						<thead class="thead-inverse">
 							<th>Clave</th>
@@ -170,29 +173,36 @@
 							<th></th>
 						</thead>
 						<tbody>
-							<td class="col-md-1">
-								<input type="text" name="" class="form-control"/>
-							</td>
-							<td class="col-md-3">
-								<input type="text" name="" class="form-control"/>
-							</td>
-							<td>
-								<input type="text" name="" class="form-control" disabled/>
-								<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-							</td>
-							<td class="spacer">
-								<input type="text" name="" class="form-control" disabled/>
-								<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-							</td>
-							<td class="spacer">
-								<input type="text" name="" class="form-control" disabled/>
-								<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-							</td>
-							<td class="spacer">
-								<a title="Quitar" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
-							</td>
+							<div class="seccionProveedores">
+								<tr>
+									<td class="col-md-1">
+										<input type="text" name="" class="form-control"/>
+									</td>
+									<td class="col-md-3">
+										<input type="text" name="" class="form-control"/>
+									</td>
+									<td>
+										<input type="text" name="" class="form-control" disabled/>
+										<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									</td>
+									<td class="spacer">
+										<input type="text" name="" class="form-control" disabled/>
+										<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									</td>
+									<td class="spacer">
+										<input type="text" name="" class="form-control" disabled/>
+										<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									</td>
+									<td class="spacer">
+										<a title="Quitar" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
+									</td>
+								</tr>
+									
+							</div>
 						</tbody>
 					</table>
+					
+					
 					<!--
 					<div class="form-group">
 							<label for="idEmpleadoFormula" class="col-md-4 control-label">Elabora</label>
@@ -274,8 +284,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
-		
 		$("#buscarEmpleadoElabora").click(function(){
 			var rpe = $('#empleadoElabora').val();
 			var nombre = "";
@@ -316,8 +324,30 @@
 			});
      	});
 
+		var clonedSection = $('#tablaFamilias tbody>tr:last').clone(true);
+		$("#cargarFamilias").click(function(){
+			/*
+			var cuentaActual = $("#tablaFamilias tbody tr").length;
+			var cuentaNueva = cuentaActual+1;
+			$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
+			$('#tablaFamilias tbody>tr:last').find("input, select").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+			}); 
+			*/
 
+			
 
-
+			for (var i = 2; i < 10; i++) {
+				//$(clonedSection).appendTo('#tablaFamilias tbody');
+				$("#tablaFamilias").append(clonedSection);
+				$('#tablaFamilias tbody>tr:last').find("input, select").each(function (){
+					var nuevoId = $(this).attr("id").replace("_" + i, "_" + i++);
+					var nuevoName = $(this).attr("name").replace("_" + i, "_" + i++);
+					$(this).attr("id", nuevoId).attr("name", nuevoName);
+				}); 
+			}
+     	});
 	});
 </script>
