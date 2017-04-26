@@ -17,6 +17,18 @@ class Im_general extends CI_Controller{
 		echo json_encode($data);
     }
 
+    function obtenerDescripcionFamilia(){
+        $id = $_POST['id'];
+        $data['descripcion'] = $this->Imgeneralmodel->get_descripcion_familia($id);
+        echo json_encode($data);
+    }
+
+    function obtenerListaProveedores(){
+        $clave = $_POST['clave']; 
+        $data['listaproveedores'] = $this->Imgeneralmodel->get_all_listaproveedorfamilia($clave);
+        echo json_encode($data);
+    }
+
     /*
      * Listing of listaim_general
      */

@@ -194,7 +194,6 @@
 					success: function (returned) {
 						var returned = JSON.parse(returned);
 						var selectArray = [];
-						
 						jQuery.each(returned.listaproveedorfamilia, function(i, val) {                   
 							//alert('razonSocial= '+ val.razonSocial + 'nombre1' + val.nombre1);
 							selectArray.push({

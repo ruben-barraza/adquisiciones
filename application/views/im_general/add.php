@@ -156,14 +156,14 @@
 
 					<div class="form-group">
 						<div class="col-md-2">
-							<a class="btn btn-primary">
+							<a id="cargarProveedores" class="btn btn-primary">
 								<i class="fa "></i> Cargar proveedores de familia
 							</a>
 						</div>
 					</div>
 					
 					
-					<table class="table table-hover">
+					<table id="tablaProveedores" class="table table-hover">
 						<thead class="thead-inverse">
 							<th>Clave</th>
 							<th>Razón social</th>
@@ -173,95 +173,31 @@
 							<th></th>
 						</thead>
 						<tbody>
-							<div class="seccionProveedores">
-								<tr>
-									<td class="col-md-1">
-										<input type="text" name="" class="form-control"/>
-									</td>
-									<td class="col-md-3">
-										<input type="text" name="" class="form-control"/>
-									</td>
-									<td>
-										<input type="text" name="" class="form-control" disabled/>
-										<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-									</td>
-									<td class="spacer">
-										<input type="text" name="" class="form-control" disabled/>
-										<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-									</td>
-									<td class="spacer">
-										<input type="text" name="" class="form-control" disabled/>
-										<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-									</td>
-									<td class="spacer">
-										<a title="Quitar" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
-									</td>
-								</tr>
-									
-							</div>
+							<tr>
+								<td class="col-md-1">
+									<input type="text" name="clave_1" id="clave_1" class="form-control"/>
+								</td>
+								<td class="col-md-3">
+									<input type="text" name="razonsocial_1" id="razonsocial_1" class="form-control"/>
+								</td>
+								<td>
+									<input type="text" name="contacto1_1" id="contacto1_1" class="form-control" disabled/>
+									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+								</td>
+								<td class="spacer">
+									<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
+									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+								</td>
+								<td class="spacer">
+									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
+									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+								</td>
+								<td class="spacer">
+									<a title="Quitar" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
+								</td>
+							</tr>
 						</tbody>
 					</table>
-					
-					
-					<!--
-					<div class="form-group">
-							<label for="idEmpleadoFormula" class="col-md-4 control-label">Elabora</label>
-							<div class="col-md-8">
-								<select name="idEmpleadoFormula" class="form-control">
-									<option value="">select empleado</option>
-									<?php 
-									foreach($all_listaempleado as $empleado)
-									{
-										$selected = ($empleado['id'] == $this->input->post('idEmpleadoFormula')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$empleado['id'].'" '.$selected.'>'.$empleado['rpe'].'</option>';
-									} 
-									?>
-								</select>
-							</div>
-						</div>
-					<div class="form-group">
-							<label for="idEmpleadoAutoriza" class="col-md-4 control-label">Aprueba</label>
-							<div class="col-md-8">
-								<select name="idEmpleadoAutoriza" class="form-control">
-									<option value="">select empleado</option>
-									<?php 
-									foreach($all_listaempleado as $empleado)
-									{
-										$selected = ($empleado['id'] == $this->input->post('idEmpleadoAutoriza')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$empleado['id'].'" '.$selected.'>'.$empleado['rpe'].'</option>';
-									} 
-									?>
-								</select>
-							</div>
-						</div>
-					
-
-					<div class="form-group">
-						<label for="fechaElaboracion" class="col-md-4 control-label">FechaElaboracion</label>
-						<div class="col-md-8">
-							<input type="text" name="fechaElaboracion" value="<?php echo $this->input->post('fechaElaboracion'); ?>" class="form-control" id="fechaElaboracion" />
-						</div>
-					</div>
-					
-					<div class="form-group">
-							<label for="idMunicipioElaboracion" class="col-md-4 control-label">IdMunicipioElaboracion</label>
-							<div class="col-md-8">
-								<select name="idMunicipioElaboracion" class="form-control">
-									<option value="">select municipio</option>
-									<?php 
-									foreach($all_listamunicipio as $municipio)
-									{
-										$selected = ($municipio['id'] == $this->input->post('idMunicipioElaboracion')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$municipio['id'].'" '.$selected.'>'.$municipio['nombre'].'</option>';
-									} 
-									?>
-								</select>
-							</div>
-						</div>
-					-->
 
 					<hr />
 
@@ -284,6 +220,27 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		$('#idFamilia').change(function(){
+			var id = $(this).val();
+			if(id != 0){
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerDescripcionFamilia',
+					method: 'POST',
+					data: {
+						id: id
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						jQuery.each(returned.descripcion, function( i, val ) {                   
+							descripcion = val.descripcion;
+						});
+						$("#descripcion_1").val(descripcion);
+					}
+				});
+			}
+		});
+
 		$("#buscarEmpleadoElabora").click(function(){
 			var rpe = $('#empleadoElabora').val();
 			var nombre = "";
@@ -315,8 +272,9 @@
 				},
 				success: function (returned) {
 					var returned = JSON.parse(returned);
+					//console.log(returned.nombre.length);
 					
-            		jQuery.each( returned.nombre, function( i, val ) {                   
+            		jQuery.each(returned.nombre, function( i, val ) {                   
               			nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
             		});
 					$("#empleadoAutoriza2").val(nombre);
@@ -324,30 +282,52 @@
 			});
      	});
 
-		var clonedSection = $('#tablaFamilias tbody>tr:last').clone(true);
 		$("#cargarFamilias").click(function(){
-			/*
 			var cuentaActual = $("#tablaFamilias tbody tr").length;
 			var cuentaNueva = cuentaActual+1;
+
 			$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
 			$('#tablaFamilias tbody>tr:last').find("input, select").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
-			}); 
-			*/
-
-			
-
-			for (var i = 2; i < 10; i++) {
-				//$(clonedSection).appendTo('#tablaFamilias tbody');
-				$("#tablaFamilias").append(clonedSection);
-				$('#tablaFamilias tbody>tr:last').find("input, select").each(function (){
-					var nuevoId = $(this).attr("id").replace("_" + i, "_" + i++);
-					var nuevoName = $(this).attr("name").replace("_" + i, "_" + i++);
-					$(this).attr("id", nuevoId).attr("name", nuevoName);
-				}); 
-			}
+			});
      	});
+		 
+		$("#cargarProveedores").click(function(){
+			var clave = $("#idFamilia option:selected").text();
+			if(clave != "Seleccione"){
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerListaProveedores',
+					method: 'POST',
+					data: {
+						clave: clave
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						var longitud = returned.listaproveedores.length;
+						
+						for (var i = 1; i < longitud; i++) {
+							$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+							$('#tablaProveedores tbody>tr:last').find("input").each(function (){
+								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+								$(this).attr("id", nuevoId).attr("name", nuevoName);
+							});
+						}
+						
+						jQuery.each(returned.listaproveedores, function( i, val ) {                   
+							//console.log(i);
+							$("#clave_" + (i+1)).val(val.clave);
+							$("#razonsocial_" + (i+1)).val(val.razonSocial);
+							$("#contacto1_" + (i+1)).val(val.nombre1);
+							$("#contacto2_" + (i+1)).val(val.nombre2);
+							$("#contacto3_" + (i+1)).val(val.nombre3);
+						});
+					}
+				});
+			}
+			
+		});
 	});
 </script>
