@@ -18,7 +18,7 @@ class Formularioconsideracion extends CI_Controller{
     {
         $data['listaformularioconsideracion'] = $this->Formularioconsideracionmodel->get_all_listaformularioconsideracion();
 
-        $data['_view'] = 'consideraciformularioconsideracion/index';
+        $data['_view'] = 'formularioconsideracion/index';
         $this->load->view('layouts/main',$data);
     }
 
@@ -76,7 +76,7 @@ class Formularioconsideracion extends CI_Controller{
         }
         else
         {            
-            $data['_view'] = 'consideraciformularioconsideracion/add';
+            $data['_view'] = 'formularioconsideracion/add';
             $this->load->view('layouts/main',$data);
         }
     }  
@@ -140,7 +140,7 @@ class Formularioconsideracion extends CI_Controller{
             }
             else
             {
-                $data['_view'] = 'consideraciformularioconsideracion/edit';
+                $data['_view'] = 'formularioconsideracion/edit';
                 $this->load->view('layouts/main',$data);
             }
         }

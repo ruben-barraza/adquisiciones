@@ -11,13 +11,11 @@
           	<div class="x_content">
   				<table class="table table-striped">
 				    <tr>
-						<th>IdEstado</th>
 						<th>Nombre</th>
 						<th></th>
 				    </tr>
 					<?php foreach($listamunicipio as $m){ ?>
 				    <tr>
-						<td><?php echo $m['idEstado']; ?></td>
 						<td><?php echo $m['nombre']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('municipio/edit/'.$m['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 

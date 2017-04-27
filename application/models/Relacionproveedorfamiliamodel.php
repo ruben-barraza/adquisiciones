@@ -24,7 +24,13 @@ class Relacionproveedorfamiliamodel extends CI_Model
      */
     function get_all_listarelacionproveedorfamilia()
     {
-        return $this->db->get('relacionproveedorfamilia')->result_array();
+        //return $this->db->get('relacionproveedorfamilia')->result_array();
+        $this->db->select('proveedor.razonSocial, familia.clave');
+        $this->db->from('relacionproveedorfamilia');
+        $this->db->join('proveedor', 'proveedor.id = relacionproveedorfamilia.idProveedor', 'inner');
+        $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
+        $query = $this->db->get();
+        return $query->result_array();
     }
     
     /*

@@ -426,7 +426,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
 							<button id="botonEditar" type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar cambios
+								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
 					</div>

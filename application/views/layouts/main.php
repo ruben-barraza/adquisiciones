@@ -94,7 +94,7 @@
                                     <li><label class="tree-toggle nav-header"> Investigación de Mercado</span></label>
                                       <ul class="nav nav-list tree">
                                         <li>
-                                            <a href="<?php echo site_url('consideraciformularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
+                                            <a href="<?php echo site_url('formularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
                                         </li>
                                         <li>
                                             <a href="<?php echo site_url('im_concepto/index');?>"><i class="fa fa-table"></i> IM Concepto</a>
