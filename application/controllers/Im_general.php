@@ -11,6 +11,24 @@ class Im_general extends CI_Controller{
         $this->load->model('Imgeneralmodel');
     } 
 
+    function obtenerNombreEmpleado(){
+        $rpe = $_POST['rpe'];
+        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
+		echo json_encode($data);
+    }
+
+    function obtenerDescripcionFamilia(){
+        $id = $_POST['id'];
+        $data['descripcion'] = $this->Imgeneralmodel->get_descripcion_familia($id);
+        echo json_encode($data);
+    }
+
+    function obtenerListaProveedores(){
+        $clave = $_POST['clave']; 
+        $data['listaproveedores'] = $this->Imgeneralmodel->get_all_listaproveedorfamilia($clave);
+        echo json_encode($data);
+    }
+
     /*
      * Listing of listaim_general
      */
@@ -56,6 +74,9 @@ class Im_general extends CI_Controller{
 
 			$this->load->model('Municipiomodel');
 			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
+
+            $this->load->model('Comboboxesmodel');
+			$data['familias'] = $this->Comboboxesmodel->getFamilias();
             
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);

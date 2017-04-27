@@ -2,7 +2,7 @@
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Add</h2>
+                <h2>Agregar empleado</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   	<li>
                   		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -15,7 +15,7 @@
 				<?php echo form_open('empleado/add',array("class"=>"form-horizontal")); ?>
 
 					<div class="form-group">
-						<label for="rpe" class="col-md-4 control-label">Rpe</label>
+						<label for="rpe" class="col-md-4 control-label">RPE</label>
 						<div class="col-md-8">
 							<input type="text" name="rpe" value="<?php echo $this->input->post('rpe'); ?>" class="form-control" id="rpe" />
 						</div>
@@ -27,28 +27,28 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="apellidoPaterno" class="col-md-4 control-label">ApellidoPaterno</label>
+						<label for="apellidoPaterno" class="col-md-4 control-label">Apellido Paterno</label>
 						<div class="col-md-8">
 							<input type="text" name="apellidoPaterno" value="<?php echo $this->input->post('apellidoPaterno'); ?>" class="form-control" id="apellidoPaterno" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="apellidoMaterno" class="col-md-4 control-label">ApellidoMaterno</label>
+						<label for="apellidoMaterno" class="col-md-4 control-label">Apellido Materno</label>
 						<div class="col-md-8">
 							<input type="text" name="apellidoMaterno" value="<?php echo $this->input->post('apellidoMaterno'); ?>" class="form-control" id="apellidoMaterno" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="titulo" class="col-md-4 control-label">Titulo</label>
+						<label for="titulo" class="col-md-4 control-label">Título</label>
 						<div class="col-md-8">
 							<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" />
 						</div>
 					</div>
 					<div class="form-group">
-							<label for="idDepartamento" class="col-md-4 control-label">IdDepartamento</label>
+							<label for="idDepartamento" class="col-md-4 control-label">Departamento</label>
 							<div class="col-md-8">
 								<select name="idDepartamento" class="form-control">
-									<option value="">select departamento</option>
+									<option value="">Seleccione</option>
 									<?php 
 									foreach($all_listadepartamento as $departamento)
 									{
@@ -61,10 +61,10 @@
 							</div>
 						</div>
 					<div class="form-group">
-							<label for="idCategoria" class="col-md-4 control-label">IdCategoria</label>
+							<label for="idCategoria" class="col-md-4 control-label">Categoría</label>
 							<div class="col-md-8">
 								<select name="idCategoria" class="form-control">
-									<option value="">select categoria</option>
+									<option value="">Seleccione</option>
 									<?php 
 									foreach($all_listacategoria as $categoria)
 									{
@@ -80,7 +80,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Save
+								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
 					</div>

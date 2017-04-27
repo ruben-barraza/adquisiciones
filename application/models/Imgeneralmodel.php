@@ -47,6 +47,41 @@ class Imgeneralmodel extends CI_Model
 		}
 		return $maxid;
 	}
+
+    function get_empleado($rpe){
+        //$this->db->select('CONCAT(nombre, " ", apellidoPaterno, " ", apellidoMaterno)');
+        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_descripcion_familia($id){
+        $this->db->select('descripcion');
+        $this->db->from('familia');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_all_listaproveedorfamilia($clave)
+    {
+        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3');
+        $this->db->from('proveedor');
+        $this->db->join('relacionproveedorfamilia', 'relacionproveedorfamilia.idProveedor = proveedor.id', 'inner');
+        $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
+        $this->db->where('familia.clave', $clave);
+        $this->db->order_by('proveedor.clave');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
     
     /*
      * function to update im_general
