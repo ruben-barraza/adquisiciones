@@ -92,7 +92,7 @@
 							<td><?php echo $p['tipo']; ?></td>
 							<td>
 								<a title="Editar" href="<?php echo site_url('proveedor/edit/'.$p['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-								<a title="Eliminar" href="<?php echo site_url('proveedor/remove/'.$p['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+								<a title="Eliminar" href="<?php echo site_url('proveedor/remove/'.$p['id']); ?>" onclick="return confirm('¿Desea eliminar el proveedor seleccionado?');" class="btn eliminar btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 							</td>
 						</tr>
 						<?php } ?>
@@ -127,8 +127,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-
-		
 
 		//Función para la búsqueda de proveedores
 		var $rows = $('#table tbody tr');
@@ -215,7 +213,7 @@
 							$.each(indiceBotones, function(i, indiceBoton){
 								$('<td>').html(
                      				'<a title="Editar" href="' + SITE_ROOT + 'proveedor/edit/' + selected[indiceBoton] +'" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a>' 
-                   					+ '<a title="Eliminar" href="' + SITE_ROOT + 'proveedor/remove/' + selected[indiceBoton] + '" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>'
+                   					+ '<a title="Eliminar" href="' + SITE_ROOT + 'proveedor/remove/' + selected[indiceBoton] + '" onclick="return confirm(\'¿Desea eliminar el proveedor seleccionado?\');"class="btn eliminar btn-danger btn-xs"><span class="fa fa-trash"></span></a>'
                   				).appendTo(tr);
 							});
 							tbody.append(tr);
@@ -224,6 +222,7 @@
 				});
 			}
 		});
+
 
 	});
 </script>

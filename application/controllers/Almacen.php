@@ -60,6 +60,9 @@ class Almacen extends CI_Controller{
 			$this->load->model('Municipiomodel');
 			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
             
+            $this->load->model('Comboboxesmodel');
+            $data['estados'] = $this->Comboboxesmodel->getEstados();
+            
             $data['_view'] = 'almacen/add';
             $this->load->view('layouts/main',$data);
         }

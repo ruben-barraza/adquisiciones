@@ -2,9 +2,9 @@
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Listing</h2>
+                <h2>Almacenes</h2>
                 <div class="nav navbar-right">
-					<a href="<?php echo site_url('almacen/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+					<a href="<?php echo site_url('almacen/add'); ?>" class="btn btn-success btn-sm">Agregar</a> 
 				</div>
                 <div class="clearfix"></div>
           	</div>
@@ -12,13 +12,13 @@
   				<table class="table table-striped">
 				    <tr>
 						<th>ID</th>
-						<th>CentroMM</th>
-						<th>IdEmpleadoResponsable</th>
+						<th>Centro MM</th>
+						<th>Id Empleado Responsable</th>
 						<th>Nombre</th>
 						<th>Domicilio</th>
-						<th>IdMunicipio</th>
-						<th>Telefono</th>
-						<th>CodigoPostal</th>
+						<th>Id Municipio</th>
+						<th>Teléfono</th>
+						<th>Código Postal</th>
 						<th>Actions</th>
 				    </tr>
 					<?php foreach($listaalmacen as $a){ ?>
