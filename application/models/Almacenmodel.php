@@ -24,7 +24,13 @@ class Almacenmodel extends CI_Model
      */
     function get_all_listaalmacen()
     {
-        return $this->db->get('almacen')->result_array();
+        $this->db->select('almacen.id, almacen.centroMM, empleado.nombre empleadoNombre, empleado.apellidoPaterno empleadoAP, empleado.apellidoMaterno empleadoAM, almacen.nombre almacenNombre, almacen.domicilio, almacen.codigoPostal, estado.nombre estado, municipio.nombre municipio, almacen.telefono');
+        $this->db->from('almacen');
+        $this->db->join('empleado', 'almacen.idEmpleadoResponsable = empleado.id', 'inner');
+        $this->db->join('municipio', 'almacen.idMunicipio = municipio.id', 'inner');
+        $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');
+        $query = $this->db->get();
+        return $query->result_array();
     }
     
     /*
@@ -79,5 +85,25 @@ class Almacenmodel extends CI_Model
         {
             return "Error occuring while deleting almacen";
         }
+    }
+
+    /*
+     * funcion para obtener el ID del municipio que corresponde al proveedor que se quiere editar
+     */
+    public function obtenerIdMunicipio($idAlmacen){
+        $this->db->select('idMunicipio')->from('almacen')->where('id', $idAlmacen);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio'];
+    }
+
+    /*
+     * función para obtener el estado seleccionado de la base de datos
+     */
+    public function obtenerIdEstado($idMunicipio){
+        $this->db->select('idEstado')->from('municipio')->where('id', $idMunicipio);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idEstado'];  
     }
 }

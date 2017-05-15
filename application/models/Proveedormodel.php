@@ -141,7 +141,7 @@ class Proveedormodel extends CI_Model
 
     /*
      * función para obtener el estado seleccionado de la base de datos
-     */
+     
      public function editEstados($idProveedor) {
         $this->db->select('idMunicipio')->from('proveedor')->where('id', $idProveedor);
         $valorMunicipio = $this->db->get();
@@ -153,7 +153,8 @@ class Proveedormodel extends CI_Model
         $vlEstado = $valorEstado->row_array();
         $estado = $vlEstado['idEstado'];
     }
-
+    */
+    
     /*
      * funcies para obtener el ID del municipio que corresponde al proveedor que se quiere editar
      */

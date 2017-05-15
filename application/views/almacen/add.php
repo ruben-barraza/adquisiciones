@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<label for="centroMM" class="col-md-4 control-label">Centro MM</label>
 						<div class="col-md-8">
-							<input type="text" name="centroMM" value="<?php echo $this->input->post('centroMM'); ?>" class="form-control" id="centroMM" />
+							<input type="text" name="centroMM" value="<?php echo $this->input->post('centroMM'); ?>" class="form-control" id="centroMM" maxlength="4"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -40,19 +40,19 @@
 					<div class="form-group">
 						<label for="nombre" class="col-md-4 control-label">Nombre</label>
 						<div class="col-md-8">
-							<input type="text" name="nombre" value="<?php echo $this->input->post('nombre'); ?>" class="form-control" id="nombre" />
+							<input type="text" name="nombre" value="<?php echo $this->input->post('nombre'); ?>" class="form-control" id="nombre" maxlength="150"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="domicilio" class="col-md-4 control-label">Domicilio</label>
 						<div class="col-md-8">
-							<input type="text" name="domicilio" value="<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" />
+							<input type="text" name="domicilio" value="<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="150"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="codigoPostal" class="col-md-4 control-label">Código Postal</label>
 						<div class="col-md-8">
-							<input type="text" name="codigoPostal" value="<?php echo $this->input->post('codigoPostal'); ?>" class="form-control" id="codigoPostal" />
+							<input type="text" name="codigoPostal" value="<?php echo $this->input->post('codigoPostal'); ?>" class="form-control" id="codigoPostal" maxlength="5"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -79,16 +79,17 @@
 					<div class="form-group">
 						<label for="telefono" class="col-md-4 control-label">Teléfono</label>
 						<div class="col-md-8">
-							<input type="text" name="telefono" value="<?php echo $this->input->post('telefono'); ?>" class="form-control" id="telefono" />
+							<input type="text" name="telefono" value="<?php echo $this->input->post('telefono'); ?>" class="form-control" id="telefono" maxlength="10"/>
 						</div>
 					</div>
 
-					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
-							</button>
-				        </div>
+					<div class = "col-sm-offset-4 col-sm-8">
+						<a href="<?php echo site_url('almacen/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i> Guardar
+						</button>
 					</div>
 
 				<?php echo form_close(); ?>

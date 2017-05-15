@@ -11,29 +11,29 @@
           	<div class="x_content">
   				<table class="table table-striped">
 				    <tr>
-						<th>ID</th>
 						<th>Centro MM</th>
-						<th>Id Empleado Responsable</th>
+						<th>Empleado Responsable</th>
 						<th>Nombre</th>
 						<th>Domicilio</th>
-						<th>Id Municipio</th>
-						<th>Teléfono</th>
 						<th>Código Postal</th>
-						<th>Actions</th>
+						<th>Estado</th>
+						<th>Municipio</th>
+						<th>Teléfono</th>
+						<th></th>
 				    </tr>
 					<?php foreach($listaalmacen as $a){ ?>
 				    <tr>
-						<td><?php echo $a['id']; ?></td>
 						<td><?php echo $a['centroMM']; ?></td>
-						<td><?php echo $a['idEmpleadoResponsable']; ?></td>
-						<td><?php echo $a['nombre']; ?></td>
+						<td><?php echo $a['empleadoNombre'].' '.$a['empleadoAP'].' '.$a['empleadoAM']; ?></td>
+						<td><?php echo $a['almacenNombre']; ?></td>
 						<td><?php echo $a['domicilio']; ?></td>
-						<td><?php echo $a['idMunicipio']; ?></td>
-						<td><?php echo $a['telefono']; ?></td>
 						<td><?php echo $a['codigoPostal']; ?></td>
+						<td><?php echo $a['estado']; ?></td>
+						<td><?php echo $a['municipio']; ?></td>
+						<td><?php echo $a['telefono']; ?></td>
 						<td>
-				            <a href="<?php echo site_url('almacen/edit/'.$a['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-				            <a href="<?php echo site_url('almacen/remove/'.$a['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+				            <a href="<?php echo site_url('almacen/edit/'.$a['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
+				            <a href="<?php echo site_url('almacen/remove/'.$a['id']); ?>" onclick="return confirm('¿Desea eliminar el proveedor seleccionado?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 				    </tr>
 					<?php } ?>

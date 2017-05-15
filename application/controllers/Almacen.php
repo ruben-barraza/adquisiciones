@@ -111,6 +111,17 @@ class Almacen extends CI_Controller{
 				$this->load->model('Municipiomodel');
 				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
 
+                $this->load->model('Comboboxesmodel');
+                $data['estados'] = $this->Comboboxesmodel->getEstados();
+
+                $this->load->model('Almacenmodel');
+				
+				$idMunicipioSeleccionado = $this->Almacenmodel->obtenerIdMunicipio($id);
+				$data['municipioSeleccionado'] = $idMunicipioSeleccionado;
+				
+				$data['estadoSeleccionado'] = $this->Almacenmodel->obtenerIdEstado($idMunicipioSeleccionado);
+				
+
                 $data['_view'] = 'almacen/edit';
                 $this->load->view('layouts/main',$data);
             }
