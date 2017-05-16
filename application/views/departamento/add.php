@@ -21,13 +21,14 @@
 						</div>
 					</div>
 					
-					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
-							</button>
-				        </div>
-					</div>
+					<div class = "col-sm-offset-4 col-sm-8">
+					<a href="<?php echo site_url('departamento/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+						<span class="fa fa-ban"></span> Cancelar
+					</a>
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-check"></i> Guardar
+					</button>
+				</div>
 
 				<?php echo form_close(); ?>
 			</div>

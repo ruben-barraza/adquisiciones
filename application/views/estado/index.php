@@ -19,7 +19,7 @@
 						<td><?php echo $e['nombre']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('estado/edit/'.$e['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-				            <a href="<?php echo site_url('estado/remove/'.$e['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+				            <a href="<?php echo site_url('estado/remove/'.$e['id']); ?>" onclick="return confirm('¿Desea eliminar el estado seleccionado?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 				    </tr>
 					<?php } ?>

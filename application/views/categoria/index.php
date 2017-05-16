@@ -19,7 +19,7 @@
 						<td><?php echo $c['nombre']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('categoria/edit/'.$c['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-				            <a href="<?php echo site_url('categoria/remove/'.$c['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+				            <a href="<?php echo site_url('categoria/remove/'.$c['id']); ?>" onclick="return confirm('¿Desea eliminar la categoría seleccionada?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 				    </tr>
 					<?php } ?>

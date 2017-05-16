@@ -463,17 +463,21 @@
 		 */
 		$("#botonGuardar").click(function(){
 			if($('#tipoProveedor').val() == "B"){
-				var seleccion = $("#listaSeleccion li");
-				var familias_seleccion = [];
+				if ($('#listaSeleccion li').length == 0){
+					alert("Necesita agregar las familias para el proveedor");
+				} else {
+					var seleccion = $("#listaSeleccion li");
+					var familias_seleccion = [];
 
-				seleccion.each(function() {
-					familias_seleccion.push($(this).text().replace(/Quitar/,''));
-				});
-				$.ajax({
-					url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
-					method: 'POST',
-					data: {familias_seleccion: familias_seleccion}
-				});
+					seleccion.each(function() {
+						familias_seleccion.push($(this).text().replace(/Quitar/,''));
+					});
+					$.ajax({
+						url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+						method: 'POST',
+						data: {familias_seleccion: familias_seleccion}
+					});
+				}
 			}
      	});
     });
