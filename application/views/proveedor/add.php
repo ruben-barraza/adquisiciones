@@ -431,6 +431,7 @@
 				var names = $('#idFamilia').find('option:selected').text();
 				$("#idFamilia option:selected").remove();
 				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
+				$('#botonGuardar').prop('disabled', false);
 			}
      	});
 		
@@ -444,6 +445,9 @@
 				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 			});
 			$('#idFamilia').html(soptions).prepend(foption);
+			if ($('#listaSeleccion li').length == 0){
+				$('#botonGuardar').prop('disabled', true);
+			}
 		});
 
 		$('#tipoProveedor').change(function(){
@@ -451,8 +455,10 @@
 			if (val == "B"){
 				$('#seccionOculta').removeClass('hidden');
 				$('#seccionOculta').show();
+				$('#botonGuardar').prop('disabled', true);
 			} else {
 				$('#seccionOculta').hide();
+				$('#botonGuardar').prop('disabled', false);
 			}
 		});
 

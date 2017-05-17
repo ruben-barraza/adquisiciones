@@ -61,46 +61,45 @@
 
 					<div class="form-group">
 						<label for="idEmpleadoFormula" class="col-md-1 control-label">Elabora</label>
+						
 						<div class="col-md-2">
-							<input type="text" id="empleadoElabora" name="empleadoElabora" maxlength="5" class="form-control"/>
+							<div class="input-group">
+								<input type="text" id="empleadoElabora" name="empleadoElabora" maxlength="5" class="form-control pull-right" placeholder="Ingrese RPE"/>
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>	
+								</span>
+							</div>
 						</div>
-						
-						<div class="col-md-1">
-							<a id="buscarEmpleadoElabora" class="btn btn-primary">
-								<i class="fa"></i> Buscar
-							</a>
-						</div>
-						
 						<div class="col-md-4">
-							<input type="text" id="empleadoElabora2" name="empleadoElabora2" class="form-control" readonly/>
+							<input type="text" id="empleadoElabora2" name="empleadoElabora2" class="form-control" readonly placeholder="Nombre del empleado"/>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="idEmpleadoAutoriza" class="col-md-1 control-label">Aprueba</label>
 						<div class="col-md-2">
-							<input type="text" id="empleadoAutoriza" name="empleadoAutoriza" maxlength="5" class="form-control"/>
-						</div>
-						
-						<div class="col-md-1">
-							<a id="buscarEmpleadoAprueba" class="btn btn-primary">
-								<i class="fa "></i> Buscar
-							</a>
+							<div class="input-group">
+								<input type="text" id="empleadoAutoriza" name="empleadoAutoriza" maxlength="5" class="form-control pull-right" placeholder="Ingrese RPE"/>
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>	
+								</span>
+							</div>
 						</div>
 						
 						<div class="col-md-4">
-							<input type="text" id="empleadoAutoriza2" name="empleadoAutoriza2" class="form-control" readonly/>
+							<input type="text" id="empleadoAutoriza2" name="empleadoAutoriza2" class="form-control" readonly placeholder="Nombre del empleado"/>
 						</div>
 					</div>
 
 					<hr />
 
 					<div class="form-group">
-						<div class="col-md-2">
-							<a id="cargarFamilias" class="btn btn-primary">
-								<i class="fa "></i> Cargar conceptos de familia
-							</a>
-						</div>
+						<a id="cargarArticulos" class="btn btn-primary">
+							<i class="fa "></i> Cargar artículos de familia
+						</a>
+						<a id="agregarRegistroArticulos" class="btn btn-primary">
+							<i class="fa "></i> Agregar registro en blanco
+						</a>
 					</div>
 
 					<table id="tablaFamilias" class="table table-hover">
@@ -155,11 +154,12 @@
 					<h4>Proveedores</h4>
 
 					<div class="form-group">
-						<div class="col-md-2">
-							<a id="cargarProveedores" class="btn btn-primary">
-								<i class="fa "></i> Cargar proveedores de familia
-							</a>
-						</div>
+						<a id="cargarProveedores" class="btn btn-primary">
+							<i class="fa "></i> Cargar proveedores de familia
+						</a>
+						<a id="agregarRegistroProveedores" class="btn btn-primary">
+							<i class="fa "></i> Agregar registro en blanco
+						</a>
 					</div>
 					
 					
@@ -220,7 +220,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		/*
 		$('#idFamilia').change(function(){
 			var id = $(this).val();
 			if(id != 0){
@@ -240,54 +240,75 @@
 				});
 			}
 		});
+		*/
 
-		$("#buscarEmpleadoElabora").click(function(){
-			var rpe = $('#empleadoElabora').val();
-			var nombre = "";
-			$.ajax({
-				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
-				method: 'POST',
-				data: {
-					rpe: rpe
-				},
-				success: function (returned) {
-					var returned = JSON.parse(returned);
-					
-            		jQuery.each( returned.nombre, function( i, val ) {                   
-              			nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
-            		});
-					$("#empleadoElabora2").val(nombre);
-				}
-			});
+		$("#empleadoElabora").on('keyup', function(e) {
+			if ($(this).val().length == 5) {
+				var rpe = $('#empleadoElabora').val();
+				var nombre = "";
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
+					method: 'POST',
+					data: {
+						rpe: rpe
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						
+						jQuery.each( returned.nombre, function( i, val ) {                   
+							nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+						});
+						$("#empleadoElabora2").val(nombre);
+					}
+				});
+			} else if ($(this).val().length < 5){
+				$('#empleadoElabora2').val('');
+			}
 		});
 
-		$("#buscarEmpleadoAprueba").click(function(){
-			var rpe = $('#empleadoAutoriza').val();
-			var nombre = "";
-			$.ajax({
-				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
-				method: 'POST',
-				data: {
-					rpe: rpe
-				},
-				success: function (returned) {
-					var returned = JSON.parse(returned);
-					//console.log(returned.nombre.length);
-					
-            		jQuery.each(returned.nombre, function( i, val ) {                   
-              			nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
-            		});
-					$("#empleadoAutoriza2").val(nombre);
-				}
-			});
-     	});
+		$("#empleadoAutoriza").on('keyup', function(e) {
+			if ($(this).val().length == 5) {
+				var rpe = $('#empleadoAutoriza').val();
+				var nombre = "";
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleado',
+					method: 'POST',
+					data: {
+						rpe: rpe
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						//console.log(returned.nombre.length);
+						
+						jQuery.each(returned.nombre, function( i, val ) {                   
+							nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+						});
+						$("#empleadoAutoriza2").val(nombre);
+					}
+				});
+			} else if ($(this).val().length < 5){
+				$('#empleadoAutoriza2').val('');
+			}
+		});
 
-		$("#cargarFamilias").click(function(){
+		$("#agregarRegistroArticulos").click(function(){
 			var cuentaActual = $("#tablaFamilias tbody tr").length;
 			var cuentaNueva = cuentaActual+1;
 
 			$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
 			$('#tablaFamilias tbody>tr:last').find("input, select").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+			});
+     	});
+
+		 $("#agregarRegistroProveedores").click(function(){
+			var cuentaActual = $("#tablaProveedores tbody tr").length;
+			var cuentaNueva = cuentaActual+1;
+
+			$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+			$('#tablaProveedores tbody>tr:last').find("input, select").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -328,6 +349,24 @@
 				});
 			}
 			
+		});
+
+		$("#cargarArticulos").click(function(){
+			var idFamilia = $("#idFamilia").val();
+			if(idFamilia != 0){
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerListaArticulos',
+					method: 'POST',
+					data: {
+						idFamilia: idFamilia
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						var longitud = returned.listaarticulos.length;
+						console.log(returned);
+					}
+				});
+			}	
 		});
 	});
 </script>

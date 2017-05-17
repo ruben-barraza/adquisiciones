@@ -48,8 +48,8 @@ class Imgeneralmodel extends CI_Model
 		return $maxid;
 	}
 
-    function get_empleado($rpe){
-        //$this->db->select('CONCAT(nombre, " ", apellidoPaterno, " ", apellidoMaterno)');
+    function get_empleado($rpe)
+    {
         $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
         $this->db->from('empleado');
         $this->db->where('rpe', $rpe);
@@ -59,7 +59,9 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
-    function get_descripcion_familia($id){
+    /*
+    function get_descripcion_familia($id)
+    {
         $this->db->select('descripcion');
         $this->db->from('familia');
         $this->db->where('id', $id);
@@ -68,7 +70,8 @@ class Imgeneralmodel extends CI_Model
             return $query->result_array();
         }
     }
-
+    */
+    
     function get_all_listaproveedorfamilia($clave)
     {
         $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3');
@@ -77,6 +80,19 @@ class Imgeneralmodel extends CI_Model
         $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
         $this->db->where('familia.clave', $clave);
         $this->db->order_by('proveedor.clave');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_all_listaarticulos($idFamilia)
+    {
+        $this->db->select('articulo.codigo, articulo.descripcion, articulo.tiempoEntrega, articulo.cantidadEmbalaje, unidadmedida.clave unidadmedida');
+        $this->db->from('articulo');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('articulo.idFamilia', $idFamilia);
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
