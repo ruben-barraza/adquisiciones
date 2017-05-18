@@ -74,7 +74,7 @@ class Imgeneralmodel extends CI_Model
     
     function get_all_listaproveedorfamilia($clave)
     {
-        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3');
+        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.telefonoFijo1, proveedor.telefonoFijo2, proveedor.telefonoFijo3');
         $this->db->from('proveedor');
         $this->db->join('relacionproveedorfamilia', 'relacionproveedorfamilia.idProveedor = proveedor.id', 'inner');
         $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');

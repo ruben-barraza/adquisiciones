@@ -9,16 +9,26 @@
   		margin-left: 5px;
 	}
 
-	td .btn.lowered {
-  		margin-top: 7px;
+	td .lowered {
+  		margin-top: 44px;
 	}
+
+	td .btn.lowered{
+		margin-top: 51px;
+	}
+
 	td input {
   		float: left;
 		margin-bottom: 10px;
 	}
 
 	.spacer {
-  		padding-left: 30px !important;
+  		padding-left: 35px !important;
+	}
+
+	textarea {
+    	resize: none;
+		margin-top: 5px;
 	}
 </style>
 
@@ -141,7 +151,7 @@
 									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control"/>
 								</td>
 									<td id="td-not">
-									<a title="Eliminar" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+									<a title="Eliminar" name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 									<a title="Detalles" class="btn btn-info btn-xs"><span class="fa fa-info-circle"></span></a>
 								</td>
 							</tr>
@@ -168,32 +178,39 @@
 							<th>Clave</th>
 							<th>Razón social y Dirección</th>
 							<th>Contactos</th>
-							<th>Teléfono</th>
+							<th>Teléfonos</th>
 							<th></th>
 						</thead>
 						<tbody>
 							<tr>
-								<td class="col-md-1">
-									<input type="text" name="clave_1" id="clave_1" class="form-control"/>
+								<td class="col-md-2">
+									<input type="text" name="clave_1" id="clave_1" class="form-control lowered"/>
 								</td>
 								<td class="col-md-3">
-									<input type="text" name="razonsocial_1" id="razonsocial_1" class="form-control"/>
+									<textarea name="razonsocial_1" id="razonsocial_1" class="form-control" id="descripcionDetallada"></textarea>
+									<textarea name="direccion_1" id="direccion_1" class="form-control lowered2" id="descripcionDetallada"></textarea>
 								</td>
-								<td>
+								<td class="col-md-4">
 									<input type="text" name="contacto1_1" id="contacto1_1" class="form-control" disabled/>
 									<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
 									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
 								</td>
-								<td class="spacer">
-									<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
-									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
-									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
-									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+								<td>
+									<div class="row">
+										<input type="text" name="telefono1_1" id="telefono1_1" class="form-control" disabled/>
+										<a title="Quitar" name="quitartelefono1_1" id="quitartelefono1_1" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									</div>
+									<div class="row">
+										<input type="text" name="telefono2_1" id="telefono2_1" class="form-control" disabled/>
+										<a title="Quitar" name="quitartelefono2_1" id="quitartelefono2_1" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									</div>
+									<div class="row">
+										<input type="text" name="telefono3_1" id="telefono3_1" class="form-control" disabled/>
+										<a title="Quitar" name="quitartelefono3_1" id="quitartelefono3_1" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									</div>
 								</td>
 								<td class="spacer">
-									<a title="Quitar" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
+									<a title="Quitar"  name="quitarproveedor_1" id="quitarproveedor_1" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
 								</td>
 							</tr>
 						</tbody>
@@ -311,7 +328,7 @@
 			var cuentaNueva = cuentaActual+1;
 
 			$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
-			$('#tablaProveedores tbody>tr:last').find("input, select").each(function (){
+			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -336,7 +353,7 @@
 						
 						for (var i = 1; i < longitud; i++) {
 							$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
-							$('#tablaProveedores tbody>tr:last').find("input").each(function (){
+							$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
 								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
 								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
 								$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -347,9 +364,13 @@
 							//console.log(i);
 							$("#clave_" + (i+1)).val(val.clave);
 							$("#razonsocial_" + (i+1)).val(val.razonSocial);
+							$("#direccion_" + (i+1)).val(val.direccion);
 							$("#contacto1_" + (i+1)).val(val.nombre1);
 							$("#contacto2_" + (i+1)).val(val.nombre2);
 							$("#contacto3_" + (i+1)).val(val.nombre3);
+							$("#telefono1_" + (i+1)).val(val.telefonoFijo1);
+							$("#telefono2_" + (i+1)).val(val.telefonoFijo2);
+							$("#telefono3_" + (i+1)).val(val.telefonoFijo3);
 						});
 					}
 				});
