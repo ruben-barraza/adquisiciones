@@ -12,9 +12,9 @@
 	td .btn.lowered {
   		margin-top: 7px;
 	}
-
 	td input {
   		float: left;
+		margin-bottom: 10px;
 	}
 
 	.spacer {
@@ -166,10 +166,9 @@
 					<table id="tablaProveedores" class="table table-hover">
 						<thead class="thead-inverse">
 							<th>Clave</th>
-							<th>Razón social</th>
-							<th>Contacto 1</th>
-							<th>Contacto 2</th>
-							<th>Contacto 3</th>
+							<th>Razón social y Dirección</th>
+							<th>Contactos</th>
+							<th>Teléfono</th>
 							<th></th>
 						</thead>
 						<tbody>
@@ -182,13 +181,14 @@
 								</td>
 								<td>
 									<input type="text" name="contacto1_1" id="contacto1_1" class="form-control" disabled/>
-									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+									<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
+									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
 								</td>
 								<td class="spacer">
 									<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
 									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
-								</td>
-								<td class="spacer">
+									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
+									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
 									<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
 									<a title="Quitar" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
 								</td>
@@ -300,6 +300,9 @@
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				if($(this).is("input")){
+					$(this).val("");
+				}
 			});
      	});
 
@@ -312,6 +315,9 @@
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				if($(this).is("input")){
+					$(this).val("");
+				}
 			});
      	});
 		 
@@ -363,7 +369,25 @@
 					success: function (returned) {
 						var returned = JSON.parse(returned);
 						var longitud = returned.listaarticulos.length;
-						console.log(returned);
+						
+						for (var i = 1; i < longitud; i++) {
+							$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
+							$('#tablaFamilias tbody>tr:last').find("input").each(function (){
+								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+								$(this).attr("id", nuevoId).attr("name", nuevoName);
+							});
+						}
+
+						jQuery.each(returned.listaarticulos, function( i, val ) {                   
+							//console.log(i);
+							$("#codigo_" + (i+1)).val(val.codigo);
+							$("#descripcion_" + (i+1)).val(val.descripcion);
+							$("#plazoentrega_" + (i+1)).val(val.tiempoEntrega);
+							$("#cantidad_" + (i+1)).val(val.cantidadEmbalaje);
+							$("#um_" + (i+1)).val(val.unidadmedida);
+						});
+						
 					}
 				});
 			}	
