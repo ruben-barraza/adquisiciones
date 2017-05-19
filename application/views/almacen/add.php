@@ -99,8 +99,7 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {    
-		$("#idEstado").find("option").eq(1).remove();
+    $(document).ready(function() {
 
 		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {

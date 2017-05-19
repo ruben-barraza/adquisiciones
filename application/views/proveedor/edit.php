@@ -447,11 +447,6 @@
 			$('#seccionOculta').hide();
 		}
 
-		$("#idEstado").find("option").eq(1).remove();
-		$("#idEstado1").find("option").eq(1).remove();
-		$("#idEstado2").find("option").eq(1).remove();
-		$("#idEstado3").find("option").eq(1).remove();
-
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
 		* (Valores obtenidos de la base de datos)

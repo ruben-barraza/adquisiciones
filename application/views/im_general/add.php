@@ -198,19 +198,19 @@
 								<td>
 									<div class="row">
 										<input type="text" name="telefono1_1" id="telefono1_1" class="form-control" disabled/>
-										<a title="Quitar" name="quitartelefono1_1" id="quitartelefono1_1" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+										<a title="Quitar" name="quitarcontacto1_1" id="quitartelefono1_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
 									</div>
 									<div class="row">
 										<input type="text" name="telefono2_1" id="telefono2_1" class="form-control" disabled/>
-										<a title="Quitar" name="quitartelefono2_1" id="quitartelefono2_1" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+										<a title="Quitar" name="quitarcontacto2_1" id="quitartelefono2_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
 									</div>
 									<div class="row">
 										<input type="text" name="telefono3_1" id="telefono3_1" class="form-control" disabled/>
-										<a title="Quitar" name="quitartelefono3_1" id="quitartelefono3_1" class="btn btn-danger btn-xs aligned"><span class="fa fa-times"></span></a>
+										<a title="Quitar" name="quitarcontacto3_1" id="quitartelefono3_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
 									</div>
 								</td>
 								<td class="spacer">
-									<a title="Quitar"  name="quitarproveedor_1" id="quitarproveedor_1" class="btn btn-danger btn-xs lowered"><span class="fa fa-times"></span></a>
+									<a title="Quitar"  name="quitarproveedor_1" id="quitarproveedor_1" class="btn btn-danger btn-xs lowered quitarproveedor"><span class="fa fa-times"></span></a>
 								</td>
 							</tr>
 						</tbody>
@@ -413,5 +413,22 @@
 				});
 			}	
 		});
+	});
+
+	//Quitar contactos del proveedor
+	//$(".btn.quitarcontacto").click(function(){
+	//	name = $(this).attr("name");
+	//	console.log(name);
+	//});
+
+	//Quitar línea de proveedor completa
+	$(".btn.quitarproveedor").click(function(){
+		name = $(this).attr("name");
+		console.log(name);
+	});
+
+	$(document).on("click", ".btn.quitarcontacto" ,function() {
+		name = $(this).attr("name");
+		console.log(name);
 	});
 </script>

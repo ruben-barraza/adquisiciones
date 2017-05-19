@@ -376,12 +376,6 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {    
-
-		$("#idEstado").find("option").eq(1).remove();
-		$("#idEstado1").find("option").eq(1).remove();
-		$("#idEstado2").find("option").eq(1).remove();
-		$("#idEstado3").find("option").eq(1).remove();
-
     	$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();
