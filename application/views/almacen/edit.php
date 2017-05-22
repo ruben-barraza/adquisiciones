@@ -102,7 +102,8 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {
-
+		$("#idEstado option[value=0]").remove();
+		
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
 		* (Valores obtenidos de la base de datos)

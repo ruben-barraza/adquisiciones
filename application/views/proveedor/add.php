@@ -375,7 +375,12 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {    
+    $(document).ready(function() {
+		$("#idEstado option[value=0]").remove();
+		$("#idEstado1 option[value=0]").remove();
+		$("#idEstado2 option[value=0]").remove();
+		$("#idEstado3 option[value=0]").remove();
+
     	$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();

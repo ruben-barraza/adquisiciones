@@ -151,8 +151,8 @@
 									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control"/>
 								</td>
 									<td id="td-not">
-									<a title="Eliminar" name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
-									<a title="Detalles" class="btn btn-info btn-xs"><span class="fa fa-info-circle"></span></a>
+									<a name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
+									<a name="detallesarticulo_1" id="detallesarticulo_1" class="btn btn-info btn-xs detallesarticulo"><span class="fa fa-info-circle"></span></a>
 								</td>
 							</tr>
 						</tbody>
@@ -198,15 +198,15 @@
 								<td>
 									<div class="row">
 										<input type="text" name="telefono1_1" id="telefono1_1" class="form-control" disabled/>
-										<a name="quitarcontacto1_1" id="quitartelefono1_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										<a name="quitarcontacto1_1" id="quitarcontacto1_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
 									</div>
 									<div class="row">
 										<input type="text" name="telefono2_1" id="telefono2_1" class="form-control" disabled/>
-										<a name="quitarcontacto2_1" id="quitartelefono2_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										<a name="quitarcontacto2_1" id="quitarcontacto2_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
 									</div>
 									<div class="row">
 										<input type="text" name="telefono3_1" id="telefono3_1" class="form-control" disabled/>
-										<a name="quitarcontacto3_1" id="quitartelefono3_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										<a name="quitarcontacto3_1" id="quitarcontacto3_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
 									</div>
 								</td>
 								<td class="spacer">
@@ -237,31 +237,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		/*
-		$('#idFamilia').change(function(){
-			var id = $(this).val();
-			if(id != 0){
-				$.ajax({
-					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerDescripcionFamilia',
-					method: 'POST',
-					data: {
-						id: id
-					},
-					success: function (returned) {
-						var returned = JSON.parse(returned);
-						jQuery.each(returned.descripcion, function( i, val ) {                   
-							descripcion = val.descripcion;
-						});
-						$("#descripcion_1").val(descripcion);
-					}
-				});
-			}
-		});
-		*/
-
-		//document.getElementsByClassName(".btn.quitarcontacto").title = 'Quitar';
 		
-
+		//Busca el nombre del empleado una vez que el input tenga 5 caracteres
 		$("#empleadoElabora").on('keyup', function(e) {
 			if ($(this).val().length == 5) {
 				var rpe = $('#empleadoElabora').val();
@@ -311,12 +288,13 @@
 			}
 		});
 
+		//Agrega una fila en blanco a la tabla
 		$("#agregarRegistroArticulos").click(function(){
 			var cuentaActual = $("#tablaFamilias tbody tr").length;
 			var cuentaNueva = cuentaActual+1;
 
 			$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
-			$('#tablaFamilias tbody>tr:last').find("input, select").each(function (){
+			$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -327,20 +305,22 @@
      	});
 
 		 $("#agregarRegistroProveedores").click(function(){
-			var cuentaActual = $("#tablaProveedores tbody tr").length;
-			var cuentaNueva = cuentaActual+1;
+			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+			var cuentaNueva = parseInt(cuentaActual) + 1;
 
 			$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
 			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
-				if($(this).is("input")){
+				if($(this).is("input") || $(this).is("textarea")){
 					$(this).val("");
 				}
 			});
+			
      	});
 		 
+		//Carga los proveedores que manejen la familia seleccionada 
 		$("#cargarProveedores").click(function(){
 			var clave = $("#idFamilia option:selected").text();
 			if(clave != "Seleccione"){
@@ -381,6 +361,7 @@
 			
 		});
 
+		//Carga los artículos relacionados con esa familia
 		$("#cargarArticulos").click(function(){
 			var idFamilia = $("#idFamilia").val();
 			if(idFamilia != 0){
@@ -403,8 +384,7 @@
 							});
 						}
 
-						jQuery.each(returned.listaarticulos, function( i, val ) {                   
-							//console.log(i);
+						jQuery.each(returned.listaarticulos, function( i, val ) {    
 							$("#codigo_" + (i+1)).val(val.codigo);
 							$("#descripcion_" + (i+1)).val(val.descripcion);
 							$("#plazoentrega_" + (i+1)).val(val.tiempoEntrega);
@@ -418,33 +398,54 @@
 		});
 	});
 
-	//Quitar contactos del proveedor
-	//$(".btn.quitarcontacto").click(function(){
-	//	name = $(this).attr("name");
-	//	console.log(name);
-	//});
 
-	//Quitar línea de proveedor completa
-	$(".btn.quitarproveedor").click(function(){
-		name = $(this).attr("name");
+	$(document).on("click", "a.btn.quitararticulo" ,function() {
+		var name = $(this).attr("name");
+		console.log(name);
+	});
+
+	$(document).on("click", "a.btn.detallesarticulo" ,function() {
+		var name = $(this).attr("name");
 		console.log(name);
 	});
 
 	$(document).on("click", "a.btn.quitarcontacto" ,function() {
-		name = $(this).attr("name");
-		console.log(name);
+		var name = $(this).attr("name");
+		var numcontacto = name.substr(name.length - 3);
+
+		$( "#contacto" + numcontacto ).fadeOut( "fast" );
+		$( "#telefono" + numcontacto ).fadeOut( "fast" );
+		$( "#quitarcontacto" + numcontacto ).fadeOut( "fast" );
 	});
 
 	$(document).on("click", "a.btn.quitarproveedor" ,function() {
-		name = $(this).attr("name");
-		console.log(name);
+		var name = $(this).attr("name");
+		//var tabfila = name.split("_").pop();
+		if($("#tablaProveedores tbody tr").length > 1){
+			var tableRow = $(this).closest('tr');
+    		tableRow.find('td').fadeOut('fast', 
+        		function(){ 
+            		tableRow.remove();                    
+        		}
+    		);
+		}
+	});
+	
+	$(document).on('mouseover', '.btn.quitararticulo', function(){
+		$(this).prop("title", "Quitar artículo");
 	});
 
-	$(document).on('mouseover mouseout', '.btn.quitarcontacto', function(){
-		$(this).prop("title", "Quitar");
+	$(document).on('mouseover', '.btn.detallesarticulo', function(){
+		$(this).prop("title", "Ver detalles");
+	});
+	
+	$(document).on('mouseover', '.btn.quitarcontacto', function(){
+		$(this).prop("title", "Quitar contacto");
 	});
 
-	$(document).on('mouseover mouseout', '.btn.quitarproveedor', function(){
-		$(this).prop("title", "Quitar");
+	$(document).on('mouseover', '.btn.quitarproveedor', function(){
+		$(this).prop("title", "Quitar proveedor");
 	});
+
+	
 </script>

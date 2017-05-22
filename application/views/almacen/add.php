@@ -100,6 +100,7 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {
+		$("#idEstado option[value=0]").remove();
 
 		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
