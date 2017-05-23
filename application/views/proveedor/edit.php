@@ -428,10 +428,10 @@
 
 <script type="text/javascript">   
     $(document).ready(function() { 
-		$("#idEstado option[value=0]").remove();
-		$("#idEstado1 option[value=0]").remove();
-		$("#idEstado2 option[value=0]").remove();
-		$("#idEstado3 option[value=0]").remove();
+		$("#idEstado option:contains('NINGUNO')").remove();
+		$("#idEstado1 option:contains('NINGUNO')").remove();
+		$("#idEstado2 option:contains('NINGUNO')").remove();
+		$("#idEstado3 option:contains('NINGUNO')").remove();
 		//console.log("<?php echo $proveedor['tipo'] ?>");
 		
 		/* Si el proveedor que se quiere editar es originalmente de bienes

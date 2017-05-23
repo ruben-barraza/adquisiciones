@@ -290,8 +290,8 @@
 
 		//Agrega una fila en blanco a la tabla
 		$("#agregarRegistroArticulos").click(function(){
-			var cuentaActual = $("#tablaFamilias tbody tr").length;
-			var cuentaNueva = cuentaActual+1;
+			var cuentaActual = $("#tablaFamilias tbody tr:last input:last").attr("name").split("_").pop();
+			var cuentaNueva = parseInt(cuentaActual) + 1;
 
 			$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
 			$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
@@ -313,6 +313,7 @@
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
 				if($(this).is("input") || $(this).is("textarea")){
 					$(this).val("");
 				}
@@ -333,13 +334,30 @@
 					success: function (returned) {
 						var returned = JSON.parse(returned);
 						var longitud = returned.listaproveedores.length;
+
+						$("#tablaProveedores").find("tr:gt(1)").remove();
 						
+						var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+						$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+							var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input") || $(this).is("textarea")){
+								$(this).val("");
+							}
+						});
+
 						for (var i = 1; i < longitud; i++) {
 							$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
 							$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
 								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
 								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
 								$(this).attr("id", nuevoId).attr("name", nuevoName);
+								$(this).removeAttr("style");
+								if($(this).is("input") || $(this).is("textarea")){
+									$(this).val("");
+								}
 							});
 						}
 						
@@ -355,6 +373,7 @@
 							$("#telefono2_" + (i+1)).val(val.telefonoFijo2);
 							$("#telefono3_" + (i+1)).val(val.telefonoFijo3);
 						});
+						
 					}
 				});
 			}
@@ -374,13 +393,30 @@
 					success: function (returned) {
 						var returned = JSON.parse(returned);
 						var longitud = returned.listaarticulos.length;
+
+						$("#tablaFamilias").find("tr:gt(1)").remove();
+						
+						var cuentaActual = $("#tablaFamilias tbody tr:last input:last").attr("name").split("_").pop();
+						$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+							var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input")){
+								$(this).val("");
+							}
+						});
+
 						
 						for (var i = 1; i < longitud; i++) {
 							$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
-							$('#tablaFamilias tbody>tr:last').find("input").each(function (){
+							$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
 								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
 								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
 								$(this).attr("id", nuevoId).attr("name", nuevoName);
+								if($(this).is("input")){
+									$(this).val("");
+								}
 							});
 						}
 
@@ -392,6 +428,7 @@
 							$("#um_" + (i+1)).val(val.unidadmedida);
 						});
 						
+						
 					}
 				});
 			}	
@@ -400,8 +437,25 @@
 
 
 	$(document).on("click", "a.btn.quitararticulo" ,function() {
-		var name = $(this).attr("name");
-		console.log(name);
+		if($("#tablaFamilias tbody tr").length > 1){
+			var tableRow = $(this).closest('tr');
+    		tableRow.find('td').fadeOut('fast', 
+        		function(){ 
+            		tableRow.remove();                    
+        		}
+    		);
+		} else {
+			var cuentaActual = $("#tablaFamilias tbody tr:last input:last").attr("name").split("_").pop();
+			$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input")){
+					$(this).val("");
+				}
+			});
+		}
 	});
 
 	$(document).on("click", "a.btn.detallesarticulo" ,function() {
@@ -419,7 +473,6 @@
 	});
 
 	$(document).on("click", "a.btn.quitarproveedor" ,function() {
-		var name = $(this).attr("name");
 		//var tabfila = name.split("_").pop();
 		if($("#tablaProveedores tbody tr").length > 1){
 			var tableRow = $(this).closest('tr');
@@ -428,6 +481,17 @@
             		tableRow.remove();                    
         		}
     		);
+		} else {
+			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input") || $(this).is("textarea")){
+					$(this).val("");
+				}
+			});
 		}
 	});
 	
