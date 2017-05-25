@@ -122,5 +122,16 @@
 				});
 			});
 		}
+
+		$("#idEstado").change(function() {
+    		$("#idEstado option:selected").each(function() {
+                idEstado = $('#idEstado').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+                	idEstado : idEstado
+                }, function(data) {
+                   $("#idMunicipio").html(data);
+                });
+            });
+        });
     });
 </script>

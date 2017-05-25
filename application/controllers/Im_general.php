@@ -85,6 +85,7 @@ class Im_general extends CI_Controller{
 
             $this->load->model('Comboboxesmodel');
 			$data['familias'] = $this->Comboboxesmodel->getFamilias();
+            $data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
             
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);

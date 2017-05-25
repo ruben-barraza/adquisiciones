@@ -53,11 +53,11 @@
 							<div class="col-md-6">
 								<select id="idFamilia" name="idFamilia" class="form-control">
 									<option value="0">Seleccione</option>
-										<?php 
-											foreach ($familias as $i) {
-												echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
-											}
-										?>
+									<?php 
+										foreach ($familias as $i) {
+											echo '<option value="'. $i->id .'">'. $i->descripcion .'</option>';
+										}
+									?>
 								</select>
 							</div>
 						</div>
@@ -145,10 +145,18 @@
 									<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
 								</td>
 								<td >
-									<select name="lugarentrega_1" id="lugarentrega_1"></select>
+									<select name="lugarentrega_1" id="lugarentrega_1">
+										<option value="0">Seleccione</option>
+										<?php 
+											foreach ($almacenes as $i) {
+												echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. $i->nombre .'</option>';
+											}
+										?>
+										<option value="<?php echo sizeof($almacenes)+1?>">OTRO</option>
+									</select>
 								</td>
 								<td class="col-md-2">
-									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control"/>
+									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control" disabled/>
 								</td>
 									<td id="td-not">
 									<a name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
