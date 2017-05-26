@@ -145,7 +145,7 @@
 									<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
 								</td>
 								<td >
-									<select name="lugarentrega_1" id="lugarentrega_1">
+									<select name="lugarentrega_1" id="lugarentrega_1" class="form-control select-lugar">
 										<option value="0">Seleccione</option>
 										<?php 
 											foreach ($almacenes as $i) {
@@ -156,7 +156,7 @@
 									</select>
 								</td>
 								<td class="col-md-2">
-									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control" disabled/>
+									<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control input-direccion" disabled/>
 								</td>
 									<td id="td-not">
 									<a name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
@@ -429,19 +429,50 @@
 						}
 
 						jQuery.each(returned.listaarticulos, function( i, val ) {    
+							$("#partida_" + (i+1).val(i);
 							$("#codigo_" + (i+1)).val(val.codigo);
 							$("#descripcion_" + (i+1)).val(val.descripcion);
 							$("#plazoentrega_" + (i+1)).val(val.tiempoEntrega);
 							$("#cantidad_" + (i+1)).val(val.cantidadEmbalaje);
 							$("#um_" + (i+1)).val(val.unidadmedida);
 						});
-						
-						
 					}
 				});
 			}	
 		});
 	});
+
+	//Carga la dirección del almacén seleccionado en el campo de dirección
+	//Si se selecciona Otro el campo se vuelve editable
+	$(document).on("change", ".select-lugar", function(){
+   		var $mySelect = $(this);
+		var $row = $mySelect.closest('tr'); // the row where this select element is in.
+		var idAlmacen = $mySelect.val();
+		var opcion = $mySelect.find('option:selected').text();
+		if(opcion != "Seleccione" && opcion != "OTRO"){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerDireccionAlmacen',
+				method: 'POST',
+				data: {
+					idAlmacen: idAlmacen
+				},
+				success: function (returned) {
+					var result = JSON.parse(returned);
+					var domicilio = ((result.almacen)[0].domicilio);
+					$row.find('.input-direccion').val(domicilio)
+					$row.find('.input-direccion').prop("disabled", true);
+				}
+			});
+		} else if (opcion == "OTRO"){
+			$row.find('.input-direccion').prop("disabled", false);
+			$row.find('.input-direccion').val("")
+		} else if (opcion == "Seleccione"){
+			$row.find('.input-direccion').prop("disabled", true);
+			$row.find('.input-direccion').val("")
+		}
+		
+	});	
+
 
 
 	$(document).on("click", "a.btn.quitararticulo" ,function() {

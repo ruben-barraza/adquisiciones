@@ -98,6 +98,17 @@ class Imgeneralmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    function get_direccionalmacen($idAlmacen)
+    {
+        $this->db->select('domicilio');
+        $this->db->from('almacen');
+        $this->db->where('id', $idAlmacen);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
     
     /*
      * function to update im_general

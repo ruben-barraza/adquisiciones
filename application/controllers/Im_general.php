@@ -17,6 +17,12 @@ class Im_general extends CI_Controller{
 		echo json_encode($data);
     }
 
+    function obtenerDireccionAlmacen(){
+        $idAlmacen = $_POST['idAlmacen'];
+        $data['almacen'] = $this->Imgeneralmodel->get_direccionalmacen($idAlmacen);
+        echo json_encode($data);
+    }
+
     /*
     function obtenerDescripcionFamilia(){
         $id = $_POST['id'];
