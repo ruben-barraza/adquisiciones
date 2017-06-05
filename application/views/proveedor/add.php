@@ -361,12 +361,12 @@
 					</div>
 
 					<div class = "col-sm-offset-4 col-sm-8">
-						<a href="<?php echo site_url('proveedor/index/'); ?>" id="botonCancelar" class="btn btn-danger">
-							<span class="fa fa-ban"></span> Cancelar
-						</a>
 						<button id="botonGuardar" type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i> Guardar
 						</button>
+						<a href="<?php echo site_url('proveedor/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 				<?php echo form_close(); ?>
 			</div>

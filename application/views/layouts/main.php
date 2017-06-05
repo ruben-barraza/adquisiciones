@@ -26,6 +26,10 @@
         <link href="<?php echo site_url('resources/css/switchery.min.css');?>" rel="stylesheet">
         <!-- starrr -->
         <link href="<?php echo site_url('resources/css/starrr.css');?>" rel="stylesheet">
+        <!--link jquery ui css-->
+        <link href="<?php echo site_url('resources/css/jquery-ui.css');?>" rel="stylesheet"/>
+        <!-- include summernote css-->
+        <link href="<?php echo site_url('resources/summernote/summernote.css');?>" rel="stylesheet">
 
         <!-- Custom Theme Style -->
         <link href="<?php echo site_url('resources/css/custom.min.css');?>" rel="stylesheet">
@@ -93,9 +97,11 @@
                                 <ul class="nav side-menu nav-list nav-menu-list-style">
                                     <li><label class="tree-toggle nav-header"> Investigación de Mercado</span></label>
                                       <ul class="nav nav-list tree">
+                                        <!--
                                         <li>
                                             <a href="<?php echo site_url('formularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>
                                         </li>
+                                        -->
                                         <li>
                                             <a href="<?php echo site_url('im_concepto/index');?>"><i class="fa fa-table"></i> IM Concepto</a>
                                         </li>
@@ -227,6 +233,8 @@
 
         <!-- jQuery -->
         <script src="<?php echo site_url('resources/js/jquery.min.js');?>"></script>
+        <!-- jQuery UI-->
+        <script src="<?php echo site_url('resources/js/jquery-ui.js');?>"></script>
         <!-- Bootstrap -->
         <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
         <!-- FastClick -->
@@ -258,6 +266,8 @@
         <script src="<?php echo site_url('resources/js/jquery.autocomplete.min.js');?>"></script>
         <!-- starrr -->
         <script src="<?php echo site_url('resources/js/starrr.js');?>"></script>
+        <!-- include summernote js-->
+        <script src="<?php echo site_url('resources/summernote/summernote.js');?>"></script>
 
         <!-- Custom Theme Scripts -->
         <script src="<?php echo site_url('resources/js/custom.min.js');?>"></script>

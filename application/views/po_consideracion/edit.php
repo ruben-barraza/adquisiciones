@@ -1,8 +1,14 @@
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<style>
+	
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Edit</h2>
+                <h2>Editar aspectos a considerar</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   	<li>
                   		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -31,118 +37,118 @@
 							</div>
 						</div>
 					<div class="form-group">
-						<label for="fc1" class="col-md-4 control-label">Fc1</label>
+						<label for="fc1" class="col-md-4 control-label">Punto 1</label>
 						<div class="col-md-8">
-							<input type="text" name="fc1" value="<?php echo ($this->input->post('fc1') ? $this->input->post('fc1') : $po_consideracion['fc1']); ?>" class="form-control" id="fc1" />
+							<textarea name="fc1" class="form-control summernote" id="fc1"><?php echo ($this->input->post('fc1') ? $this->input->post('fc1') : $po_consideracion['fc1']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc2" class="col-md-4 control-label">Fc2</label>
+						<label for="fc2" class="col-md-4 control-label">Punto 2</label>
 						<div class="col-md-8">
-							<input type="text" name="fc2" value="<?php echo ($this->input->post('fc2') ? $this->input->post('fc2') : $po_consideracion['fc2']); ?>" class="form-control" id="fc2" />
+							<textarea name="fc2" class="form-control summernote" id="fc2"><?php echo ($this->input->post('fc2') ? $this->input->post('fc2') : $po_consideracion['fc2']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc3" class="col-md-4 control-label">Fc3</label>
+						<label for="fc3" class="col-md-4 control-label">Condiciones</label>
 						<div class="col-md-8">
-							<input type="text" name="fc3" value="<?php echo ($this->input->post('fc3') ? $this->input->post('fc3') : $po_consideracion['fc3']); ?>" class="form-control" id="fc3" />
+							<textarea name="fc3" class="form-control summernote" id="fc3"><?php echo ($this->input->post('fc3') ? $this->input->post('fc3') : $po_consideracion['fc3']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc4" class="col-md-4 control-label">Fc4</label>
+						<label for="fc4" class="col-md-4 control-label">Punto 3</label>
 						<div class="col-md-8">
-							<input type="text" name="fc4" value="<?php echo ($this->input->post('fc4') ? $this->input->post('fc4') : $po_consideracion['fc4']); ?>" class="form-control" id="fc4" />
+							<textarea name="fc4" class="form-control summernote" id="fc4"><?php echo ($this->input->post('fc4') ? $this->input->post('fc4') : $po_consideracion['fc4']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc5" class="col-md-4 control-label">Fc5</label>
+						<label for="fc5" class="col-md-4 control-label">Punto 4</label>
 						<div class="col-md-8">
-							<input type="text" name="fc5" value="<?php echo ($this->input->post('fc5') ? $this->input->post('fc5') : $po_consideracion['fc5']); ?>" class="form-control" id="fc5" />
+							<textarea name="fc5" class="form-control summernote" id="fc5"><?php echo ($this->input->post('fc5') ? $this->input->post('fc5') : $po_consideracion['fc5']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc6" class="col-md-4 control-label">Fc6</label>
+						<label for="fc6" class="col-md-4 control-label">Punto 5</label>
 						<div class="col-md-8">
-							<input type="text" name="fc6" value="<?php echo ($this->input->post('fc6') ? $this->input->post('fc6') : $po_consideracion['fc6']); ?>" class="form-control" id="fc6" />
+							<textarea name="fc6" class="form-control summernote" id="fc6"><?php echo ($this->input->post('fc6') ? $this->input->post('fc6') : $po_consideracion['fc6']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc7" class="col-md-4 control-label">Fc7</label>
+						<label for="fc7" class="col-md-4 control-label">Punto 6</label>
 						<div class="col-md-8">
-							<input type="text" name="fc7" value="<?php echo ($this->input->post('fc7') ? $this->input->post('fc7') : $po_consideracion['fc7']); ?>" class="form-control" id="fc7" />
+							<textarea name="fc7" class="form-control summernote" id="fc7"><?php echo ($this->input->post('fc7') ? $this->input->post('fc7') : $po_consideracion['fc7']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc8" class="col-md-4 control-label">Fc8</label>
+						<label for="fc8" class="col-md-4 control-label">Especificaciones</label>
 						<div class="col-md-8">
-							<input type="text" name="fc8" value="<?php echo ($this->input->post('fc8') ? $this->input->post('fc8') : $po_consideracion['fc8']); ?>" class="form-control" id="fc8" />
+							<textarea name="fc8" class="form-control summernote" id="fc8"><?php echo ($this->input->post('fc8') ? $this->input->post('fc8') : $po_consideracion['fc8']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc9" class="col-md-4 control-label">Fc9</label>
+						<label for="fc9" class="col-md-4 control-label">Punto 7</label>
 						<div class="col-md-8">
-							<input type="text" name="fc9" value="<?php echo ($this->input->post('fc9') ? $this->input->post('fc9') : $po_consideracion['fc9']); ?>" class="form-control" id="fc9" />
+							<textarea name="fc9" class="form-control summernote" id="fc9"><?php echo ($this->input->post('fc9') ? $this->input->post('fc9') : $po_consideracion['fc9']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc10" class="col-md-4 control-label">Fc10</label>
+						<label for="fc10" class="col-md-4 control-label">Punto 8</label>
 						<div class="col-md-8">
-							<input type="text" name="fc10" value="<?php echo ($this->input->post('fc10') ? $this->input->post('fc10') : $po_consideracion['fc10']); ?>" class="form-control" id="fc10" />
+							<textarea name="fc10" class="form-control summernote" id="fc10"><?php echo ($this->input->post('fc10') ? $this->input->post('fc10') : $po_consideracion['fc10']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc11" class="col-md-4 control-label">Fc11</label>
+						<label for="fc11" class="col-md-4 control-label">Punto 9</label>
 						<div class="col-md-8">
-							<input type="text" name="fc11" value="<?php echo ($this->input->post('fc11') ? $this->input->post('fc11') : $po_consideracion['fc11']); ?>" class="form-control" id="fc11" />
+							<textarea name="fc11" class="form-control summernote" id="fc11"><?php echo ($this->input->post('fc11') ? $this->input->post('fc11') : $po_consideracion['fc11']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc12" class="col-md-4 control-label">Fc12</label>
+						<label for="fc12" class="col-md-4 control-label">Punto 10</label>
 						<div class="col-md-8">
-							<input type="text" name="fc12" value="<?php echo ($this->input->post('fc12') ? $this->input->post('fc12') : $po_consideracion['fc12']); ?>" class="form-control" id="fc12" />
+							<textarea name="fc12" class="form-control summernote" id="fc12"><?php echo ($this->input->post('fc12') ? $this->input->post('fc12') : $po_consideracion['fc12']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc13" class="col-md-4 control-label">Fc13</label>
+						<label for="fc13" class="col-md-4 control-label">Punto 11</label>
 						<div class="col-md-8">
-							<input type="text" name="fc13" value="<?php echo ($this->input->post('fc13') ? $this->input->post('fc13') : $po_consideracion['fc13']); ?>" class="form-control" id="fc13" />
+							<textarea name="fc13" class="form-control summernote" id="fc13"><?php echo ($this->input->post('fc13') ? $this->input->post('fc13') : $po_consideracion['fc13']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc14" class="col-md-4 control-label">Fc14</label>
+						<label for="fc14" class="col-md-4 control-label">Punto 12</label>
 						<div class="col-md-8">
-							<input type="text" name="fc14" value="<?php echo ($this->input->post('fc14') ? $this->input->post('fc14') : $po_consideracion['fc14']); ?>" class="form-control" id="fc14" />
+							<textarea name="fc14" class="form-control summernote" id="fc14"><?php echo ($this->input->post('fc14') ? $this->input->post('fc14') : $po_consideracion['fc14']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc15" class="col-md-4 control-label">Fc15</label>
+						<label for="fc15" class="col-md-4 control-label">Punto 13</label>
 						<div class="col-md-8">
-							<input type="text" name="fc15" value="<?php echo ($this->input->post('fc15') ? $this->input->post('fc15') : $po_consideracion['fc15']); ?>" class="form-control" id="fc15" />
+							<textarea name="fc15" class="form-control summernote" id="fc15"><?php echo ($this->input->post('fc15') ? $this->input->post('fc15') : $po_consideracion['fc15']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc16" class="col-md-4 control-label">Fc16</label>
+						<label for="fc16" class="col-md-4 control-label">Punto 14</label>
 						<div class="col-md-8">
-							<input type="text" name="fc16" value="<?php echo ($this->input->post('fc16') ? $this->input->post('fc16') : $po_consideracion['fc16']); ?>" class="form-control" id="fc16" />
+							<textarea name="fc16" class="form-control summernote" id="fc16"><?php echo ($this->input->post('fc16') ? $this->input->post('fc16') : $po_consideracion['fc16']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc17" class="col-md-4 control-label">Fc17</label>
+						<label for="fc17" class="col-md-4 control-label">Punto 15</label>
 						<div class="col-md-8">
-							<input type="text" name="fc17" value="<?php echo ($this->input->post('fc17') ? $this->input->post('fc17') : $po_consideracion['fc17']); ?>" class="form-control" id="fc17" />
+							<textarea name="fc17" class="form-control summernote" id="fc17"><?php echo ($this->input->post('fc17') ? $this->input->post('fc17') : $po_consideracion['fc17']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc18" class="col-md-4 control-label">Fc18</label>
+						<label for="fc18" class="col-md-4 control-label">Vigencia</label>
 						<div class="col-md-8">
-							<input type="text" name="fc18" value="<?php echo ($this->input->post('fc18') ? $this->input->post('fc18') : $po_consideracion['fc18']); ?>" class="form-control" id="fc18" />
+							<textarea name="fc18" class="form-control summernote" id="fc18"><?php echo ($this->input->post('fc18') ? $this->input->post('fc18') : $po_consideracion['fc18']); ?></textarea>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
 							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Save
+								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
 					</div>
@@ -152,3 +158,18 @@
         </div>
   	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+        $('.summernote').summernote({
+			height: 150,
+			toolbar: [
+				// [groupName, [list of button]]
+				//['fontname', ['fontname']],
+				['style', ['bold', 'italic', 'underline', 'clear']],
+				['fontsize', ['fontsize']],
+				['para', ['ul', 'ol', 'paragraph']],
+  			]
+		});
+    });
+</script>

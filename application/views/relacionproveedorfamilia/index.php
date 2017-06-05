@@ -3,9 +3,11 @@
         <div class="x_panel">
           	<div class="x_title">
                 <h2>Proveedores de familias</h2>
+				<!--
                 <div class="nav navbar-right">
 					<a href="<?php echo site_url('relacionproveedorfamilia/add'); ?>" class="btn btn-success btn-sm">Add</a> 
 				</div>
+				-->
                 <div class="clearfix"></div>
           	</div>
           	<div class="x_content">
