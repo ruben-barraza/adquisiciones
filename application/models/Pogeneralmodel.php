@@ -58,6 +58,32 @@ class Pogeneralmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    function get_all_listaproveedorfamilia($idFamilia)
+    {
+        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.correoElectronico1, proveedor.correoElectronico2, proveedor.correoElectronico3');
+        $this->db->from('proveedor');
+        $this->db->join('relacionproveedorfamilia', 'relacionproveedorfamilia.idProveedor = proveedor.id', 'inner');
+        $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
+        $this->db->where('familia.id', $idFamilia);
+        $this->db->order_by('proveedor.razonSocial');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_all_listaproveedorservicio()
+    {
+        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.correoElectronico1, proveedor.correoElectronico2, proveedor.correoElectronico3');
+        $this->db->from('proveedor');
+        $this->db->where('proveedor.tipo', 'S');
+        $this->db->or_where('proveedor.tipo', 'A');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
     
     /*
      * function to update po_general

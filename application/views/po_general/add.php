@@ -5,13 +5,51 @@
 	.hidden { 
 		display: none; 
 	}
+
+	.ui-datepicker { 
+		position: relative; 
+		z-index: 10000 !important; 
+	}
+
+	td .btn.aligned {
+  		position: absolute;
+  		margin-top: 7px;
+  		float: right;
+  		margin-left: 5px;
+	}
+
+	td .lowered {
+  		margin-top: 44px;
+	}
+
+	td .btn.lowered{
+		margin-top: 38px;
+	}
+
+	td .btn.aligned-right{
+		float: right;
+	}
+
+	td input {
+  		float: left;
+		margin-bottom: 10px;
+	}
+
+	.spacer {
+  		padding-left: 25px !important;
+	}
+
+	textarea {
+    	resize: none;
+		margin-top: 5px;
+	}
 </style>
 
 <div class="row">
 	<div class="col-md-22 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Add</h2>
+                <h2>Elaborar nueva Petición Oferta</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   	<li>
                   		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -32,7 +70,6 @@
 									$tipo_values = array(
 										'B'=>'Bienes',
 										'S'=>'Servicios',
-										'A'=>'Bienes y Servicios',
 									);
 
 									foreach($tipo_values as $value => $display_text)
@@ -173,8 +210,74 @@
 						</div>
 					</div>
 					-->
+
+					<hr />
+
+					<div class="seccion-proveedores hidden">
+						<h2> Proveedores</h4>
+						<h4> Seleccione a los proveedores y a los contactos a los que estará dirigido esta Petición Oferta</h2>
+						<br />
+						<div class="form-group">
+							<a id="cargarProveedoresBienes" class="btn btn-primary hidden">
+								<i class="fa "></i> Cargar proveedores de familia
+							</a>
+							<a id="cargarProveedoresServicios" class="btn btn-primary hidden">
+								<i class="fa "></i> Cargar proveedores de servicios
+							</a>
+							<a id="agregarRegistroProveedores" class="btn btn-primary">
+								<i class="fa "></i> Agregar registro en blanco
+							</a>
+						</div>
+
+						<table id="tablaProveedores" class="table table-hover">
+							<thead class="thead-inverse">
+								<th>Clave</th>
+								<th>Razón social y Dirección</th>
+								<th>Contactos</th>
+								<th>Correos electrónicos</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="col-md-2">
+										<input type="text" name="clave_1" id="clave_1" class="form-control lowered" maxlength="15"/>
+									</td>
+									<td class="col-md-3">
+										<textarea name="razonsocial_1" id="razonsocial_1" class="form-control"></textarea>
+										<textarea name="direccion_1" id="direccion_1" class="form-control lowered2"></textarea>
+									</td>
+									<td class="col-md-4">
+										<input type="text" name="contacto1_1" id="contacto1_1" class="form-control" disabled/>
+										<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
+										<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
+									</td>
+									<td>
+										<div class="row">
+											<input type="text" name="correo1_1" id="correo1_1" class="form-control" disabled/>
+											<a name="quitarcontacto1_1" id="quitarcontacto1_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										</div>
+										<div class="row">
+											<input type="text" name="correo2_1" id="correo2_1" class="form-control" disabled/>
+											<a name="quitarcontacto2_1" id="quitarcontacto2_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										</div>
+										<div class="row">
+											<input type="text" name="correo3_1" id="correo3_1" class="form-control" disabled/>
+											<a name="quitarcontacto3_1" id="quitarcontacto3_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										</div>
+									</td>
+									<td class="spacer">
+										<a  name="quitarproveedor_1" id="quitarproveedor_1" class="btn btn-danger btn-xs lowered quitarproveedor aligned-right"><span class="fa fa-trash"></span></a>
+										<a name="buscarproveedor_1" id="buscarproveedor_1" class="btn btn-info btn-xs buscarproveedor aligned-right"><span class="fa fa-search"></span></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<hr />
+					</div>
+
 					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
+						<div class="col-sm-offset-2 col-sm-8">
 							<button type="submit" class="btn btn-success">
 								<i class="fa fa-check"></i> Guardar
 							</button>
@@ -229,13 +332,24 @@
 		$('#tipoProveedor').change(function(){
 			var val = $(this).val();
 			
-			if (val == "B" || val == "A"){
+			if (val == "B"){
 				$('.seccion-familia').removeClass('hidden');
 				$('.seccion-familia').show();
+				$('.seccion-proveedores').removeClass('hidden');
+				$('.seccion-proveedores').show();
+				$('#cargarProveedoresBienes').removeClass('hidden');
+				$('#cargarProveedoresBienes').show();
+				$('#cargarProveedoresServicios').hide();
 			} else if (val == "S"){
 				$('.seccion-familia').hide();
+				$('.seccion-proveedores').removeClass('hidden');
+				$('.seccion-proveedores').show();
+				$('#cargarProveedoresServicios').removeClass('hidden');
+				$('#cargarProveedoresServicios').show();
+				$('#cargarProveedoresBienes').hide();
 			} else {
 				$('.seccion-familia').hide();
+				$('.seccion-proveedores').hide();
 			}
 		});
 
@@ -301,8 +415,204 @@
                 });
             });
         });
+
+		//Agrega una fila en blanco a la tabla de proveedores
+		$("#agregarRegistroProveedores").click(function(){
+			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+			var cuentaNueva = parseInt(cuentaActual) + 1;
+
+			$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input") || $(this).is("textarea")){
+					$(this).val("");
+				}
+			});
+				
+		});
+
+		//Carga los proveedores que manejen la familia seleccionada 
+		$("#cargarProveedoresBienes").click(function(){
+			var idFamilia = $("#idFamilia").val();
+			if(idFamilia != 0){
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaProveedores',
+					method: 'POST',
+					data: {
+						idFamilia: idFamilia
+					},
+					success: function (returned) {
+						
+						var returned = JSON.parse(returned);
+						var longitud = returned.listaproveedores.length;
+						
+						$("#tablaProveedores").find("tr:gt(1)").remove();
+						
+						var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+						$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+							var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input") || $(this).is("textarea")){
+								$(this).val("");
+							}
+						});
+
+						for (var i = 1; i < longitud; i++) {
+							$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+							$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+								$(this).attr("id", nuevoId).attr("name", nuevoName);
+								$(this).removeAttr("style");
+								if($(this).is("input") || $(this).is("textarea")){
+									$(this).val("");
+								}
+							});
+						}
+						
+						jQuery.each(returned.listaproveedores, function( i, val ) {                   
+							//console.log(i);
+							$("#clave_" + (i+1)).val(val.clave);
+							$("#razonsocial_" + (i+1)).val(val.razonSocial);
+							$("#direccion_" + (i+1)).val(val.direccion);
+							$("#contacto1_" + (i+1)).val(val.nombre1);
+							$("#contacto2_" + (i+1)).val(val.nombre2);
+							$("#contacto3_" + (i+1)).val(val.nombre3);
+							$("#correo1_" + (i+1)).val(val.correoElectronico1);
+							$("#correo2_" + (i+1)).val(val.correoElectronico2);
+							$("#correo3_" + (i+1)).val(val.correoElectronico3);
+						});
+					}
+				});
+			}
+		});
+
+
+		//Carga los provedoores de servicios y de bienes y servicios (tipo S Y A)
+		$("#cargarProveedoresServicios").click(function(){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaProveedoresServicio',
+				method: 'GET',
+				success: function (returned) {
+					var returned = JSON.parse(returned);
+					var longitud = returned.listaproveedoresservicio.length;
+					$("#tablaProveedores").find("tr:gt(1)").remove();
+						
+					var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+					$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+						var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+						var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+						$(this).attr("id", nuevoId).attr("name", nuevoName);
+						$(this).removeAttr("style");
+						if($(this).is("input") || $(this).is("textarea")){
+							$(this).val("");
+						}
+					});
+
+					for (var i = 1; i < longitud; i++) {
+						$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+						$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+							var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input") || $(this).is("textarea")){
+								$(this).val("");
+							}
+						});
+					}
+						
+					jQuery.each(returned.listaproveedoresservicio, function( i, val ) {                   
+						//console.log(i);
+						$("#clave_" + (i+1)).val(val.clave);
+						$("#razonsocial_" + (i+1)).val(val.razonSocial);
+						$("#direccion_" + (i+1)).val(val.direccion);
+						$("#contacto1_" + (i+1)).val(val.nombre1);
+						$("#contacto2_" + (i+1)).val(val.nombre2);
+						$("#contacto3_" + (i+1)).val(val.nombre3);
+						$("#correo1_" + (i+1)).val(val.correoElectronico1);
+						$("#correo2_" + (i+1)).val(val.correoElectronico2);
+						$("#correo3_" + (i+1)).val(val.correoElectronico3);
+					});
+				}
+			});
+		});
+
+
 	});
 
+	
+	
 
+	//Quita el nombre y correo electrónico de un proveedor
+	$(document).on("click", "a.btn.quitarcontacto" ,function() {
+		var name = $(this).attr("name");
+		var numcontacto = name.substr(name.length - 3);
+
+		$( "#contacto" + numcontacto ).fadeOut( "fast" );
+		$( "#correo" + numcontacto ).fadeOut( "fast" );
+		$( "#quitarcontacto" + numcontacto ).fadeOut( "fast" );
+	});
+
+	//Quita la información completa de un proveedor de la tabla
+	$(document).on("click", "a.btn.quitarproveedor" ,function() {
+		//var tabfila = name.split("_").pop();
+		if($("#tablaProveedores tbody tr").length > 1){
+			var tableRow = $(this).closest('tr');
+    		tableRow.find('td').fadeOut('fast', 
+        		function(){ 
+            		tableRow.remove();                    
+        		}
+    		);
+		} else {
+			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input") || $(this).is("textarea")){
+					$(this).val("");
+				}
+			});
+		}
+	});
+
+	//Busca un proveedor de acuerdo a la clave que se escriba en el campo CLAVE
+	$(document).on("click", "a.btn.buscarproveedor", function(){
+		var $this = $(this);
+		var $clave = $this.closest('tr').find('input:eq(0)').val();
+		var $row = $this.attr("name").split("_").pop();
+		if($clave != ""){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerProveedorClave',
+				method: 'POST',
+				data: {
+					clave: $clave
+				},
+				success: function (returned) {
+					var result = JSON.parse(returned);
+					jQuery.each(result.proveedor, function( i, val ) {     
+						$("#clave_" + ($row)).val(val.clave);
+						$("#razonsocial_" + ($row)).val(val.razonSocial);
+						$("#direccion_" + ($row)).val(val.direccion);
+						$("#contacto1_" + ($row)).val(val.nombre1);
+						$("#contacto2_" + ($row)).val(val.nombre2);
+						$("#contacto3_" + ($row)).val(val.nombre3);
+						$("#correo1_" + ($row)).val(val.correoElectronico1);
+						$("#correo2_" + ($row)).val(val.correoElectronico2);
+						$("#correo3_" + ($row)).val(val.correoElectronico3);
+					});
+				}
+			});
+		}
+	});
+
+	
 	
 </script>

@@ -20,6 +20,17 @@ class Po_general extends CI_Controller{
 		echo json_encode($data);
     }
 
+    function obtenerListaProveedores(){
+        $idFamilia = $_POST['idFamilia']; 
+        $data['listaproveedores'] = $this->Pogeneralmodel->get_all_listaproveedorfamilia($idFamilia);
+        echo json_encode($data);
+    }
+
+    function obtenerListaProveedoresServicio(){
+        $data['listaproveedoresservicio'] = $this->Pogeneralmodel->get_all_listaproveedorservicio();
+        echo json_encode($data);
+    }
+
     /*
      * Listing of listapo_general
      */
