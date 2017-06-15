@@ -4,7 +4,7 @@
           	<div class="x_title">
                 <h2>Listing</h2>
                 <div class="nav navbar-right">
-					<a href="<?php echo site_url('im_general/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+					<a href="<?php echo site_url('im_general/add'); ?>" class="btn btn-success btn-sm">Agregar</a> 
 				</div>
                 <div class="clearfix"></div>
           	</div>
@@ -28,8 +28,8 @@
 						<td><?php echo $i['fechaElaboracion']; ?></td>
 						<td><?php echo $i['idMunicipioElaboracion']; ?></td>
 						<td>
-				            <a href="<?php echo site_url('im_general/edit/'.$i['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-				            <a href="<?php echo site_url('im_general/remove/'.$i['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+				            <a href="<?php echo site_url('im_general/edit/'.$i['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Editar</a> 
+				            <a href="<?php echo site_url('im_general/remove/'.$i['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Borrar</a>
 				        </td>
 				    </tr>
 					<?php } ?>

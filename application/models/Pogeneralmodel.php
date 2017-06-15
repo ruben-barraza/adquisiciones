@@ -47,6 +47,17 @@ class Pogeneralmodel extends CI_Model
 		}
 		return $maxid;
 	}
+
+    function get_empleado($rpe)
+    {
+        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
     
     /*
      * function to update po_general

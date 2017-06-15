@@ -30,6 +30,8 @@
         <link href="<?php echo site_url('resources/css/jquery-ui.css');?>" rel="stylesheet"/>
         <!-- include summernote css-->
         <link href="<?php echo site_url('resources/summernote/summernote.css');?>" rel="stylesheet">
+        <!-- include wickedpicker css-->
+        <link href="<?php echo site_url('resources/wickedpicker/stylesheets/wickedpicker.css');?>" rel="stylesheet">
 
         <!-- Custom Theme Style -->
         <link href="<?php echo site_url('resources/css/custom.min.css');?>" rel="stylesheet">
@@ -122,6 +124,10 @@
                                         </li>
                                         <li>
                                             <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> PO Proveedor</a>
+
+                                        </li>
+                                        <li>
+                                              <a href="<?php echo site_url('im_general_temporal/index');?>"><i class="fa fa-table"></i>IM General Temporal</a>       
                                         </li>
                                       </ul>
                                     </li>
@@ -268,6 +274,8 @@
         <script src="<?php echo site_url('resources/js/starrr.js');?>"></script>
         <!-- include summernote js-->
         <script src="<?php echo site_url('resources/summernote/summernote.js');?>"></script>
+        <!-- include wickedpicker js-->
+        <script src="<?php echo site_url('resources/wickedpicker/src/wickedpicker.js');?>"></script>
 
         <!-- Custom Theme Scripts -->
         <script src="<?php echo site_url('resources/js/custom.min.js');?>"></script>

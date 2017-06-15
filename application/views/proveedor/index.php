@@ -41,6 +41,7 @@
 											$tipo_values = array(
 												'B'=>'Bienes',
 												'S'=>'Servicios',
+												'A'=>'Bienes y Servicios',
 											);
 											foreach($tipo_values as $value => $display_text)
 											{
@@ -151,18 +152,26 @@
 			if (val == "todos"){
 				$('.B td').show();
          		$('.S td').show();
+				$('.A td').show();
 				$('.familiaOcultar.B').hide();
 				$('#tablaOculta').hide();
 				$('#table').show();
 			} else if (val == 'B'){
 				$('.B td').show();
          		$('.S td').hide();
+				$('.A td').hide();
 				$('#seccionOculta').removeClass('hidden');
 				$('.familiaOcultar.B').show();
-
+			} else if (val == 'A'){
+				$('.B td').hide();
+         		$('.S td').hide();
+				$('.A td').show();
+				$('#seccionOculta').removeClass('hidden');
+				$('.familiaOcultar.B').show();
 			} else {
 				$('.B td').hide();
          		$('.S td').show();
+				$('.A td').hide();
 				$('.familiaOcultar.B').hide(); 
 				$('#tablaOculta').hide();
 				$('#table').show();

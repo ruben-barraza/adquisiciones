@@ -53,6 +53,7 @@
                 </ul>
                 <div class="clearfix"></div>
           	</div>
+			
           	<div class="x_content">
 				<?php echo validation_errors(); ?>
 				<?php echo form_open('im_general/add',array("class"=>"form-horizontal")); ?>
@@ -815,11 +816,11 @@
 				success: function (returned) {
 					var result = JSON.parse(returned);
 					jQuery.each(result.articulo, function( i, val ) {    
-						$("#codigo_" + (i+1)).val(val.codigo);
-						$("#descripcion_" + (i+1)).val(val.descripcion);
-						$("#plazoentrega_" + (i+1)).val(val.tiempoEntrega);
-						$("#cantidad_" + (i+1)).val(val.cantidadEmbalaje);
-						$("#um_" + (i+1)).val(val.unidadmedida);
+						$("#codigo_" + ($row)).val(val.codigo);
+						$("#descripcion_" + ($row)).val(val.descripcion);
+						$("#plazoentrega_" + ($row)).val(val.tiempoEntrega);
+						$("#cantidad_" + ($row)).val(val.cantidadEmbalaje);
+						$("#um_" + ($row)).val(val.unidadmedida);
 					});
 				}
 			});
@@ -872,15 +873,15 @@
 				success: function (returned) {
 					var result = JSON.parse(returned);
 					jQuery.each(result.proveedor, function( i, val ) {     
-						$("#clave_" + (i+1)).val(val.clave);
-						$("#razonsocial_" + (i+1)).val(val.razonSocial);
-						$("#direccion_" + (i+1)).val(val.direccion);
-						$("#contacto1_" + (i+1)).val(val.nombre1);
-						$("#contacto2_" + (i+1)).val(val.nombre2);
-						$("#contacto3_" + (i+1)).val(val.nombre3);
-						$("#correo1_" + (i+1)).val(val.correoElectronico1);
-						$("#correo2_" + (i+1)).val(val.correoElectronico2);
-						$("#correo3_" + (i+1)).val(val.correoElectronico3);
+						$("#clave_" + ($row)).val(val.clave);
+						$("#razonsocial_" + ($row)).val(val.razonSocial);
+						$("#direccion_" + ($row)).val(val.direccion);
+						$("#contacto1_" + ($row)).val(val.nombre1);
+						$("#contacto2_" + ($row)).val(val.nombre2);
+						$("#contacto3_" + ($row)).val(val.nombre3);
+						$("#correo1_" + ($row)).val(val.correoElectronico1);
+						$("#correo2_" + ($row)).val(val.correoElectronico2);
+						$("#correo3_" + ($row)).val(val.correoElectronico3);
 					});
 				}
 			});

@@ -108,6 +108,7 @@
 									$tipo_values = array(
 										'B'=>'Bienes',
 										'S'=>'Servicios',
+										'A'=>'Bienes y Servicios',
 									);
 
 									foreach($tipo_values as $value => $display_text)
@@ -451,7 +452,7 @@
 
 		$('#tipoProveedor').change(function(){
 			var val = $(this).val();
-			if (val == "B"){
+			if (val == "B" || val == "A"){
 				$('#seccionOculta').removeClass('hidden');
 				$('#seccionOculta').show();
 				$('#botonGuardar').prop('disabled', true);
@@ -467,7 +468,7 @@
 		 * para guardar en la tabla relacionproveedorfamilia
 		 */
 		$("#botonGuardar").click(function(){
-			if($('#tipoProveedor').val() == "B"){
+			if($('#tipoProveedor').val() == "B" || $('#tipoProveedor').val() == "A"){
 				if ($('#listaSeleccion li').length == 0){
 					alert("Necesita agregar las familias para el proveedor");
 				} else {

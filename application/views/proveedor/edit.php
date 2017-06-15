@@ -106,6 +106,7 @@
 									$tipo_values = array(
 										'B'=>'Bienes',
 										'S'=>'Servicios',
+										'A'=>'Bienes y Servicios',
 									);
 									foreach($tipo_values as $value => $display_text)
 									{
@@ -374,7 +375,7 @@
 					</div>
                     <hr />
 
-					<div id="seccionOculta" class="hidden opcion_B">
+					<div id="seccionOculta" class="hidden opcion_B opcion_A">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
 						<h4>Familias asociadas con el proveedor</h4>
 
@@ -443,7 +444,7 @@
 		*/
 		var cambioAServicio;
 		var tipoProveedor = $("#tipoProveedor").val();
-		if(tipoProveedor == "B"){
+		if(tipoProveedor == "B" || tipoProveedor == "A"){
 			cambioAServicio = false;
 			$('#seccionOculta').show();
 			$('#seccionOculta').removeClass('hidden');
@@ -607,6 +608,8 @@
 			//Detecta si un proveedor cambia de ser originalmente bienes a servicio
 			if ($(this).val() == "S" && tipoProveedor == "B"){
 				cambioAServicio=true;
+			} else if ($(this).val() == "S" && tipoProveedor == "A") {
+
 			} else {
 				cambioAServicio=false;
 			}
@@ -626,7 +629,7 @@
 		 * en la tabla relacion proveedor familia
 		 */
 		$("#botonEditar").click(function(){
-			if($('#tipoProveedor').val() == "B"){
+			if($('#tipoProveedor').val() == "B" || $('#tipoProveedor').val() == "A"){
 				var seleccion = $("#listaSeleccion li");
 				var familias_seleccion = [];
 				var idProveedor = <?php echo $proveedor['id'] ?>;
