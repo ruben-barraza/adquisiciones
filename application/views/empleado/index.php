@@ -31,7 +31,7 @@
 						<td><?php echo $e['categoria']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('empleado/edit/'.$e['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-				            <a href="<?php echo site_url('empleado/remove/'.$e['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+				            <a href="<?php echo site_url('empleado/remove/'.$e['id']); ?>" onclick="return confirm('¿Desea eliminar el empleado seleccionado?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 				    </tr>
 					<?php } ?>

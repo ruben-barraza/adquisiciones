@@ -20,13 +20,14 @@
 							<input type="text" name="nombre" value="<?php echo $this->input->post('nombre'); ?>" class="form-control" id="nombre" />
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
-							</button>
-				        </div>
+
+					<div class = "col-sm-offset-4 col-sm-8">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i> Guardar
+						</button>
+						<a href="<?php echo site_url('categoria/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 
 				<?php echo form_close(); ?>

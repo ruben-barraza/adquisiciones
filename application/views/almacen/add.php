@@ -84,12 +84,12 @@
 					</div>
 
 					<div class = "col-sm-offset-4 col-sm-8">
-						<a href="<?php echo site_url('almacen/index/'); ?>" id="botonCancelar" class="btn btn-danger">
-							<span class="fa fa-ban"></span> Cancelar
-						</a>
 						<button type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i> Guardar
 						</button>
+						<a href="<?php echo site_url('almacen/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 
 				<?php echo form_close(); ?>
@@ -99,8 +99,8 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {    
-		$("#idEstado").find("option").eq(1).remove();
+    $(document).ready(function() {
+		$("#idEstado option:contains('NINGUNO')").remove();
 
 		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {

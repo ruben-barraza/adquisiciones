@@ -45,44 +45,44 @@
 						</div>
 					</div>
 					<div class="form-group">
-							<label for="idDepartamento" class="col-md-4 control-label">Departamento</label>
-							<div class="col-md-8">
-								<select name="idDepartamento" class="form-control">
-									<option value="">Seleccione</option>
-									<?php 
+						<label for="idDepartamento" class="col-md-4 control-label">Departamento</label>
+						<div class="col-md-8">
+							<select name="idDepartamento" class="form-control">
+								<option value="">Seleccione</option>
+								<?php 
 									foreach($all_listadepartamento as $departamento)
 									{
 										$selected = ($departamento['id'] == $this->input->post('idDepartamento')) ? ' selected="selected"' : "";
 
 										echo '<option value="'.$departamento['id'].'" '.$selected.'>'.$departamento['nombre'].'</option>';
 									} 
-									?>
-								</select>
-							</div>
+								?>
+							</select>
 						</div>
+					</div>
 					<div class="form-group">
-							<label for="idCategoria" class="col-md-4 control-label">Categoría</label>
-							<div class="col-md-8">
-								<select name="idCategoria" class="form-control">
-									<option value="">Seleccione</option>
-									<?php 
+						<label for="idCategoria" class="col-md-4 control-label">Categoría</label>
+						<div class="col-md-8">
+							<select name="idCategoria" class="form-control">
+								<option value="">Seleccione</option>
+								<?php 
 									foreach($all_listacategoria as $categoria)
 									{
 										$selected = ($categoria['id'] == $this->input->post('idCategoria')) ? ' selected="selected"' : "";
 
 										echo '<option value="'.$categoria['id'].'" '.$selected.'>'.$categoria['nombre'].'</option>';
 									} 
-									?>
-								</select>
-							</div>
+								?>
+							</select>
 						</div>
-					
-					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
-							</button>
-				        </div>
+					</div>
+					<div class = "col-sm-offset-4 col-sm-8">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i> Guardar
+						</button>
+						<a href="<?php echo site_url('empleado/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 
 				<?php echo form_close(); ?>

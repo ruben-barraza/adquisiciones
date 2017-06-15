@@ -37,7 +37,6 @@ class Articulo extends CI_Controller{
 		$this->form_validation->set_rules('idFamilia','IdFamilia','required');
 		$this->form_validation->set_rules('precioUnitario','PrecioUnitario','required|decimal');
 		$this->form_validation->set_rules('status','Status','required');
-		$this->form_validation->set_rules('idUMEmbalaje','IdUMEmbalaje','required');
 		$this->form_validation->set_rules('cantidadEmbalaje','CantidadEmbalaje','required|integer');
 		$this->form_validation->set_rules('tiempoEntrega','TiempoEntrega','integer|required');
 		
@@ -52,7 +51,6 @@ class Articulo extends CI_Controller{
 				'idFamilia' => $this->input->post('idFamilia'),
 				'precioUnitario' => $this->input->post('precioUnitario'),
 				'status' => $this->input->post('status'),
-				'idUMEmbalaje' => $this->input->post('idUMEmbalaje'),
 				'cantidadEmbalaje' => $this->input->post('cantidadEmbalaje'),
 				'tiempoEntrega' => $this->input->post('tiempoEntrega'),
             );
@@ -94,7 +92,6 @@ class Articulo extends CI_Controller{
 			$this->form_validation->set_rules('idFamilia','IdFamilia','required');
 			$this->form_validation->set_rules('precioUnitario','PrecioUnitario','required|decimal');
 			$this->form_validation->set_rules('status','Status','required');
-			$this->form_validation->set_rules('idUMEmbalaje','IdUMEmbalaje','required');
 			$this->form_validation->set_rules('cantidadEmbalaje','CantidadEmbalaje','required|integer');
 			$this->form_validation->set_rules('tiempoEntrega','TiempoEntrega','integer|required');
 		
@@ -109,7 +106,6 @@ class Articulo extends CI_Controller{
 					'idFamilia' => $this->input->post('idFamilia'),
 					'precioUnitario' => $this->input->post('precioUnitario'),
 					'status' => $this->input->post('status'),
-					'idUMEmbalaje' => $this->input->post('idUMEmbalaje'),
 					'cantidadEmbalaje' => $this->input->post('cantidadEmbalaje'),
 					'tiempoEntrega' => $this->input->post('tiempoEntrega'),
                 );

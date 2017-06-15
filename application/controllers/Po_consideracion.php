@@ -29,24 +29,24 @@ class Po_consideracion extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('fc1','Fc1','max_length[50]|required');
-		$this->form_validation->set_rules('fc2','Fc2','max_length[50]|required');
-		$this->form_validation->set_rules('fc3','Fc3','max_length[50]|required');
-		$this->form_validation->set_rules('fc4','Fc4','max_length[50]|required');
-		$this->form_validation->set_rules('fc5','Fc5','max_length[50]|required');
-		$this->form_validation->set_rules('fc6','Fc6','max_length[50]|required');
-		$this->form_validation->set_rules('fc7','Fc7','max_length[50]|required');
-		$this->form_validation->set_rules('fc8','Fc8','max_length[50]|required');
-		$this->form_validation->set_rules('fc9','Fc9','max_length[50]|required');
-		$this->form_validation->set_rules('fc10','Fc10','max_length[50]|required');
-		$this->form_validation->set_rules('fc11','Fc11','max_length[50]|required');
-		$this->form_validation->set_rules('fc12','Fc12','max_length[50]|required');
-		$this->form_validation->set_rules('fc13','Fc13','max_length[50]|required');
-		$this->form_validation->set_rules('fc14','Fc14','max_length[50]|required');
-		$this->form_validation->set_rules('fc15','Fc15','max_length[50]|required');
-		$this->form_validation->set_rules('fc16','Fc16','max_length[50]|required');
-		$this->form_validation->set_rules('fc17','Fc17','max_length[50]|required');
-		$this->form_validation->set_rules('fc18','Fc18','max_length[50]|required');
+		$this->form_validation->set_rules('fc1','Fc1','max_length[500]|required');
+		$this->form_validation->set_rules('fc2','Fc2','max_length[500]|required');
+		$this->form_validation->set_rules('fc3','Fc3','max_length[500]|required');
+		$this->form_validation->set_rules('fc4','Fc4','max_length[500]|required');
+		$this->form_validation->set_rules('fc5','Fc5','max_length[500]|required');
+		$this->form_validation->set_rules('fc6','Fc6','max_length[500]|required');
+		$this->form_validation->set_rules('fc7','Fc7','max_length[500]|required');
+		$this->form_validation->set_rules('fc8','Fc8','max_length[500]|required');
+		$this->form_validation->set_rules('fc9','Fc9','max_length[500]|required');
+		$this->form_validation->set_rules('fc10','Fc10','max_length[500]|required');
+		$this->form_validation->set_rules('fc11','Fc11','max_length[500]|required');
+		$this->form_validation->set_rules('fc12','Fc12','max_length[500]|required');
+		$this->form_validation->set_rules('fc13','Fc13','max_length[500]|required');
+		$this->form_validation->set_rules('fc14','Fc14','max_length[500]|required');
+		$this->form_validation->set_rules('fc15','Fc15','max_length[500]|required');
+		$this->form_validation->set_rules('fc16','Fc16','max_length[500]|required');
+		$this->form_validation->set_rules('fc17','Fc17','max_length[500]|required');
+		$this->form_validation->set_rules('fc18','Fc18','max_length[500]|required');
 		
 		if($this->form_validation->run())     
         {   
@@ -97,24 +97,24 @@ class Po_consideracion extends CI_Controller{
         {
             $this->load->library('form_validation');
 
-			$this->form_validation->set_rules('fc1','Fc1','max_length[50]|required');
-			$this->form_validation->set_rules('fc2','Fc2','max_length[50]|required');
-			$this->form_validation->set_rules('fc3','Fc3','max_length[50]|required');
-			$this->form_validation->set_rules('fc4','Fc4','max_length[50]|required');
-			$this->form_validation->set_rules('fc5','Fc5','max_length[50]|required');
-			$this->form_validation->set_rules('fc6','Fc6','max_length[50]|required');
-			$this->form_validation->set_rules('fc7','Fc7','max_length[50]|required');
-			$this->form_validation->set_rules('fc8','Fc8','max_length[50]|required');
-			$this->form_validation->set_rules('fc9','Fc9','max_length[50]|required');
-			$this->form_validation->set_rules('fc10','Fc10','max_length[50]|required');
-			$this->form_validation->set_rules('fc11','Fc11','max_length[50]|required');
-			$this->form_validation->set_rules('fc12','Fc12','max_length[50]|required');
-			$this->form_validation->set_rules('fc13','Fc13','max_length[50]|required');
-			$this->form_validation->set_rules('fc14','Fc14','max_length[50]|required');
-			$this->form_validation->set_rules('fc15','Fc15','max_length[50]|required');
-			$this->form_validation->set_rules('fc16','Fc16','max_length[50]|required');
-			$this->form_validation->set_rules('fc17','Fc17','max_length[50]|required');
-			$this->form_validation->set_rules('fc18','Fc18','max_length[50]|required');
+			$this->form_validation->set_rules('fc1','Fc1','max_length[500]|required');
+			$this->form_validation->set_rules('fc2','Fc2','max_length[500]|required');
+			$this->form_validation->set_rules('fc3','Fc3','max_length[500]|required');
+			$this->form_validation->set_rules('fc4','Fc4','max_length[500]|required');
+			$this->form_validation->set_rules('fc5','Fc5','max_length[500]|required');
+			$this->form_validation->set_rules('fc6','Fc6','max_length[500]|required');
+			$this->form_validation->set_rules('fc7','Fc7','max_length[500]|required');
+			$this->form_validation->set_rules('fc8','Fc8','max_length[500]|required');
+			$this->form_validation->set_rules('fc9','Fc9','max_length[500]|required');
+			$this->form_validation->set_rules('fc10','Fc10','max_length[500]|required');
+			$this->form_validation->set_rules('fc11','Fc11','max_length[500]|required');
+			$this->form_validation->set_rules('fc12','Fc12','max_length[500]|required');
+			$this->form_validation->set_rules('fc13','Fc13','max_length[500]|required');
+			$this->form_validation->set_rules('fc14','Fc14','max_length[500]|required');
+			$this->form_validation->set_rules('fc15','Fc15','max_length[500]|required');
+			$this->form_validation->set_rules('fc16','Fc16','max_length[500]|required');
+			$this->form_validation->set_rules('fc17','Fc17','max_length[500]|required');
+			$this->form_validation->set_rules('fc18','Fc18','max_length[500]|required');
 		
 			if($this->form_validation->run())     
             {   

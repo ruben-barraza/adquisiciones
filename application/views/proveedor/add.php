@@ -108,6 +108,7 @@
 									$tipo_values = array(
 										'B'=>'Bienes',
 										'S'=>'Servicios',
+										'A'=>'Bienes y Servicios',
 									);
 
 									foreach($tipo_values as $value => $display_text)
@@ -361,12 +362,12 @@
 					</div>
 
 					<div class = "col-sm-offset-4 col-sm-8">
-						<a href="<?php echo site_url('proveedor/index/'); ?>" id="botonCancelar" class="btn btn-danger">
-							<span class="fa fa-ban"></span> Cancelar
-						</a>
 						<button id="botonGuardar" type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i> Guardar
 						</button>
+						<a href="<?php echo site_url('proveedor/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 				<?php echo form_close(); ?>
 			</div>
@@ -375,12 +376,11 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {    
-
-		$("#idEstado").find("option").eq(1).remove();
-		$("#idEstado1").find("option").eq(1).remove();
-		$("#idEstado2").find("option").eq(1).remove();
-		$("#idEstado3").find("option").eq(1).remove();
+    $(document).ready(function() {
+		$("#idEstado option:contains('NINGUNO')").remove();
+		$("#idEstado1 option:contains('NINGUNO')").remove();
+		$("#idEstado2 option:contains('NINGUNO')").remove();
+		$("#idEstado3 option:contains('NINGUNO')").remove();
 
     	$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
@@ -431,6 +431,7 @@
 				var names = $('#idFamilia').find('option:selected').text();
 				$("#idFamilia option:selected").remove();
 				$('#listaSeleccion').append('<li name="nombresFamilia[]">'+names+'<button type="button" class="delete btn btn-danger btn-xs pull-right">Quitar</button></li>');
+				$('#botonGuardar').prop('disabled', false);
 			}
      	});
 		
@@ -444,15 +445,20 @@
 				return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 			});
 			$('#idFamilia').html(soptions).prepend(foption);
+			if ($('#listaSeleccion li').length == 0){
+				$('#botonGuardar').prop('disabled', true);
+			}
 		});
 
 		$('#tipoProveedor').change(function(){
 			var val = $(this).val();
-			if (val == "B"){
+			if (val == "B" || val == "A"){
 				$('#seccionOculta').removeClass('hidden');
 				$('#seccionOculta').show();
+				$('#botonGuardar').prop('disabled', true);
 			} else {
 				$('#seccionOculta').hide();
+				$('#botonGuardar').prop('disabled', false);
 			}
 		});
 
@@ -462,18 +468,22 @@
 		 * para guardar en la tabla relacionproveedorfamilia
 		 */
 		$("#botonGuardar").click(function(){
-			if($('#tipoProveedor').val() == "B"){
-				var seleccion = $("#listaSeleccion li");
-				var familias_seleccion = [];
+			if($('#tipoProveedor').val() == "B" || $('#tipoProveedor').val() == "A"){
+				if ($('#listaSeleccion li').length == 0){
+					alert("Necesita agregar las familias para el proveedor");
+				} else {
+					var seleccion = $("#listaSeleccion li");
+					var familias_seleccion = [];
 
-				seleccion.each(function() {
-					familias_seleccion.push($(this).text().replace(/Quitar/,''));
-				});
-				$.ajax({
-					url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
-					method: 'POST',
-					data: {familias_seleccion: familias_seleccion}
-				});
+					seleccion.each(function() {
+						familias_seleccion.push($(this).text().replace(/Quitar/,''));
+					});
+					$.ajax({
+						url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+						method: 'POST',
+						data: {familias_seleccion: familias_seleccion}
+					});
+				}
 			}
      	});
     });

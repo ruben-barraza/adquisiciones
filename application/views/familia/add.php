@@ -26,13 +26,14 @@
 							<input type="text" name="descripcion" value="<?php echo $this->input->post('descripcion'); ?>" class="form-control" id="descripcion" />
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
-							</button>
-				        </div>
+
+					<div class = "col-sm-offset-4 col-sm-8">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i> Guardar
+						</button>
+						<a href="<?php echo site_url('familia/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 
 				<?php echo form_close(); ?>

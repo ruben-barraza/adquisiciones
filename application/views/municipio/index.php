@@ -19,7 +19,7 @@
 						<td><?php echo $m['nombre']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('municipio/edit/'.$m['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-				            <a href="<?php echo site_url('municipio/remove/'.$m['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+				            <a href="<?php echo site_url('municipio/remove/'.$m['id']); ?>" onclick="return confirm('¿Desea eliminar el municipio seleccionado?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 				    </tr>
 					<?php } ?>

@@ -28,4 +28,13 @@ class Comboboxesmodel extends CI_Model{
             return $familias->result();
         }
     }
+
+    public function getAlmacenes(){
+        $this->db->order_by('centroMM', 'asc');
+        $almacenes = $this->db->get('almacen');
+
+        if($almacenes->num_rows() > 0){
+            return $almacenes->result();
+        }
+    }
 }

@@ -17,14 +17,15 @@
 					<div class="form-group">
 							<label for="idEstado" class="col-md-4 control-label">Estado</label>
 							<div class="col-md-8">
-								<select name="idEstado" class="form-control">
+								<select name="idEstado" id="idEstado" class="form-control">
 									<option value="">Seleccione</option>
 									<?php 
 									foreach($all_listaestado as $estado)
 									{
 										$selected = ($estado['id'] == $municipio['idEstado']) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+										if($estado['nombre'] != "NINGUNO"){
+											echo '<option value="'.$estado['id'].'" '.$selected.'>'.$estado['nombre'].'</option>';
+										}
 									} 
 									?>
 								</select>
@@ -37,12 +38,13 @@
 						</div>
 					</div>
 					
-					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
-							</button>
-				        </div>
+					<div class = "col-sm-offset-4 col-sm-8">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-check"></i> Guardar
+						</button>
+						<a href="<?php echo site_url('municipio/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 					
 				<?php echo form_close(); ?>			
@@ -50,3 +52,9 @@
         </div>
   	</div>
 </div>
+
+<script type="text/javascript">   
+    $(document).ready(function() {
+		$("#idEstado option[value=0]").remove();
+    });
+</script>

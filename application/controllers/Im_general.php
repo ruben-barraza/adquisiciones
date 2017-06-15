@@ -17,15 +17,46 @@ class Im_general extends CI_Controller{
 		echo json_encode($data);
     }
 
+    function obtenerDireccionAlmacen(){
+        $idAlmacen = $_POST['idAlmacen'];
+        $data['almacen'] = $this->Imgeneralmodel->get_direccionalmacen($idAlmacen);
+        echo json_encode($data);
+    }
+
+    /*
     function obtenerDescripcionFamilia(){
         $id = $_POST['id'];
         $data['descripcion'] = $this->Imgeneralmodel->get_descripcion_familia($id);
         echo json_encode($data);
     }
-
+    */
+    
     function obtenerListaProveedores(){
-        $clave = $_POST['clave']; 
-        $data['listaproveedores'] = $this->Imgeneralmodel->get_all_listaproveedorfamilia($clave);
+        $idFamilia = $_POST['idFamilia']; 
+        $data['listaproveedores'] = $this->Imgeneralmodel->get_all_listaproveedorfamilia($idFamilia);
+        echo json_encode($data);
+    }
+
+    function obtenerListaProveedoresServicio(){
+        $data['listaproveedoresservicio'] = $this->Imgeneralmodel->get_all_listaproveedorservicio();
+        echo json_encode($data);
+    }
+
+    function obtenerListaArticulos(){
+        $idFamilia = $_POST['idFamilia'];
+        $data['listaarticulos'] = $this->Imgeneralmodel->get_all_listaarticulos($idFamilia);
+        echo json_encode($data);
+    }
+
+    function obtenerArticuloCodigo(){
+        $codigo = $_POST['codigo'];
+        $data['articulo'] = $this->Imgeneralmodel->get_articulo_clave($codigo);
+        echo json_encode($data);
+    }
+
+    function obtenerProveedorClave(){
+        $clave = $_POST['clave'];
+        $data['proveedor'] = $this->Imgeneralmodel->get_proveedor_codigo($clave);
         echo json_encode($data);
     }
 
@@ -34,8 +65,8 @@ class Im_general extends CI_Controller{
      */
     function index()
     {
-        $data['listaim_general'] = $this->Imgeneralmodel->get_all_listaim_general();
 
+        $data['listaim_general'] = $this->Imgeneralmodel->get_all_listaim_general();
         $data['_view'] = 'im_general/index';
         $this->load->view('layouts/main',$data);
     }
@@ -68,15 +99,10 @@ class Im_general extends CI_Controller{
         }
         else
         {
-			$this->load->model('Empleadomodel');
-			$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
-			$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
-
-			$this->load->model('Municipiomodel');
-			$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
-
-            $this->load->model('Comboboxesmodel');
+			$this->load->model('Comboboxesmodel');
 			$data['familias'] = $this->Comboboxesmodel->getFamilias();
+            $data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
+            $data['estados'] = $this->Comboboxesmodel->getEstados();
             
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);

@@ -86,12 +86,12 @@
 					</div>
 
 					<div class = "col-sm-offset-4 col-sm-8">
-						<a href="<?php echo site_url('almacen/index/'); ?>" id="botonCancelar" class="btn btn-danger">
-							<span class="fa fa-ban"></span> Cancelar
-						</a>
 						<button type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i> Guardar
 						</button>
+						<a href="<?php echo site_url('almacen/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 					
 				<?php echo form_close(); ?>			
@@ -101,9 +101,9 @@
 </div>
 
 <script type="text/javascript">   
-    $(document).ready(function() {    
-		$("#idEstado").find("option").eq(1).remove();
-
+    $(document).ready(function() {
+		$("#idEstado option:contains('NINGUNO')").remove();
+		
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
 		* (Valores obtenidos de la base de datos)
@@ -122,5 +122,16 @@
 				});
 			});
 		}
+
+		$("#idEstado").change(function() {
+    		$("#idEstado option:selected").each(function() {
+                idEstado = $('#idEstado').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+                	idEstado : idEstado
+                }, function(data) {
+                   $("#idMunicipio").html(data);
+                });
+            });
+        });
     });
 </script>

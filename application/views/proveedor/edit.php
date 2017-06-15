@@ -106,6 +106,7 @@
 									$tipo_values = array(
 										'B'=>'Bienes',
 										'S'=>'Servicios',
+										'A'=>'Bienes y Servicios',
 									);
 									foreach($tipo_values as $value => $display_text)
 									{
@@ -374,7 +375,7 @@
 					</div>
                     <hr />
 
-					<div id="seccionOculta" class="hidden opcion_B">
+					<div id="seccionOculta" class="hidden opcion_B opcion_A">
 						<!-- Sección para agregar las familias asociadas con el proveedor -->
 						<h4>Familias asociadas con el proveedor</h4>
 
@@ -412,12 +413,12 @@
 					</div>
 
 					<div class = "col-sm-offset-4 col-sm-8">
-						<a href="<?php echo site_url('proveedor/index/'); ?>" id="botonCancelar" class="btn btn-danger">
-							<span class="fa fa-ban"></span> Cancelar
-						</a>
 						<button id="botonEditar" type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i> Guardar
 						</button>
+						<a href="<?php echo site_url('proveedor/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+							<span class="fa fa-ban"></span> Cancelar
+						</a>
 					</div>
 					
 				<?php echo form_close(); ?>			
@@ -428,6 +429,10 @@
 
 <script type="text/javascript">   
     $(document).ready(function() { 
+		$("#idEstado option:contains('NINGUNO')").remove();
+		$("#idEstado1 option:contains('NINGUNO')").remove();
+		$("#idEstado2 option:contains('NINGUNO')").remove();
+		$("#idEstado3 option:contains('NINGUNO')").remove();
 		//console.log("<?php echo $proveedor['tipo'] ?>");
 		
 		/* Si el proveedor que se quiere editar es originalmente de bienes
@@ -439,18 +444,13 @@
 		*/
 		var cambioAServicio;
 		var tipoProveedor = $("#tipoProveedor").val();
-		if(tipoProveedor == "B"){
+		if(tipoProveedor == "B" || tipoProveedor == "A"){
 			cambioAServicio = false;
 			$('#seccionOculta').show();
 			$('#seccionOculta').removeClass('hidden');
 		} else {
 			$('#seccionOculta').hide();
 		}
-
-		$("#idEstado").find("option").eq(1).remove();
-		$("#idEstado1").find("option").eq(1).remove();
-		$("#idEstado2").find("option").eq(1).remove();
-		$("#idEstado3").find("option").eq(1).remove();
 
 		/*
 		* Muestra los valores de estado y municipio que se habían asignado al momento de agregar el proveedor
@@ -608,6 +608,8 @@
 			//Detecta si un proveedor cambia de ser originalmente bienes a servicio
 			if ($(this).val() == "S" && tipoProveedor == "B"){
 				cambioAServicio=true;
+			} else if ($(this).val() == "S" && tipoProveedor == "A") {
+
 			} else {
 				cambioAServicio=false;
 			}
@@ -627,7 +629,7 @@
 		 * en la tabla relacion proveedor familia
 		 */
 		$("#botonEditar").click(function(){
-			if($('#tipoProveedor').val() == "B"){
+			if($('#tipoProveedor').val() == "B" || $('#tipoProveedor').val() == "A"){
 				var seleccion = $("#listaSeleccion li");
 				var familias_seleccion = [];
 				var idProveedor = <?php echo $proveedor['id'] ?>;

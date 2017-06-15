@@ -19,7 +19,7 @@
 						<td><?php echo $d['nombre']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('departamento/edit/'.$d['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-				            <a href="<?php echo site_url('departamento/remove/'.$d['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+				            <a href="<?php echo site_url('departamento/remove/'.$d['id']); ?>" onclick="return confirm('¿Desea eliminar el departamento seleccionado?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 				    </tr>
 					<?php } ?>
