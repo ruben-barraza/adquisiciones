@@ -15,7 +15,7 @@
 						<th>Nombre</th>
 						<th>Apellido Paterno</th>
 						<th>Apellido Materno</th>
-						<th>Título</th>
+						<th>Correo Electrónico</th>
 						<th>Departamento</th>
 						<th>Categoría</th>
 						<th></th>
@@ -26,7 +26,7 @@
 						<td><?php echo $e['nombre']; ?></td>
 						<td><?php echo $e['apellidoPaterno']; ?></td>
 						<td><?php echo $e['apellidoMaterno']; ?></td>
-						<td><?php echo $e['titulo']; ?></td>
+						<td><?php echo $e['correoElectronico']; ?></td>
 						<td><?php echo $e['departamento']; ?></td>
 						<td><?php echo $e['categoria']; ?></td>
 						<td>

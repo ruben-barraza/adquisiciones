@@ -14,6 +14,17 @@ class Po_general extends CI_Controller{
         $this->load->model('Pogeneralmodel');
     } 
 
+    //Crea las relaciones en las tablas po_acuse y po_aclaracion
+	function crearRelacion(){
+		$rpe1 = $_POST['rpe1'];
+        $rpe2 = $_POST['rpe2'];
+		$idPog = $this->Pogeneralmodel->get_idConsecutivo();
+        $idEmpleado1 = $this->Pogeneralmodel->get_idEmpleado($rpe1);
+        $idEmpleado2 = $this->Pogeneralmodel->get_idEmpleado($rpe2);
+		$this->Pogeneralmodel->add_uk_po_aclaracion_acuse($idPog, $idEmpleado1);
+        $this->Pogeneralmodel->add_uk_po_aclaracion_acuse($idPog, $idEmpleado2);
+	}
+
     function obtenerNombreEmpleado(){
         $rpe = $_POST['rpe'];
         $data['nombre'] = $this->Pogeneralmodel->get_empleado($rpe);
@@ -52,8 +63,8 @@ class Po_general extends CI_Controller{
 		$this->form_validation->set_rules('tipo','Tipo','required');
         $this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
 		$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
-		$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable','required');
-		$this->form_validation->set_rules('idEmpleadoFormula','IdEmpleadoFormula','required');
+		$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','max_length[5]required');
+		$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','max_length[5]required');
 		$this->form_validation->set_rules('fechaLimitePresentacion','FechaLimitePresentacion','required');
         $this->form_validation->set_rules('horaLimitePresentacion','HoraLimitePresentacion','max_length[10]');
 		$this->form_validation->set_rules('ccp1','Ccp1','max_length[250]|required');
@@ -69,12 +80,16 @@ class Po_general extends CI_Controller{
             $fechaLimitePresentacion = str_replace('/', '-', $fecha1);
             $fecha2 = $this->input->post('fechaElaboracion');
             $fechaElaboracion = str_replace('/', '-', $fecha2);
+
+            $idEmpleadoResponsable = $this->Pogeneralmodel->get_idEmpleado($this->input->post('empleadoResponsable'));
+            $idEmpleadoFormula = $this->Pogeneralmodel->get_idEmpleado($this->input->post('empleadoFormula'));
+
             $params = array(
 				'tipo' => $this->input->post('tipo'),
                 'oficioNumero' => $this->input->post('oficioNumero'),
 				'domicilio' => $this->input->post('domicilio'),
-				'idEmpleadoResponsable' => $this->input->post('idEmpleadoResponsable'),
-				'idEmpleadoFormula' => $this->input->post('idEmpleadoFormula'),
+				'idEmpleadoResponsable' => reset($idEmpleadoResponsable),
+				'idEmpleadoFormula' => reset($idEmpleadoFormula),
 				'fechaLimitePresentacion' => date("Y-m-d", strtotime($fechaLimitePresentacion)),
                 'horaLimitePresentacion' => $this->input->post('horaLimitePresentacion'),
 				'ccp1' => $this->input->post('ccp1'),

@@ -38,6 +38,19 @@ class Pogeneralmodel extends CI_Model
         return $this->db->insert_id();
     }
     
+    function add_uk_po_aclaracion_acuse($idPog, $idEmpleado)
+    {
+        $this->db->insert('po_acuse', array(
+            'idPog' => $idPog,
+            'idEmpleado' => $idEmpleado
+        ));
+
+        $this->db->insert('po_aclaracion', array(
+            'idPog' => $idPog,
+            'idEmpleado' => $idEmpleado
+        ));
+    }
+
     function get_idConsecutivo()
     {
 		$maxid = 1;
@@ -47,6 +60,17 @@ class Pogeneralmodel extends CI_Model
 		}
 		return $maxid;
 	}
+
+    function get_idEmpleado($rpe)
+    {
+        $this->db->select('id');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
 
     function get_empleado($rpe)
     {

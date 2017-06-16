@@ -278,7 +278,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
-							<button type="submit" class="btn btn-success">
+							<button id="botonGuardar" type="submit" class="btn btn-success">
 								<i class="fa fa-check"></i> Guardar
 							</button>
 				        </div>
@@ -542,6 +542,21 @@
 				}
 			});
 		});
+
+		$("#botonGuardar").click(function(){
+			if($('#empleadoResponsable').val() != "" || $('#empleadoFormula').val() != ""){
+				var rpe1 = $('#empleadoResponsable').val();
+				var rpe2 = $('#empleadoFormula').val()
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+					method: 'POST',
+					data: {
+						rpe1: rpe1,
+						rpe2: rpe2
+					}
+				});
+			}
+     	});
 
 
 	});
