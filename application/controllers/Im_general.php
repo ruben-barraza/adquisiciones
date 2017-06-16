@@ -173,5 +173,11 @@ class Im_general extends CI_Controller{
         else
             show_error('The im_general you are trying to delete does not exist.');
     }
+
+    function PeticionesOferta($id){
+         $data['peticionesoferta'] = $this->Imgeneralmodel->peticionesoferta($id);
+        echo json_encode($data);
+
+    }
     
 }

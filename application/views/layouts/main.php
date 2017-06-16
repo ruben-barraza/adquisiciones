@@ -126,9 +126,7 @@
                                             <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> PO Proveedor</a>
 
                                         </li>
-                                        <li>
-                                              <a href="<?php echo site_url('im_general_temporal/index');?>"><i class="fa fa-table"></i>IM General Temporal</a>       
-                                        </li>
+                                     
                                       </ul>
                                     </li>
                                     <li class="divider"></li>  

@@ -178,4 +178,14 @@ class Imgeneralmodel extends CI_Model
             return "Error occuring while deleting im_general";
         }
     }
+
+    function peticionesoferta($id){
+           $this->db->select('po_general.asunto');
+        $this->db->from('po_general');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
 }
