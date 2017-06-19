@@ -360,7 +360,7 @@
 
 						<hr />
 					</div>
-
+					
 					<div class = "col-sm-offset-4 col-sm-8">
 						<button id="botonGuardar" type="submit" class="btn btn-success">
 							<i class="fa fa-check"></i> Guardar

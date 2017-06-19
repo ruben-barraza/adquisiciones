@@ -65,7 +65,7 @@
 						<label for="tipo" class="col-md-2 control-label">Tipo</label>
 						<div class="col-md-6">
 							<select name="tipo" class="form-control" id="tipoProveedor">
-								<option value="">Seleccione</option>
+								<option value="0">Seleccione</option>
 								<?php 
 									$tipo_values = array(
 										'B'=>'Bienes',
@@ -90,7 +90,8 @@
 								<option value="0">Seleccione</option>
 								<?php 
 									foreach ($familias as $i) {
-										echo '<option value="'. $i->id .'">'. $i->descripcion .'</option>';
+										$selected = ($i == $this->input->post('idFamilia')) ? ' selected="selected"' : "";
+										echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
 									}
 								?>
 							</select>
@@ -548,7 +549,7 @@
 				var rpe1 = $('#empleadoResponsable').val();
 				var rpe2 = $('#empleadoFormula').val()
 				$.ajax({
-					url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacion',
 					method: 'POST',
 					data: {
 						rpe1: rpe1,
