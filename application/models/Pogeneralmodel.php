@@ -51,6 +51,14 @@ class Pogeneralmodel extends CI_Model
         ));
     }
 
+    function add_relacion_pog_proveedor($idPog, $idProveedor, $numContacto){
+        $this->db->insert('po_proveedor', array(
+            'idPog' => $idPog,
+            'idProveedor' => $idProveedor,
+            'contacto' => $numContacto
+        ));
+    }
+
     function get_idConsecutivo()
     {
 		$maxid = 1;
@@ -66,6 +74,17 @@ class Pogeneralmodel extends CI_Model
         $this->db->select('id');
         $this->db->from('empleado');
         $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_idProveedor($clave)
+    {
+        $this->db->select('id');
+        $this->db->from('proveedor');
+        $this->db->where('clave', $clave);
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();

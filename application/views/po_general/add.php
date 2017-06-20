@@ -277,6 +277,10 @@
 						<hr />
 					</div>
 
+					<a id="botonCrear" class="btn btn-primary">
+						<i class="fa "></i> Crear relacion proveedores
+					</a>
+
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<button id="botonGuardar" type="submit" class="btn btn-success">
@@ -540,14 +544,45 @@
 						$("#correo2_" + (i+1)).val(val.correoElectronico2);
 						$("#correo3_" + (i+1)).val(val.correoElectronico3);
 					});
+
+					//ocultar los campos de contacto que esten vacios
+					for (var i = 1; i < longitud; i++) {
+						$('#tablaProveedores tbody>tr:eq('+ i + ')').find("input").each(function (){
+							if($(this).is("input") || $(this).val() == ""){
+								$(this).css('display','none');
+							}
+						});
+					}
 				}
 			});
 		});
 
+		$("#botonCrear").click(function(){
+			//Longitud - 1 para el número real de renglones en la tabla
+			var longitudTabla = $("#tablaProveedores tr").length - 1;
+
+			for(i = 0; i < longitudTabla; i++){
+				var cuentaActual = $("#tablaProveedores tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
+				var clave = $("#clave_" + cuentaActual).val();
+				if(clave != ""){
+
+					for(j = 1; j <= 3; j++){
+						var contacto = $("#contacto" + j + "_" + cuentaActual);
+						if(contacto.val() != "" && contacto.css('display') != 'none')
+						{
+							console.log("[" + clave + ", " + j + "]");
+						}
+					}
+				}
+
+
+			}
+     	});
+
 		$("#botonGuardar").click(function(){
 			if($('#empleadoResponsable').val() != "" || $('#empleadoFormula').val() != ""){
 				var rpe1 = $('#empleadoResponsable').val();
-				var rpe2 = $('#empleadoFormula').val()
+				var rpe2 = $('#empleadoFormula').val();
 				$.ajax({
 					url: '<?php echo base_url();?>index.php/Po_general/crearRelacion',
 					method: 'POST',
@@ -561,10 +596,12 @@
 
 
 	});
-
 	
+	//$(document).on("click", "#botonCrearo" ,function() {
+	//	var longitudTabla = $("#tablaProveedores").length;
+	//	console.log(longitudTabla);
+	//});
 	
-
 	//Quita el nombre y correo electrónico de un proveedor
 	$(document).on("click", "a.btn.quitarcontacto" ,function() {
 		var name = $(this).attr("name");
@@ -628,6 +665,7 @@
 			});
 		}
 	});
+
 
 	
 	
