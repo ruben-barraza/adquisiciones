@@ -37,6 +37,14 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('po_general',$params);
         return $this->db->insert_id();
     }
+
+    function add_im_general($params)
+    {
+        $params['id'] = $this->get_idConsecutivoImg();
+        $params['idPog'] = $this->get_idConsecutivo();
+        $this->db->insert('im_general',$params);
+        return $this->db->insert_id();
+    }
     
     function add_uk_po_aclaracion_acuse($idPog, $idEmpleado)
     {
@@ -63,6 +71,16 @@ class Pogeneralmodel extends CI_Model
     {
 		$maxid = 1;
         $row = $this->db->query("select max(id) as 'maxid' from po_general")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
+
+    function get_idConsecutivoImg()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_general")->row();
 		if ($row) {
 			$maxid = $row->maxid + 1;
 		}

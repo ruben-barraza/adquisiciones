@@ -27,6 +27,15 @@ class Po_general extends CI_Controller{
         $this->Pogeneralmodel->add_uk_po_aclaracion_acuse($idPog, $empleadoFormula);
 	}
 
+    function crearRelacionProveedor(){
+        $clave = $_POST['clave'];
+        $contacto = $_POST['numcontacto']; 
+        $idPog = $this->Pogeneralmodel->get_idConsecutivo();
+        $proveedor = $this->Pogeneralmodel->get_idProveedor($clave);
+        $idProveedor = array_values($proveedor)[0]['id'];
+        $this->Pogeneralmodel->add_relacion_pog_proveedor($idPog, $idProveedor, $contacto);
+    }
+
     function obtenerNombreEmpleado(){
         $rpe = $_POST['rpe'];
         $data['nombre'] = $this->Pogeneralmodel->get_empleado($rpe);
@@ -75,6 +84,8 @@ class Po_general extends CI_Controller{
 		$this->form_validation->set_rules('ccp3','Ccp3','max_length[250]');
 		$this->form_validation->set_rules('fechaElaboracion','FechaElaboracion','required');
 		$this->form_validation->set_rules('asunto','Asunto','max_length[255]|required');
+
+        $this->form_validation->set_rules('titulo','Titulo','max_length[255]');
 		//$this->form_validation->set_rules('fechaUltimaModificacion','FechaUltimaModificacion','required');
 		
 		if($this->form_validation->run())     
@@ -108,6 +119,17 @@ class Po_general extends CI_Controller{
             );
             
             $po_general_id = $this->Pogeneralmodel->add_po_general($params);
+
+            $params_im = array(
+                'titulo' => $this->input->post('titulo'),
+                'idEmpleadoFormula' => $empleadoFormula,
+                'idEmpleadoAutoriza' => $empleadoResponsable,
+				'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
+                'idMunicipioElaboracion' => $this->input->post('idMunicipio'),
+            );
+
+            $this->Pogeneralmodel->add_im_general($params_im);
+
             redirect('po_general/index');
         }
         else
@@ -118,7 +140,7 @@ class Po_general extends CI_Controller{
 
             $this->load->model('Comboboxesmodel');
 			$data['familias'] = $this->Comboboxesmodel->getFamilias();
-            //$data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
+            $data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
             $data['estados'] = $this->Comboboxesmodel->getEstados();
 
 			$this->load->model('Municipiomodel');
