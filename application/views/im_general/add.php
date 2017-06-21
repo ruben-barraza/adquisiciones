@@ -22,7 +22,7 @@
                      <div class="col-md-6">
 				    <div class="form-group">
 							<label for="peticionoferta" class="col-md-4 control-label">PETICI&Oacute;N DE OFERTA</label>
-								<select name="peticionoferta" class="form-control">
+								<select name="peticionoferta" class="form-control" id="peticionoferta">
 						
 									<?php 
                                     $PO= &get_instance();
@@ -45,20 +45,9 @@
                  <div class="col-md-6">
 				    <div class="form-group">
 							<label for="proveedor" class="col-md-4 control-label">PROVEEDOR</label>
-								<select name="proveedor" class="form-control">
+								<select name="proveedor" class="form-control" id="proveedor">
 									<option value="0">Seleccione proveedor</option>
-									<?php 
-									$tipo_values = array(
-					
-					);
-
-									foreach($proveedor_values as $value => $display_proveedor)
-									{
-										$selected = ($value == $this->input->post('proveedor')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$value.'" '.$selected.'>'.$display_proveedor.'</option>';
-									} 
-									?>
+									
 								</select>
 
 						</div>
@@ -144,3 +133,22 @@
   	</div>
 </div>
 </div>
+
+
+<script type="text/javascript">   
+    $(document).ready(function() {
+		$("# option:contains('NINGUNO')").remove();
+
+		$("#idEstado").change(function() {
+    		$("#peticionoferta option:selected").each(function() {
+                peticionoferta = $('#peticionoferta').val();
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillProveedores", {
+                	peticionoferta : peticionoferta
+                }, function(data) {
+                   $("#proveedor").html(data);
+                });
+            });
+        });
+		
+    });
+</script>

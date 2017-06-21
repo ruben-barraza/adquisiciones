@@ -179,5 +179,10 @@ class Im_general extends CI_Controller{
         echo json_encode($data);
 
     }
+
+    function cargarproveedores($id){
+
+
+    }
     
 }

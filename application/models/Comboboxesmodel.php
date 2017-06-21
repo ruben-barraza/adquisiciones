@@ -20,6 +20,18 @@ class Comboboxesmodel extends CI_Model{
         }
     }
 
+    public function getProveedores($peticionoferta){
+           $this->db->where('peticionesoferta',$peticionoferta);
+           $this->db->order_by('idProveedor','asc');
+           $proveedores=$this->db->get('po_proveedor');
+
+           if($proveedores->num_rows()>0){
+
+               return $proveedores->result();
+           }
+
+    }
+
     public function getFamilias(){
         $this->db->order_by('clave', 'asc');
         $familias = $this->db->get('familia');

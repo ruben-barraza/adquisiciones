@@ -15,4 +15,20 @@ class controllerComboBoxes extends CI_Controller{
             echo '<option value="0">Seleccione</option>';
         }
     }
-}
+
+    public function fillProveedores(){
+
+        $peticionoferta=$this->input->post('peticionoferta');
+
+        if($peticionoferta){
+
+            $this->load->model('Comboboxesmodel');
+            $proveedores=$this->Comboboxesmodel->getProveedores($peticionoferta);
+            foreach($proveedores as $fila){
+                echo '<option value="'. $fila->idPog .'">'. $fila->idProveedor .'</option>';
+            }
+        }  else {
+            echo '<option value="0">Seleccione</option>';
+        }
+        }
+    }
