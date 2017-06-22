@@ -1,3 +1,5 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <div class="container">
 
 <div class="row">
@@ -23,19 +25,12 @@
 				    <div class="form-group">
 							<label for="peticionoferta" class="col-md-4 control-label">PETICI&Oacute;N DE OFERTA</label>
 								<select name="peticionoferta" class="form-control" id="peticionoferta">
-						
-									<?php 
-                                    $PO= &get_instance();
-                                    $PO->load->model("imgeneralmodel");
- 
-                                    $peticionesoferta=$PO->imgeneralmodel->peticionesoferta($id);
-								        foreach($peticionesoferta as $peticionesoferta)
-									{
-										$selected = ($peticionesoferta['id'] == $this->input->post('id')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$peticionesoferta['id'].'" '.$selected.'>'.$peticionesoferta['asunto'].'</option>';
-									} 
-									?>
+						            <?php 
+									foreach ($peticionesOferta as $i) {
+										echo '<option value="'. $i->id .'">'. $i->asunto .'</option>';
+									}
+								?>
+					
 								</select>
 
 						</div>
@@ -137,12 +132,10 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {
-		$("# option:contains('NINGUNO')").remove();
-
-		$("#idEstado").change(function() {
+		$("#peticionoferta").change(function() {
     		$("#peticionoferta option:selected").each(function() {
                 peticionoferta = $('#peticionoferta').val();
-                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillProveedores", {
+                $.post("<?php echo base_url(); ?>index.php/PeticionesOfertaYProveedores/llena_proveedores", {
                 	peticionoferta : peticionoferta
                 }, function(data) {
                    $("#proveedor").html(data);

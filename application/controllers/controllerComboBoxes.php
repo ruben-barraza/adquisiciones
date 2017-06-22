@@ -1,5 +1,17 @@
 <?php
 class controllerComboBoxes extends CI_Controller{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("Comboboxesmodel");
+    
+    }
+
+    public function index(){
+
+        $data['peticionesoferta']=$this->
+    }
     //put your code here    
     public function fillMunicipios() {
         $idEstado = $this->input->post('idEstado');
