@@ -1,5 +1,6 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <div class="container">
 
 <div class="row">
@@ -25,8 +26,9 @@
 				    <div class="form-group">
 							<label for="peticionoferta" class="col-md-4 control-label">PETICI&Oacute;N DE OFERTA</label>
 								<select name="peticionoferta" class="form-control" id="peticionoferta">
+                  <option value="0">Seleccione una Petición Oferta</option>
 						            <?php 
-									foreach ($peticionesOferta as $i) {
+									foreach ($peticiones as $i) {
 										echo '<option value="'. $i->id .'">'. $i->asunto .'</option>';
 									}
 								?>
@@ -41,16 +43,16 @@
 				    <div class="form-group">
 							<label for="proveedor" class="col-md-4 control-label">PROVEEDOR</label>
 								<select name="proveedor" class="form-control" id="proveedor">
-									<option value="0">Seleccione proveedor</option>
-									
+									<option value="0">Seleccione</option>
 								</select>
 
 						</div>
         </div>
-                     </div>
+   </div>
 
                          <br>
                          <br>
+                         
                     <!-- Esta tabla captura los datos escritos y precio unitario-->
                  <div class="table-responsive">          
   <table class="table">
@@ -132,10 +134,11 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {
-		$("#peticionoferta").change(function() {
-    		$("#peticionoferta option:selected").each(function() {
-                peticionoferta = $('#peticionoferta').val();
-                $.post("<?php echo base_url(); ?>index.php/PeticionesOfertaYProveedores/llena_proveedores", {
+		    $("#peticionoferta").change(function() {
+    		    $("#peticionoferta option:selected").each(function() {
+                 peticionoferta = $('#peticionoferta').val();
+                console.log(proveedor);
+                $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillProveedores", {
                 	peticionoferta : peticionoferta
                 }, function(data) {
                    $("#proveedor").html(data);

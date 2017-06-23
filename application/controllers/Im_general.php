@@ -103,9 +103,10 @@ class Im_general extends CI_Controller{
 			$data['familias'] = $this->Comboboxesmodel->getFamilias();
             $data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
             $data['estados'] = $this->Comboboxesmodel->getEstados();
-            
-            $this->load->model('PeticionesOfertaYProveedoresmodel');
-            $data['peticionesOferta']=$this->PeticionesOfertaYProveedoresmodel->peticionesOferta();
+            $data['peticiones'] = $this->Comboboxesmodel->getPeticiones();
+        
+            //$this->load->model('PeticionesOfertaYProveedoresmodel');
+            //$data['peticionesOferta']=$this->PeticionesOfertaYProveedoresmodel->peticionesOferta();
 
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);

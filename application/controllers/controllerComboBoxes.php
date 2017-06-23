@@ -10,7 +10,7 @@ class controllerComboBoxes extends CI_Controller{
 
     public function index(){
 
-        $data['peticionesoferta']=$this->
+        //$data['peticionesoferta']=$this->
     }
     //put your code here    
     public function fillMunicipios() {
@@ -29,18 +29,22 @@ class controllerComboBoxes extends CI_Controller{
     }
 
     public function fillProveedores(){
-
-        $peticionoferta=$this->input->post('peticionoferta');
-
-        if($peticionoferta){
-
-            $this->load->model('Comboboxesmodel');
-            $proveedores=$this->Comboboxesmodel->getProveedores($peticionoferta);
-            foreach($proveedores as $fila){
-                echo '<option value="'. $fila->idPog .'">'. $fila->idProveedor .'</option>';
-            }
+       
+	    $idPeticion = $this->input->post('peticionoferta');
+		if($idPeticion)
+		{
+		    $this->load->model('Comboboxesmodel');
+           
+			$proveedores = $this->Comboboxesmodel->getProveedoresPeticion($idPeticion);
+           
+            echo '<option value="0">Seleccione</option>';
+           	foreach ($proveedores as $i) {
+			    echo '<option value="'. $i->id .'">'. $i->razonSocial .'</option>';
+			}
         }  else {
             echo '<option value="0">Seleccione</option>';
         }
-        }
     }
+
+
+}
