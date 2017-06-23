@@ -36,6 +36,10 @@ class Po_general extends CI_Controller{
         $this->Pogeneralmodel->add_relacion_pog_proveedor($idPog, $idProveedor, $contacto);
     }
 
+    function crearRelacionIMConcepto(){
+        
+    }
+
     function obtenerNombreEmpleado(){
         $rpe = $_POST['rpe'];
         $data['nombre'] = $this->Pogeneralmodel->get_empleado($rpe);

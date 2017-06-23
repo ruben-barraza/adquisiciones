@@ -705,7 +705,35 @@
 		});
 
 		$("#botonCrear").click(function(){
-			
+			var tipoProveedor = $('#tipoProveedor').val();
+			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
+			for(i = 0; i < longitudTablaArticulos; i++){
+				var cuentaActual = $("#tablaArticulos tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
+
+				var articuloCodigo = $("#codigo_" + cuentaActual).val();
+				var partida = $("#partida_" + cuentaActual).val();
+				var plazoEntrega = $("#plazoentrega_" + cuentaActual).val();
+				var cantidad = $("#cantidad_" + cuentaActual).val();
+				var lugar = $("#lugarentrega_" + cuentaActual + " option:selected").text();
+				var lugarEntrega = lugar.split("- ").pop();
+				var direccion = $("#direccionentrega_" + cuentaActual).val();
+				
+				//console.log("[" + articuloCodigo + ", " + partida + ", " + plazoEntrega + ", " + cantidad + ", " + lugarEntrega + ", " + direccion + "]");
+				
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
+					method: 'POST',
+					data: {
+						articuloCodigo: articuloCodigo,
+						partida: partida,
+						plazoEntrega: plazoEntrega,
+						cantidad: cantidad,
+						lugarEntrega: lugarEntrega,
+						direccion: direccion 
+					}
+				});
+				
+			}
      	});
 
 		$("#botonGuardar").click(function(){
