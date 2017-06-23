@@ -11,54 +11,7 @@ class Im_general extends CI_Controller{
         $this->load->model('Imgeneralmodel');
     } 
 
-    function obtenerNombreEmpleado(){
-        $rpe = $_POST['rpe'];
-        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
-		echo json_encode($data);
-    }
-
-    function obtenerDireccionAlmacen(){
-        $idAlmacen = $_POST['idAlmacen'];
-        $data['almacen'] = $this->Imgeneralmodel->get_direccionalmacen($idAlmacen);
-        echo json_encode($data);
-    }
-
-    /*
-    function obtenerDescripcionFamilia(){
-        $id = $_POST['id'];
-        $data['descripcion'] = $this->Imgeneralmodel->get_descripcion_familia($id);
-        echo json_encode($data);
-    }
-    */
     
-    function obtenerListaProveedores(){
-        $idFamilia = $_POST['idFamilia']; 
-        $data['listaproveedores'] = $this->Imgeneralmodel->get_all_listaproveedorfamilia($idFamilia);
-        echo json_encode($data);
-    }
-
-    function obtenerListaProveedoresServicio(){
-        $data['listaproveedoresservicio'] = $this->Imgeneralmodel->get_all_listaproveedorservicio();
-        echo json_encode($data);
-    }
-
-    function obtenerListaArticulos(){
-        $idFamilia = $_POST['idFamilia'];
-        $data['listaarticulos'] = $this->Imgeneralmodel->get_all_listaarticulos($idFamilia);
-        echo json_encode($data);
-    }
-
-    function obtenerArticuloCodigo(){
-        $codigo = $_POST['codigo'];
-        $data['articulo'] = $this->Imgeneralmodel->get_articulo_clave($codigo);
-        echo json_encode($data);
-    }
-
-    function obtenerProveedorClave(){
-        $clave = $_POST['clave'];
-        $data['proveedor'] = $this->Imgeneralmodel->get_proveedor_codigo($clave);
-        echo json_encode($data);
-    }
 
     /*
      * Listing of listaim_general
@@ -105,8 +58,6 @@ class Im_general extends CI_Controller{
             $data['estados'] = $this->Comboboxesmodel->getEstados();
             $data['peticiones'] = $this->Comboboxesmodel->getPeticiones();
         
-            //$this->load->model('PeticionesOfertaYProveedoresmodel');
-            //$data['peticionesOferta']=$this->PeticionesOfertaYProveedoresmodel->peticionesOferta();
 
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);
@@ -181,11 +132,6 @@ class Im_general extends CI_Controller{
     function PeticionesOferta($id){
          $data['peticionesoferta'] = $this->Imgeneralmodel->peticionesoferta($id);
         echo json_encode($data);
-
-    }
-
-    function cargarproveedores($id){
-
 
     }
     

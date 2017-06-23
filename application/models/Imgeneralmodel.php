@@ -48,103 +48,7 @@ class Imgeneralmodel extends CI_Model
 		return $maxid;
 	}
 
-    function get_empleado($rpe)
-    {
-        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
-        $this->db->from('empleado');
-        $this->db->where('rpe', $rpe);
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
 
-    /*
-    function get_descripcion_familia($id)
-    {
-        $this->db->select('descripcion');
-        $this->db->from('familia');
-        $this->db->where('id', $id);
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
-    */
-    
-    function get_all_listaproveedorfamilia($idFamilia)
-    {
-        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.correoElectronico1, proveedor.correoElectronico2, proveedor.correoElectronico3');
-        $this->db->from('proveedor');
-        $this->db->join('relacionproveedorfamilia', 'relacionproveedorfamilia.idProveedor = proveedor.id', 'inner');
-        $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
-        $this->db->where('familia.id', $idFamilia);
-        $this->db->order_by('proveedor.razonSocial');
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
-
-    function get_all_listaproveedorservicio()
-    {
-        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.correoElectronico1, proveedor.correoElectronico2, proveedor.correoElectronico3');
-        $this->db->from('proveedor');
-        $this->db->where('proveedor.tipo', 'S');
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
-
-    function get_all_listaarticulos($idFamilia)
-    {
-        $this->db->select('articulo.codigo, articulo.descripcion, articulo.tiempoEntrega, articulo.cantidadEmbalaje, unidadmedida.clave unidadmedida');
-        $this->db->from('articulo');
-        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
-        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
-        $this->db->where('articulo.idFamilia', $idFamilia);
-        $this->db->order_by('articulo.descripcion');
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
-
-    function get_articulo_clave($codigo)
-    {
-        $this->db->select('articulo.codigo, articulo.descripcion, articulo.tiempoEntrega, articulo.cantidadEmbalaje, unidadmedida.clave unidadmedida');
-        $this->db->from('articulo');
-        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
-        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
-        $this->db->where('articulo.codigo', $codigo);
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
-
-    function get_proveedor_codigo($clave)
-    {
-        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.correoElectronico1, proveedor.correoElectronico2, proveedor.correoElectronico3');
-        $this->db->from('proveedor');
-        $this->db->where('proveedor.clave', $clave);
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
-
-    function get_direccionalmacen($idAlmacen)
-    {
-        $this->db->select('domicilio');
-        $this->db->from('almacen');
-        $this->db->where('id', $idAlmacen);
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-    }
     
     /*
      * function to update im_general
@@ -179,18 +83,5 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
-    function peticionesoferta($id){
-           $this->db->select('po_general.asunto');
-        $this->db->from('po_general');
-        $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
-
-        function cargarproveedores($id){
-
-
-        }
-
-    }
+ 
 }
