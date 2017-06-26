@@ -37,7 +37,29 @@ class Po_general extends CI_Controller{
     }
 
     function crearRelacionIMConcepto(){
-        
+        $tipo = $_POST['tipo'];
+        $codigo = $_POST['articuloCodigo'];
+        $partida = $_POST['partida'];
+        $plazoEntrega = $_POST['plazoEntrega'];
+        $cantidad = $_POST['cantidad'];
+        $lugarEntrega = $_POST['lugarEntrega'];
+        $direccion = $_POST['direccion'];
+
+        //Obtener el ID del artículo según el código
+        $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
+        $idArticulo = array_values($articulo)[0]['id'];
+
+        $params = array(
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'partida' => $partida,
+            'plazoEntrega' => $plazoEntrega,
+            'cantidad' => $cantidad,
+            'lugarEntrega' => $lugarEntrega,
+            'direccionEntrega' => $direccion,
+        );
+
+        $this->Pogeneralmodel->add_im_concepto($params);
     }
 
     function obtenerNombreEmpleado(){

@@ -43,9 +43,15 @@ class Pogeneralmodel extends CI_Model
         $params['id'] = $this->get_idConsecutivoImg();
         $params['idPog'] = $this->get_idConsecutivo();
         $this->db->insert('im_general',$params);
-        return $this->db->insert_id();
     }
     
+    function add_im_concepto($params)
+    {
+        $params['id'] = $this->get_idConsecutivoImc();
+        $params['idImg'] = $this->get_idConsecutivoImg();
+        $this->db->insert('im_concepto',$params);
+    }
+
     function add_uk_po_aclaracion_acuse($idPog, $idEmpleado)
     {
         $this->db->insert('po_acuse', array(
@@ -87,6 +93,16 @@ class Pogeneralmodel extends CI_Model
 		return $maxid;
 	}
 
+    function get_idConsecutivoImc()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_concepto")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
+
     function get_idEmpleado($rpe)
     {
         $this->db->select('id');
@@ -103,6 +119,17 @@ class Pogeneralmodel extends CI_Model
         $this->db->select('id');
         $this->db->from('proveedor');
         $this->db->where('clave', $clave);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_idArticulo($codigo)
+    {
+        $this->db->select('id');
+        $this->db->from('articulo');
+        $this->db->where('codigo', $codigo);
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
