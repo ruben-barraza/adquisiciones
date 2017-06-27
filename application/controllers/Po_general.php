@@ -264,6 +264,17 @@ class Po_general extends CI_Controller{
         if(isset($po_general['id']))
         {
             $this->Pogeneralmodel->delete_po_general($id);
+
+            //Borrar de la tabla PO_Proveedor
+
+            //Borrar de la tabla PO_Acuse
+
+            //Borrar de la tabla PO_ACLARACION
+
+            //Borrar de la tabla IM_General
+
+            
+
             redirect('po_general/index');
         }
         else

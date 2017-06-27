@@ -705,6 +705,7 @@
 		});
 
 		$("#botonCrear").click(function(){
+
 			
      	});
 
@@ -728,14 +729,15 @@
 
 			//obtiene los proveedores y contactos involucrados en esta PO y los manda a la tabla po_proveedor
 			for(i = 0; i < longitudTabla; i++){
-				var cuentaActual = $("#tablaProveedores tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
-				var clave = $("#clave_" + cuentaActual).val();
+				var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
+				var clave = $("#clave_" + cuentaActual1).val();
 				if(clave != ""){
 					for(j = 1; j <= 3; j++){
-						var contacto = $("#contacto" + j + "_" + cuentaActual);
+						var contacto = $("#contacto" + j + "_" + cuentaActual1);
 						if(contacto.val() != "" && contacto.css('display') != 'none')
 						{
 							//console.log("[" + clave + ", " + j + "]");
+							
 							$.ajax({
 								url: '<?php echo base_url();?>index.php/Po_general/crearRelacionProveedor',
 								method: 'POST',
@@ -744,6 +746,7 @@
 									numcontacto: j
 								}
 							});
+							
 						}
 					}
 				}
@@ -756,14 +759,14 @@
 
 			function nextImc(){
 				if(cont < longitudTablaArticulos){
-					var cuentaActual = $("#tablaArticulos tbody tr:eq(" + cont + ") input:first").attr("name").split("_").pop();
-					var articuloCodigo = $("#codigo_" + cuentaActual).val();
-					var partida = $("#partida_" + cuentaActual).val();
-					var plazoEntrega = $("#plazoentrega_" + cuentaActual).val();
-					var cantidad = $("#cantidad_" + cuentaActual).val();
-					var lugar = $("#lugarentrega_" + cuentaActual + " option:selected").text();
+					var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + cont + ") input:first").attr("name").split("_").pop();
+					var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+					var partida = $("#partida_" + cuentaActual2).val();
+					var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+					var cantidad = $("#cantidad_" + cuentaActual2).val();
+					var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
 					var lugarEntrega = lugar.split("- ").pop();
-					var direccion = $("#direccionentrega_" + cuentaActual).val();
+					var direccion = $("#direccionentrega_" + cuentaActual2).val();
 
 
 					$.ajax({
