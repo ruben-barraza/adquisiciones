@@ -85,6 +85,31 @@
         <td></td>
         <td><input type="text" name="precio-unitario" value=""></td>
       </tr>
+      
+      <tr>
+      <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+         <td>Subtotal</td>
+      </tr>
+       <tr>
+       <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+         <td>Total</td>
+      </tr>
+       <tr>
+       <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+         <td>IVA</td>
+      </tr>
     </tbody>
   </table>
   </div>
@@ -93,20 +118,29 @@
           <!--Capturas generales-->
            <form class="form-horizontal">
     <div class="form-group">
-      <label class="control-label col-sm-1" for="">SOLPED</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="solped" placeholder="Indrotuzca SOLPED" name="solped">
-      </div>
-    </div>
+     <div class="row">
+						<label for="solped" class="col-md-4 control-label">SOLPED</label>
+						<div class="col-md-3">
+							<div class="input-group">
+								<input type="text" id="solped" name="solped" maxlength="5" class="form-control pull-right" placeholder="Ingrese SOLPED"/>
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>	
+								</span>
+							</div>
+						</div>
+            <div class="col-md-4">
+							<input type="text" id="empleadoResponsable2" name="empleadoResponsable2" class="form-control" readonly placeholder="Nombre del empleado"/>
+						</div>
+            </div>
     <div class="form-group">
-      <label class="control-label col-sm-1" for="elaboro">ELABOR&Oacute;</label>
-      <div class="col-sm-10">          
+      <label class="control-label col-sm-4" for="elaboro">ELABOR&Oacute;</label>
+      <div class="col-sm-3">          
         <input type="elaboro" class="form-control" id="elaboro" placeholder="Persona que elabor&oacute;" name="elaboro">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-1" for="aprobo">APROB&Oacute;</label>
-      <div class="col-sm-10">          
+      <label class="control-label col-sm-4" for="aprobo">APROB&Oacute;</label>
+      <div class="col-sm-3">          
         <input type="aprobo" class="form-control" id="aprobo" placeholder="Persona que aprob&oacute;" name="aprobo">
       </div>
     </div>
@@ -147,4 +181,28 @@
         });
 		
     });
+
+
+    $("#empleadoResponsable").on('keyup', function(e) {
+			if ($(this).val().length == 5) {
+				var rpe = $('#solped').val();
+				var nombre = "";
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerNombreEmpleado',
+					method: 'POST',
+					data: {
+						rpe: rpe
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						jQuery.each( returned.nombre, function( i, val ) {                   
+							nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+						});
+						$("#empleadoResponsable2").val(nombre);
+					}
+				});
+			} else if ($(this).val().length < 5){
+				$('#empleadoResponsable2').val('');
+			}
+		});
 </script>
