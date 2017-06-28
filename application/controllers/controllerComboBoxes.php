@@ -1,5 +1,17 @@
 <?php
 class controllerComboBoxes extends CI_Controller{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("Comboboxesmodel");
+    
+    }
+
+    public function index(){
+
+        //$data['peticionesoferta']=$this->
+    }
     //put your code here    
     public function fillMunicipios() {
         $idEstado = $this->input->post('idEstado');
@@ -15,4 +27,24 @@ class controllerComboBoxes extends CI_Controller{
             echo '<option value="0">Seleccione</option>';
         }
     }
+
+    public function fillProveedores(){
+       
+	    $idPeticion = $this->input->post('peticionoferta');
+		if($idPeticion)
+		{
+		    $this->load->model('Comboboxesmodel');
+           
+			$proveedores = $this->Comboboxesmodel->getProveedoresPeticion($idPeticion);
+           
+            echo '<option value="0">Seleccione</option>';
+           	foreach ($proveedores as $i) {
+			    echo '<option value="'. $i->id .'">'. $i->razonSocial .'</option>';
+			}
+        }  else {
+            echo '<option value="0">Seleccione</option>';
+        }
+    }
+
+
 }
