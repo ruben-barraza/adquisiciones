@@ -230,7 +230,7 @@
 							</a>
 						</div>
 
-						<table id="tablaFamilias" class="table table-hover">
+						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
 								<th>Partida</th>
 								<th>Código</th>
@@ -509,13 +509,13 @@
 		//Agrega una fila en blanco a la tabla
 		$("#agregarRegistroArticulos").click(function(){
 			//Busca el valor de la última partida
-			var ultimaPartida = parseInt($("#tablaFamilias tr:last input.partida").val());
+			var ultimaPartida = parseInt($("#tablaArticulos tr:last input.partida").val());
 
-			var cuentaActual = $("#tablaFamilias tbody tr:last input:last").attr("name").split("_").pop();
+			var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
 			var cuentaNueva = parseInt(cuentaActual) + 1;
 
-			$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
-			$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
+			$('#tablaArticulos tbody>tr:last').clone(true).insertAfter('#tablaArticulos tbody>tr:last');
+			$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
 				$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -679,10 +679,10 @@
 						var returned = JSON.parse(returned);
 						var longitud = returned.listaarticulos.length;
 
-						$("#tablaFamilias").find("tr:gt(1)").remove();
+						$("#tablaArticulos").find("tr:gt(1)").remove();
 						
-						var cuentaActual = $("#tablaFamilias tbody tr:last input:last").attr("name").split("_").pop();
-						$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
+						var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
+						$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
 							var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
 							var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
 							$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -694,8 +694,8 @@
 
 						
 						for (var i = 1; i < longitud; i++) {
-							$('#tablaFamilias tbody>tr:last').clone(true).insertAfter('#tablaFamilias tbody>tr:last');
-							$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
+							$('#tablaArticulos tbody>tr:last').clone(true).insertAfter('#tablaArticulos tbody>tr:last');
+							$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
 								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
 								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
 								$(this).attr("id", nuevoId).attr("name", nuevoName);
@@ -753,21 +753,21 @@
 
 
 	$(document).on("click", "a.btn.quitararticulo" ,function() {
-		if($("#tablaFamilias tbody tr").length > 1){
+		if($("#tablaArticulos tbody tr").length > 1){
 			var tableRow = $(this).closest('tr');
     		tableRow.find('td').fadeOut('fast', 
         		function(){ 
             		tableRow.remove();
 					//Renumera la partida después de quitar un renglón
-					longitudNueva = $("#tablaFamilias tbody tr").length;
+					longitudNueva = $("#tablaArticulos tbody tr").length;
 					for (i = 1; i <= longitudNueva; i++) { 
-						$("#tablaFamilias tr:eq(" + i + ") input.partida").val(i);
+						$("#tablaArticulos tr:eq(" + i + ") input.partida").val(i);
 					}                    
         		}
     		);
 		} else {
-			var cuentaActual = $("#tablaFamilias tbody tr:last input:last").attr("name").split("_").pop();
-			$('#tablaFamilias tbody>tr:last').find("input, select, a").each(function (){
+			var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
+			$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
 				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
 				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
 				$(this).attr("id", nuevoId).attr("name", nuevoName);

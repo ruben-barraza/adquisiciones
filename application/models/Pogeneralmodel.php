@@ -37,7 +37,42 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('po_general',$params);
         return $this->db->insert_id();
     }
+
+    function add_im_general($params)
+    {
+        $params['id'] = $this->get_idConsecutivoImg();
+        $params['idPog'] = $this->get_idConsecutivo();
+        $this->db->insert('im_general',$params);
+    }
     
+    function add_im_concepto($params)
+    {
+        $params['id'] = $this->get_idConsecutivoImc();
+        $params['idImg'] = $this->get_idImg();
+        $this->db->insert('im_concepto',$params);
+    }
+
+    function add_uk_po_aclaracion_acuse($idPog, $idEmpleado)
+    {
+        $this->db->insert('po_acuse', array(
+            'idPog' => $idPog,
+            'idEmpleado' => $idEmpleado
+        ));
+
+        $this->db->insert('po_aclaracion', array(
+            'idPog' => $idPog,
+            'idEmpleado' => $idEmpleado
+        ));
+    }
+
+    function add_relacion_pog_proveedor($idPog, $idProveedor, $numContacto){
+        $this->db->insert('po_proveedor', array(
+            'idPog' => $idPog,
+            'idProveedor' => $idProveedor,
+            'contacto' => $numContacto
+        ));
+    }
+
     function get_idConsecutivo()
     {
 		$maxid = 1;
@@ -47,6 +82,69 @@ class Pogeneralmodel extends CI_Model
 		}
 		return $maxid;
 	}
+
+    function get_idConsecutivoImg()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_general")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
+
+    function get_idImg()
+    {
+        $maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_general")->row();
+		if ($row) {
+			$maxid = $row->maxid;
+		}
+		return $maxid;
+    }
+
+    function get_idConsecutivoImc()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from im_concepto")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
+
+    function get_idEmpleado($rpe)
+    {
+        $this->db->select('id');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_idProveedor($clave)
+    {
+        $this->db->select('id');
+        $this->db->from('proveedor');
+        $this->db->where('clave', $clave);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_idArticulo($codigo)
+    {
+        $this->db->select('id');
+        $this->db->from('articulo');
+        $this->db->where('codigo', $codigo);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
 
     function get_empleado($rpe)
     {
@@ -116,5 +214,29 @@ class Pogeneralmodel extends CI_Model
         {
             return "Error occuring while deleting po_general";
         }
+    }
+
+    function delete_po_proveedor($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_proveedor');
+    }
+
+    function delete_po_acuse($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_acuse');
+    }
+
+    function delete_po_aclaracion($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_aclaracion');
+    }
+
+    function delete_im_general($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('im_general');
     }
 }
