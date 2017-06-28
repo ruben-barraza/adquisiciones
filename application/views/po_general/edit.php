@@ -1,9 +1,55 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<style>
+	
+	.hidden { 
+		display: none; 
+	}
+
+	.ui-datepicker { 
+		position: relative; 
+		z-index: 10000 !important; 
+	}
+
+	td .btn.aligned {
+  		position: absolute;
+  		margin-top: 7px;
+  		float: right;
+  		margin-left: 5px;
+	}
+
+	td .lowered {
+  		margin-top: 44px;
+	}
+
+	td .btn.lowered{
+		margin-top: 38px;
+	}
+
+	td .btn.aligned-right{
+		float: right;
+	}
+
+	td input {
+  		float: left;
+		margin-bottom: 10px;
+	}
+
+	.spacer {
+  		padding-left: 25px !important;
+	}
+
+	textarea {
+    	resize: none;
+		margin-top: 5px;
+	}
+</style>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Edit</h2>
+                <h2>Editar Petición Oferta</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   	<li>
                   		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -16,15 +62,15 @@
 				<?php echo form_open('po_general/edit/'.$po_general['id'],array("class"=>"form-horizontal")); ?>
 
 					<div class="form-group">
-							<label for="tipo" class="col-md-4 control-label">Tipo</label>
-							<div class="col-md-8">
-								<select name="tipo" class="form-control">
-									<option value="">select</option>
-									<?php 
+						<label for="tipo" class="col-md-4 control-label">Tipo</label>
+						<div class="col-md-8">
+							<select name="tipo" class="form-control">
+								<option value="0">Seleccione</option>
+								<?php 
 									$tipo_values = array(
-						'B'=>'Bienes',
-						'S'=>'Servicios',
-					);
+										'B'=>'Bienes',
+										'S'=>'Servicios',
+									);
 
 									foreach($tipo_values as $value => $display_text)
 									{
@@ -33,9 +79,13 @@
 										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
 									} 
 									?>
-								</select>
-							</div>
+							</select>
 						</div>
+					</div>
+
+					<!-- Solo aparece si se selecciona un proveedor de tipo bienes -->
+
+					
 					<div class="form-group">
 						<label for="oficioNumero" class="col-md-4 control-label">Oficio No.</label>
 						<div class="col-md-8">

@@ -160,7 +160,6 @@
 			 </div>
         	       </div>
 
-
   	</div>
 </div>
 </div>
@@ -202,7 +201,9 @@
 					}
 				});
 			} else if ($(this).val().length < 5){
+
 				$('#empleadoResponsable2').val('');
 			}
 		});
+
 </script>

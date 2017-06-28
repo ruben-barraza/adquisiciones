@@ -126,7 +126,7 @@
                                             <a href="<?php echo site_url('po_proveedor/index');?>"><i class="fa fa-table"></i> PO Proveedor</a>
 
                                         </li>
-                                     
+
                                       </ul>
                                     </li>
                                     <li class="divider"></li>  

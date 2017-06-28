@@ -26,7 +26,7 @@ class Empleadomodel extends CI_Model
     {
         //return $this->db->get('empleado')->result_array();
         
-        $this->db->select('empleado.id, empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno, empleado.titulo, departamento.nombre departamento, categoria.nombre categoria');
+        $this->db->select('empleado.id, empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno, empleado.correoElectronico, empleado.titulo,departamento.nombre departamento, categoria.nombre categoria');
         $this->db->from('empleado');
         $this->db->join('categoria', 'categoria.id = empleado.idCategoria', 'inner');
         $this->db->join('departamento', 'departamento.id = empleado.idDepartamento', 'inner');

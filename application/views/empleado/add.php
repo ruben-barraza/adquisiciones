@@ -17,31 +17,37 @@
 					<div class="form-group">
 						<label for="rpe" class="col-md-4 control-label">RPE</label>
 						<div class="col-md-8">
-							<input type="text" name="rpe" value="<?php echo $this->input->post('rpe'); ?>" class="form-control" id="rpe" />
+							<input type="text" name="rpe" value="<?php echo $this->input->post('rpe'); ?>" class="form-control" id="rpe" maxlength="5"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="nombre" class="col-md-4 control-label">Nombre</label>
 						<div class="col-md-8">
-							<input type="text" name="nombre" value="<?php echo $this->input->post('nombre'); ?>" class="form-control" id="nombre" />
+							<input type="text" name="nombre" value="<?php echo $this->input->post('nombre'); ?>" class="form-control" id="nombre" maxlength="100"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="apellidoPaterno" class="col-md-4 control-label">Apellido Paterno</label>
 						<div class="col-md-8">
-							<input type="text" name="apellidoPaterno" value="<?php echo $this->input->post('apellidoPaterno'); ?>" class="form-control" id="apellidoPaterno" />
+							<input type="text" name="apellidoPaterno" value="<?php echo $this->input->post('apellidoPaterno'); ?>" class="form-control" id="apellidoPaterno" maxlength="100"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="apellidoMaterno" class="col-md-4 control-label">Apellido Materno</label>
 						<div class="col-md-8">
-							<input type="text" name="apellidoMaterno" value="<?php echo $this->input->post('apellidoMaterno'); ?>" class="form-control" id="apellidoMaterno" />
+							<input type="text" name="apellidoMaterno" value="<?php echo $this->input->post('apellidoMaterno'); ?>" class="form-control" id="apellidoMaterno" maxlength="100"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="correoElectronico" class="col-md-4 control-label">Correo Electrónico</label>
+						<div class="col-md-8">
+							<input type="text" name="correoElectronico" value="<?php echo $this->input->post('correoElectronico'); ?>" class="form-control" id="correoElectronico" maxlength="100"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="titulo" class="col-md-4 control-label">Título</label>
 						<div class="col-md-8">
-							<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" />
+							<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" maxlength="3"/>
 						</div>
 					</div>
 					<div class="form-group">
