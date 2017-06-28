@@ -9,6 +9,7 @@ class Im_general extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Imgeneralmodel');
+          $this->load->model('Comboboxesmodel');
     } 
 
     
@@ -20,9 +21,14 @@ class Im_general extends CI_Controller{
     {
 
         $data['listaim_general'] = $this->Imgeneralmodel->get_all_listaim_general();
+        $data['familias'] = $this->Comboboxesmodel->getFamilias();
         $data['_view'] = 'im_general/index';
         $this->load->view('layouts/main',$data);
+
+        
+			
     }
+   
 
     /*
      * Adding a new im_general
@@ -63,6 +69,12 @@ class Im_general extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }  
+
+    function obtenerNombreEmpleado(){
+        $rpe = $_POST['rpe'];
+        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
+		echo json_encode($data);
+    }
 
     /*
      * Editing a im_general
