@@ -41,14 +41,14 @@ class Pogeneralmodel extends CI_Model
     function add_im_general($params)
     {
         $params['id'] = $this->get_idConsecutivoImg();
-        $params['idPog'] = $this->get_idConsecutivo();
+        $params['idPog'] = $this->get_idActual();
         $this->db->insert('im_general',$params);
     }
     
     function add_im_concepto($params)
     {
         $params['id'] = $this->get_idConsecutivoImc();
-        $params['idImg'] = $this->get_idImg();
+        $params['idPog'] = $this->get_idActual();
         $this->db->insert('im_concepto',$params);
     }
 
@@ -83,6 +83,16 @@ class Pogeneralmodel extends CI_Model
 		return $maxid;
 	}
 
+    function get_idActual()
+    {
+        $maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from po_general")->row();
+		if ($row) {
+			$maxid = $row->maxid;
+		}
+		return $maxid;
+    }
+
     function get_idConsecutivoImg()
     {
 		$maxid = 1;
@@ -93,15 +103,6 @@ class Pogeneralmodel extends CI_Model
 		return $maxid;
 	}
 
-    function get_idImg()
-    {
-        $maxid = 1;
-        $row = $this->db->query("select max(id) as 'maxid' from im_general")->row();
-		if ($row) {
-			$maxid = $row->maxid;
-		}
-		return $maxid;
-    }
 
     function get_idConsecutivoImc()
     {

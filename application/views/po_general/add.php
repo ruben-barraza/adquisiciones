@@ -727,8 +727,10 @@
 				});
 			}
 
+			
 			//obtiene los proveedores y contactos involucrados en esta PO y los manda a la tabla po_proveedor
 			for(i = 0; i < longitudTabla; i++){
+				
 				var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
 				var clave = $("#clave_" + cuentaActual1).val();
 				if(clave != ""){
@@ -751,7 +753,9 @@
 					}
 				}
 			}
+			
 
+			
 			var tipoProveedor = $('#tipoProveedor').val();
 			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
 			
@@ -790,7 +794,7 @@
 			}
 			
 			nextImc();
-
+			
 
      	});
 

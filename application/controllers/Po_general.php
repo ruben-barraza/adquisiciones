@@ -50,13 +50,18 @@ class Po_general extends CI_Controller{
         $idArticulo = array_values($articulo)[0]['id'];
 
         $params = array(
+            'idImg' => -1,
             'tipo' => $tipo,
             'idArticulo' => $idArticulo,
+            'idProveedor' => -1,
             'partida' => $partida,
             'plazoEntrega' => $plazoEntrega,
             'cantidad' => $cantidad,
+            'cantidadPO' => 0,
+            'cantidadIM' => 0,
             'lugarEntrega' => $lugarEntrega,
             'direccionEntrega' => $direccion,
+            'idAlmacen' => -1,
         );
 
         $this->Pogeneralmodel->add_im_concepto($params);
@@ -152,6 +157,7 @@ class Po_general extends CI_Controller{
                 'idEmpleadoAutoriza' => $empleadoResponsable,
 				'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
                 'idMunicipioElaboracion' => $this->input->post('idMunicipio'),
+                'estatus' => '0'
             );
 
             $this->Pogeneralmodel->add_im_general($params_im);
