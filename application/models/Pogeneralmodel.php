@@ -41,14 +41,14 @@ class Pogeneralmodel extends CI_Model
     function add_im_general($params)
     {
         $params['id'] = $this->get_idConsecutivoImg();
-        $params['idPog'] = $this->get_idActual();
+        $params['idPog'] = $this->get_idConsecutivo();
         $this->db->insert('im_general',$params);
     }
     
     function add_im_concepto($params)
     {
         $params['id'] = $this->get_idConsecutivoImc();
-        $params['idPog'] = $this->get_idActual();
+        $params['idPog'] = $this->get_idConsecutivo2();
         $this->db->insert('im_concepto',$params);
     }
 
@@ -79,6 +79,17 @@ class Pogeneralmodel extends CI_Model
         $row = $this->db->query("select max(id) as 'maxid' from po_general")->row();
 		if ($row) {
 			$maxid = $row->maxid + 1;
+		}
+		return $maxid;
+	}
+
+    function get_idConsecutivo2()
+    {
+		$maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from po_general")->row();
+		if ($row) {
+			$maxid = $row->maxid + 1;
+            return $maxid - 1;
 		}
 		return $maxid;
 	}
@@ -178,6 +189,55 @@ class Pogeneralmodel extends CI_Model
         $this->db->from('proveedor');
         $this->db->where('proveedor.tipo', 'S');
         $this->db->or_where('proveedor.tipo', 'A');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_direccionalmacen($idAlmacen)
+    {
+        $this->db->select('domicilio');
+        $this->db->from('almacen');
+        $this->db->where('id', $idAlmacen);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_all_listaarticulos($idFamilia)
+    {
+        $this->db->select('articulo.codigo, articulo.descripcion, articulo.tiempoEntrega, articulo.cantidadEmbalaje, unidadmedida.clave unidadmedida');
+        $this->db->from('articulo');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('articulo.idFamilia', $idFamilia);
+        $this->db->order_by('articulo.descripcion');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_articulo_clave($codigo)
+    {
+        $this->db->select('articulo.codigo, articulo.descripcion, articulo.tiempoEntrega, articulo.cantidadEmbalaje, unidadmedida.clave unidadmedida');
+        $this->db->from('articulo');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('articulo.codigo', $codigo);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_proveedor_codigo($clave)
+    {
+        $this->db->select('proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.nombre2, proveedor.nombre3, proveedor.correoElectronico1, proveedor.correoElectronico2, proveedor.correoElectronico3');
+        $this->db->from('proveedor');
+        $this->db->where('proveedor.clave', $clave);
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();

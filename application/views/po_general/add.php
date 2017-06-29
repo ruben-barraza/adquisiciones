@@ -281,13 +281,7 @@
 					
 						<h2>Artículos</h2>
 						<h4>Seleccione los artículos de la familia seleccionada para enviar a los proveddores junto con la Petición Oferta</h4>
-						<br />
-						<div class="form-group">
-							<label for="titulo" class="col-md-2 control-label">Título</label>
-							<div class="col-md-6">
-								<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" />
-							</div>
-						</div>
+						
 						<br />
 						<div class="form-group">
 							<a id="cargarArticulos" class="btn btn-primary">
@@ -296,6 +290,14 @@
 							<a id="agregarRegistroArticulos" class="btn btn-primary">
 								<i class="fa "></i> Agregar registro en blanco
 							</a>
+						</div>
+
+						<br />
+						<div class="form-group">
+							<label for="titulo" class="col-md-1 control-label">Título</label>
+							<div class="col-md-6">
+								<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" />
+							</div>
 						</div>
 
 						<table id="tablaArticulos" class="table table-hover">
@@ -656,7 +658,7 @@
 			var idFamilia = $("#idFamilia").val();
 			if(idFamilia != 0){
 				$.ajax({
-					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerListaArticulos',
+					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaArticulos',
 					method: 'POST',
 					data: {
 						idFamilia: idFamilia
@@ -705,11 +707,40 @@
 		});
 
 		$("#botonCrear").click(function(){
+			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
+			
+			var cont = 0;
 
+			function nextImc(){
+				if(cont < longitudTablaArticulos){
+					var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + cont + ") input:first").attr("name").split("_").pop();
+					var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+					var partida = $("#partida_" + cuentaActual2).val();
+					var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+					var cantidad = $("#cantidad_" + cuentaActual2).val();
+					var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
+					var lugarEntrega = lugar.split("- ").pop();
+					var direccion = $("#direccionentrega_" + cuentaActual2).val();
+
+					console.log(cuentaActual2);
+					console.log("[" + articuloCodigo + ", " + partida + ", " + plazoEntrega + ", " + cantidad + ", " + lugar + ", " + lugarEntrega + ", " + direccion + "]");
+				} else{
+					return;
+				}
+				cont++;
+				nextImc();
+			}
+			
+			nextImc();
 			
      	});
 
 		$("#botonGuardar").click(function(){
+
+			//var relacionEmpleadoCreada = false;
+			//var relacionIMCCreada = false;
+			//var relacionIMGCreada = false;
+
 			//Longitud - 1 para el número real de renglones en la tabla
 			var longitudTabla = $("#tablaProveedores tr").length - 1;
 
@@ -717,6 +748,7 @@
 			if($('#empleadoResponsable').val() != "" || $('#empleadoFormula').val() != ""){
 				var rpe1 = $('#empleadoResponsable').val();
 				var rpe2 = $('#empleadoFormula').val();
+				
 				$.ajax({
 					url: '<?php echo base_url();?>index.php/Po_general/crearRelacion',
 					method: 'POST',
@@ -727,7 +759,7 @@
 				});
 			}
 
-			
+						
 			//obtiene los proveedores y contactos involucrados en esta PO y los manda a la tabla po_proveedor
 			for(i = 0; i < longitudTabla; i++){
 				
@@ -754,12 +786,38 @@
 				}
 			}
 			
+			
 
+			//insertar en la tabla IM_GENERAL
+			if($('#titulo').val() != ""){
+				var titulo = $('#titulo').val();
+				var idMunicipio = $('#idMunicipio').val();
+				var fecha = $('#fechaElaboracion').val();
+				var rpe1 = $('#empleadoResponsable').val();
+				var rpe2 = $('#empleadoFormula').val();
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMGeneral',
+					method: 'POST',
+					data: {
+						titulo: titulo,
+						rpe1: rpe1,
+						rpe2: rpe2,
+						idMunicipio: idMunicipio,
+						fecha: fecha
+					}
+				});
+			}
+			
 			
 			var tipoProveedor = $('#tipoProveedor').val();
 			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
 			
 			var cont = 0;
+
+			
+				
+			nextImc();
+			
 
 			function nextImc(){
 				if(cont < longitudTablaArticulos){
@@ -793,10 +851,11 @@
 				}
 			}
 			
-			nextImc();
+			
 			
 
      	});
+		 
 
 
 	});
@@ -810,7 +869,7 @@
 		var opcion = $mySelect.find('option:selected').text();
 		if(opcion != "Seleccione" && opcion != "OTRO"){
 			$.ajax({
-				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerDireccionAlmacen',
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerDireccionAlmacen',
 				method: 'POST',
 				data: {
 					idAlmacen: idAlmacen
@@ -867,7 +926,7 @@
 		var $row = $this.attr("name").split("_").pop();
 		if($codigo != ""){
 			$.ajax({
-				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerArticuloCodigo',
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerArticuloCodigo',
 				method: 'POST',
 				data: {
 					codigo: $codigo
@@ -927,7 +986,7 @@
 		var $row = $this.attr("name").split("_").pop();
 		if($clave != ""){
 			$.ajax({
-				url: '<?php echo base_url(); ?>index.php/Im_general/obtenerProveedorClave',
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerProveedorClave',
 				method: 'POST',
 				data: {
 					clave: $clave

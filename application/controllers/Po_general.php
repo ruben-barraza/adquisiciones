@@ -36,6 +36,31 @@ class Po_general extends CI_Controller{
         $this->Pogeneralmodel->add_relacion_pog_proveedor($idPog, $idProveedor, $contacto);
     }
 
+    function crearRelacionIMGeneral(){
+        $titulo = $_POST['titulo'];
+        $rpe1 = $_POST['rpe1'];
+        $rpe2 = $_POST['rpe2'];
+        $idMunicipio = $_POST['idMunicipio'];
+        $fecha = $_POST['fecha'];
+
+        $idEmpleado1 = $this->Pogeneralmodel->get_idEmpleado($rpe1);
+        $empleadoResponsable = array_values($idEmpleado1)[0]['id'];
+        $idEmpleado2 = $this->Pogeneralmodel->get_idEmpleado($rpe2);
+        $empleadoFormula = array_values($idEmpleado2)[0]['id'];
+
+        $params_im = array(
+            'titulo' => $titulo,
+            'idEmpleadoFormula' => $empleadoFormula,
+            'idEmpleadoAutoriza' => $empleadoResponsable,
+			'fechaElaboracion' => date("Y-m-d", strtotime($fecha)),
+            'idMunicipioElaboracion' => $idMunicipio,
+            'estatus' => '0'
+        );
+
+        $this->Pogeneralmodel->add_im_general($params_im);
+
+    }
+
     function crearRelacionIMConcepto(){
         $tipo = $_POST['tipo'];
         $codigo = $_POST['articuloCodigo'];
@@ -84,6 +109,30 @@ class Po_general extends CI_Controller{
         echo json_encode($data);
     }
 
+    function obtenerListaArticulos(){
+        $idFamilia = $_POST['idFamilia'];
+        $data['listaarticulos'] = $this->Pogeneralmodel->get_all_listaarticulos($idFamilia);
+        echo json_encode($data);
+    }
+
+    function obtenerDireccionAlmacen(){
+        $idAlmacen = $_POST['idAlmacen'];
+        $data['almacen'] = $this->Pogeneralmodel->get_direccionalmacen($idAlmacen);
+        echo json_encode($data);
+    }
+
+    function obtenerArticuloCodigo(){
+        $codigo = $_POST['codigo'];
+        $data['articulo'] = $this->Pogeneralmodel->get_articulo_clave($codigo);
+        echo json_encode($data);
+    }
+
+    function obtenerProveedorClave(){
+        $clave = $_POST['clave'];
+        $data['proveedor'] = $this->Pogeneralmodel->get_proveedor_codigo($clave);
+        echo json_encode($data);
+    }
+
     /*
      * Listing of listapo_general
      */
@@ -116,7 +165,7 @@ class Po_general extends CI_Controller{
 		$this->form_validation->set_rules('fechaElaboracion','FechaElaboracion','required');
 		$this->form_validation->set_rules('asunto','Asunto','max_length[255]|required');
 
-        $this->form_validation->set_rules('titulo','Titulo','max_length[255]');
+        //$this->form_validation->set_rules('titulo','Titulo','max_length[255]');
 		//$this->form_validation->set_rules('fechaUltimaModificacion','FechaUltimaModificacion','required');
 		
 		if($this->form_validation->run())     
@@ -151,6 +200,7 @@ class Po_general extends CI_Controller{
             
             $po_general_id = $this->Pogeneralmodel->add_po_general($params);
 
+            /*
             $params_im = array(
                 'titulo' => $this->input->post('titulo'),
                 'idEmpleadoFormula' => $empleadoFormula,
@@ -161,7 +211,7 @@ class Po_general extends CI_Controller{
             );
 
             $this->Pogeneralmodel->add_im_general($params_im);
-
+            */
             redirect('po_general/index');
         }
         else
