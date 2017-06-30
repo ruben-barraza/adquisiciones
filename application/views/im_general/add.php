@@ -182,12 +182,12 @@
     });
 
 
-    $("#empleadoResponsable").on('keyup', function(e) {
+    $("#solped").on('keyup', function(e) {
 			if ($(this).val().length == 5) {
 				var rpe = $('#solped').val();
 				var nombre = "";
 				$.ajax({
-					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerNombreEmpleado',
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleadoImGeneral',
 					method: 'POST',
 					data: {
 						rpe: rpe

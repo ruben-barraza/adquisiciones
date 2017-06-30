@@ -12,6 +12,7 @@ class Im_general extends CI_Controller{
           $this->load->model('Comboboxesmodel');
     } 
 
+
     
 
     /*
@@ -70,7 +71,7 @@ class Im_general extends CI_Controller{
         }
     }  
 
-    function obtenerNombreEmpleado(){
+    function obtenerNombreEmpleadoImGeneral(){
         $rpe = $_POST['rpe'];
         $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
 		echo json_encode($data);

@@ -26,6 +26,17 @@ class Imgeneralmodel extends CI_Model
     {
         return $this->db->get('im_general')->result_array();
     }
+
+     function get_empleadoImGeneral($rpe)
+    {
+        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
     
     /*
      * function to add new im_general
