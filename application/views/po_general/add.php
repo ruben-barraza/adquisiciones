@@ -377,7 +377,35 @@
 </div>
 
 <script type="text/javascript">
+	var ajaxResult = new Array();
 	$(document).ready(function() {
+		
+		//OBTENER EL ID DE LA PETICIÓN OFERTA QUE SE VA A GENERAR
+		//ESTO EVITA PROBLEMAS AL INSERTAR EN LA TABLA IM_GENERAL E IM_CONCEPTO
+		
+
+		//var ajaxResult = new Array();
+		
+		
+		$.ajax({
+			url: '<?php echo base_url(); ?>index.php/Po_general/obtenerIdConsecutivo',
+			method: 'GET',
+			success: function (returned) {
+				
+				var returned = JSON.parse(returned);
+				//console.log(returned);
+				var idPog = returned.idPog;
+				//console.log(idPog);
+				ajaxResult.push(idPog);
+				console.log(ajaxResult[0]);
+			}
+		});
+		
+		//console.log(ajaxResult);
+		//console.log(ajaxResult[0]);
+		
+
+		//console.log(idPog);
 
 		var options = {
 			twentyFour: true,
@@ -815,7 +843,7 @@
 			var cont = 0;
 
 			
-				
+			/*	
 			nextImc();
 			
 
@@ -851,7 +879,7 @@
 				}
 			}
 			
-			
+			*/
 			
 
      	});

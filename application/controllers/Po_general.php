@@ -98,6 +98,11 @@ class Po_general extends CI_Controller{
 		echo json_encode($data);
     }
 
+    function obtenerIdConsecutivo(){
+        $data['idPog'] = $this->Pogeneralmodel->get_idConsecutivo();
+        echo json_encode($data);
+    }
+
     function obtenerListaProveedores(){
         $idFamilia = $_POST['idFamilia']; 
         $data['listaproveedores'] = $this->Pogeneralmodel->get_all_listaproveedorfamilia($idFamilia);
@@ -217,7 +222,6 @@ class Po_general extends CI_Controller{
         else
         {
 			$this->load->model('Empleadomodel');
-			$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
 			$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
 
             $this->load->model('Comboboxesmodel');
