@@ -101,7 +101,7 @@
 					<div class="form-group">
 						<label for="oficioNumero" class="col-md-2 control-label">Oficio No.</label>
 						<div class="col-md-6">
-							<input type="text" name="oficioNumero" value="<?php echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" />
+							<input type="text" name="oficioNumero" value="<?php echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" maxlength="20"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -134,13 +134,13 @@
 					<div class="form-group">
 						<label for="asunto" class="col-md-2 control-label">Asunto</label>
 						<div class="col-md-6">
-							<input type="text" name="asunto" value="<?php echo $this->input->post('asunto'); ?>" class="form-control" id="asunto" />
+							<input type="text" name="asunto" value="<?php echo $this->input->post('asunto'); ?>" class="form-control" id="asunto" maxlength="255"/>
 						</div>
 					</div>	
 					<div class="form-group">
 						<label for="domicilio" class="col-md-2 control-label">Domicilio Remitente</label>
 						<div class="col-md-6">
-							<input type="text" name="domicilio" value="<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" />
+							<input type="text" name="domicilio" value="<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="255"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -187,19 +187,19 @@
 					<div class="form-group">
 						<label for="ccp1" class="col-md-2 control-label">CCP 1</label>
 						<div class="col-md-6">
-							<input type="text" name="ccp1" value="<?php echo $this->input->post('ccp1'); ?>" class="form-control" id="ccp1" />
+							<input type="text" name="ccp1" value="<?php echo $this->input->post('ccp1'); ?>" class="form-control" id="ccp1" maxlength="250"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="ccp2" class="col-md-2 control-label">CCP 2</label>
 						<div class="col-md-6">
-							<input type="text" name="ccp2" value="<?php echo $this->input->post('ccp2'); ?>" class="form-control" id="ccp2" />
+							<input type="text" name="ccp2" value="<?php echo $this->input->post('ccp2'); ?>" class="form-control" id="ccp2" maxlength="250"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="ccp3" class="col-md-2 control-label">CCP 3</label>
 						<div class="col-md-6">
-							<input type="text" name="ccp3" value="<?php echo $this->input->post('ccp3'); ?>" class="form-control" id="ccp3" />
+							<input type="text" name="ccp3" value="<?php echo $this->input->post('ccp3'); ?>" class="form-control" id="ccp3" maxlength="250"/>
 						</div>
 					</div>
 					
@@ -296,7 +296,7 @@
 						<div class="form-group">
 							<label for="titulo" class="col-md-1 control-label">Título</label>
 							<div class="col-md-6">
-								<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" />
+								<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" maxlength="255"/>
 							</div>
 						</div>
 
@@ -324,10 +324,10 @@
 										<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
 									</td>
 									<td >
-										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control"/>
+										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control" maxlength="11"/>
 									</td>
 									<td >
-										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control"/>
+										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control" maxlength="11"/>
 									</td>
 									<td class="col-md-1">
 										<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
@@ -382,31 +382,26 @@
 		
 		//OBTENER EL ID DE LA PETICIÓN OFERTA QUE SE VA A GENERAR
 		//ESTO EVITA PROBLEMAS AL INSERTAR EN LA TABLA IM_GENERAL E IM_CONCEPTO
-		
 
-		//var ajaxResult = new Array();
+		var ajaxResult = new Array();
 		
 		
 		$.ajax({
 			url: '<?php echo base_url(); ?>index.php/Po_general/obtenerIdConsecutivo',
 			method: 'GET',
+			async: false,
 			success: function (returned) {
 				
 				var returned = JSON.parse(returned);
-				//console.log(returned);
-				var idPog = returned.idPog;
-				//console.log(idPog);
-				ajaxResult.push(idPog);
-				console.log(ajaxResult[0]);
+				var id = returned.idPog;
+				ajaxResult.push(id);
 			}
 		});
-		
-		//console.log(ajaxResult);
-		//console.log(ajaxResult[0]);
+		var idPog = ajaxResult[0];
+
 		
 
-		//console.log(idPog);
-
+		//OPCIONES DEL DATEPICKER
 		var options = {
 			twentyFour: true,
 			timeSeparator: ':',
@@ -735,39 +730,12 @@
 		});
 
 		$("#botonCrear").click(function(){
-			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
 			
-			var cont = 0;
-
-			function nextImc(){
-				if(cont < longitudTablaArticulos){
-					var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + cont + ") input:first").attr("name").split("_").pop();
-					var articuloCodigo = $("#codigo_" + cuentaActual2).val();
-					var partida = $("#partida_" + cuentaActual2).val();
-					var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
-					var cantidad = $("#cantidad_" + cuentaActual2).val();
-					var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
-					var lugarEntrega = lugar.split("- ").pop();
-					var direccion = $("#direccionentrega_" + cuentaActual2).val();
-
-					console.log(cuentaActual2);
-					console.log("[" + articuloCodigo + ", " + partida + ", " + plazoEntrega + ", " + cantidad + ", " + lugar + ", " + lugarEntrega + ", " + direccion + "]");
-				} else{
-					return;
-				}
-				cont++;
-				nextImc();
-			}
-			
-			nextImc();
 			
      	});
 
 		$("#botonGuardar").click(function(){
 
-			//var relacionEmpleadoCreada = false;
-			//var relacionIMCCreada = false;
-			//var relacionIMGCreada = false;
 
 			//Longitud - 1 para el número real de renglones en la tabla
 			var longitudTabla = $("#tablaProveedores tr").length - 1;
@@ -778,9 +746,10 @@
 				var rpe2 = $('#empleadoFormula').val();
 				
 				$.ajax({
-					url: '<?php echo base_url();?>index.php/Po_general/crearRelacion',
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionEmpleado',
 					method: 'POST',
 					data: {
+						id: idPog,
 						rpe1: rpe1,
 						rpe2: rpe2
 					}
@@ -804,6 +773,7 @@
 								url: '<?php echo base_url();?>index.php/Po_general/crearRelacionProveedor',
 								method: 'POST',
 								data: {
+									id: idPog,
 									clave: clave,
 									numcontacto: j
 								}
@@ -827,6 +797,7 @@
 					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMGeneral',
 					method: 'POST',
 					data: {
+						id: idPog,
 						titulo: titulo,
 						rpe1: rpe1,
 						rpe2: rpe2,
@@ -839,49 +810,48 @@
 			
 			var tipoProveedor = $('#tipoProveedor').val();
 			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
-			
-			var cont = 0;
 
-			
-			/*	
-			nextImc();
-			
-
-			function nextImc(){
-				if(cont < longitudTablaArticulos){
-					var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + cont + ") input:first").attr("name").split("_").pop();
-					var articuloCodigo = $("#codigo_" + cuentaActual2).val();
-					var partida = $("#partida_" + cuentaActual2).val();
-					var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
-					var cantidad = $("#cantidad_" + cuentaActual2).val();
-					var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
-					var lugarEntrega = lugar.split("- ").pop();
-					var direccion = $("#direccionentrega_" + cuentaActual2).val();
-
-
-					$.ajax({
-						url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
-						method: 'POST',
-						data: {
-							tipo: tipoProveedor,
-							articuloCodigo: articuloCodigo,
-							partida: partida,
-							plazoEntrega: plazoEntrega,
-							cantidad: cantidad,
-							lugarEntrega: lugarEntrega,
-							direccion: direccion 
-						},
-						success: function (result) {
-							cont++;
-							nextImc();
-						}
-					});
-				}
+			for(k = 0; k < longitudTablaArticulo; k++){
+				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+				var partida = $("#partida_" + cuentaActual2).val();
+				var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+				var cantidad = $("#cantidad_" + cuentaActual2).val();
+				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
+				var lugarEntrega = lugar.split("- ").pop();
+				var direccion = $("#direccionentrega_" + cuentaActual2).val();
 			}
-			
-			*/
-			
 
+			var tipoProveedor = $('#tipoProveedor').val();
+			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
+
+			for(k = 0; k < longitudTablaArticulo; k++){
+				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+				var partida = $("#partida_" + cuentaActual2).val();
+				var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+				var cantidad = $("#cantidad_" + cuentaActual2).val();
+				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
+				var lugarEntrega = lugar.split("- ").pop();
+				var direccion = $("#direccionentrega_" + cuentaActual2).val();
+				//console.log("[" + articuloCodigo + ", " + partida + ", " + plazoEntrega + ", " + cantidad + ", " + lugarEntrega + ", " + direccion + "]");
+			
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
+					method: 'POST',
+					async: false,
+					data: {
+						id: idPog,
+						tipo: tipoProveedor,
+						articuloCodigo: articuloCodigo,
+						partida: partida,
+						plazoEntrega: plazoEntrega,
+						cantidad: cantidad,
+						lugarEntrega: lugarEntrega,
+						direccion: direccion 
+					}
+				});
+			}
      	});
 		 
 

@@ -34,7 +34,10 @@
 					<div class="form-group">
 						<label for="fc1" class="col-md-4 control-label">Punto 1</label>
 						<div class="col-md-8">
-							<textarea name="fc1" class="form-control summernote" id="fc1"><?php echo $this->input->post('fc1'); ?></textarea>
+							<textarea name="fc1" class="form-control summernote" id="fc1">
+								<?php echo $this->input->post('fc1'); ?>
+								<p>1.- Los datos de los bienes, arrendamientos o servicios a cotizar (mismos que se especifican en el anexo de la solicitud de cotización).</p>
+							</textarea>
 						</div>
 					</div>
 					<div class="form-group">

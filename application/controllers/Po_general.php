@@ -15,33 +15,39 @@ class Po_general extends CI_Controller{
     } 
 
     //Crea las relaciones en las tablas po_acuse y po_aclaracion
-	function crearRelacion(){
+	function crearRelacionEmpleado(){
+        $idPog = $_POST['id'];
 		$rpe1 = $_POST['rpe1'];
         $rpe2 = $_POST['rpe2'];
-		$idPog = $this->Pogeneralmodel->get_idConsecutivo();
+        
         $idEmpleado1 = $this->Pogeneralmodel->get_idEmpleado($rpe1);
         $empleadoResponsable = array_values($idEmpleado1)[0]['id'];
         $idEmpleado2 = $this->Pogeneralmodel->get_idEmpleado($rpe2);
         $empleadoFormula = array_values($idEmpleado2)[0]['id'];
-		$this->Pogeneralmodel->add_uk_po_aclaracion_acuse($idPog, $empleadoResponsable);
+		
+        $this->Pogeneralmodel->add_uk_po_aclaracion_acuse($idPog, $empleadoResponsable);
         $this->Pogeneralmodel->add_uk_po_aclaracion_acuse($idPog, $empleadoFormula);
 	}
 
     function crearRelacionProveedor(){
+        $idPog = $_POST['id'];
         $clave = $_POST['clave'];
         $contacto = $_POST['numcontacto']; 
-        $idPog = $this->Pogeneralmodel->get_idConsecutivo();
+
         $proveedor = $this->Pogeneralmodel->get_idProveedor($clave);
         $idProveedor = array_values($proveedor)[0]['id'];
         $this->Pogeneralmodel->add_relacion_pog_proveedor($idPog, $idProveedor, $contacto);
     }
 
     function crearRelacionIMGeneral(){
+        $idPog = $_POST['id'];
         $titulo = $_POST['titulo'];
         $rpe1 = $_POST['rpe1'];
         $rpe2 = $_POST['rpe2'];
         $idMunicipio = $_POST['idMunicipio'];
         $fecha = $_POST['fecha'];
+
+        $fechaElaboracion = str_replace('/', '-', $fecha);
 
         $idEmpleado1 = $this->Pogeneralmodel->get_idEmpleado($rpe1);
         $empleadoResponsable = array_values($idEmpleado1)[0]['id'];
@@ -49,10 +55,11 @@ class Po_general extends CI_Controller{
         $empleadoFormula = array_values($idEmpleado2)[0]['id'];
 
         $params_im = array(
+            'idPog' => $idPog,
             'titulo' => $titulo,
             'idEmpleadoFormula' => $empleadoFormula,
             'idEmpleadoAutoriza' => $empleadoResponsable,
-			'fechaElaboracion' => date("Y-m-d", strtotime($fecha)),
+			'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
             'idMunicipioElaboracion' => $idMunicipio,
             'estatus' => '0'
         );
@@ -62,6 +69,7 @@ class Po_general extends CI_Controller{
     }
 
     function crearRelacionIMConcepto(){
+        $idPog = $_POST['id'];
         $tipo = $_POST['tipo'];
         $codigo = $_POST['articuloCodigo'];
         $partida = $_POST['partida'];
@@ -75,6 +83,7 @@ class Po_general extends CI_Controller{
         $idArticulo = array_values($articulo)[0]['id'];
 
         $params = array(
+            'idPog' => $idPog,
             'idImg' => -1,
             'tipo' => $tipo,
             'idArticulo' => $idArticulo,
