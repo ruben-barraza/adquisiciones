@@ -359,7 +359,7 @@
 					</div>
 
 					<a id="botonCrear" class="btn btn-primary">
-						<i class="fa "></i> Crear relacion proveedores
+						<i class="fa "></i> Prueba PDF
 					</a>
 
 					<div class="form-group">
@@ -730,8 +730,10 @@
 		});
 
 		$("#botonCrear").click(function(){
-			
-			
+			$.ajax({
+				url: '<?php echo base_url();?>index.php/Po_general/pruebaPDF',
+				method: 'POST'
+			});
      	});
 
 		$("#botonGuardar").click(function(){

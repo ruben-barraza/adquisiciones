@@ -2,9 +2,9 @@
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           	<div class="x_title">
-                <h2>Listing</h2>
+                <h2>IM Conceptos</h2>
                 <div class="nav navbar-right">
-					<a href="<?php echo site_url('im_concepto/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+					<a href="<?php echo site_url('im_concepto/add'); ?>" class="btn btn-success btn-sm">Agregar</a> 
 				</div>
                 <div class="clearfix"></div>
           	</div>
@@ -12,9 +12,8 @@
   				<table class="table table-striped">
 				    <tr>
 						<th>ID</th>
-						<th>IdImg</th>
 						<th>Tipo</th>
-						<th>IdConcepto</th>
+						<th>IdArticulo</th>
 						<th>Partida</th>
 						<th>PlazoEntrega</th>
 						<th>Cantidad</th>
@@ -25,9 +24,8 @@
 					<?php foreach($listaim_concepto as $i){ ?>
 				    <tr>
 						<td><?php echo $i['id']; ?></td>
-						<td><?php echo $i['idImg']; ?></td>
 						<td><?php echo $i['tipo']; ?></td>
-						<td><?php echo $i['idConcepto']; ?></td>
+						<td><?php echo $i['idArticulo']; ?></td>
 						<td><?php echo $i['partida']; ?></td>
 						<td><?php echo $i['plazoEntrega']; ?></td>
 						<td><?php echo $i['cantidad']; ?></td>
