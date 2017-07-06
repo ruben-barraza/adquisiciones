@@ -15,11 +15,11 @@
 						<th>Tipo</th>
 						<th>IdEmpleadoResponsable</th>
 						<th>IdEmpleadoFormula</th>
-						<th>FechaLimitePresentacion</th>
 						<th>FechaElaboracion</th>
 						<th>Asunto</th>
 						<th>FechaUltimaModificacion</th>
-						<th>Actions</th>
+						<th></th>
+						<th></th>
 				    </tr>
 					<?php foreach($listapo_general as $p){ ?>
 				    <tr>
@@ -27,14 +27,16 @@
 						<td><?php echo $p['tipo']; ?></td>
 						<td><?php echo $p['idEmpleadoResponsable']; ?></td>
 						<td><?php echo $p['idEmpleadoFormula']; ?></td>
-						<td><?php echo $p['fechaLimitePresentacion']; ?></td>
 						<td><?php echo $p['fechaElaboracion']; ?></td>
 						<td><?php echo $p['asunto']; ?></td>
 						<td><?php echo $p['fechaUltimaModificacion']; ?></td>
 						<td>
-				            <a href="<?php echo site_url('po_general/edit/'.$p['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-				            <a href="<?php echo site_url('po_general/remove/'.$p['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+				            <a href="<?php echo site_url('po_general/edit/'.$p['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
+				            <a href="<?php echo site_url('po_general/remove/'.$p['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
+						<td>
+							<a href="<?php echo site_url('generar_pdf/pdf/'.$p['id']); ?>" target="_blank" class="btn btn-primary btn-xs"><span class="fa fa-download"></span> PDFs</a> 
+						</td>
 				    </tr>
 					<?php } ?>
 				</table>

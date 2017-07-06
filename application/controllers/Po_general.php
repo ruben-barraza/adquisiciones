@@ -147,9 +147,9 @@ class Po_general extends CI_Controller{
         echo json_encode($data);
     }
 
-
-    //PDF
-    function pruebaPDF(){
+    /*
+    //TRANSFERIDO A Generar_PDF
+    function pdf($id){
         $this->load->library('Pdf');
 
         $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -164,8 +164,10 @@ class Po_general extends CI_Controller{
         $pdf->AddPage();
 
         $pdf->Write(5, 'Some sample text');
-        $pdf->Output('My-File-Name.pdf', 'D');
+        $pdf->Output('Peticion_Oferta_'.$id.'.pdf', 'I');
     }
+
+    */
 
     /*
      * Listing of listapo_general
