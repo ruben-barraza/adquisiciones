@@ -22,6 +22,7 @@ class Im_general extends CI_Controller{
     {
 
         $data['listaim_general'] = $this->Imgeneralmodel->get_all_listaim_general();
+      
         $data['familias'] = $this->Comboboxesmodel->getFamilias();
         $data['_view'] = 'im_general/index';
         $this->load->view('layouts/main',$data);
@@ -60,11 +61,13 @@ class Im_general extends CI_Controller{
         else
         {
 			$this->load->model('Comboboxesmodel');
+            $data['listaim_concepto']=$this->Imgeneralmodel->get_all_listaim_concepto();
 			$data['familias'] = $this->Comboboxesmodel->getFamilias();
             $data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
             $data['estados'] = $this->Comboboxesmodel->getEstados();
             $data['peticiones'] = $this->Comboboxesmodel->getPeticiones();
-        
+            $data['sumas']=$this->Imgeneralmodel->suma_imgeneral();
+          
 
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);

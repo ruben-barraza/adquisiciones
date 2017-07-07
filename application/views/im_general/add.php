@@ -18,7 +18,6 @@
 			</div>
           		<div class="x_content">
                   <div class="row">
-
                   <!--Este dropdown carga todas las PO activas o en proceso
                       y al seleccionar una PO deberan cargarse los conceptos
                       relacionados (bienes o servicios)-->
@@ -54,9 +53,10 @@
                          <br>
                          
                     <!-- Esta tabla captura los datos escritos y precio unitario-->
-                 <div class="table-responsive">          
-  <table class="table">
-    <thead>
+                 <div class="x_content">          
+  <table class="table table-striped">
+  
+   
       <tr>
         <th>PARTIDA</th>
         <th>CODIGO</th>
@@ -64,54 +64,31 @@
         <th>CANTIDAD</th>
         <th>UM</th>
         <th>PRECIO UNITARIO</th>
+        
       </tr>
-    </thead>
-    <tbody>
+ 
+ 
+     <?php foreach($listaim_concepto as $i){ ?>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><input type="text" name="precio-unitario" value=""></td>
+        <td><?php echo $i['partida']; ?></td>
+        <td><?php echo $i['codigo']; ?></td>
+        <td><?php echo $i['descripcion']; ?></td>
+        <td><input type="text" name="cantidad" value="<?php echo $i['cantidadIM']; ?>"></td>
+        <td><?php echo $i['clave'];?></td>
+        <td><input type="text" name="precio-unitario" value="<?php echo $i['precioUnitario']; ?>"></td>
+        
       </tr>
-    </tbody>
-      <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><input type="text" name="precio-unitario" value=""></td>
-      </tr>
-      
-      <tr>
-      <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-         <td>Subtotal</td>
-      </tr>
-       <tr>
-       <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-         <td>Total</td>
-      </tr>
-       <tr>
-       <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-         <td>IVA</td>
-      </tr>
-    </tbody>
+  
+  
+   <?php } ?>
   </table>
+     <p>Subtotal:<?php echo $sumas;?> </p>
+  
+         <p>IVA: </p>
+   
+         <p>Total: </p>
+      
+    
   </div>
   <br>
   <br>
@@ -152,17 +129,15 @@
         <button type="GUARDAR" class="btn btn-primary">GUARDAR</button>
       </div>
     </div>
-  </form>
-
-                 
+  </form>        
 	</div>
-        </div>
+    </div>
 			 </div>
-        	       </div>
+         </div>
 
-  	</div>
-</div>
-</div>
+  	      </div>
+           </div>
+            </div>
 
 
 <script type="text/javascript">   

@@ -26,6 +26,27 @@ class Imgeneralmodel extends CI_Model
     {
         return $this->db->get('im_general')->result_array();
     }
+    function get_all_listaim_concepto()
+    {
+        $this->db->select('*');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'articulo.id = im_concepto.idArticulo', 'inner');
+        $this->db->join('unidadmedida', 'unidadmedida.id = articulo.idUnidadMedida', 'inner');
+        $this->db->order_by('im_concepto.partida');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function suma_imgeneral()
+    {
+        $this->db->select_sum('precioUnitario');
+        
+         $this->db->from('articulo');
+ 
+       
+    }
 
      function get_empleadoImGeneral($rpe)
     {
