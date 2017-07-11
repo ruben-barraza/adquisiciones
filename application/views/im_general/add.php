@@ -73,22 +73,27 @@
         <td><?php echo $i['partida']; ?></td>
         <td><?php echo $i['codigo']; ?></td>
         <td><?php echo $i['descripcion']; ?></td>
-        <td><input type="text" name="cantidad" value="<?php echo $i['cantidadIM']; ?>"></td>
+        <td><input type="text" name="cantidad" value="<?php $cantidad=$i['cantidadIM']; echo $cantidad;  ?>"></td>
         <td><?php echo $i['clave'];?></td>
-        <td><input type="text" name="precio-unitario" value="<?php echo $i['precioUnitario']; ?>"></td>
+        <td><input type="text" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
         
       </tr>
   
+    <?php } ?>
   
-   <?php } ?>
   </table>
-     <p>Subtotal:<?php echo $sumas;?> </p>
-  
-         <p>IVA: </p>
-   
-         <p>Total: </p>
-      
+     <p>Subtotal:
+       
+     <?php $subtotal=0; $subtotal=$subtotal + ($preciounitario * $cantidad); 
+     echo $subtotal;
+        ?>
+     </p>
     
+         <p>IVA:<?php $iva=$sumas['subtotal']*0.16; echo $iva;  ?> </p>
+   
+         <p>Total: <?php $total=$sumas['subtotal']+$iva; echo $total;?> </p>
+      
+   
   </div>
   <br>
   <br>
