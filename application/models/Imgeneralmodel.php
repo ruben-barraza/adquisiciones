@@ -41,7 +41,7 @@ class Imgeneralmodel extends CI_Model
 
     function suma_imgeneral()
     {
-       $this->db->select('sum(precioUnitario) as subtotal');
+       $this->db->select('SUM(articulo.precioUnitario * im_concepto.cantidadIM) as subtotal');
         $this->db->from('articulo');
         $this->db->join('im_concepto', 'im_concepto.idArticulo=articulo.id ', 'inner');
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida=unidadmedida.id ', 'inner');

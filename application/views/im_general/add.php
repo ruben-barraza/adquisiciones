@@ -1,6 +1,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<style>
+  .textoderecha{
+    text-align:right;
+  }
+</style>
 <div class="container">
 
 <div class="row">
@@ -64,6 +69,8 @@
         <th>CANTIDAD</th>
         <th>UM</th>
         <th>PRECIO UNITARIO</th>
+        <th>Importe</th>
+   
         
       </tr>
  
@@ -76,25 +83,21 @@
         <td><input type="text" name="cantidad" value="<?php $cantidad=$i['cantidadIM']; echo $cantidad;  ?>"></td>
         <td><?php echo $i['clave'];?></td>
         <td><input type="text" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
-        
+         <td><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
+        <?php } ?>
+       
       </tr>
-  
-    <?php } ?>
+ 
+   
   
   </table>
-     <p>Subtotal:
-       
-     <?php $subtotal=0; $subtotal=$subtotal + ($preciounitario * $cantidad); 
-     echo $subtotal;
-        ?>
-     </p>
-    
-         <p>IVA:<?php $iva=$sumas['subtotal']*0.16; echo $iva;  ?> </p>
+
    
-         <p>Total: <?php $total=$sumas['subtotal']+$iva; echo $total;?> </p>
       
-   
-  </div>
+  <p class="text-right lead">Subtotal &nbsp;&nbsp;($): &nbsp; <?php $subtotal=$sumas['subtotal'];echo $subtotal;   ?></p>
+  <p  class="text-right lead">IVA &nbsp;&nbsp;($): &nbsp;&nbsp;&nbsp; <?php $iva=$subtotal*0.16; echo $iva;  ?>&nbsp;&nbsp; </p>
+  <p  class="text-right lead">Total &nbsp;&nbsp;($): &nbsp; <?php $total=$subtotal+$iva; echo $total;?>&nbsp;&nbsp;</p>
+
   <br>
   <br>
           <!--Capturas generales-->
