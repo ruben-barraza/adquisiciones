@@ -73,7 +73,7 @@ class Po_consideracion extends CI_Controller{
             );
             
             $po_consideracion_id = $this->Poconsideracionmodel->add_po_consideracion($params);
-            redirect('po_consideracion/index');
+            redirect('po_general/index');
         }
         else
         {

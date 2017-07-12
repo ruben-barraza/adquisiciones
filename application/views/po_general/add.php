@@ -729,12 +729,7 @@
 			}	
 		});
 
-		$("#botonCrear").click(function(){
-			$.ajax({
-				url: '<?php echo base_url();?>index.php/Po_general/pruebaPDF',
-				method: 'POST'
-			});
-     	});
+		
 
 		$("#botonGuardar").click(function(){
 

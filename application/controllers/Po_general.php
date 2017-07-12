@@ -248,7 +248,7 @@ class Po_general extends CI_Controller{
 
             $this->Pogeneralmodel->add_im_general($params_im);
             */
-            redirect('po_general/index');
+            redirect('po_consideracion/add');
         }
         else
         {

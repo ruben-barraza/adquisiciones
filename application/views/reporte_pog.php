@@ -130,15 +130,91 @@ $pdf->Cell(0, 0, 'Correo electrónico: ', 0, false, 'L', 0, '', 0, false, 'M', '
 $pdf->Ln();
 
 
-// set some text to print
-$txt = <<<EOD
-Oficio No.
+// TEXTO BASE
+$html = '<span style="text-align:justify; line-height: 16px;"><br />Comisión Federal de Electricidad, como entidad del Gobierno Federal, requiere para sus actividades de suministro,
+arrendamiento y/o prestación de servicios, mismas que se encuentran reguladas por la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público (LAASSP)
+y su Reglamento, obtener información para contratar bajo las mejores condiciones disponibles para el Estado.
+<br /><br />
+En este sentido y en términos de lo previsto en el artículo 2 fracción X de la LAASSP, su representada ha sido identificada por este ente público, como un 
+posible prestador de servicio y/o proveedor.
+<br /><br /><br />
+Por lo antes mencionado y con el objeto de conocer:
+<br />
+a).- la existencia bienes, arrendamientos o servicios a requerir en las condiciones que se indican;
+<br />
+b).- posibles proveedores a nivel nacional o internacional, y
+<br />
+c).- el precio estimado de lo requerido.
+<br /><br /><br />
+Nos permitimos solicitar su valioso apoyo a efecto de proporcionarnos una cotización de los bienes descritos en el documento anexo.
+<br /><br />
+Dicha cotización se requiere que la remita en documento de la empresa, debidamente firmada por persona facultada, a la siguiente dirección: <b>DIRECCION</b> y que sea dirigida a 
+nombre de <b>TITULO + NOMBRE DE EMPLEADO + CATEGORÍA + DEPARTAMENTO</b>
+<br /><br /><br />
+Mucho agradeceré que en su respuesta se incluya: Lugar y fecha de cotización y vigencia de la misma.
+<br /><br /><br />
+Para el case de dudas, comentarios y/o aclaraciones, remitirlas a los correo: <b>EMAIL EMPLEADO 1</b> y <b>EMAIL EMPLEADO 2</b>
+<br /><br /><br />
+La fecha límite para presentar la cotización es el: <b>FECHA Y HORA LÍMITE</b>.
+<br /><br /><br />
+Favor de enviar acuse de recibo de esta solicitud al correo electrónico a: <b>EMAIL EMPLEADO 1</b> y <b>EMAIL EMPLEADO 2</b>
+</span>';
 
-Custom page header and footer are defined by extending the TCPDF class and overriding the Header() and Footer() methods.
-EOD;
+// set core font
+$pdf->SetFont('helvetica', '', 10);
+
+// output the HTML content
+$pdf->writeHTML($html, true, 0, true, true);
+
+// reset pointer to the last page
+$pdf->lastPage();
 
 // print a block of text using Write()
 //$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
+
+// ---------------------------------------------------------
+//SEGUNDA PÁGINA DEL PO GENERAL
+// add a page
+$pdf->AddPage();
+$pdf->Ln(10);
+
+$html = '<span style="text-align:justify; line-height: 16px;"><b><u>NOTA</b></u>: Vencido el plazo de la recepción de cotizaciones, (nombre de la dependencia o entidad) con 
+fundamento en lo previsto en el artículo 26 de la LAASSP, se definirá el procedimiento a seguir para la contratación, el cual puede ser: LICITACIÓN PÚBLICA, INVITACIÓN A 
+CUANDO MENOS TRES PERSONAS y/o ADJUDICACIÓN DIRECTA, mismo que se informará a las personas que presentaron su cotización.
+<br /><br />
+Este documento no genera obligación alguna para la dependencia o entidad.
+</span>';
+
+// set core font
+$pdf->SetFont('helvetica', '', 10);
+
+// output the HTML content
+$pdf->writeHTML($html, true, 0, true, true);
+
+$pdf->Ln(30);
+$pdf->Cell(0, 0, 'Atentamente', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+$pdf->Ln(30);
+$pdf->SetFont('helvetica', 'B', 10);
+$pdf->Cell(0, 0, 'NOMBRE DE EMPLEADO', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+$pdf->Ln();
+$pdf->Cell(0, 0, 'CATGORÍA + DEPARTAMENTO', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+$pdf->Ln(10);
+$html = '<span style="text-align:justify; line-height: 16px;">C.c.p.- Expediente <br />CEAF/rrb</span>';
+$pdf->SetFont('helvetica', '', 10);
+$pdf->writeHTML($html, true, 0, true, true);
+$pdf->Ln(110);
+$html = '<span style="text-align:justify; line-height: 16px;">(Para efectos de control interno, en el caso de no recibir respuesta o manifestar un inconveniente o imposibilidad, 
+se procederá a hacer la anotación respectiva en nuestros registros, circunstancias que deberán ser consideradas al momento de definir el tipo de procedimiento de contratación)</span>';
+$pdf->writeHTML($html, true, 0, true, true);
+$pdf->lastPage();
+// ---------------------------------------------------------
+//TERCERA PÁGINA: PO CONSIDERACIONES
+$pdf->AddPage();
+$pdf->Ln(10);
+$pdf->SetFont('helvetica', 'B', 10);
+$pdf->Cell(0, 0, 'PARA FORMULAR SU COTIZACIÓN, SE DEBERÁ CONSIDERAR LOS SIGUIENTES ASPECTOS:', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+$pdf->Ln(10);
+$pdf->Cell(0, 0, 'Datos que en su caso, se deben proporcionar para que el destinatario de la solicitud conteste: ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
 
 // ---------------------------------------------------------
 
