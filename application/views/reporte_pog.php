@@ -219,16 +219,9 @@ $pdf->Ln(3);
 
 $image_bullet = K_PATH_IMAGES.'bullet.png';
 
-//$htmlData   =   '<html><head>';
-//$htmlData   .=  '<style>
-//                li {
-//                    margin-bottom: 20px;
-//                }
-//                </style>';
 
-//$htmlData   .=  '</head><body>';
 $htmlData = '
-<span style="text-align:justify;">
+<span style="text-align:justify; line-height: 21px;">
 <ul>
     <li>1.- Los datos de los bienes, arrendamientos o servicios a cotizar (mismos que se especifican en el anexo de la solicitud de cotización).</li>
     <li>2.- Condiciones de entrega:</li>
@@ -249,12 +242,7 @@ $htmlData = '
     <li>15.- Señalar el número de contratos similares al del alcance presente, durante los años de experiencia de la empresa: <b><u>N/A.</u></b></li>
     <li>Vigencia de oferta: <b><u>30 días.</u></b></li>
 <ul></span>';
-//$htmlData   .=  '</body></html>';
-$pdf->setHtmlVSpace(array(
-    'li' => array(
-        'h' => 0, // margin in mm
-    ) 
-));
+
 
 $pdf->SetFont('Helvetica', '', 10);
 $pdf->writeHTML($htmlData, true, 0, true, true);
