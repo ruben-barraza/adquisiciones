@@ -78,12 +78,28 @@
      <?php foreach($listaim_concepto as $i){ ?>
       <tr>
         <td><?php echo $i['partida']; ?></td>
-        <td><?php echo $i['codigo']; ?></td>
-        <td><?php echo $i['descripcion']; ?></td>
-        <td><input type="text" name="cantidad" value="<?php $cantidad=$i['cantidadIM']; echo $cantidad;  ?>"></td>
-        <td><?php echo $i['clave'];?></td>
-        <td><input type="text" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
-         <td><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
+          <td><?php echo $i['codigo']; ?></td>
+            <td><?php echo $i['descripcion']; ?></td>
+              <td><input type="text" name="cantidad" id='cantidadId' value="<?php $cantidad=$i['cantidadIM'];
+        
+                if($cantidad<=0){
+
+                  echo ('N/C');
+        
+                    }
+                      else
+                          {
+                            echo $cantidad;
+                            }  
+                              ?>">
+                                
+                                </td>
+
+
+
+           <td><?php echo $i['clave'];?></td>
+               <td><input type="text" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
+                 <td><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
         <?php } ?>
        
       </tr>
@@ -94,9 +110,9 @@
 
    
       
-  <p class="text-right lead">Subtotal &nbsp;&nbsp;($): &nbsp; <?php $subtotal=$sumas['subtotal'];echo $subtotal;   ?></p>
-  <p  class="text-right lead">IVA &nbsp;&nbsp;($): &nbsp;&nbsp;&nbsp; <?php $iva=$subtotal*0.16; echo $iva;  ?>&nbsp;&nbsp; </p>
-  <p  class="text-right lead">Total &nbsp;&nbsp;($): &nbsp; <?php $total=$subtotal+$iva; echo $total;?>&nbsp;&nbsp;</p>
+  <p class="text-center lead">Subtotal ($): &nbsp;&nbsp;<?php $subtotal=$sumas['subtotal']; $subtotalConFormato=number_format($subtotal,2, '.', ',');  echo($subtotalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  <p  class="text-center lead">IVA ($): &nbsp;&nbsp;<?php $iva=$subtotal*0.16; $ivaConFormato=number_format($iva,2, '.', ','); echo($ivaConFormato);?></p>
+  <p  class="text-center lead">Total ($): &nbsp;&nbsp;<?php $total=$subtotal+$iva; $totalConFormato=number_format($total,2, '.', ','); echo($totalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
   <br>
   <br>
@@ -188,5 +204,13 @@
 				$('#empleadoResponsable2').val('');
 			}
 		});
+
+    $("#cantidad").change(function(){
+     var importe = $importe;
+     $("#cantidad").each(function(){
+         importe += $(this).val();
+     }
+     //now you can use total
+});
 
 </script>
