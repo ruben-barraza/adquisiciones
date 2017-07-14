@@ -219,37 +219,45 @@ $pdf->Ln(3);
 
 $image_bullet = K_PATH_IMAGES.'bullet.png';
 
+//$htmlData   =   '<html><head>';
+//$htmlData   .=  '<style>
+//                li {
+//                    margin-bottom: 20px;
+//                }
+//                </style>';
 
-
-$html ='
+//$htmlData   .=  '</head><body>';
+$htmlData = '
 <span style="text-align:justify;">
 <ul>
-    <li><p>1.- Los datos de los bienes, arrendamientos o servicios a cotizar (mismos que se especifican en el anexo de la solicitud de cotización).</p></li>
-    <li><p>2.- Condiciones de entrega:</p></li>
-    <li><p>En una sola exhibición de <u>cantidad de días señalada en documento anexo</u>&nbsp;días naturales posteriores a la recepción de la orden de surtimiento.</p><ul><li>Entregas parciales con una vigencia máxima (fechas o plazo) <b><u>N/A.</u></b></li><li>El lugar de entrega será: <b><u>El señalado en el documento anexo.</u></b></li></ul></li>
-    <li><p>3.- Considerar en su cotización que el pago es a los 20 días naturales posteriores a la entrega de la factura, previa entrega de los bienes o prestación de los servicios a satisfacción.</p></li>
-    <li><p>4.- Señalar en su caso, el porcentaje de anticipo: <b><u>N/A.</u></b></p></li>
-    <li><p>5.- El porcentaje de garantía de cumplimiento será del <b><u>10%.</u></b></p></li>
-    <li><p>6.- Penas convencionales por atraso en la entrega de bienes y/o servicios será del <b><u>10%.</u></b></p></li>
-    <li><p>El archivo adjunto de especificaciones técnicas se hace consistir en <u style="font-weight: bold;">&nbsp;2 </u>&nbsp;fojas.</p></li>
-    <li><p>7.- En su caso, los métodos de prueba que empleará el ente público para determinar el cumplimiento de las especificaciones solicitadas.</p><ul><li>Normas que deben cumplirse.</li><li>Registros Sanitarios o Permisos Especiales, en su caso.</li></ul></li>
-    <li><p>8.- Origen de los Bienes (Nacional o de Importación): <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .</u></p></li>
-    <li><p>9.- En caso de bienes de importación la moneda en que cotiza.</p></li>
-    <li><p>10.- En caso de que el proceso de fabricación de los bienes requeridos sea superior a 60 días, señale el tiempo que correspondería a su producción: <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .</u></p></li>
-    <li><p>11.- En su caso, especificar si el costo incluye:</p><ul><li>Instalación.</li><li>Capacitación.</li><li>Puesta en marcha.</li></ul></li>
-    <li><p>12.- Otras garantías que se deben considerar, indicar el o los tipos de garantía, o de responsabilidad civil señalando su vigencia: <b><u>N/A.</u></b></p></li>
-    <li><p>13.- La condición de precios será (fijos o variables): <b><u>FIJOS.</u></b>&nbsp;</p></li>
-    <li><p>14.- Señalar los años de experiencia con los que cuenta la empresa: <b><u>N/A.</u></b></p></li>
-    <li><p>15.- Señalar el número de contratos similares al del alcance presente, durante los años de experiencia de la empresa: <b><u>N/A.</u></b></p></li>
-    <li><p>Vigencia de oferta: <b><u>30 días.</u></b></p></li>
+    <li>1.- Los datos de los bienes, arrendamientos o servicios a cotizar (mismos que se especifican en el anexo de la solicitud de cotización).</li>
+    <li>2.- Condiciones de entrega:</li>
+    <li>En una sola exhibición de <u>cantidad de días señalada en documento anexo</u>&nbsp;días naturales posteriores a la recepción de la orden de surtimiento.<ul><li>Entregas parciales con una vigencia máxima (fechas o plazo) <b><u>N/A.</u></b></li><li>El lugar de entrega será: <b><u>El señalado en el documento anexo.</u></b></li></ul></li>
+    <li>3.- Considerar en su cotización que el pago es a los 20 días naturales posteriores a la entrega de la factura, previa entrega de los bienes o prestación de los servicios a satisfacción.</li>
+    <li>4.- Señalar en su caso, el porcentaje de anticipo: <b><u>N/A.</u></b></li>
+    <li>5.- El porcentaje de garantía de cumplimiento será del <b><u>10%.</u></b></li>
+    <li>6.- Penas convencionales por atraso en la entrega de bienes y/o servicios será del <b><u>10%.</u></b></li>
+    <li>El archivo adjunto de especificaciones técnicas se hace consistir en <u style="font-weight: bold;">&nbsp;2 </u>&nbsp;fojas.</li>
+    <li>7.- En su caso, los métodos de prueba que empleará el ente público para determinar el cumplimiento de las especificaciones solicitadas.<ul><li>Normas que deben cumplirse.</li><li>Registros Sanitarios o Permisos Especiales, en su caso.</li></ul></li>
+    <li>8.- Origen de los Bienes (Nacional o de Importación): <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .</u></li>
+    <li>9.- En caso de bienes de importación la moneda en que cotiza.</li>
+    <li>10.- En caso de que el proceso de fabricación de los bienes requeridos sea superior a 60 días, señale el tiempo que correspondería a su producción: <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .</u></li>
+    <li>11.- En su caso, especificar si el costo incluye:<ul><li>Instalación.</li><li>Capacitación.</li><li>Puesta en marcha.</li></ul></li>
+    <li>12.- Otras garantías que se deben considerar, indicar el o los tipos de garantía, o de responsabilidad civil señalando su vigencia: <b><u>N/A.</u></b></li>
+    <li>13.- La condición de precios será (fijos o variables): <b><u>FIJOS.</u></b>&nbsp;</li>
+    <li>14.- Señalar los años de experiencia con los que cuenta la empresa: <b><u>N/A.</u></b></li>
+    <li>15.- Señalar el número de contratos similares al del alcance presente, durante los años de experiencia de la empresa: <b><u>N/A.</u></b></li>
+    <li>Vigencia de oferta: <b><u>30 días.</u></b></li>
 <ul></span>';
-$pdf->SetFont('Helvetica', '', 10);
+//$htmlData   .=  '</body></html>';
 $pdf->setHtmlVSpace(array(
     'li' => array(
-        'h' => 20, // margin in mm
+        'h' => 0, // margin in mm
     ) 
 ));
-$pdf->writeHTML($html, true, 0, true, true);
+
+$pdf->SetFont('Helvetica', '', 10);
+$pdf->writeHTML($htmlData, true, 0, true, true);
 
 
 // ---------------------------------------------------------
