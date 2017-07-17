@@ -69,7 +69,7 @@
         <th>CANTIDAD</th>
         <th>UM</th>
         <th>PRECIO UNITARIO</th>
-        <th>Importe</th>
+        <th>IMPORTE</th>
    
         
       </tr>
@@ -98,8 +98,8 @@
 
 
            <td><?php echo $i['clave'];?></td>
-               <td><input type="text" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
-                 <td><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
+               <td><input type="text" id="preciounitarioid" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
+                 <td id="importeid" ><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
         <?php } ?>
        
       </tr>
@@ -204,13 +204,16 @@
 				$('#empleadoResponsable2').val('');
 			}
 		});
+ 
+     $(document).ready(function(){
 
-    $("#cantidad").change(function(){
-     var importe = $importe;
-     $("#cantidad").each(function(){
-         importe += $(this).val();
-     }
-     //now you can use total
-});
+       
+        $("#cantidadId").keyup(function(){
+
+          var cambiarImporte = parseInt($("#cantidadId").val()) * parseInt($("#preciounitarioid").val());
+          $("#importeid").html(cambiarImporte);
+        });
+
+      });
 
 </script>

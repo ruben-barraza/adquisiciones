@@ -11,12 +11,17 @@ class Generar_PDF extends CI_Controller{
     {
         parent::__construct();
         $this->load->library('Pdf');
-        //$this->load->model('Generarpdfmodel');
+        $this->load->model('Generarpdfmodel');
     } 
 
     //PDF
     function pdf($id){
-        $this->load->view('reporte_pog');
+        $data['contactos'] = $this->Generarpdfmodel->get_contactos($id);
+        $this->load->view('reporte_pog', $data);
+        //Para probar los queries del modelo
+        //$this->load->view('reporte_prueba_bd', $data);
     }
     
 }
+
+?>
