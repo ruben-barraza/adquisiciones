@@ -358,10 +358,6 @@
 						<hr />
 					</div>
 
-					<a id="botonCrear" class="btn btn-primary">
-						<i class="fa "></i> Prueba PDF
-					</a>
-
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<button id="botonGuardar" type="submit" class="btn btn-success">

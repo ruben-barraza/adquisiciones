@@ -37,4 +37,75 @@ class Generarpdfmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    /*
+    * SELECCIONA LA INFORMACIÓN BÁSICA DEL DOCUMENTO POG. ESTÁ INFORMACIÓN ES IGUAL PARA 
+    * TODAS LAS COPIAS.
+    */
+
+    function get_pog_data($id)
+    {
+        $this->db->select('po_general.oficioNumero, estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion');
+        $this->db->from('po_general');
+        $this->db->join('municipio', 'po_general.idMunicipio = municipio.id', 'inner');
+        $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    /*
+    * SELECCIONA LA INFORMACIÓN DEL EMPLEADO RESPONSPABLE DEL POG
+    */
+
+    function get_pog_responsable($id)
+    {
+        $this->db->select('empleado.nombre nombre, empleado.apellidoPaterno, empleado.apellidoMaterno, empleado.titulo, categoria.nombre categoria, departamento.nombre departamento, empleado.correoElectronico');
+        $this->db->from('po_general');
+        $this->db->join('empleado', 'po_general.idEmpleadoResponsable = empleado.id', 'inner');
+        $this->db->join('categoria', 'empleado.idCategoria = categoria.id', 'inner');
+        $this->db->join('departamento', 'empleado.idDepartamento = departamento.id', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    /*
+    * SELECCIONA LA INFORMACIÓN DEL EMPLEADO QUE FORMULA EL POG
+    */
+    function get_pog_formula($id)
+    {
+        $this->db->select('empleado.nombre nombre, empleado.apellidoPaterno, empleado.apellidoMaterno, empleado.titulo, empleado.correoElectronico');
+        $this->db->from('po_general');
+        $this->db->join('empleado', 'po_general.idEmpleadoFormula = empleado.id', 'inner');
+        $this->db->join('categoria', 'empleado.idCategoria = categoria.id', 'inner');
+        $this->db->join('departamento', 'empleado.idDepartamento = departamento.id', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    /*
+    * SELECCIONA LA INFORMACIÓN DEL DOCUMENTO PO_CONSIDERACION
+    */
+    function get_po_consideracion($id)
+    {
+        $this->db->select('po_consideracion.fc1, po_consideracion.fc2, po_consideracion.fc3, po_consideracion.fc4, po_consideracion.fc5, po_consideracion.fc6, po_consideracion.fc7, po_consideracion.fc8, 
+                    po_consideracion.fc9, po_consideracion.fc10, po_consideracion.fc11, po_consideracion.fc12, po_consideracion.fc13, po_consideracion.fc14, po_consideracion.fc15, po_consideracion.fc16, 
+                    po_consideracion.fc17, po_consideracion.fc18');
+        $this->db->from('po_general');
+        $this->db->join('po_consideracion', 'po_general.id = po_consideracion.idpog', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
 }

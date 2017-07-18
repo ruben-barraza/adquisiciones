@@ -162,7 +162,7 @@
 						<div class="col-md-8">
 							<textarea name="fc15" class="form-control summernote" id="fc15">
 								<?php echo $this->input->post('fc15'); ?>
-								13.- La condición de precios será (fijos o variables): <b><u>FIJOS.</u></b>&nbsp;
+								13.- La condición de precios será (fijos o variables): <b><u>FIJOS.</u></b>
 							</textarea>
 						</div>
 					</div>

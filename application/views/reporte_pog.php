@@ -96,9 +96,12 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 }
 
 // ---------------------------------------------------------
-//El siguiente ciclo for creará las copias necesarias para el
+//El siguiente ciclo for creará las copias necesarias para los contactos
+// a quienes se les enviará la POG.
 
-for ($x = 0; $x <= 3; $x++) {
+$num_contactos = sizeof($contactos);
+
+for ($i = 0; $i < $num_contactos; $i++) {
     // add a page
     $pdf->AddPage();
     $pdf->Cell(50);
@@ -107,18 +110,32 @@ for ($x = 0; $x <= 3; $x++) {
     $pdf->SetFont('helvetica', 'B', 10);
 
     $pdf->Ln(13);
-    $pdf->Cell(110);
+    $pdf->Cell(100);
 
-    $pdf->Cell(0, 0, 'Oficio No.', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, 'Oficio No. '.$po_general[0]["oficioNumero"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
 
+
+    //CONVERTIR LA FECHA DE ELABORACIÓN Y PRESENTACIÓN A TEXTO
+    setlocale(LC_ALL,"es_ES.utf8","es_ES","esp");
+    $fechaElaboracion = $po_general[0]["fechaElaboracion"];
+    $dia = strftime("%#d", strtotime($fechaElaboracion));
+    $mes = strftime("%B", strtotime($fechaElaboracion));
+    $year = strftime("%Y", strtotime($fechaElaboracion));
+
+    $fechaLimite = $po_general[0]["fechaLimitePresentacion"];
+    $diaLimite = strftime("%#d", strtotime($fechaLimite));
+    $mesLimite = strftime("%B", strtotime($fechaLimite));
+    $yearLimite = strftime("%Y", strtotime($fechaLimite));
+
+
     $pdf->SetFont('helvetica', '', 10);
-    $pdf->Cell(110);
-    $pdf->Cell(0, 0, 'Hermosillo, Sonora', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(100);
+    $pdf->Cell(0, 0, $po_general[0]["estado"].', '.$po_general[0]["municipio"].', '.$dia.' de '.ucfirst($mes).' del '.$year, 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
 
     $pdf->SetFont('helvetica', 'B', 10);
-    $pdf->Cell(110);
+    $pdf->Cell(100);
     $pdf->Cell(14, 0, 'Asunto: ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->SetFont('helvetica', '', 10);
     $pdf->Cell(0, 0, 'Petición de Ofertas de Bienes', 0, false, 'L', 0, '', 0, false, 'M', 'M');
@@ -126,11 +143,11 @@ for ($x = 0; $x <= 3; $x++) {
 
     //INFORMACIÓN DEL CONTACTO, RAZÓN SOCIAL DE LA EMPRESA Y CORREO ELECTRÓNICO
     $pdf->SetFont('helvetica', 'B', 10);
-    $pdf->Cell(0, 0, 'NOMBRE DEL CONTACTO', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, $contactos[$i]["nombre"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
-    $pdf->Cell(0, 0, 'RAZÓN SOCIAL DE LA EMPRESA', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, $contactos[$i]["razonSocial"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
-    $pdf->Cell(0, 0, 'Correo electrónico: ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, 'Correo electrónico: '.$contactos[$i]["correoElectronico"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
 
 
@@ -152,16 +169,16 @@ for ($x = 0; $x <= 3; $x++) {
     <br /><br /><br />
     Nos permitimos solicitar su valioso apoyo a efecto de proporcionarnos una cotización de los bienes descritos en el documento anexo.
     <br /><br />
-    Dicha cotización se requiere que la remita en documento de la empresa, debidamente firmada por persona facultada, a la siguiente dirección: <b>DIRECCION</b> y que sea dirigida a 
-    nombre de <b>TITULO + NOMBRE DE EMPLEADO + CATEGORÍA + DEPARTAMENTO</b>
+    Dicha cotización se requiere que la remita en documento de la empresa, debidamente firmada por persona facultada, a la siguiente dirección: '.$po_general[0]["domicilio"].' en '.$po_general[0]["estado"].', '.$po_general[0]["municipio"].' y que sea dirigida a 
+    nombre de '.$pog_responsable[0]["titulo"].'. '.$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"].', '.$pog_responsable[0]["categoria"].' del '.$pog_responsable[0]["departamento"].'.
     <br /><br /><br />
     Mucho agradeceré que en su respuesta se incluya: Lugar y fecha de cotización y vigencia de la misma.
     <br /><br /><br />
-    Para el case de dudas, comentarios y/o aclaraciones, remitirlas a los correo: <b>EMAIL EMPLEADO 1</b> y <b>EMAIL EMPLEADO 2</b>
+    Para el case de dudas, comentarios y/o aclaraciones, remitirlas a los correo: <b>'.$pog_responsable[0]["correoElectronico"].'</b> y <b>'.$pog_formula[0]["correoElectronico"].'</b>
     <br /><br /><br />
-    La fecha límite para presentar la cotización es el: <b>FECHA Y HORA LÍMITE</b>.
+    La fecha límite para presentar la cotización es el: <b>'.$diaLimite.' de '.$mesLimite.' de '.$yearLimite.' a las '.$po_general[0]["horaLimitePresentacion"].' Hrs.'.'</b>
     <br /><br /><br />
-    Favor de enviar acuse de recibo de esta solicitud al correo electrónico a: <b>EMAIL EMPLEADO 1</b> y <b>EMAIL EMPLEADO 2</b>
+    Favor de enviar acuse de recibo de esta solicitud al correo electrónico a: <b>'.$pog_responsable[0]["correoElectronico"].'</b> y <b>'.$pog_formula[0]["correoElectronico"].'</b>
     </span>';
 
     // set core font
@@ -199,9 +216,10 @@ for ($x = 0; $x <= 3; $x++) {
     $pdf->Cell(0, 0, 'Atentamente', 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln(30);
     $pdf->SetFont('helvetica', 'B', 10);
-    $pdf->Cell(0, 0, 'NOMBRE DE EMPLEADO', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    
+    $pdf->Cell(0, 0, $pog_responsable[0]["titulo"].'. '.$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
-    $pdf->Cell(0, 0, 'CATGORÍA + DEPARTAMENTO', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, $pog_responsable[0]["categoria"].' del '.$pog_responsable[0]["departamento"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln(10);
     $html = '<span style="text-align:justify; line-height: 16px;">C.c.p.- Expediente <br />CEAF/rrb</span>';
     $pdf->SetFont('helvetica', '', 10);
@@ -223,7 +241,7 @@ for ($x = 0; $x <= 3; $x++) {
 
     $image_bullet = K_PATH_IMAGES.'bullet.png';
 
-
+    /*
     $htmlData = '
     <span style="text-align:justify; line-height: 21px;">
     <ul>
@@ -245,6 +263,30 @@ for ($x = 0; $x <= 3; $x++) {
         <li>14.- Señalar los años de experiencia con los que cuenta la empresa: <b><u>N/A.</u></b></li>
         <li>15.- Señalar el número de contratos similares al del alcance presente, durante los años de experiencia de la empresa: <b><u>N/A.</u></b></li>
         <li>Vigencia de oferta: <b><u>30 días.</u></b></li>
+    <ul></span>';
+    */
+
+    $htmlData = '
+    <span style="text-align:justify; line-height: 21px;">
+    <ul>
+        <li>'.$po_consideracion[0]["fc1"].'</li>
+        <li>'.$po_consideracion[0]["fc2"].'</li>
+        <li>'.$po_consideracion[0]["fc3"].'</li>
+        <li>'.$po_consideracion[0]["fc4"].'</li>
+        <li>'.$po_consideracion[0]["fc5"].'</li>
+        <li>'.$po_consideracion[0]["fc6"].'</li>
+        <li>'.$po_consideracion[0]["fc7"].'</li>
+        <li>'.$po_consideracion[0]["fc8"].'</li>
+        <li>'.$po_consideracion[0]["fc9"].'</li>
+        <li>'.$po_consideracion[0]["fc10"].'</li>
+        <li>'.$po_consideracion[0]["fc11"].'</li>
+        <li>'.$po_consideracion[0]["fc12"].'</li>
+        <li>'.$po_consideracion[0]["fc13"].'</li>
+        <li>'.$po_consideracion[0]["fc14"].'</li>
+        <li>'.$po_consideracion[0]["fc15"].'</li>
+        <li>'.$po_consideracion[0]["fc16"].'</li>
+        <li>'.$po_consideracion[0]["fc17"].'</li>
+        <li>'.$po_consideracion[0]["fc18"].'</li>
     <ul></span>';
 
 

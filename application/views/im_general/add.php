@@ -75,13 +75,18 @@
       </tr>
  
  
-     <?php foreach($listaim_concepto as $i){ ?>
+     <?php 
+     $cont = 1;
+     foreach($listaim_concepto as $i){ ?>
       <tr>
         <td><?php echo $i['partida']; ?></td>
           <td><?php echo $i['codigo']; ?></td>
             <td><?php echo $i['descripcion']; ?></td>
-              <td><input type="text" name="cantidad" id='cantidadId' value="<?php $cantidad=$i['cantidadIM'];
-        
+              
+              <td><input type="text" class="cantidadclass" name="cantidad" id="<?php echo "idcantidad".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
+
+              //Sin poder resolver cantidad
+               
                 if($cantidad<=0){
 
                   echo ('N/C');
@@ -93,14 +98,14 @@
                             }  
                               ?>">
                                 
-                                </td>
+              </td>
 
 
 
            <td><?php echo $i['clave'];?></td>
                <td><input type="text" id="preciounitarioid" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
                  <td id="importeid" ><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
-        <?php } ?>
+        <?php $cont++; } ?>
        
       </tr>
  
@@ -209,7 +214,7 @@
 
        
         $("#cantidadId").keyup(function(){
-
+      
           var cambiarImporte = parseInt($("#cantidadId").val()) * parseInt($("#preciounitarioid").val());
           $("#importeid").html(cambiarImporte);
         });
