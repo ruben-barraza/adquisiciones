@@ -83,7 +83,7 @@
           <td><?php echo $i['codigo']; ?></td>
             <td><?php echo $i['descripcion']; ?></td>
               
-              <td><input type="text" class="cantidadclass" name="cantidad" id="<?php echo "idcantidad".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
+              <td><input type="text"  name="cantidad" class="inputcantidad" id="<?php echo "idcantidad_".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
 
               //Sin poder resolver cantidad
                
@@ -95,6 +95,7 @@
                       else
                           {
                             echo $cantidad;
+                        
                             }  
                               ?>">
                                 
@@ -103,8 +104,8 @@
 
 
            <td><?php echo $i['clave'];?></td>
-               <td><input type="text" id="preciounitarioid" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
-                 <td id="importeid" ><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
+                <td><input type="text" id="<?php echo "preciounitarioid_".$cont ?>" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
+                <td id="<?php echo "importeid_".$cont ?>"><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
         <?php $cont++; } ?>
        
       </tr>
@@ -171,8 +172,8 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {
-		    $("#peticionoferta").change(function() {
-    		    $("#peticionoferta option:selected").each(function() {
+		$("#peticionoferta").change(function() {
+    		$("#peticionoferta option:selected").each(function() {
                  peticionoferta = $('#peticionoferta').val();
                 console.log(proveedor);
                 $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillProveedores", {
@@ -182,8 +183,26 @@
                 });
             });
         });
+
+
 		
     });
+
+    //ESTA ES LA SOLUCION
+    //EL .inputcantidad ES LA CLASE QUE TIENEN TODOS LOS INPUT DE ESA COLUMNA
+    //LA FUNCION SE ACTIVA CUANDO SE HACE CLIC CUALQUIER INPUT CON ESA CLASE
+    //TIENES QUE HACER OTRA FUNCION PARA LOS INPUT DE PRECIO
+    //ASI QUE PONLES UN NOMBRE DE CLASE
+    $(document).on("click", ".inputcantidad" ,function() {
+        var $id = $(this).attr('id');
+        var $fila = $id.split("_").pop();
+
+        $("#idcantidad_" + $fila).keyup(function(){
+            var cambiarImporte = parseInt($("#idcantidad_" + $fila).val()) * parseInt($("#preciounitarioid_" + $fila).val());
+            $("#importeid_" + $fila).html(cambiarImporte);
+            
+        });
+	});
 
 
     $("#solped").on('keyup', function(e) {
@@ -210,15 +229,16 @@
 			}
 		});
  
+    /* YA PUEDES BORRAR ESTO
      $(document).ready(function(){
 
        
-        $("#cantidadId").keyup(function(){
+        $("#idcantidad").keyup(function(){
       
-          var cambiarImporte = parseInt($("#cantidadId").val()) * parseInt($("#preciounitarioid").val());
+          var cambiarImporte = parseInt($("#idcantidad").val()) * parseInt($("#preciounitarioid").val());
           $("#importeid").html(cambiarImporte);
         });
 
       });
-
+    */
 </script>

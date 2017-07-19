@@ -40,5 +40,7 @@
         <li>'.$po_consideracion[0]["fc16"].'</li>
         <li>'.$po_consideracion[0]["fc17"].'</li>
         <li>'.$po_consideracion[0]["fc18"].'</li>
-    <ul>'
+    <ul>';
+
+    echo ini_get('upload_tmp_dir');
 ?>
