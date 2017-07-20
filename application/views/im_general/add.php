@@ -59,7 +59,7 @@
                          
                     <!-- Esta tabla captura los datos escritos y precio unitario-->
                  <div class="x_content">          
-  <table class="table table-striped">
+  <table id="tablaDatos" class="table table-striped">
   
    
       <tr>
@@ -83,7 +83,7 @@
           <td><?php echo $i['codigo']; ?></td>
             <td><?php echo $i['descripcion']; ?></td>
               
-              <td><input type="text"  name="cantidad" class="inputcantidad" id="<?php echo "idcantidad_".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
+              <td><input type="text"  name="cantidad" class="inputcantidad" onkeyup="calcularSubtotal2()" id="<?php echo "idcantidad_".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
 
               //Sin poder resolver cantidad
                
@@ -104,8 +104,8 @@
 
 
            <td><?php echo $i['clave'];?></td>
-                <td><input type="text" id="<?php echo "preciounitarioid_".$cont ?>" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
-                <td id="<?php echo "importeid_".$cont ?>"><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
+                <td><input type="text" class="inputprecio" onkeyup="calcularSubtotal2()" id="<?php echo "preciounitarioid_".$cont ?>" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
+                <td class="importe"  id="<?php echo "importeid_".$cont ?>" value=<?php $importe=($cantidad)*($preciounitario); echo $importe;?> ><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
         <?php $cont++; } ?>
        
       </tr>
@@ -116,9 +116,9 @@
 
    
       
-  <p class="text-center lead">Subtotal ($): &nbsp;&nbsp;<?php $subtotal=$sumas['subtotal']; $subtotalConFormato=number_format($subtotal,2, '.', ',');  echo($subtotalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  <p id="subtotal"  class="text-center lead">Subtotal ($): &nbsp;&nbsp;<?php $subtotal=$sumas['subtotal']; $subtotalConFormato=number_format($subtotal,2, '.', ',');  echo($subtotalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
   <p  class="text-center lead">IVA ($): &nbsp;&nbsp;<?php $iva=$subtotal*0.16; $ivaConFormato=number_format($iva,2, '.', ','); echo($ivaConFormato);?></p>
-  <p  class="text-center lead">Total ($): &nbsp;&nbsp;<?php $total=$subtotal+$iva; $totalConFormato=number_format($total,2, '.', ','); echo($totalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  <p class="text-center lead">Total ($): &nbsp;&nbsp;<?php $total=$subtotal+$iva; $totalConFormato=number_format($total,2, '.', ','); echo($totalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
   <br>
   <br>
@@ -204,6 +204,20 @@
         });
 	});
 
+   $(document).on("click", ".inputprecio" ,function() {
+        var $id = $(this).attr('id');
+        var $fila = $id.split("_").pop();
+
+        $("#preciounitarioid_" + $fila).keyup(function(){
+            var cambiarImporte = parseInt($("#idcantidad_" + $fila).val()) * parseInt($("#preciounitarioid_" + $fila).val());
+            $("#importeid_" + $fila).html(cambiarImporte);
+
+    
+            
+        });
+	});
+
+
 
     $("#solped").on('keyup', function(e) {
 			if ($(this).val().length == 5) {
@@ -228,17 +242,29 @@
 				$('#empleadoResponsable2').val('');
 			}
 		});
- 
-    /* YA PUEDES BORRAR ESTO
-     $(document).ready(function(){
 
-       
-        $("#idcantidad").keyup(function(){
-      
-          var cambiarImporte = parseInt($("#idcantidad").val()) * parseInt($("#preciounitarioid").val());
-          $("#importeid").html(cambiarImporte);
+     $(function() {
+            $(".inputprecio").keyup(function() {
+                var add = 0;
+                $(".importe").each(function() {
+                    add = Number($(this).val());
+                });
+                $("#subtotal").html(add);
+            });
         });
 
-      });
-    */
+          $(function() {
+            $(".inputcantidad").keyup(function() {
+                var add = 0;
+                $(".importe").each(function() {
+               
+                    var add = parseFloat($(this).val());
+          
+
+                });
+              $("#subtotal").html(add);
+            });
+        });
+ 
+    
 </script>
