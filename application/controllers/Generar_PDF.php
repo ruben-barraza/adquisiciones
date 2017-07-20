@@ -21,9 +21,9 @@ class Generar_PDF extends CI_Controller{
         $data['pog_responsable'] = $this->Generarpdfmodel->get_pog_responsable($id);
         $data['pog_formula'] = $this->Generarpdfmodel->get_pog_formula($id);
         $data['po_consideracion'] = $this->Generarpdfmodel->get_po_consideracion($id);
-        $this->load->view('reporte_pog', $data);
+        //$this->load->view('reporte_pog', $data);
         //Para probar los queries del modelo
-        //$this->load->view('reporte_prueba_bd', $data);
+        $this->load->view('reporte_prueba_bd', $data);
     }
     
 }
