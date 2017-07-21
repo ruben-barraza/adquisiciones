@@ -324,5 +324,4 @@ for ($i = 0; $i < $num_contactos; $i++) {
     <ul>';
 
     echo ini_get('upload_tmp_dir');
-    */
 ?>
