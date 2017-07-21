@@ -13,12 +13,12 @@ class MYPDF extends TCPDF {
     //Page header
     public function Header() {
         // Logo
-        $image_file = K_PATH_IMAGES.'logo.jpg';
+        $image_file = K_PATH_IMAGES.'logo2.gif';
         if (!$image_file)
         {
             $image= imagecreatefromstring(file_get_contents($image_file));
         }
-        $this->Image($image_file, 10, 10, 50, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $this->Image($image_file, 10, 10, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
         $this->SetFont('helvetica', 'BI', 9);
         // Title
