@@ -100,10 +100,15 @@
 
 					<div class="form-group">
 						<label for="oficioNumero" class="col-md-2 control-label">Oficio No.</label>
-						<div class="col-md-6">
-							<input type="text" name="oficioNumero" value="<?php echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" maxlength="20"/>
+						<div class="col-md-3">
+							<div class="input-group">
+								<span class="input-group-addon">137-</span>
+								<input type="text" name="oficioNumero" value="<?php echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" maxlength="5"/>
+								<span class="input-group-addon">/<?php echo date("Y"); ?></span>
+							</div>
 						</div>
 					</div>
+
 					<div class="form-group">
                     	<label for="idEstado" class="col-md-2 control-label">Estado</label>
                         <div class="col-md-6">
@@ -717,7 +722,6 @@
 							$("#codigo_" + (i+1)).val(val.codigo);
 							$("#descripcion_" + (i+1)).val(val.descripcion);
 							$("#plazoentrega_" + (i+1)).val(val.tiempoEntrega);
-							$("#cantidad_" + (i+1)).val(val.cantidadEmbalaje);
 							$("#um_" + (i+1)).val(val.unidadmedida);
 						});
 					}

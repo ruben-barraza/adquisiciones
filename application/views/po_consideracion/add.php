@@ -18,14 +18,16 @@
 					<div class="form-group">
 						<label for="idpog" class="col-md-4 control-label">Seleccione el PO General</label>
 						<div class="col-md-8">
-							<select name="idpog" class="form-control">
+							<select id="idpog" name="idpog" class="form-control">
 								<option value="">Seleccione</option>
 									<?php 
 									foreach($all_listapo_general as $po_general)
 									{
 										$selected = ($po_general['id'] == $this->input->post('idpog')) ? ' selected="selected"' : "";
-
-										echo '<option value="'.$po_general['id'].'" '.$selected.'>'.$po_general['id'].'</option>';
+										$fecha = $po_general['fechaElaboracion'];
+										$fechaElaboracion = date("d/m/Y", strtotime($fecha)); 
+										$yrElaboracion = date('Y', strtotime($fecha));
+										echo '<option value="'.$po_general['id'].'" '.$selected.'>Oficio No. 137-'.$po_general['oficioNumero'].'/'.$yrElaboracion.'   -   Fecha de Elaboración: '.$fechaElaboracion.'</option>';
 									} 
 									?>
 							</select>
@@ -214,6 +216,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		$("#idpog")[0].selectedIndex = 1;
+		
+
 		$('.summernote').summernote({
 			height: 150,
 			toolbar: [

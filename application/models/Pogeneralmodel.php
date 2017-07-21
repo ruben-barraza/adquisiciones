@@ -27,6 +27,14 @@ class Pogeneralmodel extends CI_Model
         return $this->db->get('po_general')->result_array();
     }
     
+    function get_all_listapo_general_desc()
+    {
+        $this->db->from('po_general');
+        $this->db->order_by("id", "desc");
+        $query = $this->db->get(); 
+        return $query->result_array();
+    }
+
     /*
      * function to add new po_general
      */

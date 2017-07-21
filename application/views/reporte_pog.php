@@ -58,7 +58,7 @@ class MYPDF extends TCPDF {
 $num_contactos = sizeof($contactos);
 $tmp = ini_get('upload_tmp_dir');
 $archivos = array();
-
+$oficioNumero = $po_general[0]["oficioNumero"];
 for ($i = 0; $i < $num_contactos; $i++) {
 
     // create new PDF document
@@ -108,7 +108,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->Ln(13);
     $pdf->Cell(100);
 
-    $pdf->Cell(0, 0, 'Oficio No. '.$po_general[0]["oficioNumero"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, 'Oficio No. 137-'.$oficioNumero.'/'.date("Y"), 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
 
 
@@ -268,7 +268,11 @@ for ($i = 0; $i < $num_contactos; $i++) {
 
     $pdf->Output($tmp.'/POG - '.$i.'.pdf', 'F');
     array_push($archivos, $tmp.'/POG - '.$i.'.pdf');
+
+    $oficioNumero++;
 }
+
+$result = create_zip($archivos, $tmp.'/my-pdf.zip');
 
 //============================================================+
 // END OF FILE

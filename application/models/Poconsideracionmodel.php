@@ -18,6 +18,7 @@ class Poconsideracionmodel extends CI_Model
     {
         return $this->db->get_where('po_consideracion',array('id'=>$id))->row_array();
     }
+
     
     /*
      * Get all listapo_consideracion

@@ -78,7 +78,7 @@ class Po_consideracion extends CI_Controller{
         else
         {
 			$this->load->model('Pogeneralmodel');
-			$data['all_listapo_general'] = $this->Pogeneralmodel->get_all_listapo_general();
+			$data['all_listapo_general'] = $this->Pogeneralmodel->get_all_listapo_general_desc();
             
             $data['_view'] = 'po_consideracion/add';
             $this->load->view('layouts/main',$data);
