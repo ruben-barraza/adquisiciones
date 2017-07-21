@@ -245,7 +245,7 @@
 
      $(function() {
             $(".inputprecio").keyup(function() {
-                var add = 0;
+                var add=0;
                 $(".importe").each(function() {
                     add = Number($(this).val());
                 });
@@ -255,7 +255,7 @@
 
           $(function() {
             $(".inputcantidad").keyup(function() {
-                var add = 0;
+                var add=0;
                 $(".importe").each(function() {
                
                     var add = parseFloat($(this).val());
