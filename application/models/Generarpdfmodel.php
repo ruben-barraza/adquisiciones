@@ -127,17 +127,40 @@ class Generarpdfmodel extends CI_Model
 
     function get_im_general($id)
     {
+        $this->db->select('im_general.titulo, municipio.nombre municipio, estado.nombre estado, im_general.fechaElaboracion');
+        $this->db->from('im_general');
+        $this->db->join('municipio', 'im_general.idMunicipioElaboracion = municipio.id', 'inner');
+        $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');
+        $this->db->where('im_general.idPog', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
 
     }
 
     function get_im_empleado_elabora($id)
     {
-        
+        $this->db->select('empleado.titulo, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('im_general');
+        $this->db->join('empleado', 'im_general.idEmpleadoFormula = empleado.id', 'inner');
+        $this->db->where('im_general.idPog', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
     }
 
     function get_im_empleado_autoriza($id)
     {
-        
+        $this->db->select('empleado.titulo, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('im_general');
+        $this->db->join('empleado', 'im_general.idEmpleadoAutoriza = empleado.id', 'inner');
+        $this->db->where('im_general.idPog', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
     }
 
 }
