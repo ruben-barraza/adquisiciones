@@ -108,4 +108,36 @@ class Generarpdfmodel extends CI_Model
         }
     }
 
+    /*
+    * SELECCIONA LOS DATOS QUE VAN EN LA TABLA IM
+    */
+    function get_im_concepto($id)
+    {
+        $this->db->select('im_concepto.partida, articulo.codigo, articulo.descripcion, articulo.descripcionDetallada, articulo.especificacion, 
+                    im_concepto.plazoEntrega, im_concepto.cantidad, unidadmedida.clave, im_concepto.lugarEntrega, im_concepto.direccionEntrega');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->where('im_concepto.idPog', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_im_general($id)
+    {
+
+    }
+
+    function get_im_empleado_elabora($id)
+    {
+        
+    }
+
+    function get_im_empleado_autoriza($id)
+    {
+        
+    }
+
 }
