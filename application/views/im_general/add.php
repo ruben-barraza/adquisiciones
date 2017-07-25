@@ -61,7 +61,7 @@
                  <div class="x_content">          
   <table id="tablaDatos" class="table table-striped">
   
-   
+    <thead>
       <tr>
         <th>PARTIDA</th>
         <th>CODIGO</th>
@@ -73,52 +73,62 @@
    
         
       </tr>
- 
- 
-     <?php 
-     $cont = 1;
-     foreach($listaim_concepto as $i){ ?>
-      <tr>
-        <td><?php echo $i['partida']; ?></td>
-          <td><?php echo $i['codigo']; ?></td>
-            <td><?php echo $i['descripcion']; ?></td>
-              
-              <td><input type="text"  name="cantidad" class="inputcantidad" onkeyup="calcularSubtotal2()" id="<?php echo "idcantidad_".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
-
-              //Sin poder resolver cantidad
-               
-                if($cantidad<=0){
-
-                  echo ('N/C');
+    </thead>
+    
+    <tbody>
         
-                    }
-                      else
-                          {
-                            echo $cantidad;
-                        
-                            }  
-                              ?>">
-                                
-              </td>
+    
+        <?php 
+        $cont = 1;
+        foreach($listaim_concepto as $i){ ?>
+        <tr>
+            <td><?php echo $i['partida']; ?></td>
+            <td><?php echo $i['codigo']; ?></td>
+                <td><?php echo $i['descripcion']; ?></td>
+                
+                <td><input type="text"  name="cantidad" class="inputcantidad"  id="<?php echo "idcantidad_".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
+
+                //Sin poder resolver cantidad
+                
+                    if($cantidad<=0){
+
+                    echo ('N/C');
+            
+                        }
+                        else
+                            {
+                                echo $cantidad;
+                            
+                                }  
+                                ?>">
+                                    
+                </td>
 
 
 
-           <td><?php echo $i['clave'];?></td>
-                <td><input type="text" class="inputprecio" onkeyup="calcularSubtotal2()" id="<?php echo "preciounitarioid_".$cont ?>" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
-                <td class="importe"  id="<?php echo "importeid_".$cont ?>" value=<?php $importe=($cantidad)*($preciounitario); echo $importe;?> ><?php $importe=($cantidad)*($preciounitario); echo $importe;?></td>
-        <?php $cont++; } ?>
-       
-      </tr>
+            <td><?php echo $i['clave'];?></td>
+                    <td><input type="text" class="inputprecio"  id="<?php echo "preciounitarioid_".$cont ?>" name="precio-unitario" value="<?php $preciounitario=$i['precioUnitario'];  echo $preciounitario; ?>"></td>
+                    <td class="importe"  id="<?php echo "importeid_".$cont ?>" value=<?php $importe=($cantidad)*($preciounitario); $importeConFormato=number_format($importe,2,'.',','); echo $importeConFormato;?> ><?php echo $importeConFormato;?></td>
+            <?php $cont++; } ?>
+        
+        </tr>
+
+    </tbody>    
  
    
   
   </table>
 
    
-      
-  <p id="subtotal"  class="text-center lead">Subtotal ($): &nbsp;&nbsp;<?php $subtotal=$sumas['subtotal']; $subtotalConFormato=number_format($subtotal,2, '.', ',');  echo($subtotalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-  <p  class="text-center lead">IVA ($): &nbsp;&nbsp;<?php $iva=$subtotal*0.16; $ivaConFormato=number_format($iva,2, '.', ','); echo($ivaConFormato);?></p>
-  <p class="text-center lead">Total ($): &nbsp;&nbsp;<?php $total=$subtotal+$iva; $totalConFormato=number_format($total,2, '.', ','); echo($totalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  <!--
+  <p id="subtotal2"  class="text-center lead">Subtotal ($): &nbsp;&nbsp;<?php $subtotal=$sumas['subtotal']; $subtotalConFormato=number_format($subtotal,2, '.', ',');  echo($subtotalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  <p id="iva" class="text-center lead">IVA ($): &nbsp;&nbsp;<?php $iva=$subtotal*0.16; $ivaConFormato=number_format($iva,2, '.', ','); echo($ivaConFormato);?></p>
+  <p id="total" class="text-center lead">Total ($): &nbsp;&nbsp;<?php $total=$subtotal+$iva; $totalConFormato=number_format($total,2, '.', ','); echo($totalConFormato);?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  -->
+
+  <p id="subtotal"  class="text-center lead"></p>
+  <p id="iva" class="text-center lead"></p>
+  <p id="total" class="text-center lead"></p>
 
   <br>
   <br>
@@ -172,6 +182,9 @@
 
 <script type="text/javascript">   
     $(document).ready(function() {
+        //LLAMAMOS A LA FUNCION PARA CALCULAR EL SUBTOTAL AL MOMENTO QUE SE CARGA LA PÁGINA
+        actualizarTotal();
+
 		$("#peticionoferta").change(function() {
     		$("#peticionoferta option:selected").each(function() {
                  peticionoferta = $('#peticionoferta').val();
@@ -184,9 +197,42 @@
             });
         });
 
-
-		
     });
+
+    //ESTA FUNCIÓN CALCULA EL IMPORTE SUMANDO LAS COLUMNAS DE IMPORTE
+    //SE LLAMA A ESTA FUNCIÓN AL MOMENTO DE CARGAR LA PÁGINA Y CUANDO SE HACEN CAMBIOS
+    //EN LOS IMPORTES
+    function actualizarTotal() {
+        //PRIMERO CUENTA LAS FILAS QUE TIENE LA TABLA
+        var numFilas = $('#tablaDatos >tbody >tr').length;
+        //EN ESTA VARIABLE SE GUARDA EL IMPORTE TOTAL
+        var importeTotal = 0;
+
+        for(i = 1 ; i <= numFilas ; i++){
+            //SACA EL IMPORTE DE CADA RENGLON COMO STRING
+            var importeString = $("#importeid_" + i).html();
+            //LE QUITAMOS LAS COMAS PARA EVITAR PROBLEMAS AL MOMENT DE CONVERTIR A FLOAT
+            var importeNoCommas = importeString.replace(/,/g, '');
+            //CONVERTIMOS EL STRING A FLOAT
+            var importe = parseFloat(importeNoCommas);
+            //LO VAMOS SUMANDO A IMPORTE TOTAL
+            importeTotal += importe;
+        }
+
+        //CALCULAR EL IVA
+        var iva = importeTotal * 0.16;
+
+        //CALCULAR EL TOTAL
+        var total = importeTotal + iva;
+		
+        //MOSTRAMOS LA SUMA TOTAL DE IMPORTES CON UN FORMATO DE DOS DECIMALES
+        //NOTA: AL USAR .toFixed() SE VUELVE A CONVERTIR A STRING
+        $("#subtotal").html("Subtotal ($): " + importeTotal.toFixed(2));
+        $("#iva").html("IVA ($): " + iva.toFixed(2));
+        $("#total").html("Total ($): " + total.toFixed(2));
+        //FALTA ALINEAR CON LOS DEMÁS NÚMEROS
+    }
+
 
     //ESTA ES LA SOLUCION
     //EL .inputcantidad ES LA CLASE QUE TIENEN TODOS LOS INPUT DE ESA COLUMNA
@@ -198,8 +244,10 @@
         var $fila = $id.split("_").pop();
 
         $("#idcantidad_" + $fila).keyup(function(){
-            var cambiarImporte = parseInt($("#idcantidad_" + $fila).val()) * parseInt($("#preciounitarioid_" + $fila).val());
+            var cambiarImporte = parseFloat($("#idcantidad_" + $fila).val()) * parseFloat($("#preciounitarioid_" + $fila).val());
             $("#importeid_" + $fila).html(cambiarImporte);
+            //HAY QUE ACTUALIZAR EL SUBTOTAL PORQUE SE ACTUALIZÓ EL IMPORTE
+            actualizarTotal();
             
         });
 	});
@@ -209,11 +257,10 @@
         var $fila = $id.split("_").pop();
 
         $("#preciounitarioid_" + $fila).keyup(function(){
-            var cambiarImporte = parseInt($("#idcantidad_" + $fila).val()) * parseInt($("#preciounitarioid_" + $fila).val());
+            var cambiarImporte = parseFloat($("#idcantidad_" + $fila).val()) * parseFloat($("#preciounitarioid_" + $fila).val());
             $("#importeid_" + $fila).html(cambiarImporte);
-
-    
-            
+            //HAY QUE ACTUALIZAR EL SUBTOTAL PORQUE SE ACTUALIZÓ EL IMPORTE
+            actualizarTotal();
         });
 	});
 
@@ -243,6 +290,10 @@
 			}
 		});
 
+    
+
+/*
+     //¿QUÉ HACEN ESTAS FUNCIONES?
      $(function() {
             $(".inputprecio").keyup(function() {
                 var add=0;
@@ -257,14 +308,14 @@
             $(".inputcantidad").keyup(function() {
                 var add=0;
                 $(".importe").each(function() {
-               
-                    var add = parseFloat($(this).val());
+                 add = Number($(this).val());
+                  
           
 
                 });
               $("#subtotal").html(add);
             });
         });
- 
+*/ 
     
 </script>
