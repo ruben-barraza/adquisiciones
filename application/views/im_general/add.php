@@ -88,7 +88,7 @@
                 
                 <td><input type="text"  name="cantidad" class="inputcantidad"  id="<?php echo "idcantidad_".$cont ?>" value="<?php $cantidad=$i['cantidadIM'];
 
-                //Sin poder resolver cantidad
+               
                 
                     if($cantidad<=0){
 

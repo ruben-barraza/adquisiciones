@@ -22,7 +22,7 @@ class Im_general extends CI_Controller{
     {
 
         $data['listaim_general'] = $this->Imgeneralmodel->get_all_listaim_general();
-      
+     
         $data['familias'] = $this->Comboboxesmodel->getFamilias();
         $data['_view'] = 'im_general/index';
         $this->load->view('layouts/main',$data);

@@ -101,6 +101,34 @@ class Po_general extends CI_Controller{
         $this->Pogeneralmodel->add_im_concepto($params);
     }
 
+    function crearNumeroOficio(){
+        $idPog = $_POST['id'];
+        $fecha = $_POST['fecha'];
+        $fechaFormato = str_replace('/', '-', $fecha);
+        
+        $fechaElaboracion = date("Y-m-d", strtotime($fechaFormato));
+        $year = date("Y", strtotime($fechaElaboracion));
+        //Obtener el numero de oficio consecutivo
+        $numOficio = $this->Pogeneralmodel->get_numero_oficioConsecutivo();
+
+        //obtener el número del año según la fecha de elaboración
+        //en caso de que sea 0 significa que empezó un nuevo año
+        //en ese caso el número de oficio se resetea a 1
+        /*
+        if (date('z', strtotime($fechaElaboracion)) === '0' ) {
+            $numOficio = 1;
+        }
+        */
+        $params = array(
+            'idPog' => $idPog,
+            'numOficio' => $numOficio,
+            'anio' => $year,
+            'fecha' => $fechaElaboracion,
+        );
+
+        $this->Pogeneralmodel->add_numero_oficio($params);
+    }
+
     function obtenerNombreEmpleado(){
         $rpe = $_POST['rpe'];
         $data['nombre'] = $this->Pogeneralmodel->get_empleado($rpe);
@@ -189,7 +217,7 @@ class Po_general extends CI_Controller{
 
 		$this->form_validation->set_rules('tipo','Tipo','required');
         $this->form_validation->set_rules('idFamilia','IdFamilia');
-        $this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
+        //$this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
 		$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
 		$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','max_length[5]required');
 		$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','max_length[5]required');
@@ -219,7 +247,7 @@ class Po_general extends CI_Controller{
             $params = array(
 				'tipo' => $this->input->post('tipo'),
                 'idFamilia' => $this->input->post('idFamilia'),
-                'oficioNumero' => $this->input->post('oficioNumero'),
+                //'oficioNumero' => $this->input->post('oficioNumero'),
 				'domicilio' => $this->input->post('domicilio'),
 				'idEmpleadoResponsable' => $empleadoResponsable,
 				'idEmpleadoFormula' => $empleadoFormula,
@@ -281,7 +309,7 @@ class Po_general extends CI_Controller{
             $this->load->library('form_validation');
 
 			$this->form_validation->set_rules('tipo','Tipo','required');
-            $this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
+            //$this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
 			$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
 			$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable','required');
 			$this->form_validation->set_rules('idEmpleadoFormula','IdEmpleadoFormula','required');
@@ -309,7 +337,7 @@ class Po_general extends CI_Controller{
 
                 $params = array(
 					'tipo' => $this->input->post('tipo'),
-                    'oficioNumero' => $this->input->post('oficioNumero'),
+                    //'oficioNumero' => $this->input->post('oficioNumero'),
 					'domicilio' => $this->input->post('domicilio'),
 					'idEmpleadoResponsable' => $empleadoResponsable,
 					'idEmpleadoFormula' => $empleadoFormula,

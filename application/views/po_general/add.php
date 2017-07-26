@@ -82,6 +82,27 @@
 						</div>
 					</div>
 
+					<!--
+					<var>
+						<?php
+							
+							/*
+
+							$fecha = "01/01/1992";
+							$fechaFormato = str_replace('/', '-', $fecha);
+        					$fechaElaboracion = date("Y-m-d", strtotime($fechaFormato));
+							echo date('z', strtotime($fechaElaboracion));
+        					$year = date("Y", strtotime($fechaElaboracion));
+							echo $year;
+
+							if (date('z', strtotime($fechaElaboracion)) == '0' ) {
+								echo "PRIMER DIA DEL AÑO";
+							}
+							*/
+						?>
+					</var>
+					-->
+
 					<!-- Solo aparece si se selecciona un proveedor de tipo bienes -->
 					<div class="form-group seccion-familia hidden">
 						<label for="idFamilia" class="col-md-2 control-label">Familia</label>
@@ -98,16 +119,18 @@
 						</div>
 					</div>
 
+					<!--
 					<div class="form-group">
 						<label for="oficioNumero" class="col-md-2 control-label">Oficio No.</label>
 						<div class="col-md-3">
 							<div class="input-group">
 								<span class="input-group-addon">137-</span>
-								<input type="text" name="oficioNumero" value="<?php echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" maxlength="5"/>
-								<span class="input-group-addon">/<?php echo date("Y"); ?></span>
+								<input type="text" name="oficioNumero" value="<?php //echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" maxlength="5"/>
+								<span class="input-group-addon">/<?php //echo date("Y"); ?></span>
 							</div>
 						</div>
 					</div>
+					-->
 
 					<div class="form-group">
                     	<label for="idEstado" class="col-md-2 control-label">Estado</label>
@@ -212,7 +235,7 @@
 					<div class="form-group">
 						<label for="fechaUltimaModificacion" class="col-md-2 control-label">FechaUltimaModificacion</label>
 						<div class="col-md-6">
-							<input type="text" name="fechaUltimaModificacion" value="<?php echo $this->input->post('fechaUltimaModificacion'); ?>" class="form-control" id="fechaUltimaModificacion" />
+							<input type="text" name="fechaUltimaModificacion" value="<?php //echo $this->input->post('fechaUltimaModificacion'); ?>" class="form-control" id="fechaUltimaModificacion" />
 						</div>
 					</div>
 					-->
@@ -753,10 +776,9 @@
 				});
 			}
 
-						
+			var numOficios = 0;
 			//obtiene los proveedores y contactos involucrados en esta PO y los manda a la tabla po_proveedor
 			for(i = 0; i < longitudTabla; i++){
-				
 				var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
 				var clave = $("#clave_" + cuentaActual1).val();
 				if(clave != ""){
@@ -775,19 +797,32 @@
 									numcontacto: j
 								}
 							});
-							
+							numOficios++;
 						}
 					}
 				}
 			}
-			
+
+			var fecha = $('#fechaElaboracion').val();
+			//Crear los números de oficio que se enviaran a los proveedores
+			//Estos números serán visibles en los PDFs
+			for(i = 0; i < numOficios; i++){
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearNumeroOficio',
+					method: 'POST',
+					async: false,
+					data: {
+						id: idPog,
+						fecha: fecha,
+					}
+				});
+			}
 			
 
 			//insertar en la tabla IM_GENERAL
 			if($('#titulo').val() != ""){
 				var titulo = $('#titulo').val();
 				var idMunicipio = $('#idMunicipio').val();
-				var fecha = $('#fechaElaboracion').val();
 				var rpe1 = $('#empleadoResponsable').val();
 				var rpe2 = $('#empleadoFormula').val();
 				$.ajax({

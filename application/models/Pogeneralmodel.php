@@ -58,6 +58,20 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('im_concepto',$params);
     }
 
+    function add_numero_oficio($params)
+    {
+        $this->db->insert('po_numoficio',$params);
+    }
+
+    function get_numero_oficioConsecutivo(){
+        $maxnum = 1;
+        $row = $this->db->query("select max(numOficio) as 'maxnum' from po_numoficio")->row();
+        if ($row) {
+			$maxnum = $row->maxnum + 1;
+		}
+		return $maxnum;
+    }
+
     function add_uk_po_aclaracion_acuse($idPog, $idEmpleado)
     {
         $this->db->insert('po_acuse', array(
