@@ -139,34 +139,51 @@
 						<label for="solped" class="col-md-4 control-label">SOLPED</label>
 						<div class="col-md-3">
 							<div class="input-group">
-								<input type="text" id="solped" name="solped" maxlength="5" class="form-control pull-right" placeholder="Ingrese SOLPED"/>
+								<input type="text" id="solped" name="solped" maxlength="12" class="form-control pull-right" placeholder="Ingrese SOLPED"/>
+								
+							</div>
+						</div>
+           
+            </div>
+             <div class="form-group">
+     <div class="row">
+						<label for="aprobo" class="col-md-4 control-label">Persona que aprob&oacute;</label>
+						<div class="col-md-3">
+							<div class="input-group">
+								<input type="text" id="aprobo" name="personaaprobo" maxlength="5" class="form-control pull-right" placeholder="ID empleado que aprob&oacute;"/>
 								<span class="input-group-addon">
 									<i class="glyphicon glyphicon-search"></i>	
 								</span>
 							</div>
 						</div>
-            <div class="col-md-4">
+           
+       <div class="col-md-4">
+							<input type="text" id="empleadoResponsable1" name="empleadoResponsable2" class="form-control" readonly placeholder="Nombre del empleado"/>
+						</div>
+            </div>
+            <div class="form-group">
+     <div class="row">
+						<label for="elaboro" class="col-md-4 control-label">Persona que elabor&oacute;</label>
+						<div class="col-md-3">
+							<div class="input-group">
+								<input type="text" id="elaboro" name="personaelaboro" maxlength="5" class="form-control pull-right" placeholder="ID empleado que elabor&oacute;"/>
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-search"></i>	
+								</span>
+							</div>
+						</div>
+           
+       <div class="col-md-4">
 							<input type="text" id="empleadoResponsable2" name="empleadoResponsable2" class="form-control" readonly placeholder="Nombre del empleado"/>
 						</div>
             </div>
-    <div class="form-group">
-      <label class="control-label col-sm-4" for="elaboro">ELABOR&Oacute;</label>
-      <div class="col-sm-3">          
-        <input type="elaboro" class="form-control" id="elaboro" placeholder="Persona que elabor&oacute;" name="elaboro">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-4" for="aprobo">APROB&Oacute;</label>
-      <div class="col-sm-3">          
-        <input type="aprobo" class="form-control" id="aprobo" placeholder="Persona que aprob&oacute;" name="aprobo">
-      </div>
-    </div>
-    <br>
-    <br>
+    
+    
+
     <!--Boton guardar-->
     <div class="form-group">        
       <div class="col-sm-offset-5 col-sm-7">
-        <button type="GUARDAR" class="btn btn-primary">GUARDAR</button>
+        <button id="Guardar" type="GUARDAR" class="btn btn-primary">GUARDAR</button>
       </div>
     </div>
   </form>        
@@ -266,9 +283,9 @@
 
 
 
-    $("#solped").on('keyup', function(e) {
+    $("#elaboro").on('keyup', function(e) {
 			if ($(this).val().length == 5) {
-				var rpe = $('#solped').val();
+				var rpe = $('#elaboro').val();
 				var nombre = "";
 				$.ajax({
 					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleadoImGeneral',
@@ -287,6 +304,30 @@
 			} else if ($(this).val().length < 5){
 
 				$('#empleadoResponsable2').val('');
+			}
+		});
+
+           $("#aprobo").on('keyup', function(e) {
+			if ($(this).val().length == 5) {
+				var rpe = $('#aprobo').val();
+				var nombre = "";
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Im_general/obtenerNombreEmpleadoImGeneral',
+					method: 'POST',
+					data: {
+						rpe: rpe
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						jQuery.each( returned.nombre, function( i, val ) {                   
+							nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+						});
+						$("#empleadoResponsable1").val(nombre);
+					}
+				});
+			} else if ($(this).val().length < 5){
+
+				$('#empleadoResponsable1').val('');
 			}
 		});
 

@@ -107,22 +107,34 @@ class Po_general extends CI_Controller{
         $fechaFormato = str_replace('/', '-', $fecha);
         
         $fechaElaboracion = date("Y-m-d", strtotime($fechaFormato));
-        $year = date("Y", strtotime($fechaElaboracion));
-        //Obtener el numero de oficio consecutivo
-        $numOficio = $this->Pogeneralmodel->get_numero_oficioConsecutivo();
+        
+        //Año obtenido de la fecha de elaboracion
+        $elaboracionYear = date("Y", strtotime($fechaElaboracion));
+        //Obtener el año máximo existente en la tabla
+        $maxYear = $this->Pogeneralmodel->get_year_maximo($elaboracionYear);
+        
 
-        //obtener el número del año según la fecha de elaboración
-        //en caso de que sea 0 significa que empezó un nuevo año
-        //en ese caso el número de oficio se resetea a 1
-        /*
-        if (date('z', strtotime($fechaElaboracion)) === '0' ) {
-            $numOficio = 1;
+        //Obtener el numero de oficio consecutivo
+        $numOficio = 0;
+
+
+        //Verificar si hubo un cambio de año
+        if($maxYear < $elaboracionYear){
+            //Si es true, hubo cambio de año
+            //Se cuentan los documentos creados con el año de elaboracion
+            $numOficiosCreados = $this->Pogeneralmodel->get_numero_oficiosCreados($elaboracionYear);
+            if($numOficiosCreados == 0){
+                $numOficio = 1;
+            }
+        } else {
+            //Obtener el numero de oficio consecutivo dentro del mismo año de elaboracion
+            $numOficio = $this->Pogeneralmodel->get_numero_oficioConsecutivo($elaboracionYear);
         }
-        */
+        
         $params = array(
             'idPog' => $idPog,
             'numOficio' => $numOficio,
-            'anio' => $year,
+            'anio' => $elaboracionYear,
             'fecha' => $fechaElaboracion,
         );
 

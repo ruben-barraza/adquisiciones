@@ -10,6 +10,7 @@ class Im_general extends CI_Controller{
         parent::__construct();
         $this->load->model('Imgeneralmodel');
           $this->load->model('Comboboxesmodel');
+           $this->load->helper('form');
     } 
 
 
@@ -40,11 +41,13 @@ class Im_general extends CI_Controller{
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('titulo','Titulo','max_length[255]|required');
-		$this->form_validation->set_rules('idEmpleadoFormula','IdEmpleadoFormula','required');
-		$this->form_validation->set_rules('idEmpleadoAutoriza','IdEmpleadoAutoriza','required');
+		$this->form_validation->set_rules('idEmpleadoFormula','IdEmpleadoFormula','max_length[5]');
+		$this->form_validation->set_rules('idEmpleadoAutoriza','IdEmpleadoAutoriza','max_length[5]');
 		$this->form_validation->set_rules('fechaElaboracion','FechaElaboracion','required');
 		$this->form_validation->set_rules('idMunicipioElaboracion','IdMunicipioElaboracion','required');
-		
+		$this->form_validation->set_rules('solped','solped','integer','max_length[12]');
+
+
 		if($this->form_validation->run())     
         {   
             $params = array(
@@ -68,9 +71,10 @@ class Im_general extends CI_Controller{
             $data['peticiones'] = $this->Comboboxesmodel->getPeticiones();
             $data['sumas']=$this->Imgeneralmodel->suma_imgeneral();
           
-
+            
             $data['_view'] = 'im_general/add';
             $this->load->view('layouts/main',$data);
+
         }
     }  
 
@@ -150,5 +154,11 @@ class Im_general extends CI_Controller{
         echo json_encode($data);
 
     }
+
+    public function GuardarDatos()
+   {
+      $this->Imgeneralmodel->GuardarDatosModel();
+   
+   }
     
 }

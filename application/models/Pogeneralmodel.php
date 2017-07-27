@@ -63,13 +63,56 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('po_numoficio',$params);
     }
 
-    function get_numero_oficioConsecutivo(){
+    /*
+    SELECT numOficio
+    FROM po_numoficio
+    WHERE anio=2018
+    ORDER BY numOficio DESC
+    LIMIT 1
+    */
+
+    function get_numero_oficioConsecutivo($elaboracionYear){
+        /*
         $maxnum = 1;
         $row = $this->db->query("select max(numOficio) as 'maxnum' from po_numoficio")->row();
         if ($row) {
 			$maxnum = $row->maxnum + 1;
 		}
 		return $maxnum;
+        */
+        $this->db->select('numOficio');
+        $this->db->from('po_numoficio');
+        $this->db->where('anio', $elaboracionYear);
+        $this->db->order_by('numOficio', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('numOficio') + 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    function get_numero_oficiosCreados($elaboracionYear){
+        $this->db->select('numOficio');
+        $this->db->from('po_numoficio');
+        $this->db->where('anio', $elaboracionYear);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
+    }
+
+    function get_year_maximo($elaboracionYear){
+        $maxyear = $elaboracionYear;
+        $row = $this->db->query("select max(anio) as 'maxanio' from po_numoficio")->row();
+        if ($row) {
+			$maxyear = $row->maxanio;
+		}
+        return $maxyear;
     }
 
     function add_uk_po_aclaracion_acuse($idPog, $idEmpleado)

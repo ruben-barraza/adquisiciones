@@ -9,6 +9,7 @@ class Imgeneralmodel extends CI_Model
     function __construct()
     {
         parent::__construct();
+           $this->load->database();
     }
     
     /*
@@ -138,6 +139,35 @@ class Imgeneralmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    public function GuardarDatosModel()
+   {
+
+      $this->load->helper('url');
+  
+      
+      $data = array(
+         'title' => $this->input->post('titulo'),//capturo los datos que me envian desde la vista
+         
+         'text' => $this->input->post('texto')
+      );
+
+        if ($this->form_validation->run() == FALSE)
+{
+
+    
+   //Acción a tomar si existe un error el en la validación
+ echo "Verifique sus campos";
+ redirect('im_general/index');
+}
+else
+{
+      return $this->db->insert('', $data);
+   
+}
+      
+    
+   }
 
  
 }
