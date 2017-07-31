@@ -39,13 +39,28 @@ class Generarpdfmodel extends CI_Model
     }
 
     /*
+    * SELECCIONAR LOS NUMEROS DE OFICIO
+    */
+    function get_pog_numero_oficio($id)
+    {
+        $this->db->select('po_numoficio.numOficio, po_numoficio.anio');
+        $this->db->from('po_numoficio');
+        $this->db->where('po_numoficio.idPog', $id);
+        $this->db->order_by('po_numoficio.numOficio', 'ASC');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    /*
     * SELECCIONA LA INFORMACIÓN BÁSICA DEL DOCUMENTO POG. ESTÁ INFORMACIÓN ES IGUAL PARA 
     * TODAS LAS COPIAS.
     */
 
     function get_pog_data($id)
     {
-        $this->db->select('po_general.oficioNumero, estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion');
+        $this->db->select('estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion');
         $this->db->from('po_general');
         $this->db->join('municipio', 'po_general.idMunicipio = municipio.id', 'inner');
         $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');
@@ -55,6 +70,8 @@ class Generarpdfmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    
 
     /*
     * SELECCIONA LA INFORMACIÓN DEL EMPLEADO RESPONSPABLE DEL POG
@@ -73,6 +90,8 @@ class Generarpdfmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    
 
     /*
     * SELECCIONA LA INFORMACIÓN DEL EMPLEADO QUE FORMULA EL POG

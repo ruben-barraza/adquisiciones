@@ -146,10 +146,19 @@ class Imgeneralmodel extends CI_Model
       $this->load->helper('url');
   
       
-      $data = array(
-         'title' => $this->input->post('titulo'),//capturo los datos que me envian desde la vista
+      $dataImConcepto = array(
+         'cantidad' => $this->input->post('cantidad'),//capturo los datos que me envian desde la vista
          
-         'text' => $this->input->post('texto')
+         'precio-unitario' => $this->input->post('preciounitario')
+
+      );
+
+       $dataImGeneral = array(
+         'solped' => $this->input->post('solped'),//capturo los datos que me envian desde la vista
+         
+         'personaaprobo' => $this->input->post('personaaprobo'),
+         'personaelaboro' => $this->input->post('personaelaboro')
+
       );
 
         if ($this->form_validation->run() == FALSE)
@@ -162,8 +171,8 @@ class Imgeneralmodel extends CI_Model
 }
 else
 {
-      return $this->db->insert('', $data);
-   
+      return $this->db->update('im_concepto', $dataImConcepto);
+      
 }
       
     
