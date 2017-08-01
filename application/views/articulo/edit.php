@@ -59,7 +59,7 @@
 					<div class="form-group">
 						<label for="descripcionDetallada" class="col-md-4 control-label">Descripción Detallada</label>
 						<div class="col-md-8">
-							<textarea name="descripcionDetallada" class="form-control" id="descripcionDetallada" maxlength="250"><?php echo ($this->input->post('descripcionDetallada') ? $this->input->post('descripcionDetallada') : $articulo['descripcionDetallada']); ?></textarea>
+							<textarea name="descripcionDetallada" class="form-control" id="descripcionDetallada" maxlength="500"><?php echo ($this->input->post('descripcionDetallada') ? $this->input->post('descripcionDetallada') : $articulo['descripcionDetallada']); ?></textarea>
 						</div>
 					</div>
 					<div class="form-group">

@@ -138,6 +138,7 @@ class Generarpdfmodel extends CI_Model
         $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
         $this->db->where('im_concepto.idPog', $id);
+        $this->db->order_by('im_concepto.partida', 'ASC');
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();

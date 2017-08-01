@@ -967,7 +967,7 @@
 						$("#codigo_" + ($row)).val(val.codigo);
 						$("#descripcion_" + ($row)).val(val.descripcion);
 						$("#plazoentrega_" + ($row)).val(val.tiempoEntrega);
-						$("#cantidad_" + ($row)).val(val.cantidadEmbalaje);
+						//$("#cantidad_" + ($row)).val(val.cantidadEmbalaje);
 						$("#um_" + ($row)).val(val.unidadmedida);
 					});
 				}

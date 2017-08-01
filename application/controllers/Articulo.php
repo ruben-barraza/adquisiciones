@@ -32,7 +32,7 @@ class Articulo extends CI_Controller{
 		$this->form_validation->set_rules('codigo','Codigo','max_length[10]|required');
 		$this->form_validation->set_rules('descripcion','Descripcion','max_length[150]|required');
 		$this->form_validation->set_rules('idUnidadMedida','IdUnidadMedida','required');
-		$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[250]|required');
+		$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[500]|required');
 		$this->form_validation->set_rules('especificacion','Especificacion','max_length[50]|required');
 		$this->form_validation->set_rules('idFamilia','IdFamilia','required');
 		$this->form_validation->set_rules('precioUnitario','PrecioUnitario','required|decimal');
@@ -87,7 +87,7 @@ class Articulo extends CI_Controller{
 			$this->form_validation->set_rules('codigo','Codigo','max_length[10]|required');
 			$this->form_validation->set_rules('descripcion','Descripcion','max_length[150]|required');
 			$this->form_validation->set_rules('idUnidadMedida','IdUnidadMedida','required');
-			$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[250]|required');
+			$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[500]|required');
 			$this->form_validation->set_rules('especificacion','Especificacion','max_length[50]|required');
 			$this->form_validation->set_rules('idFamilia','IdFamilia','required');
 			$this->form_validation->set_rules('precioUnitario','PrecioUnitario','required|decimal');
