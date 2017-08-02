@@ -60,10 +60,11 @@ class Generarpdfmodel extends CI_Model
 
     function get_pog_data($id)
     {
-        $this->db->select('estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion');
+        $this->db->select('familia.clave, estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion, po_general.asunto');
         $this->db->from('po_general');
         $this->db->join('municipio', 'po_general.idMunicipio = municipio.id', 'inner');
         $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');
+        $this->db->join('familia', 'po_general.idFamilia = familia.id', 'inner');
         $this->db->where('po_general.id', $id);
         $query = $this->db->get();
         if($query->num_rows() > 0){

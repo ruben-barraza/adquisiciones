@@ -14,25 +14,103 @@ class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
+        switch($this->page)
+		{
+			case 1: 
+			case 2: 
+            case 3:
+                // Logo
+                $image_file = K_PATH_IMAGES.'logo2.gif';
+                if (!$image_file)
+                {
+                    $image= imagecreatefromstring(file_get_contents($image_file));
+                }
+                $this->Image($image_file, 10, 10, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                // Set font
+                $this->SetFont('helvetica', 'BI', 10);
+                // Title
+                $this->Cell(0, 0, 'Dirección de Operación', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+                $this->Ln();
+                $this->SetFont('helvetica', 'I', 9);
+                $this->Cell(0, 0, 'Subdirección de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+                $this->Ln();
+                $this->SetFont('helvetica', 'I', 8);
+                $this->Cell(0, 0, 'División de Distribución Noroeste', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+                $this->Ln();
+                $this->Cell(0, 0, 'Departamento de Programación y Confiabilidad de Bienes', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+                break;
+            case 4:
+                // Logo
+                $image_file = K_PATH_IMAGES.'logo2.gif';
+                if (!$image_file)
+                {
+                    $image= imagecreatefromstring(file_get_contents($image_file));
+                }
+                //$this->SetY(15);
+                $this->Image($image_file, 10, 12, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                // Set font
+                $this->SetFont('helvetica', 'B', 10);
+                // Title
+                $this->SetY(15);
+                $this->Cell(0, 0, 'INVESTIGACIÓN DE MERCADO', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+                $this->SetFont('helvetica', 'B', 9);
+                $this->Cell(0, 0, 'División de Distribución Noroeste', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+                $this->Ln();
+                $this->Cell(0, 0, 'Subgerencia de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+                break;
+		}
+        
+    }
+
+    // Page footer
+    public function Footer() {
+        switch($this->page)
+		{
+			case 1: 
+			case 2: 
+            case 3:
+                // Position at 15 mm from bottom
+                $this->SetY(-15);
+                // Set font
+                $this->SetFont('helvetica', 'I', 8);
+
+                // Texto del footer
+                $txt = "Benito Juárez y San Luis Potosí C.P. 83000 Col. Centro, Hermosillo, Sonora\nTel. 662-259-11-71";
+
+                // Imprimir el footer
+                $this->MultiCell(0, 10, $txt, 0, 'C', 0, 0, '', '', true);
+                break;
+            case 4:
+                // Position at 15 mm from bottom
+                $this->SetY(-15);
+                // Set font
+                $this->SetFont('helvetica', 'I', 8);
+                break;
+		}
+    }
+}
+
+//Clase para Landscape
+class MYPDF_L extends TCPDF {
+    //Page header
+    public function Header() {
         // Logo
         $image_file = K_PATH_IMAGES.'logo2.gif';
         if (!$image_file)
         {
             $image= imagecreatefromstring(file_get_contents($image_file));
         }
-        $this->Image($image_file, 10, 10, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        //$this->SetY(15);
+        $this->Image($image_file, 10, 12, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
         // Set font
-        $this->SetFont('helvetica', 'BI', 10);
+        $this->SetFont('helvetica', 'B', 10);
         // Title
-        $this->Cell(0, 0, 'Dirección de Operación', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+        $this->SetY(15);
+        $this->Cell(0, 0, 'INVESTIGACIÓN DE MERCADO', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->SetFont('helvetica', 'B', 9);
+        $this->Cell(0, 0, 'División de Distribución Noroeste', 0, false, 'R', 0, '', 0, false, 'M', 'M');
 		$this->Ln();
-		$this->SetFont('helvetica', 'I', 9);
-		$this->Cell(0, 0, 'Subdirección de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-		$this->Ln();
-		$this->SetFont('helvetica', 'I', 8);
-		$this->Cell(0, 0, 'División de Distribución Noroeste', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-		$this->Ln();
-		$this->Cell(0, 0, 'Departamento de Programación y Confiabilidad de Bienes', 0, false, 'R', 0, '', 0, false, 'M', 'M');
+		$this->Cell(0, 0, 'Subgerencia de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
     }
 
     // Page footer
@@ -41,15 +119,9 @@ class MYPDF extends TCPDF {
         $this->SetY(-15);
         // Set font
         $this->SetFont('helvetica', 'I', 8);
-
-		// Texto del footer
-		$txt = "Benito Juárez y San Luis Potosí C.P. 83000 Col. Centro, Hermosillo, Sonora\nTel. 662-259-11-71";
-
-		// Imprimir el footer
-		$this->MultiCell(0, 10, $txt, 0, 'C', 0, 0, '', '', true);
-
     }
 }
+
 
 // ---------------------------------------------------------
 //El siguiente ciclo for creará las copias necesarias para los contactos
@@ -58,6 +130,7 @@ class MYPDF extends TCPDF {
 $num_contactos = sizeof($contactos);
 $tmp = ini_get('upload_tmp_dir');
 $archivos = array();
+$nombresArchivos = array();
 
 for ($i = 0; $i < $num_contactos; $i++) {
 
@@ -134,16 +207,17 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->Cell(100);
     $pdf->Cell(14, 0, 'Asunto: ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->SetFont('helvetica', '', 10);
-    $pdf->Cell(0, 0, 'Petición de Ofertas de Bienes', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, $po_general[0]["asunto"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln(7);
+
 
     //INFORMACIÓN DEL CONTACTO, RAZÓN SOCIAL DE LA EMPRESA Y CORREO ELECTRÓNICO
     $pdf->SetFont('helvetica', 'B', 10);
-    $pdf->Cell(0, 0, $contactos[$i]["nombre"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, mb_strtoupper($contactos[$i]["nombre"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
-    $pdf->Cell(0, 0, $contactos[$i]["razonSocial"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, mb_strtoupper($contactos[$i]["razonSocial"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
-    $pdf->Cell(0, 0, 'Correo electrónico: '.$contactos[$i]["correoElectronico"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, 'Correo electrónico: '.mb_strtoupper($contactos[$i]["correoElectronico"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
 
 
@@ -263,22 +337,93 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->SetFont('Helvetica', '', 10);
     $pdf->writeHTML($htmlData, true, 0, true, true); 
 
-    //$tmp = ini_get('upload_tmp_dir');
+    // add a page
+    $pdf->AddPage('L');
+
+    // set font
+    $pdf->SetFont('helvetica', 'B', 9);
+    $pdf->Cell(0, 0, $im_general[0]["titulo"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
+    $pdf->Ln();
+    $pdf->SetFont('helvetica', 'B', 8);
+    $pdf->Cell(0, 0, "PETICIÓN DE OFERTAS DE BIENES", 0, false, 'C', 0, '', 0, false, 'M', 'M');
+    $pdf->Ln();
+    $pdf->SetFont('helvetica', '', 8);
+    $pdf->Cell(0, 0, $po_general[0]["municipio"].', '.$po_general[0]["estado"].', '.$dia.' de '.ucfirst($mes).' del '.$year, 0, false, 'R', 0, '', 0, false, 'M', 'M');
 
 
-    $pdf->Output($tmp.'/POG - '.$i.'.pdf', 'F');
-    array_push($archivos, $tmp.'/POG - '.$i.'.pdf');
+    $pdf->Ln(10);
 
+    //Número de renglones que tendrá la tabla IM CONCEPTO
+    $tableRows = count($im_concepto);
+
+    $html = '
+        <table border="1" cellspacing="0" cellpadding="2">
+            <thead>
+                <tr style="background-color:#D3D3D3;">
+                    <th align="center" valign="middle" width="45"><b>Partida</b></th>
+                    <th align="center" valign="middle" width="60"><b>Código</b></th>
+                    <th align="center" valign="middle"><b>Descripción</b></th>
+                    <th align="center" valign="middle" width="350"><b>Descripción detallada</b></th>
+                    <th align="center" valign="middle"><b>Especificación</b></th>
+                    <th align="center" valign="middle" width="70"><b>Plazo de entrega (días)</b></th>
+                    <th align="center" valign="middle" width="30"><b>Cant</b></th>
+                    <th align="center" valign="middle" width="30"><b>UM</b></th>
+                    <th align="center" valign="middle"><b>Lugar de entrega</b></th>
+                    <th align="center" valign="middle"><b>Dirección</b></th>
+                </tr>
+            </thead>
+            <tbody>';
+                for($j = 0; $j < $tableRows; $j++)
+                {
+                    $html .= '<tr>';
+                    $html .= '<td align="center" width="45">'.$im_concepto[$j]["partida"].'</td>';
+                    $html .= '<td align="center" width="60">'.$im_concepto[$j]["codigo"].'</td>';
+                    $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["descripcion"], 'utf-8').'</td>';
+                    $html .= '<td align="center" width="350">'.mb_strtoupper($im_concepto[$j]["descripcionDetallada"], 'utf-8').'</td>';
+                    $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["especificacion"], 'utf-8').'</td>';
+                    $html .= '<td align="center" width="70">'.$im_concepto[$j]["plazoEntrega"].'</td>';
+                    $html .= '<td align="center" width="30">'.$im_concepto[$j]["cantidad"].'</td>';
+                    $html .= '<td align="center" width="30">'.mb_strtoupper($im_concepto[$j]["clave"], 'utf-8').'</td>';
+                    $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["lugarEntrega"], 'utf-8').'</td>';
+                    $html .= '<td align="center">'.$im_concepto[$j]["direccionEntrega"].'</td>';
+                    $html .= '</tr>';
+                }
+    $html .= '</tbody>';
+    $html .= '</table>';
+
+    // set core font
+    $pdf->SetFont('helvetica', '', 7);
+
+    // output the HTML content
+    $pdf->writeHTML($html,  true, false, false, false, '');
+
+    $pdf->Ln(5);
+
+    $pdf->SetFont('helvetica', 'B', 9);
+    $pdf->Cell(50);
+    $pdf->Cell(150, 0, 'ELABORÓ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(0, 0, 'APROBÓ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Ln(20);
+    $pdf->Cell(30);
+    $pdf->Cell(150, 0, mb_strtoupper($im_elabora[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_elabora[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoMaterno"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    $pdf->Cell(150, 0, mb_strtoupper($im_aprueba[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_aprueba[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoMaterno"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
+
+    
+    $pdf->Output($tmp.'/Oficio Pet Of 137-'.$numero_oficio[$i]["numOficio"].'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf', 'F');
+    array_push($nombresArchivos, 'Oficio Pet Of 137-'.$numero_oficio[$i]["numOficio"].'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
+    array_push($archivos, $tmp.'/Oficio Pet Of 137-'.$numero_oficio[$i]["numOficio"].'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
+    
 }
 
-$result = create_zip($archivos, $tmp.'/my-pdf.zip');
+$zipName = 'PO '.$po_general[0]["asunto"].' - '.$po_general[0]["fechaElaboracion"];
+$result = create_zip($archivos, $nombresArchivos, $zipName, $tmp.'/my-pdf.zip');
 
 //============================================================+
 // END OF FILE
 //============================================================+
 
 /* creates a compressed zip file */
-function create_zip($files = array(), $destination = '', $overwrite = false) {
+function create_zip($files = array(), $fileNames = array(), $zipName = '', $destination = '', $overwrite = false) {
 	//if the zip file already exists and overwrite is false, return false
 	if(file_exists($destination) && !$overwrite) { return false; }
 	//vars
@@ -301,9 +446,9 @@ function create_zip($files = array(), $destination = '', $overwrite = false) {
 			return false;
 		}
 		//add the files
-        $cont = 1;
+        $cont = 0;
 		foreach($valid_files as $file) {
-			$zip->addFile($file, 'POG - '.$cont.'.pdf');
+			$zip->addFile($file, $fileNames[$cont]);
             $cont++;
 		}
 		
@@ -311,10 +456,11 @@ function create_zip($files = array(), $destination = '', $overwrite = false) {
 		$zip->close();
 
         header("Content-type:application/zip");
-        header('Content-Disposition: attachment; filename=POG-pdfs.zip');
+        header('Content-Disposition: attachment; filename='.$zipName.'.zip');
         readfile($destination);
 
         $tmp = ini_get('upload_tmp_dir');
+
         //Limpiar el folder tmp
         $files = glob($tmp.'/*'); // get all file names
         foreach($files as $file){ // iterate files
