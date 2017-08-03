@@ -369,9 +369,20 @@ class Po_general extends CI_Controller{
             }
             else
             {
+                $this->load->model('Pogeneralmodel');
+                $idMunicipioSeleccionado = $this->Pogeneralmodel->getIdMunicipio($id);
+				$data['municipioSeleccionado'] = $idMunicipioSeleccionado;
+                $data['estadoSeleccionado'] = $this->Pogeneralmodel->getIdEstado($idMunicipioSeleccionado);
+                $data['empleadoResponsable'] = $this->Pogeneralmodel->getEmpleadoResponsable($id);
+                $data['empleadoFormula'] = $this->Pogeneralmodel->getEmpleadoFormula($id);
+
 				$this->load->model('Empleadomodel');
 				$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
 				$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
+
+                $this->load->model('Comboboxesmodel');
+        		$data['estados'] = $this->Comboboxesmodel->getEstados();
+                $data['familias'] = $this->Comboboxesmodel->getFamilias();
 
 				$this->load->model('Municipiomodel');
 				$data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();

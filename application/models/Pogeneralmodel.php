@@ -287,7 +287,46 @@ class Pogeneralmodel extends CI_Model
             return $query->result_array();
         }
     }
+
+    //FUNCIONES NECESARIAS PARA EL EDIT
+
+    public function getIdMunicipio($id){
+        $this->db->select('idMunicipio')->from('po_general')->where('id', $id);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idMunicipio'];
+    }
+
+    public function getIdEstado($idMunicipio){
+        $this->db->select('idEstado')->from('municipio')->where('id', $idMunicipio);
+        $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['idEstado'];  
+    }
+
+    public function getEmpleadoResponsable($id){
+        $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('po_general');
+        $this->db->join('empleado', 'po_general.idEmpleadoResponsable = empleado.id', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
     
+    public function getEmpleadoFormula($id){
+        $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('po_general');
+        $this->db->join('empleado', 'po_general.idEmpleadoFormula = empleado.id', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
     /*
      * function to update po_general
      */
