@@ -91,7 +91,7 @@
 								<option value="0">Seleccione</option>
 								<?php 
 									foreach ($familias as $i) {
-										$selected = ($i->id == $po_general["idFamilia"] ? ' selected="selected"' : "";
+										$selected = ($i->id == $po_general["idFamilia"]) ? ' selected="selected"' : "";
 										echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
 									}
 								?>
