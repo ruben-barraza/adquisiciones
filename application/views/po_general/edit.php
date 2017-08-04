@@ -217,6 +217,71 @@
 							echo ($this->input->post('fechaUltimaModificacion') ? $this->input->post('fechaUltimaModificacion') : $fechaUltimaModificacion); ?>" class="form-control" id="fechaUltimaModificacion" disabled/>
 						</div>
 					</div>
+
+					<hr />
+
+					<div class="seccion-proveedores hidden">
+						<h2> Proveedores</h4>
+						<h4> Seleccione a los proveedores y a los contactos a los que estará dirigido esta Petición Oferta</h2>
+						<br />
+						<div class="form-group">
+							<a id="cargarProveedoresBienes" class="btn btn-primary hidden">
+								<i class="fa "></i> Cargar proveedores de familia
+							</a>
+							<a id="cargarProveedoresServicios" class="btn btn-primary hidden">
+								<i class="fa "></i> Cargar proveedores de servicios
+							</a>
+							<a id="agregarRegistroProveedores" class="btn btn-primary">
+								<i class="fa "></i> Agregar registro en blanco
+							</a>
+						</div>
+
+						<table id="tablaProveedores" class="table table-hover">
+							<thead class="thead-inverse">
+								<th>Clave</th>
+								<th>Razón social y Dirección</th>
+								<th>Contactos</th>
+								<th>Correos electrónicos</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="col-md-2">
+										<input type="text" name="clave_1" id="clave_1" class="form-control lowered" maxlength="15"/>
+									</td>
+									<td class="col-md-3">
+										<textarea name="razonsocial_1" id="razonsocial_1" class="form-control"></textarea>
+										<textarea name="direccion_1" id="direccion_1" class="form-control lowered2"></textarea>
+									</td>
+									<td class="col-md-4">
+										<input type="text" name="contacto1_1" id="contacto1_1" class="form-control" disabled/>
+										<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
+										<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
+									</td>
+									<td>
+										<div class="row">
+											<input type="text" name="correo1_1" id="correo1_1" class="form-control" disabled/>
+											<a name="quitarcontacto1_1" id="quitarcontacto1_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										</div>
+										<div class="row">
+											<input type="text" name="correo2_1" id="correo2_1" class="form-control" disabled/>
+											<a name="quitarcontacto2_1" id="quitarcontacto2_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										</div>
+										<div class="row">
+											<input type="text" name="correo3_1" id="correo3_1" class="form-control" disabled/>
+											<a name="quitarcontacto3_1" id="quitarcontacto3_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+										</div>
+									</td>
+									<td class="spacer">
+										<a  name="quitarproveedor_1" id="quitarproveedor_1" class="btn btn-danger btn-xs lowered quitarproveedor aligned-right"><span class="fa fa-trash"></span></a>
+										<a name="buscarproveedor_1" id="buscarproveedor_1" class="btn btn-info btn-xs buscarproveedor aligned-right"><span class="fa fa-search"></span></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<hr />
+					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">

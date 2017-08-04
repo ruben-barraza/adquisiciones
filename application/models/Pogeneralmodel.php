@@ -290,21 +290,24 @@ class Pogeneralmodel extends CI_Model
 
     //FUNCIONES NECESARIAS PARA EL EDIT
 
-    public function getIdMunicipio($id){
+    public function getIdMunicipio($id)
+    {
         $this->db->select('idMunicipio')->from('po_general')->where('id', $id);
         $valor = $this->db->get();
         $vl = $valor->row_array();
         return $vl['idMunicipio'];
     }
 
-    public function getIdEstado($idMunicipio){
+    public function getIdEstado($idMunicipio)
+    {
         $this->db->select('idEstado')->from('municipio')->where('id', $idMunicipio);
         $valor = $this->db->get();
         $vl = $valor->row_array();
         return $vl['idEstado'];  
     }
 
-    public function getEmpleadoResponsable($id){
+    public function getEmpleadoResponsable($id)
+    {
         $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
         $this->db->from('po_general');
         $this->db->join('empleado', 'po_general.idEmpleadoResponsable = empleado.id', 'inner');
@@ -316,10 +319,24 @@ class Pogeneralmodel extends CI_Model
 
     }
     
-    public function getEmpleadoFormula($id){
+    public function getEmpleadoFormula($id)
+    {
         $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
         $this->db->from('po_general');
         $this->db->join('empleado', 'po_general.idEmpleadoFormula = empleado.id', 'inner');
+        $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    public function getProveedoresPog($id)
+    {
+        $this->db->select('proveedor.id, proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.correoElectronico1, proveedor.nombre2, proveedor.correoElectronico2, proveedor.nombre3, proveedor.correoElectronico3');
+        $this->db->from('po_general');
+        $this->db->join('po_proveedor', 'po_general.id = po_proveedor.idPog', 'inner');
+        $this->db->join('proveedor', 'po_proveedor.idProveedor = proveedor.id', 'inner');
         $this->db->where('po_general.id', $id);
         $query = $this->db->get();
         if($query->num_rows() > 0){

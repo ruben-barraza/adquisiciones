@@ -375,6 +375,7 @@ class Po_general extends CI_Controller{
                 $data['estadoSeleccionado'] = $this->Pogeneralmodel->getIdEstado($idMunicipioSeleccionado);
                 $data['empleadoResponsable'] = $this->Pogeneralmodel->getEmpleadoResponsable($id);
                 $data['empleadoFormula'] = $this->Pogeneralmodel->getEmpleadoFormula($id);
+                $data['proveedoresPog'] = $this->Pogeneralmodel->getProveedoresPog($id);
 
 				$this->load->model('Empleadomodel');
 				$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
