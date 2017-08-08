@@ -10,12 +10,14 @@ class Generar_PDF extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->library('Pdf');
-        $this->load->model('Generarpdfmodel');
+        //$this->load->library('Pdf');
+        //$this->load->model('Generarpdfmodel');
+        $this->load->model('Pogeneralmodel');
     } 
 
     //PDF
     function pdf($id){
+        /*
         $data['contactos'] = $this->Generarpdfmodel->get_contactos($id);
         $data['po_general'] = $this->Generarpdfmodel->get_pog_data($id);
         $data['numero_oficio'] = $this->Generarpdfmodel->get_pog_numero_oficio($id);
@@ -27,9 +29,15 @@ class Generar_PDF extends CI_Controller{
         $data['im_concepto'] = $this->Generarpdfmodel->get_im_concepto($id);
         $data['im_elabora'] = $this->Generarpdfmodel->get_im_empleado_elabora($id);
         $data['im_aprueba'] = $this->Generarpdfmodel->get_im_empleado_autoriza($id);
-        //$this->load->view('reporte_pog', $data);
+        $this->load->view('reporte_pog', $data);
+        */
+
         //Para probar los queries del modelo
+        //$data['proveedoresPog'] = $this->Pogeneralmodel->getProveedoresPog($id);
+        $data['imConcepto'] = $this->Pogeneralmodel->getImConcepto($id);
         $this->load->view('reporte_prueba_bd', $data);
+
+
     }
     
 }

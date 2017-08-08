@@ -245,6 +245,47 @@
 								<th></th>
 							</thead>
 							<tbody>
+								<?php
+									$rows = count($proveedoresPog);
+									for($i = 0; $i < $rows; $i++){
+										$html = '
+											<tr>
+												<td class="col-md-2">
+													<input type="text" name="clave_'.($i+1).'" id="clave_'.($i+1).'" value="'.$proveedoresPog[$i]["clave"].'" class="form-control lowered" maxlength="15"/>
+												</td>
+												<td class="col-md-3">
+													<textarea name="razonsocial_'.($i+1).'" id="razonsocial_'.($i+1).'" class="form-control">'.$proveedoresPog[$i]["razonSocial"].'</textarea>
+													<textarea name="direccion_'.($i+1).'" id="direccion_'.($i+1).'" class="form-control lowered2">'.$proveedoresPog[$i]["direccion"].'</textarea>
+												</td>
+												<td class="col-md-4">
+													<input type="text" name="contacto1_'.($i+1).'" id="contacto1_'.($i+1).'" value="'.$proveedoresPog[$i]["nombre1"].'" class="form-control" disabled/>
+													<input type="text" name="contacto2_'.($i+1).'" id="contacto2_'.($i+1).'" value="'.$proveedoresPog[$i]["nombre2"].'" class="form-control" disabled/>
+													<input type="text" name="contacto3_'.($i+1).'" id="contacto3_'.($i+1).'" value="'.$proveedoresPog[$i]["nombre3"].'" class="form-control" disabled/>
+												</td>
+												<td>
+													<div class="row">
+														<input type="text" name="correo1_'.($i+1).'" id="correo1_'.($i+1).'" value="'.$proveedoresPog[$i]["correoElectronico1"].'" class="form-control" disabled/>
+														<a name="quitarcontacto1_'.($i+1).'" id="quitarcontacto1_'.($i+1).'" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+													</div>
+													<div class="row">
+														<input type="text" name="correo2_'.($i+1).'" id="correo2_'.($i+1).'" value="'.$proveedoresPog[$i]["correoElectronico2"].'" class="form-control" disabled/>
+														<a name="quitarcontacto2_'.($i+1).'" id="quitarcontacto2_'.($i+1).'" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+													</div>
+													<div class="row">
+														<input type="text" name="correo3_'.($i+1).'" id="correo3_'.($i+1).'" value="'.$proveedoresPog[$i]["correoElectronico3"].'" class="form-control" disabled/>
+														<a name="quitarcontacto3_'.($i+1).'" id="quitarcontacto3_'.($i+1).'" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
+													</div>
+												</td>
+												<td class="spacer">
+													<a  name="quitarproveedor_'.($i+1).'" id="quitarproveedor_'.($i+1).'" class="btn btn-danger btn-xs lowered quitarproveedor aligned-right"><span class="fa fa-trash"></span></a>
+													<a name="buscarproveedor_'.($i+1).'" id="buscarproveedor_'.($i+1).'" class="btn btn-info btn-xs buscarproveedor aligned-right"><span class="fa fa-search"></span></a>
+												</td>
+											</tr>
+										';
+										echo $html;
+									}
+								?>
+								<!--
 								<tr>
 									<td class="col-md-2">
 										<input type="text" name="clave_1" id="clave_1" class="form-control lowered" maxlength="15"/>
@@ -277,9 +318,135 @@
 										<a name="buscarproveedor_1" id="buscarproveedor_1" class="btn btn-info btn-xs buscarproveedor aligned-right"><span class="fa fa-search"></span></a>
 									</td>
 								</tr>
+								-->
+
 							</tbody>
 						</table>
 
+						<hr />
+					</div>
+
+					<div class="seccion-articulos hidden">
+					
+						<h2>Artículos</h2>
+						<h4>Seleccione los artículos de la familia seleccionada para enviar a los proveddores junto con la Petición Oferta</h4>
+						
+						<br />
+						<div class="form-group">
+							<a id="cargarArticulos" class="btn btn-primary">
+								<i class="fa "></i> Cargar artículos de familia
+							</a>
+							<a id="agregarRegistroArticulos" class="btn btn-primary">
+								<i class="fa "></i> Agregar registro en blanco
+							</a>
+						</div>
+
+						<br />
+						<div class="form-group">
+							<label for="titulo" class="col-md-1 control-label">Título</label>
+							<div class="col-md-6">
+								<input type="text" name="titulo" value="<?php echo $imTitulo ?>" class="form-control" id="titulo" maxlength="255"/>
+							</div>
+						</div>
+
+						<table id="tablaArticulos" class="table table-hover">
+							<thead class="thead-inverse">
+								<th>Partida</th>
+								<th>Código</th>
+								<th>Descripción</th>
+								<th>Plazo de entrega (días)</th>
+								<th>Cantidad</th>
+								<th>UM</th>
+								<th>Lugar de entrega</th>
+								<th>Dirección de entrega</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<?php
+									$rowsim = count($imConcepto);
+									for($i = 0; $i < $rows; $i++){
+										$html_im = '
+											<tr>
+												<td >
+													<input type="text" name="partida_'.($i+1).'" id="partida_'.($i+1).'" value="'.$imConcepto[$i]["partida"].'" class="form-control partida" disabled/> 
+												</td>
+												<td >
+													<input type="text" name="codigo_'.($i+1).'" id="codigo_'.($i+1).'" value="'.$imConcepto[$i]["codigo"].'" class="form-control" maxlength="10"/>
+												</td>
+												<td >
+													<input type="text" name="descripcion_'.($i+1).'" id="descripcion_'.($i+1).'" value="'.$imConcepto[$i]["descripcion"].'" class="form-control" disabled/>
+												</td>
+												<td >
+													<input type="text" name="plazoentrega_'.($i+1).'" id="plazoentrega_'.($i+1).'" value="'.$imConcepto[$i]["plazoEntrega"].'" class="form-control" maxlength="11"/>
+												</td>
+												<td >
+													<input type="text" name="cantidad_'.($i+1).'" id="cantidad_'.($i+1).'" value="'.$imConcepto[$i]["cantidad"].'" class="form-control" maxlength="11"/>
+												</td>
+												<td class="col-md-1">
+													<input type="text" name="um_'.($i+1).'" id="um_'.($i+1).'" value="'.$imConcepto[$i]["clave"].'" class="form-control" disabled/>
+												</td>
+												<td >
+													<select name="lugarentrega_'.($i+1).'" id="lugarentrega_'.($i+1).'" class="form-control select-lugar">
+														<option value="0">Seleccione</option>
+													</select>
+												</td>';
+										$html_im .= '
+												<td class="col-md-2">
+													<input type="text" name="direccionentrega_'.($i+1).'" id="direccionentrega_'.($i+1).'"  value="'.$imConcepto[$i]["direccionEntrega"].'" class="form-control input-direccion" disabled/>
+												</td>
+												<td>
+													<a name="quitararticulo_'.($i+1).'" id="quitararticulo_'.($i+1).'" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
+													<a name="buscararticulo_'.($i+1).'" id="buscararticulo_'.($i+1).'" class="btn btn-info btn-xs buscararticulo"><span class="fa fa-search"></span></a>
+												</td>
+											</tr>';
+										echo $html_im;
+									}
+								?>
+
+							<!--
+								<tr>
+									<td >
+										<input type="text" name="partida_1" id="partida_1" class="form-control partida" value=1 disabled/> 
+									</td>
+									<td >
+										<input type="text" name="codigo_1" id="codigo_1" class="form-control" maxlength="10"/>
+									</td>
+									<td >
+										<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
+									</td>
+									<td >
+										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control" maxlength="11"/>
+									</td>
+									<td >
+										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control" maxlength="11"/>
+									</td>
+									<td class="col-md-1">
+										<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
+									</td>
+									<td >
+										<select name="lugarentrega_1" id="lugarentrega_1" class="form-control select-lugar">
+											<option value="0">Seleccione</option>
+											<?php 
+												foreach ($almacenes as $i) {
+													echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. $i->nombre .'</option>';
+												}
+											?>
+											<option value="<?php echo sizeof($almacenes)+1?>">OTRO</option>
+										</select>
+									</td>
+									<td class="col-md-2">
+										<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control input-direccion" disabled/>
+									</td>
+									<td>
+										<a name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
+										<a name="buscararticulo_1" id="buscararticulo_1" class="btn btn-info btn-xs buscararticulo"><span class="fa fa-search"></span></a>
+									</td>
+								</tr>
+								-->
+							</tbody>
+						</table>
+						
+						
 						<hr />
 					</div>
 					

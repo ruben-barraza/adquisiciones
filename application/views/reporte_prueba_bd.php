@@ -1,7 +1,7 @@
 <?php
 
 
-
+/*
 
 
 // Extend the TCPDF class to create custom Header and Footer
@@ -238,57 +238,16 @@ $pdf->lastPage();
 // END OF FILE
 //============================================================+
 
-
-/*
-
-$tableRows = count($im_concepto);
-var_dump($im_concepto);
-
-$lugaresEntrega = array_count_values(array_column($im_concepto, 'lugarEntrega'));
-$direccionesEntrega = array_count_values(array_column($im_concepto, 'direccionEntrega'));
-
-var_dump($direccionesEntrega);
-var_dump($lugaresEntrega);
-
-$html = "
-    <table border='1' cellspacing='0' cellpadding='5'>
-        <thead>
-            <tr style='background-color:#D3D3D3;'>
-                <th>Partida</th>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Descripción detallada</th>
-                <th>Especificación</th>
-                <th width='70'>Plazo de entrega (días)</th>
-                <th>Cant</th>
-                <th>UM</th>
-                <th>Lugar de entrega</th>
-                <th>Dirección</th>
-            </tr>
-        </thead>
-        <tbody>";
-            for($i = 0; $i < $tableRows; $i++)
-            {
-                $html .= "<tr>";
-                $html .= "<td align='center'>".$im_concepto[$i]["partida"]."</td>";
-                $html .= "<td align='center'>".$im_concepto[$i]["codigo"]."</td>";
-                $html .= "<td align='center'>".mb_strtoupper($im_concepto[$i]["descripcion"], 'utf-8')."</td>";
-                $html .= "<td align='center'>".mb_strtoupper($im_concepto[$i]["descripcionDetallada"], 'utf-8')."</td>";
-                $html .= "<td align='center'>".mb_strtoupper($im_concepto[$i]["especificacion"], 'utf-8')."</td>";
-                $html .= "<td align='center' width='70'>".$im_concepto[$i]["plazoEntrega"]."</td>";
-                $html .= "<td align='center'>".$im_concepto[$i]["cantidad"]."</td>";
-                $html .= "<td align='center'>".$im_concepto[$i]["clave"]."</td>";
-                $html .= "<td align='center'>".mb_strtoupper($im_concepto[$i]["lugarEntrega"], 'utf-8')."</td>";
-                $html .= "<td align='center'>".$im_concepto[$i]["direccionEntrega"]."</td>";
-                $html .= "</tr>";
-            }
-$html .= "</tbody>";
-$html .= "</table>";
-
-
-
-echo $html;
-
 */
+
+
+
+$rows = count($imConcepto);
+var_dump($imConcepto);
+
+echo "Número de provedoores : ".$rows;
+
+
+
 
 ?>

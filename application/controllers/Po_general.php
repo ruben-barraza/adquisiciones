@@ -376,6 +376,8 @@ class Po_general extends CI_Controller{
                 $data['empleadoResponsable'] = $this->Pogeneralmodel->getEmpleadoResponsable($id);
                 $data['empleadoFormula'] = $this->Pogeneralmodel->getEmpleadoFormula($id);
                 $data['proveedoresPog'] = $this->Pogeneralmodel->getProveedoresPog($id);
+                $data['imTitulo'] = $this->Pogeneralmodel->getImTitulo($id);
+                $data['imConcepto'] = $this->Pogeneralmodel->getImConcepto($id);
 
 				$this->load->model('Empleadomodel');
 				$data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
@@ -383,6 +385,7 @@ class Po_general extends CI_Controller{
 
                 $this->load->model('Comboboxesmodel');
         		$data['estados'] = $this->Comboboxesmodel->getEstados();
+                $data['almacenes'] = $this->Comboboxesmodel->getAlmacenes();
                 $data['familias'] = $this->Comboboxesmodel->getFamilias();
 
 				$this->load->model('Municipiomodel');

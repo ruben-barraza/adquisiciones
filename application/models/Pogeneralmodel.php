@@ -333,11 +333,35 @@ class Pogeneralmodel extends CI_Model
 
     public function getProveedoresPog($id)
     {
+        $this->db->distinct();
         $this->db->select('proveedor.id, proveedor.clave, proveedor.razonSocial, proveedor.direccion, proveedor.nombre1, proveedor.correoElectronico1, proveedor.nombre2, proveedor.correoElectronico2, proveedor.nombre3, proveedor.correoElectronico3');
         $this->db->from('po_general');
         $this->db->join('po_proveedor', 'po_general.id = po_proveedor.idPog', 'inner');
         $this->db->join('proveedor', 'po_proveedor.idProveedor = proveedor.id', 'inner');
         $this->db->where('po_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    public function getImTitulo($id)
+    {
+        $this->db->distinct();
+        $this->db->select('titulo')->from('im_general')->where('id', $id);
+         $valor = $this->db->get();
+        $vl = $valor->row_array();
+        return $vl['titulo'];
+    }
+
+    public function getImConcepto($id)
+    {
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.plazoEntrega, im_concepto.cantidad, im_concepto.lugarEntrega, im_concepto.direccionEntrega');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->where('im_concepto.idPog', $id);
+        $this->db->order_by("partida", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
