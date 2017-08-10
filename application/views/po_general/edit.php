@@ -364,7 +364,7 @@
 							<tbody>
 								<?php
 									$rowsim = count($imConcepto);
-									for($i = 0; $i < $rows; $i++){
+									for($i = 0; $i < $rowsim; $i++){
 										$html_im = '
 											<tr>
 												<td >
@@ -387,7 +387,6 @@
 												</td>
 												<td >
 													<select name="lugarentrega_'.($i+1).'" id="lugarentrega_'.($i+1).'" class="form-control select-lugar">
-														<option value="0">Seleccione</option>
 													</select>
 												</td>';
 										$html_im .= '
@@ -627,6 +626,64 @@
 			}
 		});
 
+		//Poblar los selects de lugar de entrega
+		$rowsArticulos = $("#tablaArticulos > tbody > tr").length;
+		
+		for($j = 0; $j < $rowsArticulos; $j++){
+			var htmlOptions = '<?php 
+				
+				echo '<option value="0">Seleccione</option>';
+				foreach ($almacenes as $i) {
+					echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. mb_strtoupper($i->nombre) .'</option>';
+				}
+				echo '<option value="'.sizeof($almacenes).'">OTRO</option>';
+			?>';
+			$("#lugarentrega_" + ($j+1)).append(htmlOptions);
+		}
+
+		//Seleccionar el lugar de entrega correspondiente para cada select
+		var arrayFromPHP = <?php echo json_encode($imConcepto); ?>;
+		console.log(arrayFromPHP);
+		var arrayLength = arrayFromPHP.length;
+		var lugaresEntrega = [];
+
+		for (i = 0; i < arrayLength; i++){
+			console.log(arrayFromPHP[i].lugarEntrega);
+			console.log(i + 1);
+			$("lugarentrega_" + (i+1) + " option:contains(" + arrayFromPHP[i].lugarEntrega + ")").prop("selected", true);
+		}
+	});
+
+	//Carga la dirección del almacén seleccionado en el campo de dirección
+	//Si se selecciona Otro el campo se vuelve editable
+	$(document).on("change", ".select-lugar", function(){
+
+   		var $mySelect = $(this);
+		var $row = $mySelect.closest('tr'); // the row where this select element is in.
+		var idAlmacen = $mySelect.val();
+		var opcion = $mySelect.find('option:selected').text();
+		if(opcion != "Seleccione" && opcion != "OTRO"){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerDireccionAlmacen',
+				method: 'POST',
+				data: {
+					idAlmacen: idAlmacen
+				},
+				success: function (returned) {
+					var result = JSON.parse(returned);
+					var domicilio = ((result.almacen)[0].domicilio);
+					$row.find('.input-direccion').val(domicilio);
+					$row.find('.input-direccion').prop("disabled", true);
+				}
+			});
+		} else if (opcion == "OTRO"){
+			$row.find('.input-direccion').prop("disabled", false);
+			$row.find('.input-direccion').val("")
+		} else if (opcion == "Seleccione"){
+			$row.find('.input-direccion').prop("disabled", true);
+			$row.find('.input-direccion').val("")
+		}
+		
 	});
 
 
