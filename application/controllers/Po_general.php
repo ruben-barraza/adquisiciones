@@ -187,27 +187,11 @@ class Po_general extends CI_Controller{
         echo json_encode($data);
     }
 
-    /*
-    //TRANSFERIDO A Generar_PDF
-    function pdf($id){
-        $this->load->library('Pdf');
+    function eliminarRelaciones(){
+        $id = $_POST['id'];
+        $this->Pogeneralmodel->delete_relaciones($id);
 
-        $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
-        $pdf->SetTitle('My Title');
-        $pdf->SetHeaderMargin(30);
-        $pdf->SetTopMargin(20);
-        $pdf->setFooterMargin(20);
-        $pdf->SetAutoPageBreak(true);
-        $pdf->SetAuthor('Author');
-        $pdf->SetDisplayMode('real', 'default');
-
-        $pdf->AddPage();
-
-        $pdf->Write(5, 'Some sample text');
-        $pdf->Output('Peticion_Oferta_'.$id.'.pdf', 'I');
     }
-
-    */
 
     /*
      * Listing of listapo_general
@@ -229,10 +213,9 @@ class Po_general extends CI_Controller{
 
 		$this->form_validation->set_rules('tipo','Tipo','required');
         $this->form_validation->set_rules('idFamilia','IdFamilia');
-        //$this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
 		$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
-		$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','max_length[5]required');
-		$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','max_length[5]required');
+		$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','max_length[5]|required');
+		$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','max_length[5]|required');
 		$this->form_validation->set_rules('fechaLimitePresentacion','FechaLimitePresentacion','required');
         $this->form_validation->set_rules('horaLimitePresentacion','HoraLimitePresentacion','max_length[10]');
 		$this->form_validation->set_rules('ccp1','Ccp1','max_length[250]');
@@ -259,7 +242,6 @@ class Po_general extends CI_Controller{
             $params = array(
 				'tipo' => $this->input->post('tipo'),
                 'idFamilia' => $this->input->post('idFamilia'),
-                //'oficioNumero' => $this->input->post('oficioNumero'),
 				'domicilio' => $this->input->post('domicilio'),
 				'idEmpleadoResponsable' => $empleadoResponsable,
 				'idEmpleadoFormula' => $empleadoFormula,
@@ -275,19 +257,6 @@ class Po_general extends CI_Controller{
             );
             
             $po_general_id = $this->Pogeneralmodel->add_po_general($params);
-
-            /*
-            $params_im = array(
-                'titulo' => $this->input->post('titulo'),
-                'idEmpleadoFormula' => $empleadoFormula,
-                'idEmpleadoAutoriza' => $empleadoResponsable,
-				'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
-                'idMunicipioElaboracion' => $this->input->post('idMunicipio'),
-                'estatus' => '0'
-            );
-
-            $this->Pogeneralmodel->add_im_general($params_im);
-            */
             redirect('po_consideracion/add');
         }
         else
@@ -321,10 +290,10 @@ class Po_general extends CI_Controller{
             $this->load->library('form_validation');
 
 			$this->form_validation->set_rules('tipo','Tipo','required');
-            //$this->form_validation->set_rules('oficioNumero','OficioNumero','max_length[20]');
+            $this->form_validation->set_rules('idFamilia','IdFamilia');
 			$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
-			$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable','required');
-			$this->form_validation->set_rules('idEmpleadoFormula','IdEmpleadoFormula','required');
+			$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','required');
+			$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','required');
 			$this->form_validation->set_rules('fechaLimitePresentacion','FechaLimitePresentacion','required');
             $this->form_validation->set_rules('horaLimitePresentacion','HoraLimitePresentacion','max_length[10]');
 			$this->form_validation->set_rules('ccp1','Ccp1','max_length[250]');
@@ -349,23 +318,25 @@ class Po_general extends CI_Controller{
 
                 $params = array(
 					'tipo' => $this->input->post('tipo'),
-                    //'oficioNumero' => $this->input->post('oficioNumero'),
+                    'idFamilia' => $this->input->post('idFamilia'),
 					'domicilio' => $this->input->post('domicilio'),
 					'idEmpleadoResponsable' => $empleadoResponsable,
 					'idEmpleadoFormula' => $empleadoFormula,
 					'fechaLimitePresentacion' => date("Y-m-d", strtotime($fechaLimitePresentacion)),
-					'ccp1' => $this->input->post('ccp1'),
+					'horaLimitePresentacion' => $this->input->post('horaLimitePresentacion'),
+                    'ccp1' => $this->input->post('ccp1'),
 					'ccp2' => $this->input->post('ccp2'),
 					'ccp3' => $this->input->post('ccp3'),
 					'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
-                    'horaLimitePresentacion' => $this->input->post('horaLimitePresentacion'),
 					'asunto' => $this->input->post('asunto'),
 					'idMunicipio' => $this->input->post('idMunicipio'),
 					'fechaUltimaModificacion' => date('Y/m/d H:i:s', time()),
                 );
 
                 $this->Pogeneralmodel->update_po_general($id,$params);            
-                redirect('po_general/index');
+                $this->Pogeneralmodel->edit_uk_po_aclaracion_acuse($id, $empleadoResponsable, $empleadoFormula);
+
+                redirect('po_consideracion/edit/'.$id);
             }
             else
             {
@@ -412,13 +383,22 @@ class Po_general extends CI_Controller{
             $this->Pogeneralmodel->delete_po_general($id);
 
             //Borrar de la tabla PO_Proveedor
+            $this->Pogeneralmodel->delete_po_proveedor($id);
 
             //Borrar de la tabla PO_Acuse
+            $this->Pogeneralmodel->delete_po_acuse($id);
 
             //Borrar de la tabla PO_ACLARACION
+            $this->Pogeneralmodel->delete_po_aclaracion($id);
 
             //Borrar de la tabla IM_General
+            $this->Pogeneralmodel->delete_im_general($id);
 
+            //Borar de la tabla IM_Concepto
+            $this->Pogeneralmodel->delete_im_concepto($id);
+
+            //Borrar de la tabla PO_Numoficio
+            $this->Pogeneralmodel->delete_po_numoficio($id);
             
 
             redirect('po_general/index');

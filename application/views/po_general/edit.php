@@ -64,7 +64,7 @@
 					<div class="form-group">
 						<label for="tipo" class="col-md-2 control-label">Tipo</label>
 						<div class="col-md-6">
-							<select name="tipoProveedor" id="tipoProveedor" class="form-control">
+							<select name="tipo" id="tipoProveedor" class="form-control">
 								<option value="0">Seleccione</option>
 								<?php 
 									$tipo_values = array(
@@ -285,40 +285,6 @@
 										echo $html;
 									}
 								?>
-								<!--
-								<tr>
-									<td class="col-md-2">
-										<input type="text" name="clave_1" id="clave_1" class="form-control lowered" maxlength="15"/>
-									</td>
-									<td class="col-md-3">
-										<textarea name="razonsocial_1" id="razonsocial_1" class="form-control"></textarea>
-										<textarea name="direccion_1" id="direccion_1" class="form-control lowered2"></textarea>
-									</td>
-									<td class="col-md-4">
-										<input type="text" name="contacto1_1" id="contacto1_1" class="form-control" disabled/>
-										<input type="text" name="contacto2_1" id="contacto2_1" class="form-control" disabled/>
-										<input type="text" name="contacto3_1" id="contacto3_1" class="form-control" disabled/>
-									</td>
-									<td>
-										<div class="row">
-											<input type="text" name="correo1_1" id="correo1_1" class="form-control" disabled/>
-											<a name="quitarcontacto1_1" id="quitarcontacto1_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
-										</div>
-										<div class="row">
-											<input type="text" name="correo2_1" id="correo2_1" class="form-control" disabled/>
-											<a name="quitarcontacto2_1" id="quitarcontacto2_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
-										</div>
-										<div class="row">
-											<input type="text" name="correo3_1" id="correo3_1" class="form-control" disabled/>
-											<a name="quitarcontacto3_1" id="quitarcontacto3_1" class="btn btn-danger btn-xs aligned quitarcontacto"><span class="fa fa-times"></span></a>
-										</div>
-									</td>
-									<td class="spacer">
-										<a  name="quitarproveedor_1" id="quitarproveedor_1" class="btn btn-danger btn-xs lowered quitarproveedor aligned-right"><span class="fa fa-trash"></span></a>
-										<a name="buscarproveedor_1" id="buscarproveedor_1" class="btn btn-info btn-xs buscarproveedor aligned-right"><span class="fa fa-search"></span></a>
-									</td>
-								</tr>
-								-->
 
 							</tbody>
 						</table>
@@ -401,47 +367,6 @@
 										echo $html_im;
 									}
 								?>
-
-							<!--
-								<tr>
-									<td >
-										<input type="text" name="partida_1" id="partida_1" class="form-control partida" value=1 disabled/> 
-									</td>
-									<td >
-										<input type="text" name="codigo_1" id="codigo_1" class="form-control" maxlength="10"/>
-									</td>
-									<td >
-										<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
-									</td>
-									<td >
-										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control" maxlength="11"/>
-									</td>
-									<td >
-										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control" maxlength="11"/>
-									</td>
-									<td class="col-md-1">
-										<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
-									</td>
-									<td >
-										<select name="lugarentrega_1" id="lugarentrega_1" class="form-control select-lugar">
-											<option value="0">Seleccione</option>
-											<?php 
-												foreach ($almacenes as $i) {
-													echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. $i->nombre .'</option>';
-												}
-											?>
-											<option value="<?php echo sizeof($almacenes)+1?>">OTRO</option>
-										</select>
-									</td>
-									<td class="col-md-2">
-										<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control input-direccion" disabled/>
-									</td>
-									<td>
-										<a name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
-										<a name="buscararticulo_1" id="buscararticulo_1" class="btn btn-info btn-xs buscararticulo"><span class="fa fa-search"></span></a>
-									</td>
-								</tr>
-								-->
 							</tbody>
 						</table>
 						
@@ -451,9 +376,12 @@
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
-							<button type="submit" class="btn btn-success">
+							<button id="botonEditar" type="submit" class="btn btn-success">
 								<i class="fa fa-check"></i> Guardar
 							</button>
+							<a href="<?php echo site_url('po_general/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+								<span class="fa fa-ban"></span> Cancelar
+							</a>
 				        </div>
 					</div>
 					
@@ -643,15 +571,321 @@
 
 		//Seleccionar el lugar de entrega correspondiente para cada select
 		var arrayFromPHP = <?php echo json_encode($imConcepto); ?>;
-		console.log(arrayFromPHP);
 		var arrayLength = arrayFromPHP.length;
-		var lugaresEntrega = [];
 
 		for (i = 0; i < arrayLength; i++){
-			console.log(arrayFromPHP[i].lugarEntrega);
-			console.log(i + 1);
-			$("lugarentrega_" + (i+1) + " option:contains(" + arrayFromPHP[i].lugarEntrega + ")").prop("selected", true);
+			$("#lugarentrega_" + (i+1) + " option:contains(" + arrayFromPHP[i].lugarEntrega + ")").prop("selected", true);
+			if(arrayFromPHP[i].lugarEntrega == "OTRO"){
+				console.log("HOLA");
+				$("#direccionentrega_" + (i+1)).prop("disabled", false);
+			}
 		}
+
+		//Agrega una fila en blanco a la tabla de proveedores
+		$("#agregarRegistroProveedores").click(function(){
+			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+			var cuentaNueva = parseInt(cuentaActual) + 1;
+
+			$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input") || $(this).is("textarea")){
+					$(this).val("");
+				}
+			});
+				
+		});
+
+		//Agrega una fila en blanco a la tabla de artículos
+		$("#agregarRegistroArticulos").click(function(){
+			//Busca el valor de la última partida
+			var ultimaPartida = parseInt($("#tablaArticulos tr:last input.partida").val());
+
+			var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
+			var cuentaNueva = parseInt(cuentaActual) + 1;
+
+			$('#tablaArticulos tbody>tr:last').clone(true).insertAfter('#tablaArticulos tbody>tr:last');
+			$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_" + cuentaNueva);
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_" + cuentaNueva);
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				if($(this).is("input")){
+					$(this).val("");
+				}
+				$("#partida_" + cuentaNueva).val(ultimaPartida + 1);
+			});
+     	});
+
+		 //Carga los proveedores que manejen la familia seleccionada 
+		$("#cargarProveedoresBienes").click(function(){
+			var idFamilia = $("#idFamilia").val();
+			if(idFamilia != 0){
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaProveedores',
+					method: 'POST',
+					data: {
+						idFamilia: idFamilia
+					},
+					success: function (returned) {
+						
+						var returned = JSON.parse(returned);
+						var longitud = returned.listaproveedores.length;
+						
+						$("#tablaProveedores").find("tr:gt(1)").remove();
+						
+						var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+						$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+							var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input") || $(this).is("textarea")){
+								$(this).val("");
+							}
+						});
+
+						for (var i = 1; i < longitud; i++) {
+							$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+							$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+								$(this).attr("id", nuevoId).attr("name", nuevoName);
+								$(this).removeAttr("style");
+								if($(this).is("input") || $(this).is("textarea")){
+									$(this).val("");
+								}
+							});
+						}
+						
+						jQuery.each(returned.listaproveedores, function( i, val ) {                   
+							//console.log(i);
+							$("#clave_" + (i+1)).val(val.clave);
+							$("#razonsocial_" + (i+1)).val(val.razonSocial);
+							$("#direccion_" + (i+1)).val(val.direccion);
+							$("#contacto1_" + (i+1)).val(val.nombre1);
+							$("#contacto2_" + (i+1)).val(val.nombre2);
+							$("#contacto3_" + (i+1)).val(val.nombre3);
+							$("#correo1_" + (i+1)).val(val.correoElectronico1);
+							$("#correo2_" + (i+1)).val(val.correoElectronico2);
+							$("#correo3_" + (i+1)).val(val.correoElectronico3);
+						});
+					}
+				});
+			}
+		});
+
+		//Carga los provedoores de servicios y de bienes y servicios (tipo S Y A)
+		$("#cargarProveedoresServicios").click(function(){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaProveedoresServicio',
+				method: 'GET',
+				success: function (returned) {
+					var returned = JSON.parse(returned);
+					var longitud = returned.listaproveedoresservicio.length;
+					$("#tablaProveedores").find("tr:gt(1)").remove();
+						
+					var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+					$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+						var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+						var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+						$(this).attr("id", nuevoId).attr("name", nuevoName);
+						$(this).removeAttr("style");
+						if($(this).is("input") || $(this).is("textarea")){
+							$(this).val("");
+						}
+					});
+
+					for (var i = 1; i < longitud; i++) {
+						$('#tablaProveedores tbody>tr:last').clone(true).insertAfter('#tablaProveedores tbody>tr:last');
+						$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+							var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input") || $(this).is("textarea")){
+								$(this).val("");
+							}
+						});
+					}
+						
+					jQuery.each(returned.listaproveedoresservicio, function( i, val ) {                   
+						//console.log(i);
+						$("#clave_" + (i+1)).val(val.clave);
+						$("#razonsocial_" + (i+1)).val(val.razonSocial);
+						$("#direccion_" + (i+1)).val(val.direccion);
+						$("#contacto1_" + (i+1)).val(val.nombre1);
+						$("#contacto2_" + (i+1)).val(val.nombre2);
+						$("#contacto3_" + (i+1)).val(val.nombre3);
+						$("#correo1_" + (i+1)).val(val.correoElectronico1);
+						$("#correo2_" + (i+1)).val(val.correoElectronico2);
+						$("#correo3_" + (i+1)).val(val.correoElectronico3);
+					});
+				}
+			});
+		});
+
+		//Carga los artículos relacionados con la familia seleccionada
+		$("#cargarArticulos").click(function(){
+			var idFamilia = $("#idFamilia").val();
+			if(idFamilia != 0){
+				$.ajax({
+					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaArticulos',
+					method: 'POST',
+					data: {
+						idFamilia: idFamilia
+					},
+					success: function (returned) {
+						var returned = JSON.parse(returned);
+						var longitud = returned.listaarticulos.length;
+
+						$("#tablaArticulos").find("tr:gt(1)").remove();
+						
+						var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
+						$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
+							var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+							var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+							$(this).attr("id", nuevoId).attr("name", nuevoName);
+							$(this).removeAttr("style");
+							if($(this).is("input")){
+								$(this).val("");
+							}
+						});
+
+						
+						for (var i = 1; i < longitud; i++) {
+							$('#tablaArticulos tbody>tr:last').clone(true).insertAfter('#tablaArticulos tbody>tr:last');
+							$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
+								var nuevoId = $(this).attr("id").replace("_" + i, "_" + (i+1));
+								var nuevoName = $(this).attr("name").replace("_" + i, "_" + (i+1));
+								$(this).attr("id", nuevoId).attr("name", nuevoName);
+								if($(this).is("input")){
+									$(this).val("");
+								}
+							});
+						}
+
+						jQuery.each(returned.listaarticulos, function( i, val ) {    
+							$("#partida_" + (i+1)).val(i+1);
+							$("#codigo_" + (i+1)).val(val.codigo);
+							$("#descripcion_" + (i+1)).val(val.descripcion);
+							$("#plazoentrega_" + (i+1)).val(val.tiempoEntrega);
+							$("#um_" + (i+1)).val(val.unidadmedida);
+						});
+					}
+				});
+			}	
+		});
+
+		$("#botonEditar").click(function(){
+			var id = <?php echo $po_general['id'] ?>
+
+			$.ajax({
+				url: '<?php echo base_url();?>index.php/Po_general/eliminarRelaciones',
+				method: 'POST',
+				async: false,
+				data: {
+					id: id,
+				}
+			});
+
+			//Longitud - 1 para el número real de renglones en la tabla
+			var longitudTabla = $("#tablaProveedores tr").length - 1;
+			var numOficios = 0;
+			//obtiene los proveedores y contactos involucrados en esta PO y los manda a la tabla po_proveedor
+			for(i = 0; i < longitudTabla; i++){
+				var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + i + ") input:first").attr("name").split("_").pop();
+				var clave = $("#clave_" + cuentaActual1).val();
+				if(clave != ""){
+					for(j = 1; j <= 3; j++){
+						var contacto = $("#contacto" + j + "_" + cuentaActual1);
+						if(contacto.val() != "" && contacto.css('display') != 'none')
+						{	
+							$.ajax({
+								url: '<?php echo base_url();?>index.php/Po_general/crearRelacionProveedor',
+								method: 'POST',
+								async: false,
+								data: {
+									id: id,
+									clave: clave,
+									numcontacto: j
+								}
+							});
+							numOficios++;
+						}
+					}
+				}
+			}
+
+			var fecha = $('#fechaElaboracion').val();
+			//Crear los números de oficio que se enviaran a los proveedores
+			//Estos números serán visibles en los PDFs
+			for(i = 0; i < numOficios; i++){
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearNumeroOficio',
+					method: 'POST',
+					async: false,
+					data: {
+						id: id,
+						fecha: fecha,
+					}
+				});
+			}
+			
+
+			//insertar en la tabla IM_GENERAL
+			if($('#titulo').val() != ""){
+				var titulo = $('#titulo').val();
+				var idMunicipio = $('#idMunicipio').val();
+				var rpe1 = $('#empleadoResponsable').val();
+				var rpe2 = $('#empleadoFormula').val();
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMGeneral',
+					method: 'POST',
+					async: false,
+					data: {
+						id: id,
+						titulo: titulo,
+						rpe1: rpe1,
+						rpe2: rpe2,
+						idMunicipio: idMunicipio,
+						fecha: fecha
+					}
+				});
+			}
+
+			var tipoProveedor = $('#tipoProveedor').val();
+			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
+
+			for(k = 0; k < longitudTablaArticulo; k++){
+				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+				var partida = $("#partida_" + cuentaActual2).val();
+				var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+				var cantidad = $("#cantidad_" + cuentaActual2).val();
+				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
+				var lugarEntrega = lugar.split("- ").pop();
+				var direccion = $("#direccionentrega_" + cuentaActual2).val();
+				$.ajax({
+					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
+					method: 'POST',
+					async: false,
+					data: {
+						id: id,
+						tipo: tipoProveedor,
+						articuloCodigo: articuloCodigo,
+						partida: partida,
+						plazoEntrega: plazoEntrega,
+						cantidad: cantidad,
+						lugarEntrega: lugarEntrega,
+						direccion: direccion 
+					}
+				});
+			}
+
+     	});
 	});
 
 	//Carga la dirección del almacén seleccionado en el campo de dirección
@@ -686,6 +920,142 @@
 		
 	});
 
+	$(document).on("click", "a.btn.quitararticulo" ,function() {
+		if($("#tablaArticulos tbody tr").length > 1){
+			var tableRow = $(this).closest('tr');
+    		tableRow.find('td').fadeOut('fast', 
+        		function(){ 
+            		tableRow.remove();
+					//Renumera la partida después de quitar un renglón
+					longitudNueva = $("#tablaArticulos tbody tr").length;
+					for (i = 1; i <= longitudNueva; i++) { 
+						$("#tablaArticulos tr:eq(" + i + ") input.partida").val(i);
+					}                    
+        		}
+    		);
+		} else {
+			var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
+			$('#tablaArticulos tbody>tr:last').find("input, select, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input")){
+					$(this).val("");
+				}
+				$("#partida_1").val(1);
+			});
+		}
+	});
+
+	$(document).on("click", "a.btn.buscararticulo" ,function() {
+		var $this = $(this);
+		var $codigo = $this.closest('tr').find('input:eq(1)').val();
+		var $row = $this.attr("name").split("_").pop();
+		if($codigo != ""){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerArticuloCodigo',
+				method: 'POST',
+				data: {
+					codigo: $codigo
+				},
+				success: function (returned) {
+					var result = JSON.parse(returned);
+					jQuery.each(result.articulo, function( i, val ) {    
+						$("#codigo_" + ($row)).val(val.codigo);
+						$("#descripcion_" + ($row)).val(val.descripcion);
+						$("#plazoentrega_" + ($row)).val(val.tiempoEntrega);
+						//$("#cantidad_" + ($row)).val(val.cantidadEmbalaje);
+						$("#um_" + ($row)).val(val.unidadmedida);
+					});
+				}
+			});
+		}
+	});
+	
+	//Quita el nombre y correo electrónico de un proveedor
+	$(document).on("click", "a.btn.quitarcontacto" ,function() {
+		var name = $(this).attr("name");
+		var numcontacto = name.substr(name.length - 3);
+
+		$( "#contacto" + numcontacto ).fadeOut( "fast" );
+		$( "#correo" + numcontacto ).fadeOut( "fast" );
+		$( "#quitarcontacto" + numcontacto ).fadeOut( "fast" );
+	});
+
+	//Quita la información completa de un proveedor de la tabla
+	$(document).on("click", "a.btn.quitarproveedor" ,function() {
+		//var tabfila = name.split("_").pop();
+		if($("#tablaProveedores tbody tr").length > 1){
+			var tableRow = $(this).closest('tr');
+    		tableRow.find('td').fadeOut('fast', 
+        		function(){ 
+            		tableRow.remove();                    
+        		}
+    		);
+		} else {
+			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
+			$('#tablaProveedores tbody>tr:last').find("input, textarea, a").each(function (){
+				var nuevoId = $(this).attr("id").replace("_" + cuentaActual, "_1");
+				var nuevoName = $(this).attr("name").replace("_" + cuentaActual, "_1");
+				$(this).attr("id", nuevoId).attr("name", nuevoName);
+				$(this).removeAttr("style");
+				if($(this).is("input") || $(this).is("textarea")){
+					$(this).val("");
+				}
+			});
+		}
+	});
+
+	//Busca un proveedor de acuerdo a la clave que se escriba en el campo CLAVE
+	$(document).on("click", "a.btn.buscarproveedor", function(){
+		var $this = $(this);
+		var $clave = $this.closest('tr').find('input:eq(0)').val();
+		var $row = $this.attr("name").split("_").pop();
+		if($clave != ""){
+			$.ajax({
+				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerProveedorClave',
+				method: 'POST',
+				data: {
+					clave: $clave
+				},
+				success: function (returned) {
+					var result = JSON.parse(returned);
+					jQuery.each(result.proveedor, function( i, val ) {     
+						$("#clave_" + ($row)).val(val.clave);
+						$("#razonsocial_" + ($row)).val(val.razonSocial);
+						$("#direccion_" + ($row)).val(val.direccion);
+						$("#contacto1_" + ($row)).val(val.nombre1);
+						$("#contacto2_" + ($row)).val(val.nombre2);
+						$("#contacto3_" + ($row)).val(val.nombre3);
+						$("#correo1_" + ($row)).val(val.correoElectronico1);
+						$("#correo2_" + ($row)).val(val.correoElectronico2);
+						$("#correo3_" + ($row)).val(val.correoElectronico3);
+					});
+				}
+			});
+		}
+	});
+
+	$(document).on('mouseover', '.btn.quitararticulo', function(){
+		$(this).prop("title", "Quitar artículo");
+	});
+
+	$(document).on('mouseover', '.btn.buscararticulo', function(){
+		$(this).prop("title", "Buscar artículo por código");
+	});
+	
+	$(document).on('mouseover', '.btn.quitarcontacto', function(){
+		$(this).prop("title", "Quitar contacto");
+	});
+
+	$(document).on('mouseover', '.btn.quitarproveedor', function(){
+		$(this).prop("title", "Quitar proveedor");
+	});
+
+	$(document).on('mouseover', '.btn.buscarproveedor', function(){
+		$(this).prop("title", "Buscar proveedor por código");
+	});
 
 	
 </script>

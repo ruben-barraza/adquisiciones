@@ -19,7 +19,7 @@
 						<th>Cantidad</th>
 						<th>LugarEntrega</th>
 						<th>DireccionEntrega</th>
-						<th>Actions</th>
+						<th></th>
 				    </tr>
 					<?php foreach($listaim_concepto as $i){ ?>
 				    <tr>
@@ -32,8 +32,8 @@
 						<td><?php echo $i['lugarEntrega']; ?></td>
 						<td><?php echo $i['direccionEntrega']; ?></td>
 						<td>
-				            <a href="<?php echo site_url('im_concepto/edit/'.$i['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-				            <a href="<?php echo site_url('im_concepto/remove/'.$i['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+				            <a href="<?php echo site_url('im_concepto/edit/'.$i['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
+				            <a href="<?php echo site_url('im_concepto/remove/'.$i['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
 				        </td>
 				    </tr>
 					<?php } ?>

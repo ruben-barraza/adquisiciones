@@ -1,3 +1,6 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -32,7 +35,7 @@
 						<td><?php echo $p['fechaUltimaModificacion']; ?></td>
 						<td>
 				            <a href="<?php echo site_url('po_general/edit/'.$p['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-				            <a href="<?php echo site_url('po_general/remove/'.$p['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+				            <a href="<?php echo site_url('po_general/remove/'.$p['id']); ?>" onclick="return confirm('¿Desea eliminar el PO General seleccionado?');" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
 				        </td>
 						<td>
 							<a href="<?php echo site_url('generar_pdf/pdf/'.$p['id']); ?>"  class="btn btn-primary btn-xs"><span class="fa fa-print"></span></a> 

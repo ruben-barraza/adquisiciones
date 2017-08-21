@@ -218,8 +218,8 @@ for ($i = 0; $i < $num_contactos; $i++) {
 
     $pdf->Ln(13);
     $pdf->Cell(100);
-
-    $pdf->Cell(0, 0, 'Oficio No. 137-'.$numero_oficio[$i]["numOficio"].'/'.$numero_oficio[$i]["anio"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    
+    $pdf->Cell(0, 0, 'Oficio No. 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'/'.$numero_oficio[$i]["anio"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
 
 
@@ -450,9 +450,9 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->Cell(150, 0, mb_strtoupper($im_aprueba[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_aprueba[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoMaterno"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
 
     
-    $pdf->Output($tmp.'/Oficio Pet Of 137-'.$numero_oficio[$i]["numOficio"].'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf', 'F');
-    array_push($nombresArchivos, 'Oficio Pet Of 137-'.$numero_oficio[$i]["numOficio"].'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
-    array_push($archivos, $tmp.'/Oficio Pet Of 137-'.$numero_oficio[$i]["numOficio"].'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
+    $pdf->Output($tmp.'/Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf', 'F');
+    array_push($nombresArchivos, 'Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
+    array_push($archivos, $tmp.'/Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
     
 }
 

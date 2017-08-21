@@ -63,23 +63,7 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('po_numoficio',$params);
     }
 
-    /*
-    SELECT numOficio
-    FROM po_numoficio
-    WHERE anio=2018
-    ORDER BY numOficio DESC
-    LIMIT 1
-    */
-
     function get_numero_oficioConsecutivo($elaboracionYear){
-        /*
-        $maxnum = 1;
-        $row = $this->db->query("select max(numOficio) as 'maxnum' from po_numoficio")->row();
-        if ($row) {
-			$maxnum = $row->maxnum + 1;
-		}
-		return $maxnum;
-        */
         $this->db->select('numOficio');
         $this->db->from('po_numoficio');
         $this->db->where('anio', $elaboracionYear);
@@ -368,6 +352,34 @@ class Pogeneralmodel extends CI_Model
         }
     }
 
+
+    function edit_uk_po_aclaracion_acuse($id, $idEmpleado1, $idEmpleado2)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_aclaracion');
+
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_acuse');
+
+        $this->add_uk_po_aclaracion_acuse($id, $idEmpleado1);
+        $this->add_uk_po_aclaracion_acuse($id, $idEmpleado2);
+    }
+
+    function delete_relaciones($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_proveedor');
+
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_numoficio');
+
+        $this->db->where('idPog', $id);
+        $this->db->delete('im_general');
+
+        $this->db->where('idPog', $id);
+        $this->db->delete('im_concepto');
+    }
+
     /*
      * function to update po_general
      */
@@ -423,5 +435,17 @@ class Pogeneralmodel extends CI_Model
     {
         $this->db->where('idPog', $id);
         $this->db->delete('im_general');
+    }
+
+    function delete_im_concepto($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('im_concepto');
+    }
+
+    function delete_po_numoficio($id)
+    {
+        $this->db->where('idPog', $id);
+        $this->db->delete('po_numoficio');
     }
 }

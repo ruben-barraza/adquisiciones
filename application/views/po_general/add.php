@@ -82,27 +82,6 @@
 						</div>
 					</div>
 
-					<!--
-					<var>
-						<?php
-							
-							/*
-
-							$fecha = "01/01/1992";
-							$fechaFormato = str_replace('/', '-', $fecha);
-        					$fechaElaboracion = date("Y-m-d", strtotime($fechaFormato));
-							echo date('z', strtotime($fechaElaboracion));
-        					$year = date("Y", strtotime($fechaElaboracion));
-							echo $year;
-
-							if (date('z', strtotime($fechaElaboracion)) == '0' ) {
-								echo "PRIMER DIA DEL AÑO";
-							}
-							*/
-						?>
-					</var>
-					-->
-
 					<!-- Solo aparece si se selecciona un proveedor de tipo bienes -->
 					<div class="form-group seccion-familia hidden">
 						<label for="idFamilia" class="col-md-2 control-label">Familia</label>
@@ -391,6 +370,9 @@
 							<button id="botonGuardar" type="submit" class="btn btn-success">
 								<i class="fa fa-check"></i> Guardar
 							</button>
+							<a href="<?php echo site_url('po_general/index/'); ?>" id="botonCancelar" class="btn btn-danger">
+								<span class="fa fa-ban"></span> Cancelar
+							</a>
 				        </div>
 					</div>
 
@@ -840,19 +822,6 @@
 			}
 			
 			
-			var tipoProveedor = $('#tipoProveedor').val();
-			var longitudTablaArticulos = $("#tablaArticulos tr").length - 1;
-
-			for(k = 0; k < longitudTablaArticulo; k++){
-				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
-				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
-				var partida = $("#partida_" + cuentaActual2).val();
-				var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
-				var cantidad = $("#cantidad_" + cuentaActual2).val();
-				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
-				var lugarEntrega = lugar.split("- ").pop();
-				var direccion = $("#direccionentrega_" + cuentaActual2).val();
-			}
 
 			var tipoProveedor = $('#tipoProveedor').val();
 			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
@@ -866,8 +835,6 @@
 				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
 				var lugarEntrega = lugar.split("- ").pop();
 				var direccion = $("#direccionentrega_" + cuentaActual2).val();
-				//console.log("[" + articuloCodigo + ", " + partida + ", " + plazoEntrega + ", " + cantidad + ", " + lugarEntrega + ", " + direccion + "]");
-			
 				$.ajax({
 					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
 					method: 'POST',

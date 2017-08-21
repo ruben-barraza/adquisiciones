@@ -75,18 +75,18 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Adquisiciones</span></a>
+                            <a href="index.html" class="site_title"><i class="fa fa-plug"></i> <span>Adquisiciones</span></a>
                         </div>
                         <div class="clearfix"></div>
 
                         <!-- menu profile quick info -->
                         <div class="profile">
                             <div class="profile_pic">
-                                <img src="<?php echo site_url('resources/img/img.jpg');?>" alt="..." class="img-circle profile_img">
+                                <img src="<?php echo site_url('resources/img/cfe.png');?>" alt="..." class="img-circle profile_img">
                             </div>
                             <div class="profile_info">
                                 <span>Bienvenido,</span>
-                                <h2>John Doe</h2>
+                                <h2>Normalización</h2>
                             </div>
                         </div>
                         <!-- /menu profile quick info -->
@@ -95,7 +95,7 @@
                         <!-- sidebar menu -->
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                             <div class="menu_section">
-                                <h3>General</h3>
+                                <h3 style="text-indent: -9999px;">General</h3>
                                 <ul class="nav side-menu nav-list nav-menu-list-style">
                                     <li><label class="tree-toggle nav-header"> Investigación de Mercado</span></label>
                                       <ul class="nav nav-list tree">
@@ -109,12 +109,6 @@
                                         </li>
                                         <li>
                                             <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> IM General</a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo site_url('po_aclaracion/index');?>"><i class="fa fa-table"></i> PO Aclaración</a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo site_url('po_acuse/index');?>"><i class="fa fa-table"></i> PO Acuse</a>
                                         </li>
                                         <li>
                                             <a href="<?php echo site_url('po_consideracion/index');?>"><i class="fa fa-table"></i> PO Consideración</a>
@@ -186,13 +180,12 @@
                     <div class="nav_menu">
                         <nav>
                             <div class="nav toggle">
-                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                             </div>
 
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <img src="<?php echo site_url('resources/img/img.jpg');?>" alt="">John Doe
+                                        <img src="<?php echo site_url('resources/img/cfe.png');?>" alt="">
                                         <span class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu pull-right">

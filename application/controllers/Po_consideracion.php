@@ -141,7 +141,7 @@ class Po_consideracion extends CI_Controller{
                 );
 
                 $this->Poconsideracionmodel->update_po_consideracion($id,$params);            
-                redirect('po_consideracion/index');
+                redirect('po_general/index');
             }
             else
             {

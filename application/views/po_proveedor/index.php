@@ -14,7 +14,7 @@
 						<th>IdPog</th>
 						<th>IdProveedor</th>
 						<th>Contacto</th>
-						<th>Actions</th>
+						<th></th>
 				    </tr>
 					<?php foreach($listapo_proveedor as $p){ ?>
 				    <tr>
@@ -22,8 +22,8 @@
 						<td><?php echo $p['idProveedor']; ?></td>
 						<td><?php echo $p['contacto']; ?></td>
 						<td>
-				            <a href="<?php echo site_url('po_proveedor/edit/'.$p['idPog']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-				            <a href="<?php echo site_url('po_proveedor/remove/'.$p['idPog']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+				            <a href="<?php echo site_url('po_proveedor/edit/'.$p['idPog']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
+				            <a href="<?php echo site_url('po_proveedor/remove/'.$p['idPog']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
 				        </td>
 				    </tr>
 					<?php } ?>
