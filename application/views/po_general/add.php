@@ -344,7 +344,7 @@
 											<option value="0">Seleccione</option>
 											<?php 
 												foreach ($almacenes as $i) {
-													echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. $i->nombre .'</option>';
+													echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. mb_strtoupper($i->nombre) .'</option>';
 												}
 											?>
 											<option value="<?php echo sizeof($almacenes)+1?>">OTRO</option>
@@ -737,8 +737,6 @@
 		
 
 		$("#botonGuardar").click(function(){
-
-
 			//Longitud - 1 para el número real de renglones en la tabla
 			var longitudTabla = $("#tablaProveedores tr").length - 1;
 

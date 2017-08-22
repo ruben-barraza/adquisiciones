@@ -571,12 +571,12 @@
 
 		//Seleccionar el lugar de entrega correspondiente para cada select
 		var arrayFromPHP = <?php echo json_encode($imConcepto); ?>;
+		console.log(arrayFromPHP);
 		var arrayLength = arrayFromPHP.length;
 
 		for (i = 0; i < arrayLength; i++){
-			$("#lugarentrega_" + (i+1) + " option:contains(" + arrayFromPHP[i].lugarEntrega + ")").prop("selected", true);
+			$("#lugarentrega_" + (i+1) + " option:contains(" + (arrayFromPHP[i].lugarEntrega).toUpperCase() + ")").prop("selected", true);
 			if(arrayFromPHP[i].lugarEntrega == "OTRO"){
-				console.log("HOLA");
 				$("#direccionentrega_" + (i+1)).prop("disabled", false);
 			}
 		}
