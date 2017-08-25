@@ -24,7 +24,33 @@ class Pogeneralmodel extends CI_Model
      */
     function get_all_listapo_general()
     {
-        return $this->db->get('po_general')->result_array();
+        //return $this->db->get('po_general')->result_array();
+        $this->db->select('po_general.id, po_general.tipo, familia.clave, im_general.titulo, po_general.fechaElaboracion, CONCAT(empleado.titulo, " ", empleado.nombre, " ", empleado.apellidoPaterno, " ", empleado.apellidoMaterno) AS nombre');
+        $this->db->from('po_general');
+        $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
+        $this->db->join('im_general', 'im_general.idPog = po_general.id', 'inner');
+        $this->db->join('empleado', 'empleado.id = po_general.idEmpleadoResponsable', 'inner');
+        $this->db->order_by('po_general.fechaElaboracion', 'desc');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_all_listapo_general_familia($clave)
+    {
+        //return $this->db->get('po_general')->result_array();
+        $this->db->select('po_general.id, po_general.tipo, familia.clave, im_general.titulo, po_general.fechaElaboracion, CONCAT(empleado.titulo, " ", empleado.nombre, " ", empleado.apellidoPaterno, " ", empleado.apellidoMaterno) AS nombre');
+        $this->db->from('po_general');
+        $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
+        $this->db->join('im_general', 'im_general.idPog = po_general.id', 'inner');
+        $this->db->join('empleado', 'empleado.id = po_general.idEmpleadoResponsable', 'inner');
+        $this->db->where('familia.clave', $clave);
+        $this->db->order_by('po_general.fechaElaboracion', 'desc');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
     }
     
     function get_all_listapo_general_desc()

@@ -193,12 +193,22 @@ class Po_general extends CI_Controller{
 
     }
 
+    //Obtiene una lista de los proveedores que ofrecen la familia seleccionada
+	function obtenerListaProveedorFamilia(){
+		$this->load->model('Pogeneralmodel');
+		$clave = $_POST['clave'];
+		$data['listaproveedorfamilia'] = $this->Pogeneralmodel->get_all_listapo_general_familia($clave);
+		echo json_encode($data);
+	}
+
     /*
      * Listing of listapo_general
      */
     function index()
     {
         $data['listapo_general'] = $this->Pogeneralmodel->get_all_listapo_general();
+        $this->load->model('Comboboxesmodel');
+        $data['familias'] = $this->Comboboxesmodel->getFamilias();
 
         $data['_view'] = 'po_general/index';
         $this->load->view('layouts/main',$data);
