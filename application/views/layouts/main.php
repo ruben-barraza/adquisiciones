@@ -33,6 +33,14 @@
         <!-- include wickedpicker css-->
         <link href="<?php echo site_url('resources/wickedpicker/stylesheets/wickedpicker.css');?>" rel="stylesheet">
 
+        
+        <script src="<?php echo site_url('resources/js/jquery-1.9.1.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/jquery-ui.js');?>"></script>
+        
+        <!-- For Table Pagination 
+        <script src="<?php echo site_url('resources/pagination/pagination.js');?>"></script>
+        -->
+
         <!-- Custom Theme Style -->
         <link href="<?php echo site_url('resources/css/custom.min.css');?>" rel="stylesheet">
 
@@ -232,6 +240,8 @@
         <script src="<?php echo site_url('resources/js/jquery.min.js');?>"></script>
         <!-- jQuery UI-->
         <script src="<?php echo site_url('resources/js/jquery-ui.js');?>"></script>
+        
+        
         <!-- Bootstrap -->
         <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
         <!-- FastClick -->
@@ -270,6 +280,8 @@
 
         <!-- Custom Theme Scripts -->
         <script src="<?php echo site_url('resources/js/custom.min.js');?>"></script>
+
+        
 
         <!-- bootstrap-daterangepicker -->
         <script>
