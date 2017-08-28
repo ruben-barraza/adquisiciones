@@ -50,11 +50,7 @@
         <div class="x_panel">
           	<div class="x_title">
                 <h2>Elaborar nueva Petición Oferta</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  	<li>
-                  		<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  	</li>
-                </ul>
+                
                 <div class="clearfix"></div>
           	</div>
           	<div class="x_content">
@@ -147,7 +143,7 @@
 					<div class="form-group">
 						<label for="domicilio" class="col-md-2 control-label">Domicilio Remitente</label>
 						<div class="col-md-6">
-							<input type="text" name="domicilio" value="<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="255"/>
+							<input type="text" name="domicilio" value="Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 8300<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="255"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -409,6 +405,7 @@
 
 		//OPCIONES DEL DATEPICKER
 		var options = {
+			now: "11:00",
 			twentyFour: true,
 			timeSeparator: ':',
 			title: "Formato 24 Hrs"
@@ -437,12 +434,15 @@
  		};
  		$.datepicker.setDefaults($.datepicker.regional['es']);
 
+		$("#fechaElaboracion").datepicker().datepicker("setDate", new Date());
+
 		
 		$(function () {
 			$("#fechaLimitePresentacion").datepicker();
 			$("#fechaElaboracion").datepicker();
 		});
 
+		var asunto = "Petición de Ofertas de ";
 		//Oculta secciones dependiendo de la elección de tipo de proveedor
 		$('#tipoProveedor').change(function(){
 			var val = $(this).val();
@@ -457,6 +457,8 @@
 				$('#cargarProveedoresServicios').hide();
 				$('.seccion-articulos').removeClass('hidden');
 				$('.seccion-articulos').show();
+
+				$("#asunto").val(asunto + "Bienes");
 			} else if (val == "S"){
 				$('.seccion-familia').hide();
 				$('.seccion-proveedores').removeClass('hidden');
@@ -465,11 +467,25 @@
 				$('#cargarProveedoresServicios').show();
 				$('#cargarProveedoresBienes').hide();
 				$('.seccion-articulos').hide();
+
+				$("#asunto").val(asunto + "Servicios");
 			} else {
 				$('.seccion-familia').hide();
 				$('.seccion-proveedores').hide();
 				$('.seccion-articulos').hide();
+
+				$("#asunto").val("");
 			}
+		});
+
+		$('#idFamilia').change(function(){
+			var descripcionFamilia = $('#idFamilia option:selected').text();
+			if(descripcionFamilia != "Seleccione"){
+				$("#titulo").val("ADQUISICIÓN DE " + descripcionFamilia);
+			} else {
+				$("#titulo").val("");
+			}
+			
 		});
 
 		//Busca el nombre del empleado una vez que el input tenga 5 caracteres
@@ -524,7 +540,16 @@
 		//Funcionamientos de los combos de estado y municipio
 		$("#idEstado option:contains('NINGUNO')").remove();
 
-    	$("#idEstado").change(function() {
+    	$("#idEstado option:selected").each(function() {
+			idEstado = $('#idEstado').val();
+			$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
+				idEstado : idEstado
+			}, function(data) {
+				$("#idMunicipio").html(data);
+			});
+		});
+		
+		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();
                 $.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
@@ -534,6 +559,9 @@
                 });
             });
         });
+
+		$("#idEstado").val("26");
+		$("#idMunicipio").val("1805");
 
 		//Agrega una fila en blanco a la tabla de proveedores
 		$("#agregarRegistroProveedores").click(function(){
@@ -576,6 +604,7 @@
 		//Carga los proveedores que manejen la familia seleccionada 
 		$("#cargarProveedoresBienes").click(function(){
 			var idFamilia = $("#idFamilia").val();
+			
 			if(idFamilia != 0){
 				$.ajax({
 					url: '<?php echo base_url(); ?>index.php/Po_general/obtenerListaProveedores',
@@ -798,7 +827,7 @@
 				});
 			}
 			
-
+			
 			//insertar en la tabla IM_GENERAL
 			if($('#titulo').val() != ""){
 				var titulo = $('#titulo').val();

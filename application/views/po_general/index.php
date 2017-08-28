@@ -1,20 +1,27 @@
 <style>
-.pagination {
-    display: inline-block;
-}
 
-.pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-}
-
-.pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-}
+  
+  
+  .pagination {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	display:flex;
+	justify-content:center;
+  }
+  
+  .pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+  }
+  
+  .pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+  }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
@@ -64,10 +71,8 @@
 				<table id="table" class="table table-striped">
 					<thead>
 						<tr>
-							<th>Tipo</th>
 							<th>Familia</th>
 							<th>Título</th>
-							<th>Empleado Responsable</th>
 							<th>Fecha de Elaboración</th>
 							<th></th>
 							<th></th>
@@ -77,15 +82,13 @@
 					<tbody id="tbody">
 						<?php foreach($listapo_general as $p){ ?>
 						<tr>
-							<td><?php echo $p['tipo']; ?></td>
-							<td><?php echo $p['clave']; ?></td>
+							<td><?php echo $p['descripcion']; ?></td>
 							<td><?php echo $p['titulo']; ?></td>
 							<?php 
 								$fecha = $p['fechaElaboracion'];
 								$fechaElaboracion = date("d/m/Y", strtotime($fecha));
 							?>
 
-							<td><?php echo $p['nombre']; ?></td>
 							<td><?php echo $fechaElaboracion; ?></td>
 							<td>
 								<a href="<?php echo site_url('po_general/edit/'.$p['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
@@ -105,10 +108,8 @@
 					<table id="tablafamilias" class="table table-striped">
 						<thead>
 							<tr>
-								<th>Tipo</th>
 								<th>Familia</th>
 								<th>Título</th>
-								<th>Empleado Responsable</th>
 								<th>Fecha de Elaboración</th>
 								<th></th>
 								<th></th>
@@ -130,11 +131,7 @@
 
 	$(document).ready(function() {
 
-		
-
-		
-		
-		 $('#table').after('<div id="nav" class="pagination"></div>');
+		 $('#tablaOculta').after('<div id="nav" class="pagination"></div>');
         var rowsShown = 20;
         var rowsTotal = $('#table tbody tr').length;
         var numPages = rowsTotal/rowsShown;
@@ -173,7 +170,7 @@
 		});
 
 		var tbody = $('#tablafamilias tbody'),
-    	indices = ["tipo", "clave", "titulo", "nombre", "fechaElaboracion"];
+    	indices = ["descripcion", "titulo", "fechaElaboracion"];
 		indiceBotones = ["id"];
 
 		function convertDate(inputFormat) {
@@ -204,11 +201,9 @@
 						jQuery.each(returned.listaproveedorfamilia, function(i, val) {                   
 							//alert('razonSocial= '+ val.razonSocial + 'nombre1' + val.nombre1);
 							selectArray.push({
-								"id": val.id,
-								"tipo": val.tipo, 
-								"clave": val.clave,
+								"id": val.id, 
+								"descripcion": val.descripcion,
 								"titulo": val.titulo,
-								"nombre": val.nombre,
 								"fechaElaboracion": (val.fechaElaboracion).split("-").reverse().join("/"),
 							});
 						});

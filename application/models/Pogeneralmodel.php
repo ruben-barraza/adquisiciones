@@ -25,7 +25,7 @@ class Pogeneralmodel extends CI_Model
     function get_all_listapo_general()
     {
         //return $this->db->get('po_general')->result_array();
-        $this->db->select('po_general.id, po_general.tipo, familia.clave, im_general.titulo, po_general.fechaElaboracion, CONCAT(empleado.titulo, " ", empleado.nombre, " ", empleado.apellidoPaterno, " ", empleado.apellidoMaterno) AS nombre');
+        $this->db->select('po_general.id, po_general.tipo, familia.descripcion, im_general.titulo, po_general.fechaElaboracion, CONCAT(empleado.titulo, " ", empleado.nombre, " ", empleado.apellidoPaterno, " ", empleado.apellidoMaterno) AS nombre');
         $this->db->from('po_general');
         $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
         $this->db->join('im_general', 'im_general.idPog = po_general.id', 'inner');
@@ -40,7 +40,7 @@ class Pogeneralmodel extends CI_Model
     function get_all_listapo_general_familia($clave)
     {
         //return $this->db->get('po_general')->result_array();
-        $this->db->select('po_general.id, po_general.tipo, familia.clave, im_general.titulo, po_general.fechaElaboracion, CONCAT(empleado.titulo, " ", empleado.nombre, " ", empleado.apellidoPaterno, " ", empleado.apellidoMaterno) AS nombre');
+        $this->db->select('po_general.id, po_general.tipo, familia.clave, familia.descripcion,im_general.titulo, po_general.fechaElaboracion, CONCAT(empleado.titulo, " ", empleado.nombre, " ", empleado.apellidoPaterno, " ", empleado.apellidoMaterno) AS nombre');
         $this->db->from('po_general');
         $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
         $this->db->join('im_general', 'im_general.idPog = po_general.id', 'inner');
