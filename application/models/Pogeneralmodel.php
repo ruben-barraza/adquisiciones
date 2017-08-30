@@ -32,9 +32,8 @@ class Pogeneralmodel extends CI_Model
         $this->db->join('empleado', 'empleado.id = po_general.idEmpleadoResponsable', 'inner');
         $this->db->order_by('po_general.fechaElaboracion', 'desc');
         $query = $this->db->get();
-        if($query->num_rows() > 0){
-            return $query->result_array();
-        }
+        return $query->result_array();
+        
     }
 
     function get_all_listapo_general_familia($clave)

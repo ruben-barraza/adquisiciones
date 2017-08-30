@@ -28,11 +28,11 @@ class Generar_PDF extends CI_Controller{
         $data['im_concepto'] = $this->Generarpdfmodel->get_im_concepto($id);
         $data['im_elabora'] = $this->Generarpdfmodel->get_im_empleado_elabora($id);
         $data['im_aprueba'] = $this->Generarpdfmodel->get_im_empleado_autoriza($id);
-        $this->load->view('reporte_pog', $data);
+        //$this->load->view('reporte_pog', $data);
         
 
         //Para probar los queries del modelo
-        //$data['proveedoresPog'] = $this->Pogeneralmodel->getProveedoresPog($id);
+        $this->load->view('reporte_prueba_bd', $data);
 
 
     }

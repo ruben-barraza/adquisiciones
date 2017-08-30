@@ -143,7 +143,7 @@
 					<div class="form-group">
 						<label for="domicilio" class="col-md-2 control-label">Domicilio Remitente</label>
 						<div class="col-md-6">
-							<input type="text" name="domicilio" value="Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 8300<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="255"/>
+							<input type="text" name="domicilio" value="Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="255"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -364,7 +364,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<button id="botonGuardar" type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
+								<i class="fa fa-arrow-right"></i> Continuar
 							</button>
 							<a href="<?php echo site_url('po_general/index/'); ?>" id="botonCancelar" class="btn btn-danger">
 								<span class="fa fa-ban"></span> Cancelar
@@ -434,12 +434,33 @@
  		};
  		$.datepicker.setDefaults($.datepicker.regional['es']);
 
-		$("#fechaElaboracion").datepicker().datepicker("setDate", new Date());
-
+		
 		
 		$(function () {
 			$("#fechaLimitePresentacion").datepicker();
 			$("#fechaElaboracion").datepicker();
+		});
+
+		$("#fechaElaboracion").datepicker().datepicker("setDate", new Date());
+		$("#fechaLimitePresentacion").datepicker().datepicker("setDate", "+7d");
+
+		$("#fechaElaboracion").datepicker({
+			onSelect: function(date) {
+				var dt1 = $('#fechaElaboracion').datepicker('getDate');
+				$('#fechaLimitePresentacion').datepicker('option', 'minDate', dt1);
+			}
+		});
+		$('#fechaLimitePresentacion').datepicker({
+			minDate: $('#fechaElaboracion').datepicker('getDate'),
+			onClose: function() {
+				var dt1 = $('#fechaElaboracion').datepicker('getDate');
+				var dt2 = $('#fechaLimitePresentacion').datepicker('getDate');
+				//check to prevent a user from entering a date below date of dt1
+				if (dt2 <= dt1) {
+					var minDate = $('#fechaLimitePresentacion').datepicker('option', 'minDate');
+					$('#fechaLimitePresentacion').datepicker('setDate', minDate);
+				}
+			}
 		});
 
 		var asunto = "Petición de Ofertas de ";
@@ -540,15 +561,18 @@
 		//Funcionamientos de los combos de estado y municipio
 		$("#idEstado option:contains('NINGUNO')").remove();
 
+		$("#idEstado").val("26");
     	$("#idEstado option:selected").each(function() {
 			idEstado = $('#idEstado').val();
 			$.post("<?php echo base_url(); ?>index.php/controllerComboBoxes/fillMunicipios", {
 				idEstado : idEstado
 			}, function(data) {
 				$("#idMunicipio").html(data);
+				if(idEstado == "26"){
+					$("#idMunicipio").val("1805");
+				}
 			});
 		});
-		
 		$("#idEstado").change(function() {
     		$("#idEstado option:selected").each(function() {
                 idEstado = $('#idEstado').val();
@@ -560,9 +584,8 @@
             });
         });
 
-		$("#idEstado").val("26");
-		$("#idMunicipio").val("1805");
-
+		
+		
 		//Agrega una fila en blanco a la tabla de proveedores
 		$("#agregarRegistroProveedores").click(function(){
 			var cuentaActual = $("#tablaProveedores tbody tr:last input:last").attr("name").split("_").pop();
@@ -1017,18 +1040,30 @@
 				},
 				success: function (returned) {
 					var result = JSON.parse(returned);
-					jQuery.each(result.proveedor, function( i, val ) {     
-						$("#clave_" + ($row)).val(val.clave);
-						$("#razonsocial_" + ($row)).val(val.razonSocial);
-						$("#direccion_" + ($row)).val(val.direccion);
-						$("#contacto1_" + ($row)).val(val.nombre1);
-						$("#contacto2_" + ($row)).val(val.nombre2);
-						$("#contacto3_" + ($row)).val(val.nombre3);
-						$("#correo1_" + ($row)).val(val.correoElectronico1);
-						$("#correo2_" + ($row)).val(val.correoElectronico2);
-						$("#correo3_" + ($row)).val(val.correoElectronico3);
-					});
-				}
+					if(result.proveedor == null){
+						$("#clave_" + ($row)).val("");
+						$("#razonsocial_" + ($row)).val("");
+						$("#direccion_" + ($row)).val("");
+						$("#contacto1_" + ($row)).val("");
+						$("#contacto2_" + ($row)).val("");
+						$("#contacto3_" + ($row)).val("");
+						$("#correo1_" + ($row)).val("");
+						$("#correo2_" + ($row)).val("");
+						$("#correo3_" + ($row)).val("");
+					} else {
+						jQuery.each(result.proveedor, function( i, val ) {     
+							$("#clave_" + ($row)).val(val.clave);
+							$("#razonsocial_" + ($row)).val(val.razonSocial);
+							$("#direccion_" + ($row)).val(val.direccion);
+							$("#contacto1_" + ($row)).val(val.nombre1);
+							$("#contacto2_" + ($row)).val(val.nombre2);
+							$("#contacto3_" + ($row)).val(val.nombre3);
+							$("#correo1_" + ($row)).val(val.correoElectronico1);
+							$("#correo2_" + ($row)).val(val.correoElectronico2);
+							$("#correo3_" + ($row)).val(val.correoElectronico3);
+						});
+					}
+				},
 			});
 		}
 	});

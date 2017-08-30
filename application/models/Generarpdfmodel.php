@@ -18,12 +18,22 @@ class Generarpdfmodel extends CI_Model
     
     function get_contactos($id)
     {
-        $this->db->select('proveedor.razonSocial
+        $this->db->select('proveedor.razonSocial, proveedor.direccion, municipio.nombre municipio, estado.nombre estado, proveedor.codigoPostal
             , CASE po_proveedor.contacto
                 WHEN 1 THEN proveedor.nombre1
                 WHEN 2 THEN proveedor.nombre2
                 WHEN 3 THEN proveedor.nombre3
             END nombre
+            , CASE po_proveedor.contacto
+                WHEN 1 THEN proveedor.telefonoFijo1
+                WHEN 2 THEN proveedor.telefonoFijo2
+                WHEN 3 THEN proveedor.telefonoFijo3
+            END telefonoFijo
+            , CASE po_proveedor.contacto
+                WHEN 1 THEN proveedor.telefonoMovil1
+                WHEN 2 THEN proveedor.telefonoMovil2
+                WHEN 3 THEN proveedor.telefonoMovil3
+            END telefonoMovil
             , CASE po_proveedor.contacto
                 WHEN 1 THEN proveedor.correoElectronico1
                 WHEN 2 THEN proveedor.correoElectronico2
@@ -31,12 +41,15 @@ class Generarpdfmodel extends CI_Model
             END correoElectronico', FALSE);
         $this->db->from('proveedor');
         $this->db->join('po_proveedor', 'proveedor.id = po_proveedor.idProveedor', 'inner');
+        $this->db->join('municipio', 'proveedor.idMunicipio = municipio.id', 'inner');
+        $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');
         $this->db->where('po_proveedor.idPog', $id);
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
         }
     }
+    
 
     /*
     * SELECCIONAR LOS NUMEROS DE OFICIO
@@ -117,8 +130,7 @@ class Generarpdfmodel extends CI_Model
     function get_po_consideracion($id)
     {
         $this->db->select('po_consideracion.fc1, po_consideracion.fc2, po_consideracion.fc3, po_consideracion.fc4, po_consideracion.fc5, po_consideracion.fc6, po_consideracion.fc7, po_consideracion.fc8, 
-                    po_consideracion.fc9, po_consideracion.fc10, po_consideracion.fc11, po_consideracion.fc12, po_consideracion.fc13, po_consideracion.fc14, po_consideracion.fc15, po_consideracion.fc16, 
-                    po_consideracion.fc17, po_consideracion.fc18');
+                    po_consideracion.fc9, po_consideracion.fc10, po_consideracion.fc11, po_consideracion.fc12, po_consideracion.fc13, po_consideracion.fc14, po_consideracion.fc15');
         $this->db->from('po_general');
         $this->db->join('po_consideracion', 'po_general.id = po_consideracion.idpog', 'inner');
         $this->db->where('po_general.id', $id);

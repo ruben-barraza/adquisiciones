@@ -55,53 +55,6 @@ class MYPDF extends TCPDF {
             $this->Cell(0, 0, 'Subgerencia de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
             $this->Ln(3);
         }
-        /*
-        switch($this->page)
-		{
-			case 1: 
-			case 2: 
-            case 3:
-                // Logo
-                $image_file = K_PATH_IMAGES.'logo2.gif';
-                if (!$image_file)
-                {
-                    $image= imagecreatefromstring(file_get_contents($image_file));
-                }
-                $this->Image($image_file, 10, 10, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
-                // Set font
-                $this->SetFont('helvetica', 'BI', 10);
-                // Title
-                $this->Cell(0, 0, 'Dirección de Operación', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-                $this->Ln();
-                $this->SetFont('helvetica', 'I', 9);
-                $this->Cell(0, 0, 'Subdirección de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-                $this->Ln();
-                $this->SetFont('helvetica', 'I', 8);
-                $this->Cell(0, 0, 'División de Distribución Noroeste', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-                $this->Ln();
-                $this->Cell(0, 0, 'Departamento de Programación y Confiabilidad de Bienes', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-                break;
-            case 4:
-                // Logo
-                $image_file = K_PATH_IMAGES.'logo2.gif';
-                if (!$image_file)
-                {
-                    $image= imagecreatefromstring(file_get_contents($image_file));
-                }
-                //$this->SetY(15);
-                $this->Image($image_file, 10, 12, 50, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
-                // Set font
-                $this->SetFont('helvetica', 'B', 10);
-                // Title
-                $this->SetY(15);
-                $this->Cell(0, 0, 'INVESTIGACIÓN DE MERCADO', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-                $this->SetFont('helvetica', 'B', 9);
-                $this->Cell(0, 0, 'División de Distribución Noroeste', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-                $this->Ln();
-                $this->Cell(0, 0, 'Subgerencia de Distribución', 0, false, 'R', 0, '', 0, false, 'M', 'M');
-                break;
-		}
-        */
     }
 
     // Page footer
@@ -126,32 +79,6 @@ class MYPDF extends TCPDF {
             // Set font
             $this->SetFont('helvetica', 'I', 8);
         }
-
-        /*
-        switch($this->page)
-		{
-			case 1: 
-			case 2: 
-            case 3:
-                // Position at 15 mm from bottom
-                $this->SetY(-15);
-                // Set font
-                $this->SetFont('helvetica', 'I', 8);
-
-                // Texto del footer
-                $txt = "Benito Juárez y San Luis Potosí C.P. 83000 Col. Centro, Hermosillo, Sonora\nTel. 662-259-11-71";
-
-                // Imprimir el footer
-                $this->MultiCell(0, 10, $txt, 0, 'C', 0, 0, '', '', true);
-                break;
-            case 4:
-                // Position at 15 mm from bottom
-                $this->SetY(-15);
-                // Set font
-                $this->SetFont('helvetica', 'I', 8);
-                break;
-		}
-        */
     }
 }
 
@@ -368,9 +295,6 @@ for ($i = 0; $i < $num_contactos; $i++) {
         <li>'.$po_consideracion[0]["fc13"].'</li>
         <li>'.$po_consideracion[0]["fc14"].'</li>
         <li>'.$po_consideracion[0]["fc15"].'</li>
-        <li>'.$po_consideracion[0]["fc16"].'</li>
-        <li>'.$po_consideracion[0]["fc17"].'</li>
-        <li>'.$po_consideracion[0]["fc18"].'</li>
     <ul></span>';
 
 

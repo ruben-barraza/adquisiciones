@@ -44,9 +44,6 @@ class Po_consideracion extends CI_Controller{
 		$this->form_validation->set_rules('fc13','Fc13','max_length[500]|required');
 		$this->form_validation->set_rules('fc14','Fc14','max_length[500]|required');
 		$this->form_validation->set_rules('fc15','Fc15','max_length[500]|required');
-		$this->form_validation->set_rules('fc16','Fc16','max_length[500]|required');
-		$this->form_validation->set_rules('fc17','Fc17','max_length[500]|required');
-		$this->form_validation->set_rules('fc18','Fc18','max_length[500]|required');
 		
 		if($this->form_validation->run())     
         {   
@@ -67,9 +64,6 @@ class Po_consideracion extends CI_Controller{
 				'fc13' => $this->input->post('fc13'),
 				'fc14' => $this->input->post('fc14'),
 				'fc15' => $this->input->post('fc15'),
-				'fc16' => $this->input->post('fc16'),
-				'fc17' => $this->input->post('fc17'),
-				'fc18' => $this->input->post('fc18'),
             );
             
             $po_consideracion_id = $this->Poconsideracionmodel->add_po_consideracion($params);
@@ -112,9 +106,6 @@ class Po_consideracion extends CI_Controller{
 			$this->form_validation->set_rules('fc13','Fc13','max_length[500]|required');
 			$this->form_validation->set_rules('fc14','Fc14','max_length[500]|required');
 			$this->form_validation->set_rules('fc15','Fc15','max_length[500]|required');
-			$this->form_validation->set_rules('fc16','Fc16','max_length[500]|required');
-			$this->form_validation->set_rules('fc17','Fc17','max_length[500]|required');
-			$this->form_validation->set_rules('fc18','Fc18','max_length[500]|required');
 		
 			if($this->form_validation->run())     
             {   
@@ -135,9 +126,6 @@ class Po_consideracion extends CI_Controller{
 					'fc13' => $this->input->post('fc13'),
 					'fc14' => $this->input->post('fc14'),
 					'fc15' => $this->input->post('fc15'),
-					'fc16' => $this->input->post('fc16'),
-					'fc17' => $this->input->post('fc17'),
-					'fc18' => $this->input->post('fc18'),
                 );
 
                 $this->Poconsideracionmodel->update_po_consideracion($id,$params);            

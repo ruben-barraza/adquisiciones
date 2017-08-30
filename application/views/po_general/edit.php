@@ -373,7 +373,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<button id="botonEditar" type="submit" class="btn btn-success">
-								<i class="fa fa-check"></i> Guardar
+								<i class="fa fa-arrow-right"></i> Continuar
 							</button>
 							<a href="<?php echo site_url('po_general/index/'); ?>" id="botonCancelar" class="btn btn-danger">
 								<span class="fa fa-ban"></span> Cancelar

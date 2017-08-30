@@ -33,7 +33,7 @@
 						<div class="col-md-8">
 							<textarea name="fc1" class="form-control summernote" id="fc1">
 								<?php echo $this->input->post('fc1'); ?>
-								1.- Los datos de los bienes, arrendamientos o servicios a cotizar (mismos que se especifican en el anexo de la solicitud de cotización).
+								<i>Especificaciones Técnicas ____________________</i>
 							</textarea>
 						</div>
 					</div>
@@ -42,158 +42,127 @@
 						<div class="col-md-8">
 							<textarea name="fc2" class="form-control summernote" id="fc2">
 								<?php echo $this->input->post('fc2'); ?>
-								2.- Condiciones de entrega:
+								<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc3" class="col-md-4 control-label">Condiciones</label>
+						<label for="fc3" class="col-md-4 control-label">Punto 3</label>
 						<div class="col-md-8">
 							<textarea name="fc3" class="form-control summernote" id="fc3">
 								<?php echo $this->input->post('fc3'); ?>
-								En una sola exhibición de <u>cantidad de días señalada en documento anexo</u>&nbsp;días naturales posteriores a la recepción de la orden de surtimiento.<ul><li>Entregas parciales con una vigencia máxima (fechas o plazo) <b><u>N/A.</u></b></li><li>El lugar de entrega será: <b><u>El señalado en el documento anexo.</u></b></li></ul>
+								<i>El lugar de entrega será ____________________</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc4" class="col-md-4 control-label">Punto 3</label>
+						<label for="fc4" class="col-md-4 control-label">Punto 4</label>
 						<div class="col-md-8">
 							<textarea name="fc4" class="form-control summernote" id="fc4">
 								<?php echo $this->input->post('fc4'); ?>
-								3.- Considerar en su cotización que el pago es a los 20 días naturales posteriores a la entrega de la factura, previa entrega de los bienes o prestación de los servicios a satisfacción.
+								<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc5" class="col-md-4 control-label">Punto 4</label>
+						<label for="fc5" class="col-md-4 control-label">Punto 5</label>
 						<div class="col-md-8">
 							<textarea name="fc5" class="form-control summernote" id="fc5">
 								<?php echo $this->input->post('fc5'); ?>
-								4.- Señalar en su caso, el porcentaje de anticipo: <b><u>N/A.</u></b>
+								<i>Condición de los precios será: ____________</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc6" class="col-md-4 control-label">Punto 5</label>
+						<label for="fc6" class="col-md-4 control-label">Punto 6</label>
 						<div class="col-md-8">
 							<textarea name="fc6" class="form-control summernote" id="fc6">
 								<?php echo $this->input->post('fc6'); ?>
-								5.- El porcentaje de garantía de cumplimiento será del <b><u>10%.</u></b>
+								<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc7" class="col-md-4 control-label">Punto 6</label>
+						<label for="fc7" class="col-md-4 control-label">Punto 7</label>
 						<div class="col-md-8">
 							<textarea name="fc7" class="form-control summernote" id="fc7">
 								<?php echo $this->input->post('fc7'); ?>
-								6.- Penas convencionales por atraso en la entrega de bienes y/o servicios será del <b><u>10%.</u></b>
+								<i>La condición de los precios será variable</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc8" class="col-md-4 control-label">Especificaciones</label>
+						<label for="fc8" class="col-md-4 control-label">Punto 8</label>
 						<div class="col-md-8">
 							<textarea name="fc8" class="form-control summernote" id="fc8">
 								<?php echo $this->input->post('fc8'); ?>
-								El archivo adjunto de especificaciones técnicas se hace consistir en <u style="font-weight: bold;">&nbsp;2 </u>&nbsp;fojas.
+								<i>Moneda a cotizar será en moneda nacional.</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc9" class="col-md-4 control-label">Punto 7</label>
+						<label for="fc9" class="col-md-4 control-label">Punto 9</label>
 						<div class="col-md-8">
 							<textarea name="fc9" class="form-control summernote" id="fc9">
 								<?php echo $this->input->post('fc9'); ?>
-								7.- En su caso, los métodos de prueba que empleará el ente público para determinar el cumplimiento de las especificaciones solicitadas.<ul><li>Normas que deben cumplirse.</li><li>Registros Sanitarios o Permisos Especiales, en su caso.</li></ul>
+								<i>Idioma de cotización: Español México</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc10" class="col-md-4 control-label">Punto 8</label>
+						<label for="fc10" class="col-md-4 control-label">Punto 10</label>
 						<div class="col-md-8">
 							<textarea name="fc10" class="form-control summernote" id="fc10">
 								<?php echo $this->input->post('fc10'); ?>
-								8.- Origen de los Bienes (Nacional o de Importación): <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .</u>
+								<i>Porcentaje de Garantía: ___________________________</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc11" class="col-md-4 control-label">Punto 9</label>
+						<label for="fc11" class="col-md-4 control-label">Punto 11</label>
 						<div class="col-md-8">
 							<textarea name="fc11" class="form-control summernote" id="fc11">
 								<?php echo $this->input->post('fc11'); ?>
-								9.- En caso de bienes de importación la moneda en que cotiza.
+								<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc12" class="col-md-4 control-label">Punto 10</label>
+						<label for="fc12" class="col-md-4 control-label">Punto 12</label>
 						<div class="col-md-8">
 							<textarea name="fc12" class="form-control summernote" id="fc12">
 								<?php echo $this->input->post('fc12'); ?>
-								10.- En caso de que el proceso de fabricación de los bienes requeridos sea superior a 60 días, señale el tiempo que correspondería a su producción: <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .</u>
+								<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc13" class="col-md-4 control-label">Punto 11</label>
+						<label for="fc13" class="col-md-4 control-label">Punto 13</label>
 						<div class="col-md-8">
 							<textarea name="fc13" class="form-control summernote" id="fc13">
 								<?php echo $this->input->post('fc13'); ?>
-								11.- En su caso, especificar si el costo incluye:<ul><li>Instalación.</li><li>Capacitación.</li><li>Puesta en marcha.</li></ul>
+								<i>Deducciones:___________________________________________</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc14" class="col-md-4 control-label">Punto 12</label>
+						<label for="fc14" class="col-md-4 control-label">Punto 14</label>
 						<div class="col-md-8">
 							<textarea name="fc14" class="form-control summernote" id="fc14">
 								<?php echo $this->input->post('fc14'); ?>
-								12.- Otras garantías que se deben considerar, indicar el o los tipos de garantía, o de responsabilidad civil señalando su vigencia: <b><u>N/A.</u></b>
+								<i>Se aceptan entregas parciales y anticipadas.</i>
 							</textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fc15" class="col-md-4 control-label">Punto 13</label>
+						<label for="fc15" class="col-md-4 control-label">Punto 15</label>
 						<div class="col-md-8">
 							<textarea name="fc15" class="form-control summernote" id="fc15">
 								<?php echo $this->input->post('fc15'); ?>
-								13.- La condición de precios será (fijos o variables): <b><u>FIJOS.</u></b>
+								<i>Vigencia de la Cotización 90 días</i>
 							</textarea>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="fc16" class="col-md-4 control-label">Punto 14</label>
-						<div class="col-md-8">
-							<textarea name="fc16" class="form-control summernote" id="fc16">
-								<?php echo $this->input->post('fc16'); ?>
-								14.- Señalar los años de experiencia con los que cuenta la empresa: <b><u>N/A.</u></b>
-							</textarea>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="fc17" class="col-md-4 control-label">Punto 15</label>
-						<div class="col-md-8">
-							<textarea name="fc17" class="form-control summernote" id="fc17">
-								<?php echo $this->input->post('fc17'); ?>
-								15.- Señalar el número de contratos similares al del alcance presente, durante los años de experiencia de la empresa: <b><u>N/A.</u></b>
-							</textarea>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="fc18" class="col-md-4 control-label">Vigencia</label>
-						<div class="col-md-8">
-							<textarea name="fc18" class="form-control summernote" id="fc18">
-								<?php echo $this->input->post('fc18'); ?>
-								Vigencia de oferta: <b><u>30 días.</u></b>
-							</textarea>
-						</div>
-					</div>
-
-					
-					
-
 					
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
