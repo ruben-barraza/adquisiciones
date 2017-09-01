@@ -71,7 +71,6 @@
 									foreach($tipo_values as $value => $display_text)
 									{
 										$selected = ($value == $po_general['tipo']) ? ' selected="selected"' : "";
-
 										echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
 									} 
 									?>
@@ -80,20 +79,45 @@
 					</div>
 
 					<!-- Solo aparece si se selecciona un proveedor de tipo bienes -->
-					<div class="form-group seccion-familia hidden">
-						<label for="idFamilia" class="col-md-2 control-label">Familia</label>
-						<div class="col-md-6">
-							<select id="idFamilia" name="idFamilia" class="form-control">
-								<option value="0">Seleccione</option>
-								<?php 
-									foreach ($familias as $i) {
-										$selected = ($i->id == $po_general["idFamilia"]) ? ' selected="selected"' : "";
-										echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
-									}
-								?>
-							</select>
+					<div class="seccion-oculta hidden">
+						<div class="form-group">
+							<label for="idFamilia" class="col-md-2 control-label">Familia</label>
+							<div class="col-md-6">
+								<select id="idFamilia" name="idFamilia" class="form-control">
+									<option value="0">Seleccione</option>
+									<?php 
+										foreach ($familias as $i) {
+											$selected = ($i->id == $po_general["idFamilia"]) ? ' selected="selected"' : "";
+											echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
+										}
+									?>
+								</select>
+							</div>
 						</div>
-					</div>
+
+						<div class="form-group">
+							<label for="actividad" class="col-md-2 control-label">Actividad</label>
+							<div class="col-md-6">
+								<select name="actividad" id="actividad" class="form-control">
+									<option value="0">Seleccione</option>
+									<?php 
+										$tipo_values = array(
+											'A'=>'Adquisición',
+											'R'=>'Arrendamiento',
+										);
+
+										foreach($tipo_values as $value => $display_text)
+										{
+											$selected = ($value == $po_general['actividad']) ? ' selected="selected"' : "";
+											echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+										} 
+										?>
+								</select>
+							</div>
+						</div>
+					
+					</div> 
+					
 
 					<div class="form-group">
                         <label for="idEstado" class="col-md-2 control-label">Estado</label>
@@ -390,6 +414,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
+		console.log("<?php echo $po_general['actividad'] ?>");
+
 		var options = {
 			twentyFour: true,
 			timeSeparator: ':',
@@ -428,8 +454,8 @@
 		
 		var tipoProveedor = "<?php echo $po_general['tipo'] ?>";
 		if (tipoProveedor == "B"){
-			$('.seccion-familia').removeClass('hidden');
-			$('.seccion-familia').show();
+			$('.seccion-oculta').removeClass('hidden');
+			$('.seccion-oculta').show();
 			$('.seccion-proveedores').removeClass('hidden');
 			$('.seccion-proveedores').show();
 			$('#cargarProveedoresBienes').removeClass('hidden');
@@ -438,7 +464,7 @@
 			$('.seccion-articulos').removeClass('hidden');
 			$('.seccion-articulos').show();
 		} else if (tipoProveedor == "S"){
-			$('.seccion-familia').hide();
+			$('.seccion-oculta').hide();
 			$('.seccion-proveedores').removeClass('hidden');
 			$('.seccion-proveedores').show();
 			$('#cargarProveedoresServicios').removeClass('hidden');
@@ -446,7 +472,7 @@
 			$('#cargarProveedoresBienes').hide();
 			$('.seccion-articulos').hide();
 		} else {
-			$('.seccion-familia').hide();
+			$('.seccion-oculta').hide();
 			$('.seccion-proveedores').hide();
 			$('.seccion-articulos').hide();
 		}
@@ -456,8 +482,8 @@
 			var val = $(this).val();
 			
 			if (val == "B"){
-				$('.seccion-familia').removeClass('hidden');
-				$('.seccion-familia').show();
+				$('.seccion-oculta').removeClass('hidden');
+				$('.seccion-oculta').show();
 				$('.seccion-proveedores').removeClass('hidden');
 				$('.seccion-proveedores').show();
 				$('#cargarProveedoresBienes').removeClass('hidden');
@@ -466,7 +492,7 @@
 				$('.seccion-articulos').removeClass('hidden');
 				$('.seccion-articulos').show();
 			} else if (val == "S"){
-				$('.seccion-familia').hide();
+				$('.seccion-oculta').hide();
 				$('.seccion-proveedores').removeClass('hidden');
 				$('.seccion-proveedores').show();
 				$('#cargarProveedoresServicios').removeClass('hidden');
@@ -474,7 +500,7 @@
 				$('#cargarProveedoresBienes').hide();
 				$('.seccion-articulos').hide();
 			} else {
-				$('.seccion-familia').hide();
+				$('.seccion-oculta').hide();
 				$('.seccion-proveedores').hide();
 				$('.seccion-articulos').hide();
 			}
@@ -567,7 +593,7 @@
 
 		//Seleccionar el lugar de entrega correspondiente para cada select
 		var arrayFromPHP = <?php echo json_encode($imConcepto); ?>;
-		console.log(arrayFromPHP);
+		//console.log(arrayFromPHP);
 		var arrayLength = arrayFromPHP.length;
 
 		for (i = 0; i < arrayLength; i++){

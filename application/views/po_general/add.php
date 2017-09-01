@@ -79,33 +79,41 @@
 					</div>
 
 					<!-- Solo aparece si se selecciona un proveedor de tipo bienes -->
-					<div class="form-group seccion-familia hidden">
-						<label for="idFamilia" class="col-md-2 control-label">Familia</label>
-						<div class="col-md-6">
-							<select id="idFamilia" name="idFamilia" class="form-control">
-								<option value="0">Seleccione</option>
-								<?php 
-									foreach ($familias as $i) {
-										$selected = ($i == $this->input->post('idFamilia')) ? ' selected="selected"' : "";
-										echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
-									}
-								?>
-							</select>
+					<div class="seccion-oculta hidden">
+						<div class="form-group">
+							<label for="idFamilia" class="col-md-2 control-label">Familia</label>
+							<div class="col-md-6">
+								<select id="idFamilia" name="idFamilia" class="form-control">
+									<option value="0">Seleccione</option>
+									<?php 
+										foreach ($familias as $i) {
+											$selected = ($i == $this->input->post('idFamilia')) ? ' selected="selected"' : "";
+											echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
+										}
+									?>
+								</select>
+							</div>
 						</div>
-					</div>
-
-					<!--
-					<div class="form-group">
-						<label for="oficioNumero" class="col-md-2 control-label">Oficio No.</label>
-						<div class="col-md-3">
-							<div class="input-group">
-								<span class="input-group-addon">137-</span>
-								<input type="text" name="oficioNumero" value="<?php //echo $this->input->post('oficioNumero'); ?>" class="form-control" id="oficioNumero" maxlength="5"/>
-								<span class="input-group-addon">/<?php //echo date("Y"); ?></span>
+						<div class="form-group">
+							<label for="actividad" class="col-md-2 control-label">Actividad</label>
+							<div class="col-md-6">
+								<select name="actividad" class="form-control" id="actividad">
+									<option value="0">Seleccione</option>
+									<?php 
+										$actividades_values = array(
+											'A'=>'Adquisición',
+											'R'=>'Arrendamiento'
+										);
+										foreach($actividades_values as $value => $display_text)
+										{
+											$selected = ($value == $this->input->post('actividad')) ? ' selected="selected"' : "";
+											echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+										} 
+									?>
+								</select>
 							</div>
 						</div>
 					</div>
-					-->
 
 					<div class="form-group">
                     	<label for="idEstado" class="col-md-2 control-label">Estado</label>
@@ -205,15 +213,6 @@
 							<input type="text" name="ccp3" value="<?php echo $this->input->post('ccp3'); ?>" class="form-control" id="ccp3" maxlength="250"/>
 						</div>
 					</div>
-					
-					<!-- Este campo se va a llenar con la fecha y hora actual, solo se mostrara en EDIT
-					<div class="form-group">
-						<label for="fechaUltimaModificacion" class="col-md-2 control-label">FechaUltimaModificacion</label>
-						<div class="col-md-6">
-							<input type="text" name="fechaUltimaModificacion" value="<?php //echo $this->input->post('fechaUltimaModificacion'); ?>" class="form-control" id="fechaUltimaModificacion" />
-						</div>
-					</div>
-					-->
 
 					<hr />
 
@@ -469,8 +468,8 @@
 			var val = $(this).val();
 			
 			if (val == "B"){
-				$('.seccion-familia').removeClass('hidden');
-				$('.seccion-familia').show();
+				$('.seccion-oculta').removeClass('hidden');
+				$('.seccion-oculta').show();
 				$('.seccion-proveedores').removeClass('hidden');
 				$('.seccion-proveedores').show();
 				$('#cargarProveedoresBienes').removeClass('hidden');
@@ -481,7 +480,7 @@
 
 				$("#asunto").val(asunto + "Bienes");
 			} else if (val == "S"){
-				$('.seccion-familia').hide();
+				$('.seccion-oculta').hide();
 				$('.seccion-proveedores').removeClass('hidden');
 				$('.seccion-proveedores').show();
 				$('#cargarProveedoresServicios').removeClass('hidden');
@@ -491,7 +490,7 @@
 
 				$("#asunto").val(asunto + "Servicios");
 			} else {
-				$('.seccion-familia').hide();
+				$('.seccion-oculta').hide();
 				$('.seccion-proveedores').hide();
 				$('.seccion-articulos').hide();
 

@@ -227,7 +227,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->SetFont('helvetica', 'I', 11);
         $pdf->Cell(0, 0, 'ASUNTO: '.$po_general[0]["asunto"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
 
-        $telFijo;
+        $telFijo = "";
         if($contactos[$i]["telefonoFijo"] != $contactos[$i]["telefonoMovil"])
         {
             $telFijo = " y ".$contactos[$i]["telefonoFijo"];
@@ -249,10 +249,19 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->Cell(0, 0, $contactos[$i]["correoElectronico"], 0, false, 'L', 0, '', 0, false, 'M', 'M');
         $pdf->Ln();
     
-    
+        $actividad = "";
+
+        if($po_general[0]["actividad"] == "A"){
+            $actividad = "la adquisición";
+        } else if($po_general[0]["actividad"] == "R"){
+            $actividad = "el arrendamiento";
+        } else if($po_general[0]["actividad"] == "S"){
+            $actividad = "la prestación de servicios";
+        }
+
         // TEXTO BASE
         $html = '<span style="text-align:justify; line-height: 17px;"><br /><i>Comisión Federal de Electricidad, como Empresa Productiva del Estado <b>(División de Distribución Noroeste)</b>,
-        requiere para sus actividades la (adquisición, arrendamiento y/o prestación de servicios) de (descripción de bienes o servicios), mismos que se encuentran reguladas
+        requiere para sus actividades '.$actividad.' de <b>'.$po_general[0]["descripcion"].'</b>, mismos que se encuentran reguladas
         por las Disposiciones Generales en materia de adquisiciones, arrendamientos, contratación de servicios y ejecución de obras de la Comisión Federal de Electricidad y
         sus empresas productivas subsidiarias (DIG&#39;s) con el objeto de obtener información que permita contratar bajo las mejores condiciones disponibles para el Estado.
         <br /><br />

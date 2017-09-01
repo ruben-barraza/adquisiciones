@@ -223,6 +223,7 @@ class Po_general extends CI_Controller{
 
 		$this->form_validation->set_rules('tipo','Tipo','required');
         $this->form_validation->set_rules('idFamilia','IdFamilia');
+        $this->form_validation->set_rules('actividad','Actividad');
 		$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
 		$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','max_length[5]|required');
 		$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','max_length[5]|required');
@@ -249,9 +250,18 @@ class Po_general extends CI_Controller{
             $idEmpleadoFormula = $this->Pogeneralmodel->get_idEmpleado($this->input->post('empleadoFormula'));
             $empleadoFormula = array_values($idEmpleadoFormula)[0]['id']; 
 
+            $tipo = $this->input->post('tipo');
+            $actividad;
+            if($tipo == 'S'){
+                $actividad = 'S';
+            } else if ($tipo == 'B'){
+                $actividad = $this->input->post('actividad');
+            }
+
             $params = array(
-				'tipo' => $this->input->post('tipo'),
+				'tipo' => $tipo,
                 'idFamilia' => $this->input->post('idFamilia'),
+                'actividad' => $actividad,
 				'domicilio' => $this->input->post('domicilio'),
 				'idEmpleadoResponsable' => $empleadoResponsable,
 				'idEmpleadoFormula' => $empleadoFormula,
@@ -301,6 +311,7 @@ class Po_general extends CI_Controller{
 
 			$this->form_validation->set_rules('tipo','Tipo','required');
             $this->form_validation->set_rules('idFamilia','IdFamilia');
+            $this->form_validation->set_rules('actividad','Actividad');
 			$this->form_validation->set_rules('domicilio','Domicilio','max_length[255]|required');
 			$this->form_validation->set_rules('empleadoResponsable','EmpleadoResponsable','required');
 			$this->form_validation->set_rules('empleadoFormula','EmpleadoFormula','required');
@@ -326,9 +337,18 @@ class Po_general extends CI_Controller{
                 $idEmpleadoFormula = $this->Pogeneralmodel->get_idEmpleado($this->input->post('empleadoFormula'));
                 $empleadoFormula = array_values($idEmpleadoFormula)[0]['id']; 
 
+                $tipo = $this->input->post('tipo');
+                $actividad;
+                if($tipo == 'S'){
+                    $actividad = 'S';
+                } else if ($tipo == 'B'){
+                    $actividad = $this->input->post('actividad');
+                }
+
                 $params = array(
-					'tipo' => $this->input->post('tipo'),
+					'tipo' => $tipo,
                     'idFamilia' => $this->input->post('idFamilia'),
+                    'actividad' => $actividad,
 					'domicilio' => $this->input->post('domicilio'),
 					'idEmpleadoResponsable' => $empleadoResponsable,
 					'idEmpleadoFormula' => $empleadoFormula,
