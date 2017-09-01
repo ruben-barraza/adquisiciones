@@ -147,6 +147,12 @@
 						<div class="col-md-6">
 							<input type="text" name="asunto" value="<?php echo $this->input->post('asunto'); ?>" class="form-control" id="asunto" maxlength="255"/>
 						</div>
+					</div>
+					<div class="form-group">
+						<label for="titulo" class="col-md-2 control-label">Título</label>
+						<div class="col-md-6">
+							<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" maxlength="255"/>
+						</div>
 					</div>	
 					<div class="form-group">
 						<label for="domicilio" class="col-md-2 control-label">Domicilio Remitente</label>
@@ -295,12 +301,7 @@
 						</div>
 
 						<br />
-						<div class="form-group">
-							<label for="titulo" class="col-md-1 control-label">Título</label>
-							<div class="col-md-6">
-								<input type="text" name="titulo" value="<?php echo $this->input->post('titulo'); ?>" class="form-control" id="titulo" maxlength="255"/>
-							</div>
-						</div>
+						
 
 						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
