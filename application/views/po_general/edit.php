@@ -161,6 +161,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="titulo" class="col-md-2 control-label">Título</label>
+						<div class="col-md-6">
+							<input type="text" name="titulo" value="<?php echo $imTitulo ?>" class="form-control" id="titulo" maxlength="255"/>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="domicilio" class="col-md-2 control-label">Domicilio Remitente</label>
 						<div class="col-md-6">
 							<input type="text" name="domicilio" value="<?php echo ($this->input->post('domicilio') ? $this->input->post('domicilio') : $po_general['domicilio']); ?>" class="form-control" id="domicilio" />
@@ -328,12 +334,7 @@
 						</div>
 
 						<br />
-						<div class="form-group">
-							<label for="titulo" class="col-md-1 control-label">Título</label>
-							<div class="col-md-6">
-								<input type="text" name="titulo" value="<?php echo $imTitulo ?>" class="form-control" id="titulo" maxlength="255"/>
-							</div>
-						</div>
+						
 
 						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
@@ -414,7 +415,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		console.log("<?php echo $po_general['actividad'] ?>");
+		console.log("<?php echo $imTitulo ?>");
 
 		var options = {
 			twentyFour: true,

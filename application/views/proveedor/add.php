@@ -26,37 +26,37 @@
 					<div class="form-group">
 						<label for="clave" class="col-md-4 control-label">Clave</label>
 						<div class="col-md-8">
-							<input type="text" name="clave" value="<?php echo $this->input->post('clave'); ?>" class="form-control" id="clave" maxlength="15"/>
+							<input type="text" name="clave" value="<?php echo $this->input->post('clave'); ?>" class="form-control" id="clave" maxlength="15" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="rfc" class="col-md-4 control-label">RFC</label>
 						<div class="col-md-8">
-							<input type="text" name="rfc" value="<?php echo $this->input->post('rfc'); ?>" class="form-control" id="rfc" maxlength="15"/>
+							<input type="text" name="rfc" value="<?php echo $this->input->post('rfc'); ?>" class="form-control" id="rfc" maxlength="15" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="razonSocial" class="col-md-4 control-label">Razón Social</label>
 						<div class="col-md-8">
-							<input type="text" name="razonSocial" value="<?php echo $this->input->post('razonSocial'); ?>" class="form-control" id="razonSocial" maxlength="150"/>
+							<input type="text" name="razonSocial" value="<?php echo $this->input->post('razonSocial'); ?>" class="form-control" id="razonSocial" maxlength="150" required />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="direccion" class="col-md-4 control-label">Dirección</label>
 						<div class="col-md-8">
-							<input type="text" name="direccion" value="<?php echo $this->input->post('direccion'); ?>" class="form-control" id="direccion" maxlength="150"/>
+							<input type="text" name="direccion" value="<?php echo $this->input->post('direccion'); ?>" class="form-control" id="direccion" maxlength="150" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="codigoPostal" class="col-md-4 control-label">Código Postal</label>
 						<div class="col-md-8">
-							<input type="text" name="codigoPostal" value="<?php echo $this->input->post('codigoPostal'); ?>" class="form-control" id="codigoPostal" maxlength="5"/>
+							<input type="text" name="codigoPostal" value="<?php echo $this->input->post('codigoPostal'); ?>" class="form-control" id="codigoPostal" maxlength="5" />
 						</div>
 					</div>
                     <div class="form-group">
                     	<label for="idEstado" class="col-md-4 control-label">Estado</label>
                         <div class="col-md-8">
-                           	 <select id="idEstado" name="idEstado" class="form-control">
+                           	 <select id="idEstado" name="idEstado" class="form-control" required>
 								<option value="0">Seleccione</option>
 								<?php 
 									foreach ($estados as $i) {
@@ -69,7 +69,7 @@
                     <div class="form-group">
 						<label for="idMunicipio" class="col-md-4 control-label">Municipio</label>
 						<div class="col-md-8">
-							<select id="idMunicipio" name="idMunicipio" class="form-control">
+							<select id="idMunicipio" name="idMunicipio" class="form-control" required>
 								<option value="0">Seleccione</option>
 							</select>
 						</div>
@@ -77,7 +77,7 @@
                     <div class="form-group">
 						<label for="estatus" class="col-md-4 control-label">Estatus</label>
 						<div class="col-md-8">
-							<select name="estatus" class="form-control">
+							<select name="estatus" class="form-control" required>
 								<option value="">Seleccione</option>
 								<?php 
 									$estatus_values = array(
@@ -97,7 +97,7 @@
 					<div class="form-group">
 						<label for="tipo" class="col-md-4 control-label">Tipo</label>
 						<div class="col-md-8">
-							<select id="tipoProveedor" name="tipo" class="form-control">
+							<select id="tipoProveedor" name="tipo" class="form-control" required>
 								<option value="">Seleccione</option>
 								<?php 
 									$tipo_values = array(
@@ -122,25 +122,25 @@
 					<div class="form-group">
 						<label for="nombre1" class="col-md-4 control-label">Nombre</label>
 						<div class="col-md-8">
-							<input type="text" name="nombre1" value="<?php echo $this->input->post('nombre1'); ?>" class="form-control" id="nombre1" maxlength="100"/>
+							<input type="text" name="nombre1" value="<?php echo $this->input->post('nombre1'); ?>" class="form-control" id="nombre1" maxlength="100" required/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="direccion1" class="col-md-4 control-label">Dirección</label>
 						<div class="col-md-8">
-							<input type="text" name="direccion1" value="<?php echo $this->input->post('direccion1'); ?>" class="form-control" id="direccion1" maxlength="150"/>
+							<input type="text" name="direccion1" value="<?php echo $this->input->post('direccion1'); ?>" class="form-control" id="direccion1" maxlength="150" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="codigoPostal1" class="col-md-4 control-label">Código Postal</label>
 						<div class="col-md-8">
-							<input type="text" name="codigoPostal1" value="<?php echo $this->input->post('codigoPostal1'); ?>" class="form-control" id="codigoPostal1" maxlength="5"/>
+							<input type="text" name="codigoPostal1" value="<?php echo $this->input->post('codigoPostal1'); ?>" class="form-control" id="codigoPostal1" maxlength="5" />
 						</div>
 					</div>
                     <div class="form-group">
                         <label for="idEstado1" class="col-md-4 control-label">Estado</label>
                         <div class="col-md-8">
-                        	<select id="idEstado1" name="idEstado1" class="form-control">
+                        	<select id="idEstado1" name="idEstado1" class="form-control" >
                             	<option value="0">Seleccione</option>
 								<?php 
 									foreach ($estados1 as $i) {
@@ -153,7 +153,7 @@
 					<div class="form-group">
 						<label for="idMunicipio1" class="col-md-4 control-label">Municipio</label>
 						<div class="col-md-8">
-							<select id="idMunicipio1" name="idMunicipio1" class="form-control">
+							<select id="idMunicipio1" name="idMunicipio1" class="form-control" >
 								<option value="0">Seleccione</option>
 							</select>
 						</div>
@@ -161,19 +161,19 @@
 					<div class="form-group">
 						<label for="telefonoFijo1" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo1" value="<?php echo $this->input->post('telefonoFijo1'); ?>" class="form-control" id="telefonoFijo1" maxlength="11"/>
+							<input type="text" name="telefonoFijo1" value="<?php echo $this->input->post('telefonoFijo1'); ?>" class="form-control" id="telefonoFijo1" maxlength="15" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil1" class="col-md-4 control-label">Teléfono Móvil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil1" value="<?php echo $this->input->post('telefonoMovil1'); ?>" class="form-control" id="telefonoMovil1" maxlength="11"/>
+							<input type="text" name="telefonoMovil1" value="<?php echo $this->input->post('telefonoMovil1'); ?>" class="form-control" id="telefonoMovil1" maxlength="15" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="correoElectronico1" class="col-md-4 control-label">Correo Electrónico</label>
 						<div class="col-md-8">
-							<input type="text" name="correoElectronico1" value="<?php echo $this->input->post('correoElectronico1'); ?>" class="form-control" id="correoElectronico1" maxlength="100"/>
+							<input type="text" name="correoElectronico1" value="<?php echo $this->input->post('correoElectronico1'); ?>" class="form-control" id="correoElectronico1" maxlength="100" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -228,13 +228,13 @@
 					<div class="form-group">
 						<label for="telefonoFijo2" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo2" value="<?php echo $this->input->post('telefonoFijo2'); ?>" class="form-control" id="telefonoFijo2" maxlength="11"/>
+							<input type="text" name="telefonoFijo2" value="<?php echo $this->input->post('telefonoFijo2'); ?>" class="form-control" id="telefonoFijo2" maxlength="15"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil2" class="col-md-4 control-label">Teléfono Móvil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil2" value="<?php echo $this->input->post('telefonoMovil2'); ?>" class="form-control" id="telefonoMovil2" maxlength="11"/>
+							<input type="text" name="telefonoMovil2" value="<?php echo $this->input->post('telefonoMovil2'); ?>" class="form-control" id="telefonoMovil2" maxlength="15"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -295,13 +295,13 @@
 					<div class="form-group">
 						<label for="telefonoFijo3" class="col-md-4 control-label">Teléfono Fijo</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoFijo3" value="<?php echo $this->input->post('telefonoFijo3'); ?>" class="form-control" id="telefonoFijo3" maxlength="11"/>
+							<input type="text" name="telefonoFijo3" value="<?php echo $this->input->post('telefonoFijo3'); ?>" class="form-control" id="telefonoFijo3" maxlength="15"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="telefonoMovil3" class="col-md-4 control-label">Teléfono Móvil</label>
 						<div class="col-md-8">
-							<input type="text" name="telefonoMovil3" value="<?php echo $this->input->post('telefonoMovil3'); ?>" class="form-control" id="telefonoMovil3" maxlength="11"/>
+							<input type="text" name="telefonoMovil3" value="<?php echo $this->input->post('telefonoMovil3'); ?>" class="form-control" id="telefonoMovil3" maxlength="15"/>
 						</div>
 					</div>
 					<div class="form-group">

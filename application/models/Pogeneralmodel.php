@@ -357,7 +357,7 @@ class Pogeneralmodel extends CI_Model
     public function getImTitulo($id)
     {
         $this->db->distinct();
-        $this->db->select('titulo')->from('im_general')->where('id', $id);
+        $this->db->select('titulo')->from('im_general')->where('idPog', $id);
          $valor = $this->db->get();
         $vl = $valor->row_array();
         return $vl['titulo'];
