@@ -1,3 +1,13 @@
+
+<?php
+/**
+ * @var CI_Controller $this
+ */
+echo $this->uri->segment(1);
+?>
+
+
+
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
