@@ -1,7 +1,4 @@
 <style>
-
-  
-  
   .pagination {
 	display: inline-block;
 	width: 100%;
