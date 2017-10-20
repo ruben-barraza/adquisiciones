@@ -141,6 +141,12 @@ class Im_general extends CI_Controller
             show_error('The im_general you are trying to delete does not exist.');
     }
 
+    function obtenerListaIMCFamilia(){
+        $clave = $_POST['clave'];
+        $data['listaimcfamilia'] = $this->Imgeneralmodel->get_all_lista_imc_familia($clave);
+        echo json_encode($data);
+    }
+
     function PeticionesOferta($id)
     {
         $data['peticionesoferta'] = $this->Imgeneralmodel->peticionesoferta($id);

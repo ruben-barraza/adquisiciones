@@ -138,6 +138,19 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    function get_all_lista_imc_familia($clave){
+        $this->db->select('im_general.id, im_general.idPog, im_general.titulo, im_general.fechaElaboracion, im_general.estatus, im_general.SOLPED, familia.descripcion, po_general.tipo');
+        $this->db->from('im_general');
+        $this->db->join('po_general', 'po_general.id = im_general.idPog', 'inner');
+        $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
+        $this->db->where('familia.clave', $clave);
+        $this->db->order_by('im_general.fechaElaboracion', 'DESC');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
+
     function get_empleado($rpe)
     {
         $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
