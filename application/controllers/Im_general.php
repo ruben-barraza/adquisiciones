@@ -112,9 +112,9 @@ class Im_general extends CI_Controller
                 $this->Imgeneralmodel->update_im_general($id, $params);
                 redirect('im_general/index');
             } else {
-                $this->load->model('Empleadomodel');
-                $data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
-                $data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
+
+                $data['empleadoResponsable'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
+                $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
 
                 $this->load->model('Municipiomodel');
                 $data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();

@@ -151,6 +151,31 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    public function getEmpleadoAutoriza($id)
+    {
+        $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('im_general');
+        $this->db->join('empleado', 'im_general.idEmpleadoAutoriza = empleado.id', 'inner');
+        $this->db->where('im_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
+
+    public function getEmpleadoFormula($id)
+    {
+        $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('im_general');
+        $this->db->join('empleado', 'im_general.idEmpleadoFormula = empleado.id', 'inner');
+        $this->db->where('im_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
     function get_empleado($rpe)
     {
         $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
