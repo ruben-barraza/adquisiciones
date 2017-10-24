@@ -111,7 +111,7 @@
 											$selected = ($value == $po_general['actividad']) ? ' selected="selected"' : "";
 											echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
 										} 
-										?>
+                                    ?>
 								</select>
 							</div>
 						</div>

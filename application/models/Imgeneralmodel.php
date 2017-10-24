@@ -176,6 +176,30 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    public function get_pog_id($id)
+    {
+        $this->db->select('idPog');
+        $this->db->from('im_general');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('idPog');
+        }
+    }
+
+    public function get_img_proveedores($pog_id)
+    {
+        $this->db->select('proveedor.id, proveedor.razonSocial');
+        $this->db->from('po_general');
+        $this->db->join('po_proveedor', 'po_general.id = po_proveedor.idPog', 'inner');
+        $this->db->join('proveedor', 'proveedor.id = po_proveedor.idProveedor', 'inner');
+        $this->db->where('po_general.id', $pog_id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
     function get_empleado($rpe)
     {
         $this->db->select('nombre, apellidoPaterno, apellidoMaterno');

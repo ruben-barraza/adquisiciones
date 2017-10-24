@@ -90,6 +90,7 @@ class Im_general extends CI_Controller
     {
         // check if the im_general exists before trying to edit it
         $data['im_general'] = $this->Imgeneralmodel->get_im_general($id);
+        $pog_id = $this->Imgeneralmodel->get_pog_id($id);
 
         if (isset($data['im_general']['id'])) {
             $this->load->library('form_validation');
@@ -115,6 +116,7 @@ class Im_general extends CI_Controller
 
                 $data['empleadoResponsable'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
                 $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
+                $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
 
                 $this->load->model('Municipiomodel');
                 $data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
