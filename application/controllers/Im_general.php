@@ -117,6 +117,8 @@ class Im_general extends CI_Controller
                 $data['empleadoResponsable'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
                 $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
                 $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
+                $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
+
 
                 $this->load->model('Municipiomodel');
                 $data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();

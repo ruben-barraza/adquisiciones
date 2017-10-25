@@ -54,26 +54,8 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
-    function suma_imgeneral()
-    {
-        $this->db->select('SUM(articulo.precioUnitario * im_concepto.cantidadIM) as subtotal');
-        $this->db->from('articulo');
-        $this->db->join('im_concepto', 'im_concepto.idArticulo=articulo.id ', 'inner');
-        $this->db->join('unidadmedida', 'articulo.idUnidadMedida=unidadmedida.id ', 'inner');
-        return $this->db->get()->row_array();
 
-    }
 
-    function get_empleadoImGeneral($rpe)
-    {
-        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
-        $this->db->from('empleado');
-        $this->db->where('rpe', $rpe);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        }
-    }
 
     /*
      * function to add new im_general
@@ -200,16 +182,20 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
-    function get_empleado($rpe)
+    public function get_imc_concepto($pog_id)
     {
-        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
-        $this->db->from('empleado');
-        $this->db->where('rpe', $rpe);
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->where('im_concepto.idPog', $pog_id);
+        $this->db->order_by("partida", "asc");
         $query = $this->db->get();
-        if ($query->num_rows() > 0) {
+        if($query->num_rows() > 0){
             return $query->result_array();
         }
     }
+
 
     public function GuardarDatosModel()
     {

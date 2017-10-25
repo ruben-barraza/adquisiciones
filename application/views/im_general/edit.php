@@ -1,3 +1,14 @@
+<style>
+    .short-field {
+        width: 70px;
+    }
+
+    .med-field {
+        width: 100px;
+    }
+</style>
+
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -52,7 +63,7 @@
 
                     <div class="col-md-4">
                         <input type="text" id="empleadoFormula2"
-                               value="<?php echo $empleadoFormula[0]['nombre'] . ' ' . $empleadoResponsable[0]['apellidoPaterno'] . ' ' . $empleadoResponsable[0]['apellidoMaterno'] ?>"
+                               value="<?php echo $empleadoFormula[0]['nombre'] . ' ' . $empleadoFormula[0]['apellidoPaterno'] . ' ' . $empleadoFormula[0]['apellidoMaterno'] ?>"
                                name="empleadoFormula2" class="form-control" readonly placeholder="Nombre del empleado"/>
                     </div>
                 </div>
@@ -109,39 +120,42 @@
 
                 <table id="tablaArticulos" class="table table-hover">
                     <thead class="thead-inverse">
-                    <th>Partida</th>
-                    <th>Código</th>
-                    <th>Descripción</th>
-                    <th>Cantidad</th>
-                    <th>UM</th>
-                    <th>Precio Unitario</th>
-                    <th>Importe</th>
+                        <th>Partida</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>UM</th>
+                        <th>Precio Unitario</th>
+                        <th>Importe</th>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                        <td class="col-md-1">
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                        <td>
-                            <input type="text" name="" id="" value="" class="form-control"/>
-                        </td>
-                    </tr>
-
+                    <?php
+                        $rows = count($imcConcepto);
+                        for($i = 0; $i < $rows; $i++){ ?>
+                        <tr>
+                            <td>
+                                <input type="text" name="<?php echo "partida_".($i+1) ?>" id="<?php echo "partida_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["partida"] ?>" class="form-control med-field" disabled/>
+                            </td>
+                            <td>
+                                <input type="text" name="<?php echo "codigo_".($i+1) ?>" id="<?php echo "codigo_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["codigo"] ?>" class="form-control" disabled/>
+                            </td>
+                            <td>
+                                <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["descripcion"] ?>" class="form-control" disabled/>
+                            </td>
+                            <td>
+                                <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["cantidad"] ?>" class="form-control short-field"/>
+                            </td>
+                            <td>
+                                <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["clave"] ?>" class="form-control short-field" disabled/>
+                            </td>
+                            <td class="col-md-1">
+                                <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control med-field"/>
+                            </td>
+                            <td>
+                                <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control"/>
+                            </td>
+                        </tr>
+                    <?php } ?>
                     </tbody>
                 </table>
 
@@ -155,7 +169,7 @@
                 </div>
 
                 <var>
-                    <?php var_dump($imcProveedores) ?>
+                    <?php var_dump($imcConcepto) ?>
                 </var>
 
                 <?php echo form_close(); ?>
