@@ -819,7 +819,6 @@
 						if(contacto.val() != "" && contacto.css('display') != 'none')
 						{
 							//console.log("[" + clave + ", " + j + "]");
-							
 							$.ajax({
 								url: '<?php echo base_url();?>index.php/Po_general/crearRelacionProveedor',
 								method: 'POST',
@@ -876,6 +875,10 @@
 			var tipoProveedor = $('#tipoProveedor').val();
 			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
 
+			for(l=0; l < longitudTabla; l++){
+
+            }
+
 			for(k = 0; k < longitudTablaArticulo; k++){
 				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
 				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
@@ -891,13 +894,14 @@
 					async: false,
 					data: {
 						id: idPog,
+                        idImg: idPog,
 						tipo: tipoProveedor,
 						articuloCodigo: articuloCodigo,
 						partida: partida,
 						plazoEntrega: plazoEntrega,
 						cantidad: cantidad,
 						lugarEntrega: lugarEntrega,
-						direccion: direccion 
+						direccion: direccion
 					}
 				});
 			}

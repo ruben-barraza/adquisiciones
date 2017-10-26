@@ -70,6 +70,7 @@ class Po_general extends CI_Controller{
 
     function crearRelacionIMConcepto(){
         $idPog = $_POST['id'];
+        $idImg = $_POST['idImg'];
         $tipo = $_POST['tipo'];
         $codigo = $_POST['articuloCodigo'];
         $partida = $_POST['partida'];
@@ -84,7 +85,7 @@ class Po_general extends CI_Controller{
 
         $params = array(
             'idPog' => $idPog,
-            'idImg' => -1,
+            'idImg' => $idImg,
             'tipo' => $tipo,
             'idArticulo' => $idArticulo,
             'idProveedor' => -1,

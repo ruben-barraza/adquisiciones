@@ -35,9 +35,8 @@ class Imgeneralmodel extends CI_Model
         $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
         $this->db->order_by('im_general.fechaElaboracion', 'DESC');
         $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        }
+        return $query->result_array();
+
 
     }
 

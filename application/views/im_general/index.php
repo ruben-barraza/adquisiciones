@@ -81,7 +81,7 @@
 
                     </tbody>
 
-                    <?php foreach ($listaim_general as $i) { ?>
+                    <?php  foreach ($listaim_general as $i) { ?>
                         <tr>
                             <td><?php echo $i['descripcion']; ?></td>
                             <td><?php echo $i['tipo']; ?></td>
