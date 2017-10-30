@@ -876,35 +876,35 @@
 			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
 
 			for(l=0; l < longitudTabla; l++){
-
+                for(k = 0; k < longitudTablaArticulo; k++){
+                    var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                    var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+                    var partida = $("#partida_" + cuentaActual2).val();
+                    var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+                    var cantidad = $("#cantidad_" + cuentaActual2).val();
+                    var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
+                    var lugarEntrega = lugar.split("- ").pop();
+                    var direccion = $("#direccionentrega_" + cuentaActual2).val();
+                    $.ajax({
+                        url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
+                        method: 'POST',
+                        async: false,
+                        data: {
+                            id: idPog,
+                            idImg: idPog,
+                            tipo: tipoProveedor,
+                            articuloCodigo: articuloCodigo,
+                            partida: partida,
+                            plazoEntrega: plazoEntrega,
+                            cantidad: cantidad,
+                            lugarEntrega: lugarEntrega,
+                            direccion: direccion
+                        }
+                    });
+                }
             }
 
-			for(k = 0; k < longitudTablaArticulo; k++){
-				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
-				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
-				var partida = $("#partida_" + cuentaActual2).val();
-				var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
-				var cantidad = $("#cantidad_" + cuentaActual2).val();
-				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
-				var lugarEntrega = lugar.split("- ").pop();
-				var direccion = $("#direccionentrega_" + cuentaActual2).val();
-				$.ajax({
-					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
-					method: 'POST',
-					async: false,
-					data: {
-						id: idPog,
-                        idImg: idPog,
-						tipo: tipoProveedor,
-						articuloCodigo: articuloCodigo,
-						partida: partida,
-						plazoEntrega: plazoEntrega,
-						cantidad: cantidad,
-						lugarEntrega: lugarEntrega,
-						direccion: direccion
-					}
-				});
-			}
+
      	});
 		 
 

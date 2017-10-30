@@ -145,6 +145,7 @@ class Generarpdfmodel extends CI_Model
     */
     function get_im_concepto($id)
     {
+
         $this->db->select('im_concepto.partida, articulo.codigo, articulo.descripcion, articulo.descripcionDetallada, articulo.especificacion, 
                     im_concepto.plazoEntrega, im_concepto.cantidad, unidadmedida.clave, im_concepto.lugarEntrega, im_concepto.direccionEntrega');
         $this->db->from('im_concepto');
@@ -152,6 +153,7 @@ class Generarpdfmodel extends CI_Model
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
         $this->db->where('im_concepto.idPog', $id);
         $this->db->order_by('im_concepto.partida', 'ASC');
+        $this->db->distinct();
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
