@@ -277,6 +277,8 @@
         <script src="<?php echo site_url('resources/summernote/summernote.js');?>"></script>
         <!-- include wickedpicker js-->
         <script src="<?php echo site_url('resources/wickedpicker/src/wickedpicker.js');?>"></script>
+        <!-- include price format js-->
+        <script src="<?php echo site_url('resources/priceformat/jquery.priceformat.min.js');?>"></script>
 
         <!-- Custom Theme Scripts -->
         <script src="<?php echo site_url('resources/js/custom.min.js');?>"></script>

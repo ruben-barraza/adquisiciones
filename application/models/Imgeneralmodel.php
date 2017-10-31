@@ -187,6 +187,7 @@ class Imgeneralmodel extends CI_Model
         $this->db->from('im_concepto');
         $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->group_by("im_concepto.partida");
         $this->db->where('im_concepto.idPog', $pog_id);
         $this->db->order_by("partida", "asc");
         $query = $this->db->get();
