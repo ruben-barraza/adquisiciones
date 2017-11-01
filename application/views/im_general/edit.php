@@ -143,16 +143,16 @@
                                 <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["descripcion"] ?>" class="form-control" disabled/>
                             </td>
                             <td>
-                                <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["cantidad"] ?>" class="form-control short-field"/>
+                                <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["cantidad"] ?>" class="form-control short-field cantidad"/>
                             </td>
                             <td>
                                 <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["clave"] ?>" class="form-control short-field" disabled/>
                             </td>
                             <td class="col-md-1">
-                                <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control med-field"/>
+                                <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control med-field precio"/>
                             </td>
                             <td>
-                                <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control"/>
+                                <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control importe"/>
                             </td>
                         </tr>
                     <?php } ?>
@@ -180,7 +180,57 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.cantidad, .precio').keyup(function(){
+            var $id = $(this).attr('id');
+            var $fila = $id.split("_").pop();
+            console.log($fila);
 
+            var cantidad = parseFloat($("#cantidad_" + $fila).val()) || 0;
+            var precio = parseFloat($("#preciounitario_" + $fila).val()) || 0;
+
+            $("#importe_" + $fila).val(cantidad * precio);
+        });
+
+        $('#imc_proveedor').change(function(){
+            var $prov_id = $(this).val();
+            if($prov_id == 0){
+                $("#tablaArticulos tbody").hide();
+            } else {
+                $("#tablaArticulos tbody").show();
+                $.ajax({
+                    url: '<?php echo base_url(); ?>index.php/Im_general/obtenerPreciosIMC',
+                    method: 'POST',
+                    data: {
+                        idProveedor: $prov_id,
+                    },
+                    success: function (returned) {
+                        var returned = JSON.parse(returned);
+
+                        jQuery.each(returned.preciosimc, function( i, val ) {
+                            //console.log(i);
+                            $("#partida_" + (i+1)).val(val.partida);
+                            $("#codigo_" + (i+1)).val(val.codigo);
+                            $("#descripcion_" + (i+1)).val(val.descripcion);
+                            $("#cantidad_" + (i+1)).val(val.cantidad);
+                            $("#um_" + (i+1)).val(val.clave);
+                            if(val.preciounitarioIM == 0){
+                                $("#preciounitario_" + (i+1)).val("");
+                            }
+                            else {
+                                $("#preciounitario_" + (i+1)).val(val.preciounitarioIM);
+                            }
+                            if(val.importeIM == 0){
+                                $("#importe_" + (i+1)).val("");
+                            }
+                            else {
+                                $("#importe_" + (i+1)).val(val.importeIM);
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
     });
 
 

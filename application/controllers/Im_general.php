@@ -33,6 +33,19 @@ class Im_general extends CI_Controller
 
     }
 
+    function obtenerNombreEmpleadoImGeneral()
+    {
+        $rpe = $_POST['rpe'];
+        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
+        echo json_encode($data);
+    }
+
+    function obtenerPreciosIMC()
+    {
+        $prov_id = $_POST['idProveedor'];
+        $data['preciosimc'] = $this->Imgeneralmodel->get_imc_precios($prov_id);
+        echo json_encode($data);
+    }
 
     /*
      * Adding a new im_general
@@ -74,13 +87,6 @@ class Im_general extends CI_Controller
             $this->load->view('layouts/main', $data);
 
         }
-    }
-
-    function obtenerNombreEmpleadoImGeneral()
-    {
-        $rpe = $_POST['rpe'];
-        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
-        echo json_encode($data);
     }
 
     /*

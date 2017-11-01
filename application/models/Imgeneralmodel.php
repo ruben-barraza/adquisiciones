@@ -196,6 +196,20 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    public function get_imc_precios($prov_id)
+    {
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad, im_concepto.preciounitarioIM, im_concepto.importeIM');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $this->db->order_by("partida", "asc");
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
 
     public function GuardarDatosModel()
     {
