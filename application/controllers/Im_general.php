@@ -47,6 +47,19 @@ class Im_general extends CI_Controller
         echo json_encode($data);
     }
 
+    function updatePreciosIMC()
+    {
+        $cantidad = $_POST['cantidad'];
+        $importe = $_POST['importe'];
+        $idProveedor = $_POST['idProveedor'];
+        $precioIM = $_POST['precio'];
+
+        $codigo = $_POST['codigo'];
+        $idArticulo = $this->Imgeneralmodel->get_idArticulo($codigo);
+
+        $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo);
+    }
+
     /*
      * Adding a new im_general
      */

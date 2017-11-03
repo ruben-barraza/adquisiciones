@@ -168,8 +168,16 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <a id="botonTest" class="btn btn-danger">
+                            <span class="fa fa-ban"></span> Test
+                        </a>
+                    </div>
+                </div>
+
                 <var>
-                    <?php var_dump($imcConcepto) ?>
+                    <?php  ?>
                 </var>
 
                 <?php echo form_close(); ?>
@@ -183,7 +191,6 @@
         $('.cantidad, .precio').keyup(function(){
             var $id = $(this).attr('id');
             var $fila = $id.split("_").pop();
-            console.log($fila);
 
             var cantidad = parseFloat($("#cantidad_" + $fila).val()) || 0;
             var precio = parseFloat($("#preciounitario_" + $fila).val()) || 0;
@@ -227,6 +234,29 @@
                             }
                         });
 
+                    }
+                });
+            }
+        });
+
+        $("#botonTest").click(function(){
+            var prov_id = $('#imc_proveedor').val();
+            var longitudTablaArticulo = $("#tablaArticulos tbody tr").length;
+            for(i = 1; i <= longitudTablaArticulo; i++) {
+                var codigo = $("#codigo_" + i).val();
+                var cantidad = $("#cantidad_" + i).val();
+                var precio = $("#preciounitario_" + i).val();
+                var importe = $("#importe_" + i).val();
+                $.ajax({
+                    url: '<?php echo base_url();?>index.php/Im_general/updatePreciosIMC',
+                    method: 'POST',
+                    async: false,
+                    data: {
+                        idProveedor: prov_id,
+                        codigo: codigo,
+                        cantidad: cantidad,
+                        precio: precio,
+                        importe: importe
                     }
                 });
             }

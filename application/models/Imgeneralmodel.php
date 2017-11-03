@@ -210,6 +210,23 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    public function update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo){
+        $data = array('cantidad' => $cantidad, 'preciounitarioIM' => $precioIM, 'importeIM' => $importe);
+        $arraywhere = array('idProveedor' => $idProveedor, 'idArticulo' => $idArticulo);
+        $this->db->where($arraywhere);
+        $this->db->update('im_concepto', $data);
+    }
+
+    function get_idArticulo($codigo)
+    {
+        $this->db->select('id');
+        $this->db->from('articulo');
+        $this->db->where('codigo', $codigo);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['id'];
+    }
+
 
     public function GuardarDatosModel()
     {
