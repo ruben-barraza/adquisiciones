@@ -6,6 +6,10 @@
     .med-field {
         width: 100px;
     }
+
+    .table {
+        margin: 50px 0 20px 0;
+    }
 </style>
 
 
@@ -24,17 +28,17 @@
                     <label for="titulo" class="col-md-2 control-label">Título</label>
                     <div class="col-md-6">
                         <input type="text" name="titulo"
-                               value="<?php echo($this->input->post('titulo') ? $this->input->post('titulo') : $im_general['titulo']); ?>"
+                               value="<?php echo $im_general['titulo']; ?>"
                                class="form-control" id="titulo"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="empleadoResponsable" class="col-md-2 control-label">Empleado Responsable</label>
+                    <label for="empleadoAutoriza" class="col-md-2 control-label">Empleado Autoriza</label>
                     <div class="col-md-2">
                         <div class="input-group">
-                            <input type="text" id="empleadoResponsable" name="empleadoResponsable"
-                                   value="<?php echo $empleadoResponsable[0]['rpe'] ?>" maxlength="5"
+                            <input type="text" id="empleadoAutoriza" name="empleadoAutoriza"
+                                   value="<?php echo $empleadoAutoriza[0]['rpe'] ?>" maxlength="5"
                                    class="form-control pull-right" placeholder="Ingrese RPE"/>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-search"></i>
@@ -42,9 +46,9 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" id="empleadoResponsable2"
-                               value="<?php echo $empleadoResponsable[0]['nombre'] . ' ' . $empleadoResponsable[0]['apellidoPaterno'] . ' ' . $empleadoResponsable[0]['apellidoMaterno'] ?>"
-                               name="empleadoResponsable2" class="form-control" readonly
+                        <input type="text" id="empleadoAutoriza2"
+                               value="<?php echo $empleadoAutoriza[0]['nombre'] . ' ' . $empleadoAutoriza[0]['apellidoPaterno'] . ' ' . $empleadoAutoriza[0]['apellidoMaterno'] ?>"
+                               name="empleadoAutoriza2" class="form-control" readonly
                                placeholder="Nombre del empleado"/>
                     </div>
                 </div>
@@ -71,10 +75,9 @@
                 <div class="form-group">
                     <label for="solped" class="col-md-2 control-label">SOLPED</label>
                     <div class="col-md-4">
-                        <input type="text" name="solped" value="
-                            <?php
+                        <input type="text" name="solped" value="<?php
                         if ($im_general['SOLPED'] != 0)
-                            echo($this->input->post('SOLPED') ? $this->input->post('SOLPED') : $im_general['SOLPED']);
+                            echo $im_general['SOLPED'];
                         else
                             echo "";
                         ?>" class="form-control" id="solped"/>
@@ -96,7 +99,9 @@
                             );
 
                             foreach ($estatus_values as $value => $display_text) {
-                                echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+
+                                $selected = ($value == $im_general['estatus']) ? ' selected="selected"' : "";
+                                echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
                             }
                             ?>
                         </select>
@@ -118,8 +123,34 @@
                     </div>
                 </div>
 
-                <table id="tablaArticulos" class="table table-hover">
-                    <thead class="thead-inverse">
+                <div id="tabla_total" class="hidden">
+                    <div class="form-group">
+                        <label for="moneda" class="control-label col-sm-2">Moneda</label>
+                        <div class="col-md-2">
+                            <select name="moneda" id="moneda" class="form-control">
+                                <option value="0">Seleccione</option>
+                                <?php
+                                $moneda_values = array(
+                                    'MXN' => 'MXN',
+                                    'USD' => 'USD',
+                                );
+
+                                foreach ($moneda_values as $value => $display_text) {
+                                    echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipocambio" class="control-label col-sm-2">Tipo de cambio</label>
+                        <div class="col-md-2">
+                            <input name="tipocambio" id="tipocambio" class="form-control" disabled/>
+                        </div>
+                    </div>
+
+                    <table id="tablaArticulos" class="table table-hover">
+                        <thead class="thead-inverse">
                         <th>Partida</th>
                         <th>Código</th>
                         <th>Descripción</th>
@@ -127,51 +158,81 @@
                         <th>UM</th>
                         <th>Precio Unitario</th>
                         <th>Importe</th>
-                    </thead>
-                    <tbody>
-                    <?php
+                        <th>PMC</th>
+                        </thead>
+                        <tbody>
+                        <?php
                         $rows = count($imcConcepto);
                         for($i = 0; $i < $rows; $i++){ ?>
-                        <tr>
-                            <td>
-                                <input type="text" name="<?php echo "partida_".($i+1) ?>" id="<?php echo "partida_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["partida"] ?>" class="form-control med-field" disabled/>
-                            </td>
-                            <td>
-                                <input type="text" name="<?php echo "codigo_".($i+1) ?>" id="<?php echo "codigo_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["codigo"] ?>" class="form-control" disabled/>
-                            </td>
-                            <td>
-                                <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["descripcion"] ?>" class="form-control" disabled/>
-                            </td>
-                            <td>
-                                <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["cantidad"] ?>" class="form-control short-field cantidad"/>
-                            </td>
-                            <td>
-                                <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["clave"] ?>" class="form-control short-field" disabled/>
-                            </td>
-                            <td class="col-md-1">
-                                <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control med-field precio"/>
-                            </td>
-                            <td>
-                                <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control importe"/>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
+                            <tr>
+                                <td>
+                                    <input type="text" name="<?php echo "partida_".($i+1) ?>" id="<?php echo "partida_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["partida"] ?>" class="form-control med-field" disabled/>
+                                </td>
+                                <td>
+                                    <input type="text" name="<?php echo "codigo_".($i+1) ?>" id="<?php echo "codigo_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["codigo"] ?>" class="form-control" disabled/>
+                                </td>
+                                <td>
+                                    <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["descripcion"] ?>" class="form-control" disabled/>
+                                </td>
+                                <td>
+                                    <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["cantidad"] ?>" class="form-control short-field cantidad"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["clave"] ?>" class="form-control short-field" disabled/>
+                                </td>
+                                <td class="col-md-1">
+                                    <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control med-field precio"/>
+                                </td>
+                                <td>
+                                    <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control importe" disabled/>
+                                </td>
+                                <td>
+                                    <input type="text" name="pmc" id="pmc" value="" class="form-control" />
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
 
-                <hr/>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-8">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-check"></i> Guardar
-                        </button>
+                    <hr />
+
+                    <div class="form-group">
+                        <label for="cotizaciones" class="control-label col-sm-2">Subtotal</label>
+                        <div class="col-md-2">
+                            <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cotizaciones" class="control-label col-sm-2">IVA</label>
+                        <div class="col-md-2">
+                            <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cotizaciones" class="control-label col-sm-2">Total</label>
+                        <div class="col-md-2">
+                            <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                        </div>
                     </div>
                 </div>
 
+
+                <div class="form-group">
+                    <label for="cotizaciones" class="control-label col-sm-2">Cotizaciones</label>
+                    <div class="col-md-1">
+                        <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                    </div>
+                </div>
+
+                <hr/>
+
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-8">
-                        <a id="botonTest" class="btn btn-danger">
-                            <span class="fa fa-ban"></span> Test
+                        <a href="<?php echo site_url('im_general/index/'); ?>" id="botonRegresar" class="btn btn-primary">
+                            <span class="fa fa-arrow-left"></span> Regresar
+                        </a>
+                        <a id="botonGuardar" class="btn btn-success">
+                            <span class="fa fa-check"></span> Guardar
                         </a>
                     </div>
                 </div>
@@ -188,6 +249,58 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+
+        //Busca el nombre del empleado una vez que el input tenga 5 caracteres
+        $("#empleadoAutoriza").on('keyup', function(e) {
+            if ($(this).val().length == 5) {
+                var rpe = $('#empleadoAutoriza').val();
+                var nombre = "";
+                $.ajax({
+                    url: '<?php echo base_url(); ?>index.php/Po_general/obtenerNombreEmpleado',
+                    method: 'POST',
+                    data: {
+                        rpe: rpe
+                    },
+                    success: function (returned) {
+                        var returned = JSON.parse(returned);
+                        jQuery.each( returned.nombre, function( i, val ) {
+                            nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+                        });
+                        $("#empleadoAutoriza2").val(nombre);
+                    }
+                });
+            } else if ($(this).val().length < 5){
+                $('#empleadoAutoriza2').val('');
+            }
+        });
+
+        $("#empleadoFormula").on('keyup', function(e) {
+            if ($(this).val().length == 5) {
+                var rpe = $('#empleadoFormula').val();
+                var nombre = "";
+                $.ajax({
+                    url: '<?php echo base_url(); ?>index.php/Po_general/obtenerNombreEmpleado',
+                    method: 'POST',
+                    data: {
+                        rpe: rpe
+                    },
+                    success: function (returned) {
+                        var returned = JSON.parse(returned);
+                        //console.log(returned.nombre.length);
+
+                        jQuery.each(returned.nombre, function( i, val ) {
+                            nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
+                        });
+                        $("#empleadoFormula2").val(nombre);
+                    }
+                });
+            } else if ($(this).val().length < 5){
+                $('#empleadoFormula2').val('');
+            }
+        });
+
+
         $('.cantidad, .precio').keyup(function(){
             var $id = $(this).attr('id');
             var $fila = $id.split("_").pop();
@@ -201,9 +314,10 @@
         $('#imc_proveedor').change(function(){
             var $prov_id = $(this).val();
             if($prov_id == 0){
-                $("#tablaArticulos tbody").hide();
+                $("#tabla_total").hide();
             } else {
-                $("#tablaArticulos tbody").show();
+                $("#tabla_total").removeClass("hidden");
+                $("#tabla_total").show();
                 $.ajax({
                     url: '<?php echo base_url(); ?>index.php/Im_general/obtenerPreciosIMC',
                     method: 'POST',
@@ -233,13 +347,35 @@
                                 $("#importe_" + (i+1)).val(val.importeIM);
                             }
                         });
-
                     }
                 });
             }
         });
 
-        $("#botonTest").click(function(){
+        $("#botonGuardar").click(function(){
+
+            //Guarda info basica IM
+            var titulo = $("#titulo").val();
+            var empleadoAutorizaRpe = $("#empleadoAutoriza").val();
+            var empleadoFormulaRpe = $("#empleadoFormula").val();
+            var solped = $("#solped").val();
+            var imcestatus = $('#imc_estatus').val();
+            $.ajax({
+                url: '<?php echo base_url();?>index.php/Im_general/updateIMG',
+                method: 'POST',
+                async: false,
+                data: {
+                    idimg: <?php echo $im_general['id'] ?>,
+                    titulo: titulo,
+                    empleadoAutorizaRpe: empleadoAutorizaRpe,
+                    empleadoFormulaRpe: empleadoFormulaRpe,
+                    solped: solped,
+                    imcestatus: imcestatus,
+                }
+            });
+
+
+            //Guarda los precios
             var prov_id = $('#imc_proveedor').val();
             var longitudTablaArticulo = $("#tablaArticulos tbody tr").length;
             for(i = 1; i <= longitudTablaArticulo; i++) {

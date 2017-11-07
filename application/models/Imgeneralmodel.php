@@ -157,6 +157,17 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    function get_idEmpleado($rpe)
+    {
+        $this->db->select('id');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('id');
+        }
+    }
+
     public function get_pog_id($id)
     {
         $this->db->select('idPog');

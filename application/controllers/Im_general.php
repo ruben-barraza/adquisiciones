@@ -60,6 +60,29 @@ class Im_general extends CI_Controller
         $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo);
     }
 
+    function updateIMG()
+    {
+        $idimg = $_POST['idimg'];
+        $titulo = $_POST['titulo'];
+        $autorizaRpe = $_POST['empleadoAutorizaRpe'];
+        $formulaRpe = $_POST['empleadoFormulaRpe'];
+        $solped = $_POST['solped'];
+        $estatus = $_POST['imcestatus'];
+
+        $idEmpleadoAutoriza = $this->Imgeneralmodel->get_idEmpleado($autorizaRpe);
+        $idEmpleadoFormula = $this->Imgeneralmodel->get_idEmpleado($formulaRpe);
+
+        $params = array(
+            'titulo' => $titulo,
+            'idEmpleadoFormula' => $idEmpleadoFormula,
+            'idEmpleadoAutoriza' => $idEmpleadoAutoriza,
+            'estatus' => $estatus,
+            'SOLPED' => $solped,
+        );
+
+        $this->Imgeneralmodel->update_im_general($idimg, $params);
+    }
+
     /*
      * Adding a new im_general
      */
@@ -115,32 +138,28 @@ class Im_general extends CI_Controller
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('titulo', 'Titulo', 'max_length[255]|required');
-            $this->form_validation->set_rules('idEmpleadoFormula', 'IdEmpleadoFormula', 'required');
-            $this->form_validation->set_rules('idEmpleadoAutoriza', 'IdEmpleadoAutoriza', 'required');
-            $this->form_validation->set_rules('fechaElaboracion', 'FechaElaboracion', 'required');
-            $this->form_validation->set_rules('idMunicipioElaboracion', 'IdMunicipioElaboracion', 'required');
+            $this->form_validation->set_rules('empleadoFormula', 'empleadoFormula', 'required');
+            $this->form_validation->set_rules('empleadoAutoriza', 'empleadoAutoriza', 'required');
 
             if ($this->form_validation->run()) {
+                /*
                 $params = array(
                     'titulo' => $this->input->post('titulo'),
-                    'idEmpleadoFormula' => $this->input->post('idEmpleadoFormula'),
-                    'idEmpleadoAutoriza' => $this->input->post('idEmpleadoAutoriza'),
-                    'fechaElaboracion' => $this->input->post('fechaElaboracion'),
-                    'idMunicipioElaboracion' => $this->input->post('idMunicipioElaboracion'),
+                    'idEmpleadoFormula' => $this->input->post('empleadoFormula'),
+                    'idEmpleadoAutoriza' => $this->input->post('empleadoAutoriza'),
                 );
 
                 $this->Imgeneralmodel->update_im_general($id, $params);
                 redirect('im_general/index');
+                */
             } else {
 
-                $data['empleadoResponsable'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
+                $data['empleadoAutoriza'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
                 $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
                 $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
                 $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
 
 
-                $this->load->model('Municipiomodel');
-                $data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);
