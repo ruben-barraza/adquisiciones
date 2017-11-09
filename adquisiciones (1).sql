@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-11-2017 a las 20:11:10
+-- Tiempo de generación: 09-11-2017 a las 18:16:23
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -342,12 +342,12 @@ CREATE TABLE IF NOT EXISTS `im_concepto` (
 --
 
 INSERT INTO `im_concepto` (`id`, `idImg`, `idPog`, `tipo`, `idArticulo`, `idProveedor`, `partida`, `plazoEntrega`, `cantidad`, `cantidadPO`, `cantidadIM`, `preciounitarioIM`, `importeIM`, `lugarEntrega`, `direccionEntrega`, `idAlmacen`) VALUES
-(1, 1, 1, 'B', 3, 16, 1, 50, 6, 0, '0', '8.00', '48.00', 'OTRO', 'CALLE 999', -1),
-(2, 1, 1, 'B', 2, 16, 2, 50, 8, 0, '0', '5.00', '40.00', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
-(3, 1, 1, 'B', 1, 16, 3, 25, 4, 0, '0', '3.50', '14.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
-(4, 1, 1, 'B', 3, 18, 1, 50, 8, 0, '0', '5.50', '44.00', 'OTRO', 'CALLE 999', -1),
-(5, 1, 1, 'B', 2, 18, 2, 50, 3, 0, '0', '48.50', '145.50', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
-(6, 1, 1, 'B', 1, 18, 3, 25, 6, 0, '0', '33.50', '201.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1);
+(1, 1, 1, 'B', 3, 16, 1, 50, 5, 0, '0', '97.50', '487.50', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(2, 1, 1, 'B', 2, 16, 2, 50, 3, 0, '0', '5.50', '16.50', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
+(3, 1, 1, 'B', 1, 16, 3, 25, 2, 0, '0', '6.50', '13.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(4, 1, 1, 'B', 3, 18, 1, 50, 7, 0, '0', '6.50', '45.50', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(5, 1, 1, 'B', 2, 18, 2, 50, 46, 0, '0', '9.00', '414.00', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
+(6, 1, 1, 'B', 1, 18, 3, 25, 9, 0, '0', '4.00', '36.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1);
 
 -- --------------------------------------------------------
 
@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `im_general` (
 --
 
 INSERT INTO `im_general` (`id`, `idPog`, `titulo`, `idEmpleadoFormula`, `idEmpleadoAutoriza`, `fechaElaboracion`, `idMunicipioElaboracion`, `estatus`, `SOLPED`) VALUES
-(1, 1, 'ADQUISICIÓN DE ACEITE AISLANTE', 2, 1, '2017-10-31', 1805, '0', 0);
+(1, 1, 'ADQUISICIÓN DE ACEITE AISLANTE', 4, 3, '2017-11-07', 1805, 'I', 111222333);
 
 -- --------------------------------------------------------
 
@@ -2864,7 +2864,7 @@ CREATE TABLE IF NOT EXISTS `po_general` (
 --
 
 INSERT INTO `po_general` (`id`, `tipo`, `actividad`, `idFamilia`, `domicilio`, `idEmpleadoResponsable`, `idEmpleadoFormula`, `fechaLimitePresentacion`, `horaLimitePresentacion`, `ccp1`, `ccp2`, `ccp3`, `fechaElaboracion`, `asunto`, `idMunicipio`, `fechaUltimaModificacion`) VALUES
-(1, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-11-07', '11:00', '', '', '', '2017-10-31', 'Petición de Ofertas de Bienes', 1805, '2017-10-31 12:41:12');
+(1, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-11-14', '11:00', '', '', '', '2017-11-07', 'Petición de Ofertas de Bienes', 1805, '2017-11-07 10:30:20');
 
 -- --------------------------------------------------------
 
@@ -2886,8 +2886,8 @@ CREATE TABLE IF NOT EXISTS `po_numoficio` (
 --
 
 INSERT INTO `po_numoficio` (`idPog`, `numOficio`, `anio`, `fecha`) VALUES
-(1, 2, 2017, '2017-10-31'),
-(1, 1, 2017, '2017-10-31');
+(1, 2, 2017, '2017-11-07'),
+(1, 1, 2017, '2017-11-07');
 
 -- --------------------------------------------------------
 

@@ -197,21 +197,21 @@
                     <hr />
 
                     <div class="form-group">
-                        <label for="cotizaciones" class="control-label col-sm-2">Subtotal</label>
+                        <label for="subtotal" class="control-label col-sm-2">Subtotal</label>
                         <div class="col-md-2">
-                            <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                            <input name="subtotal" id="subtotal" class="form-control" disabled/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="cotizaciones" class="control-label col-sm-2">IVA</label>
+                        <label for="iva" class="control-label col-sm-2">IVA</label>
                         <div class="col-md-2">
-                            <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                            <input name="iva" id="iva" class="form-control" disabled/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="cotizaciones" class="control-label col-sm-2">Total</label>
+                        <label for="imctotal" class="control-label col-sm-2">Total</label>
                         <div class="col-md-2">
-                            <input name="cotizaciones" id="tipocambio" class="form-control" disabled/>
+                            <input name="imctotal" id="imctotal" class="form-control" disabled/>
                         </div>
                     </div>
                 </div>
@@ -250,6 +250,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        console.log(<?php echo $cotizaciones ?>);
+
+        var longitudTablaArticulo = $("#tablaArticulos tbody tr").length;
 
         //Busca el nombre del empleado una vez que el input tenga 5 caracteres
         $("#empleadoAutoriza").on('keyup', function(e) {
@@ -309,6 +312,13 @@
             var precio = parseFloat($("#preciounitario_" + $fila).val()) || 0;
 
             $("#importe_" + $fila).val(cantidad * precio);
+
+            var subtotal = 0;
+            for($i = 1; $i <= longitudTablaArticulo; $i++) {
+                subtotal += parseFloat($("#importe_" + $i).val());
+            }
+            calcularTotal(subtotal);
+
         });
 
         $('#imc_proveedor').change(function(){
@@ -346,11 +356,23 @@
                             else {
                                 $("#importe_" + (i+1)).val(val.importeIM);
                             }
+
                         });
+                        calcularTotal(returned.subtotalimc);
                     }
                 });
             }
         });
+
+        function calcularTotal(subtotal){
+
+            var imcsubtotal = parseFloat(subtotal);
+            $("#subtotal").val(imcsubtotal.toFixed(2));
+            var iva = imcsubtotal * 0.16;
+            $("#iva").val(iva.toFixed(2));
+            var total = imcsubtotal + iva;
+            $("#imctotal").val(total.toFixed(2));
+        }
 
         $("#botonGuardar").click(function(){
 
@@ -377,7 +399,6 @@
 
             //Guarda los precios
             var prov_id = $('#imc_proveedor').val();
-            var longitudTablaArticulo = $("#tablaArticulos tbody tr").length;
             for(i = 1; i <= longitudTablaArticulo; i++) {
                 var codigo = $("#codigo_" + i).val();
                 var cantidad = $("#cantidad_" + i).val();

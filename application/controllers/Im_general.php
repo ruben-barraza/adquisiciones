@@ -44,6 +44,7 @@ class Im_general extends CI_Controller
     {
         $prov_id = $_POST['idProveedor'];
         $data['preciosimc'] = $this->Imgeneralmodel->get_imc_precios($prov_id);
+        $data['subtotalimc'] = $this->Imgeneralmodel->get_imc_subtotal($prov_id);
         echo json_encode($data);
     }
 
@@ -159,7 +160,9 @@ class Im_general extends CI_Controller
                 $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
                 $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
 
+                $cotizaciones = 0;
 
+                $data['cotizaciones'] = $cotizaciones;
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);

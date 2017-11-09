@@ -221,6 +221,16 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    public function get_imc_subtotal($prov_id)
+    {
+        $this->db->select('sum(importeIM) as subtotal');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['subtotal'];
+    }
+
     public function update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo){
         $data = array('cantidad' => $cantidad, 'preciounitarioIM' => $precioIM, 'importeIM' => $importe);
         $arraywhere = array('idProveedor' => $idProveedor, 'idArticulo' => $idArticulo);
