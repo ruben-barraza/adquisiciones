@@ -238,7 +238,8 @@
                 </div>
 
                 <var>
-                    <?php  ?>
+                    <?php  var_dump($arr) ?>
+                    <?php  var_dump($output) ?>
                 </var>
 
                 <?php echo form_close(); ?>
@@ -249,8 +250,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
-        console.log(<?php echo $cotizaciones ?>);
+        var idPog = <?php echo $im_general['idPog'] ?>;
+        var idImg = <?php echo $im_general['id'] ?>;
 
         var longitudTablaArticulo = $("#tablaArticulos tbody tr").length;
 
@@ -333,6 +334,7 @@
                     method: 'POST',
                     data: {
                         idProveedor: $prov_id,
+                        idPog: idPog,
                     },
                     success: function (returned) {
                         var returned = JSON.parse(returned);
@@ -387,7 +389,7 @@
                 method: 'POST',
                 async: false,
                 data: {
-                    idimg: <?php echo $im_general['id'] ?>,
+                    idimg: idImg,
                     titulo: titulo,
                     empleadoAutorizaRpe: empleadoAutorizaRpe,
                     empleadoFormulaRpe: empleadoFormulaRpe,
@@ -410,6 +412,7 @@
                     async: false,
                     data: {
                         idProveedor: prov_id,
+                        idPog: idPog,
                         codigo: codigo,
                         cantidad: cantidad,
                         precio: precio,

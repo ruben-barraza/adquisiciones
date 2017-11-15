@@ -43,8 +43,9 @@ class Im_general extends CI_Controller
     function obtenerPreciosIMC()
     {
         $prov_id = $_POST['idProveedor'];
-        $data['preciosimc'] = $this->Imgeneralmodel->get_imc_precios($prov_id);
-        $data['subtotalimc'] = $this->Imgeneralmodel->get_imc_subtotal($prov_id);
+        $idPog = $_POST['idPog'];
+        $data['preciosimc'] = $this->Imgeneralmodel->get_imc_precios($prov_id, $idPog);
+        $data['subtotalimc'] = $this->Imgeneralmodel->get_imc_subtotal($prov_id, $idPog);
         echo json_encode($data);
     }
 
@@ -53,12 +54,13 @@ class Im_general extends CI_Controller
         $cantidad = $_POST['cantidad'];
         $importe = $_POST['importe'];
         $idProveedor = $_POST['idProveedor'];
+        $idPog = $_POST['idPog'];
         $precioIM = $_POST['precio'];
 
         $codigo = $_POST['codigo'];
         $idArticulo = $this->Imgeneralmodel->get_idArticulo($codigo);
 
-        $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo);
+        $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog);
     }
 
     function updateIMG()
@@ -160,9 +162,28 @@ class Im_general extends CI_Controller
                 $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
                 $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
 
+                $arr = $this->Imgeneralmodel->get_pmc_data();
+                $data['arr'] = $arr;
+
+                $output = array();
+                foreach($arr as $item){
+                    if(in_array($item['partida'], array_column($output, 'partida'))){
+                        // add store to already existing item
+                        $key = array_search($item['partida'], array_column($arr, 'partida'));
+                        $output[$key]['idProveedor_' . $item['idProveedor']] = $item['importeIM'];
+                    }else{
+                        // add new item with store
+                        $tmp = array(
+                            'partida' => $item['partida'],
+                            'idProveedor_' . $item['idProveedor'] => $item['importeIM'],
+                        );
+                        $output[] = $tmp;
+                    }
+                }
                 $cotizaciones = 0;
 
                 $data['cotizaciones'] = $cotizaciones;
+                $data['output'] = $output;
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);
