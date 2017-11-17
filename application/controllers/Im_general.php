@@ -162,20 +162,21 @@ class Im_general extends CI_Controller
                 $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
                 $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
 
-                $arr = $this->Imgeneralmodel->get_pmc_data();
+                $arr = $this->Imgeneralmodel->get_pmc_data($id);
                 $data['arr'] = $arr;
 
                 $output = array();
+
                 foreach($arr as $item){
                     if(in_array($item['partida'], array_column($output, 'partida'))){
                         // add store to already existing item
                         $key = array_search($item['partida'], array_column($arr, 'partida'));
-                        $output[$key]['idProveedor_' . $item['idProveedor']] = $item['importeIM'];
+                        $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['importeIM']);
                     }else{
                         // add new item with store
                         $tmp = array(
                             'partida' => $item['partida'],
-                            'idProveedor_' . $item['idProveedor'] => $item['importeIM'],
+                            'idProveedor_' . $item['idProveedor'] => floatval($item['importeIM']),
                         );
                         $output[] = $tmp;
                     }

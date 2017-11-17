@@ -250,10 +250,11 @@ class Imgeneralmodel extends CI_Model
         return $vl['id'];
     }
 
-    function get_pmc_data()
+    function get_pmc_data($id)
     {
         $this->db->select('partida, idProveedor, importeIM');
         $this->db->from('im_concepto');
+        $this->db->where('idImg', $id);
         $this->db->order_by("idProveedor", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){

@@ -239,7 +239,40 @@
 
                 <var>
                     <?php  var_dump($arr) ?>
-                    <?php  var_dump($output) ?>
+                    <?php
+                        var_dump($output);
+                        $lista_precios = max(array_map('count', $output));
+
+                        $num_partidas = count($output);
+
+
+                        $newarray = array_keys($output[0]);
+                         var_dump($newarray);
+
+                        $numprov = count($newarray);
+
+
+                        for ($i = 0; $i < $num_partidas; $i++)
+                        {
+                            for ($j=1; $j < $numprov; $j++){
+                                echo $output[$i][$newarray[$j]];
+                                echo "<br>";
+                            }
+                                /*
+                            foreach($output as $key => $value){
+                                //echo "Key: $key";
+                            }
+                                */
+                        }
+
+                        foreach($output as $partida){
+                            foreach($partida as $precio_prov){
+                                $value = max($precio_prov);
+                                echo $value;
+                                echo "<br>";
+                            }
+                        }
+                    ?>
                 </var>
 
                 <?php echo form_close(); ?>
