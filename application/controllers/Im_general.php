@@ -181,10 +181,16 @@ class Im_general extends CI_Controller
                         $output[] = $tmp;
                     }
                 }
+
+                foreach(array_keys($output) as $key) {
+                    unset($output[$key]['partida']);
+                }
+                $output2 = array_values($output);
+
                 $cotizaciones = 0;
 
                 $data['cotizaciones'] = $cotizaciones;
-                $data['output'] = $output;
+                $data['output2'] = $output;
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);

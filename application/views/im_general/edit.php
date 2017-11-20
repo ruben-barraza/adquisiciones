@@ -240,13 +240,13 @@
                 <var>
                     <?php  var_dump($arr) ?>
                     <?php
-                        var_dump($output);
-                        $lista_precios = max(array_map('count', $output));
+                        var_dump($output2);
+                        $lista_precios = max(array_map('count', $output2));
 
-                        $num_partidas = count($output);
+                        $num_partidas = count($output2);
 
 
-                        $newarray = array_keys($output[0]);
+                        $newarray = array_keys($output2[0]);
                          var_dump($newarray);
 
                         $numprov = count($newarray);
@@ -255,23 +255,34 @@
                         for ($i = 0; $i < $num_partidas; $i++)
                         {
                             for ($j=1; $j < $numprov; $j++){
-                                echo $output[$i][$newarray[$j]];
+                                echo $output2[$i][$newarray[$j]];
                                 echo "<br>";
                             }
                                 /*
-                            foreach($output as $key => $value){
+                            foreach($output2 as $key => $value){
                                 //echo "Key: $key";
                             }
                                 */
                         }
 
-                        foreach($output as $partida){
-                            foreach($partida as $precio_prov){
-                                $value = max($precio_prov);
-                                echo $value;
-                                echo "<br>";
-                            }
+                        echo "--------------";
+                        echo "<br>";
+                        $maxvalue;
+                        $minvalue;
+                        for ($i = 0; $i < $num_partidas; $i++)
+                        {
+                            $maxvalue = max($output2[$i]);
+                            $minvalue = min($output2[$i]);
+                            $intervalo = $maxvalue - $minvalue;
+                            echo $intervalo;
+                            echo "<br>";
                         }
+
+
+                        $max = min($output2[0]);
+                        echo "HOLA $max";
+
+
                     ?>
                 </var>
 
