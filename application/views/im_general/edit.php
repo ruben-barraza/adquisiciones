@@ -244,6 +244,9 @@
                         $lista_precios = max(array_map('count', $output2));
 
                         $num_partidas = count($output2);
+                        $num_precios = count($output2[0]);
+
+                        echo "NUM PRECIOS: $num_precios";
 
 
                         $newarray = array_keys($output2[0]);
@@ -269,18 +272,22 @@
                         echo "<br>";
                         $maxvalue;
                         $minvalue;
+                        $num_intervalos = $num_partidas - 1;
                         for ($i = 0; $i < $num_partidas; $i++)
                         {
                             $maxvalue = max($output2[$i]);
                             $minvalue = min($output2[$i]);
-                            $intervalo = $maxvalue - $minvalue;
-                            echo $intervalo;
-                            echo "<br>";
+                            $val_diferencia = $maxvalue - $minvalue;
+                            $val_rango = round($val_diferencia/$num_intervalos, 2);
+                            for($j = 0; $j < $num_precios; j++){
+                                
+                            }
+
+                            //echo $val_rango;
+                            //echo "<br>";
                         }
 
 
-                        $max = min($output2[0]);
-                        echo "HOLA $max";
 
 
                     ?>
