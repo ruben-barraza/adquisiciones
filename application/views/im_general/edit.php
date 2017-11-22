@@ -275,19 +275,61 @@
                         $num_intervalos = $num_partidas - 1;
                         for ($i = 0; $i < $num_partidas; $i++)
                         {
+                            echo "PARTIDA ".($i + 1);
+                            echo "<br>";
                             $maxvalue = max($output2[$i]);
                             $minvalue = min($output2[$i]);
                             $val_diferencia = $maxvalue - $minvalue;
-                            $val_rango = round($val_diferencia/$num_intervalos, 2);
-                            for($j = 0; $j < $num_precios; j++){
-                                
-                            }
+                            $val_rango = $val_diferencia/$num_intervalos;
+                            echo "VL: $val_rango";
+                            echo "<br>";
+                            for($j = 0; $j < $num_intervalos; $j++){
+                                echo "Intervalo ".($j+1);
+                                echo "<br>";
+                                if($j == 0)
+                                    $lim_inf = $minvalue;
+                                echo "Límite inferior: ".round($lim_inf, 2);
+                                echo "<br>";
+                                $lim_sup = $lim_inf + $val_rango;
 
+                                echo "Límite superior: ".round($lim_sup, 2);
+                                echo "<br>";
+                                $frecuencias = 0;
+                                /*
+
+                                for ($k = 0; $k < $num_precios; $k++){
+                                    $precio = $output2[$i][$k];
+                                    echo $precio;
+                                    echo "<br>";
+                                }
+                                */
+
+                                $k = 0;
+                                foreach($output2[$i] as $array){
+                                    if($k == $num_precios - 1){
+                                        if($array >= $lim_inf && $array <= $lim_sup)
+                                            $frecuencias++;
+                                    } else {
+                                        if($array >= $lim_inf && $array < $lim_sup)
+                                            $frecuencias++;
+                                    }
+                                    $k++;
+                                }
+
+                                echo "Frecuencias en el intervalo: $frecuencias";
+                                echo "<br>";
+                                echo "<br>";
+
+                                $lim_inf = $lim_sup;
+
+                            }
+                            echo "------------------------------------------------------------------------------";
+                            echo "<br>";
                             //echo $val_rango;
-                            //echo "<br>";
+                            echo "<br>";
                         }
 
-
+                        //echo round(1.125, 2);
 
 
                     ?>
