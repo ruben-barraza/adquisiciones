@@ -244,29 +244,6 @@
                         $lista_precios = max(array_map('count', $output2));
 
                         $num_partidas = count($output2);
-                        $num_precios = count($output2[0]);
-
-                        echo "NUM PRECIOS: $num_precios";
-
-
-                        $newarray = array_keys($output2[0]);
-                         var_dump($newarray);
-
-                        $numprov = count($newarray);
-
-
-                        for ($i = 0; $i < $num_partidas; $i++)
-                        {
-                            for ($j=1; $j < $numprov; $j++){
-                                echo $output2[$i][$newarray[$j]];
-                                echo "<br>";
-                            }
-                                /*
-                            foreach($output2 as $key => $value){
-                                //echo "Key: $key";
-                            }
-                                */
-                        }
 
                         echo "--------------";
                         echo "<br>";
@@ -277,6 +254,14 @@
                         {
                             echo "PARTIDA ".($i + 1);
                             echo "<br>";
+
+                            $array_promedios = array();
+
+                            //Contiene los promedios de los intervalos con mayor número de frecuencias
+                            $max_frec_prom = array();
+
+                            $prom_frec = 0;
+
                             $maxvalue = max($output2[$i]);
                             $minvalue = min($output2[$i]);
                             $val_diferencia = $maxvalue - $minvalue;
@@ -294,35 +279,67 @@
 
                                 echo "Límite superior: ".round($lim_sup, 2);
                                 echo "<br>";
+                                $frec_promedio = array();
                                 $frecuencias = 0;
-                                /*
-
-                                for ($k = 0; $k < $num_precios; $k++){
-                                    $precio = $output2[$i][$k];
-                                    echo $precio;
-                                    echo "<br>";
-                                }
-                                */
-
                                 $k = 0;
+                                $precios_intervalo = array();
+                                $prom_intervalo = 0;
                                 foreach($output2[$i] as $array){
-                                    if($k == $num_precios - 1){
-                                        if($array >= $lim_inf && $array <= $lim_sup)
+                                    if($j == $num_intervalos - 1){
+                                        if($array >= $lim_inf && $array <= $lim_sup){
                                             $frecuencias++;
+                                            array_push($precios_intervalo, $array);
+                                        }
                                     } else {
-                                        if($array >= $lim_inf && $array < $lim_sup)
+                                        if($array >= $lim_inf && $array < $lim_sup) {
                                             $frecuencias++;
+                                            array_push($precios_intervalo, $array);
+                                        }
                                     }
+
                                     $k++;
                                 }
 
+                                if (empty($precios_intervalo)){
+                                    $prom_intervalo = 0;
+                                } else {
+                                    $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                                }
                                 echo "Frecuencias en el intervalo: $frecuencias";
                                 echo "<br>";
+                                echo "Promedio del intervalo: ".round($prom_intervalo, 2);
                                 echo "<br>";
+                                echo "<br>";
+                                $frec_promedio['frecuencias'] = $frecuencias;
+                                $frec_promedio['promedio'] = round($prom_intervalo, 2);
 
+                                array_push($array_promedios, $frec_promedio);
                                 $lim_inf = $lim_sup;
 
                             }
+                            var_dump($array_promedios);
+
+                            //Valor max de frecuencias
+                            $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+                            foreach ($array_promedios as $row){
+                                if ($row['frecuencias'] == $max_frecuencias){
+                                    array_push($max_frec_prom, $row['promedio']);
+                                }
+                            }
+
+                            $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+
+                            $pmc = min($prom_frec, $minvalue);
+
+                            echo "Promedio frecuencias: ".round($prom_frec, 2);
+                            echo "<br>";
+                            echo "Valor minimo: ".$minvalue;
+                            echo "<br>";
+                            echo "<br>";
+                            echo "PMC = ".$pmc;
+                            echo "<br>";
+                            echo "<br>";
+                            echo "<br>";
                             echo "------------------------------------------------------------------------------";
                             echo "<br>";
                             //echo $val_rango;
