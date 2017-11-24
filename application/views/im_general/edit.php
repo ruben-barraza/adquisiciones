@@ -119,6 +119,10 @@
                             <?php foreach($imcProveedores as $proveedor) : ?>
                                 <option value="<?php echo $proveedor['id']; ?>"><?php echo $proveedor['razonSocial']; ?></option>
                             <?php endforeach; ?>
+                            <option value="6666">REF BANCO PRECIO 1</option>
+                            <option value="7777">REF BANCO PRECIO 2</option>
+                            <option value="8888">REF BANCO PRECIO 3</option>
+                            <option value="9999">REF CATPRE</option>
                         </select>
                     </div>
                 </div>
@@ -439,6 +443,7 @@
             } else {
                 $("#tabla_total").removeClass("hidden");
                 $("#tabla_total").show();
+
                 $.ajax({
                     url: '<?php echo base_url(); ?>index.php/Im_general/obtenerPreciosIMC',
                     method: 'POST',
@@ -448,6 +453,9 @@
                     },
                     success: function (returned) {
                         var returned = JSON.parse(returned);
+                        if (returned === undefined){
+                            console.log("HLA");
+                        }
 
                         jQuery.each(returned.preciosimc, function( i, val ) {
                             //console.log(i);
