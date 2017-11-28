@@ -911,6 +911,30 @@
                 }
             }
 
+            var historico = [6666, 7777, 8888, 9999];
+            var index;
+            for(index = 0; index < historico.length; index++){
+                for(k = 0; k < longitudTablaArticulo; k++){
+                    var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                    var partida = $("#partida_" + cuentaActual2).val();
+                    var cantidad = $("#cantidad_" + cuentaActual2).val();
+                    $.ajax({
+                        url: '<?php echo base_url();?>index.php/Po_general/crearHistorico',
+                        method: 'POST',
+                        async: false,
+                        data: {
+                            id: idPog,
+                            idImg: idPog,
+                            tipo: tipoProveedor,
+                            articuloCodigo: articuloCodigo,
+                            idProveedor: historico[index],
+                            partida: partida,
+                            cantidad: cantidad,
+                        }
+                    });
+                }
+            }
+
 
      	});
 		 

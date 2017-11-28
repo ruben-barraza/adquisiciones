@@ -83,6 +83,7 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('im_concepto',$params);
     }
 
+
     function add_numero_oficio($params)
     {
         $this->db->insert('po_numoficio',$params);

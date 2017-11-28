@@ -453,9 +453,6 @@
                     },
                     success: function (returned) {
                         var returned = JSON.parse(returned);
-                        if (returned === undefined){
-                            console.log("HLA");
-                        }
 
                         jQuery.each(returned.preciosimc, function( i, val ) {
                             //console.log(i);
