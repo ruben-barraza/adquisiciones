@@ -242,14 +242,68 @@
                 </div>
 
                 <var>
-                    <?php  var_dump($arr) ?>
                     <?php
+
+                        /*--------------------------------------
+
                         var_dump($output2);
-                        $lista_precios = max(array_map('count', $output2));
 
-                        $num_partidas = count($output2);
 
-                        echo "--------------";
+
+                        $subarraykeys = array_keys($output2[0]);
+                        $removekeys = array();
+
+                        $num_partidas = 0;
+
+                        echo "<br>";
+                        echo "<br>";
+
+                        //Checo el número de cotizaciones, si la suma de algún idProveedor = 0, agrego a esa llave a $removekeys
+                        foreach($subarraykeys as $key){
+                            if(array_sum(array_column($output2, $key)) != 0){
+                                $num_partidas++;
+                            } else if(array_sum(array_column($output2, $key)) == 0) {
+                                array_push($removekeys, $key);
+                            }
+                            echo array_sum(array_column($output2, $key));
+                            echo "<br>";
+                        }
+
+                        echo "NUM PARTIDAS: $num_partidas";
+
+                        echo "<br>";
+
+                        var_dump($removekeys);
+
+                        //Quito los proveedores que no tienen cotizaciones
+                        for ($i = 0; $i < count($output2); $i++){
+                            foreach($removekeys as $key) {
+                                unset($output2[$i][$key]);
+                            }
+                        }
+
+                        var_dump($output2);
+
+                        //Este array va a contener solamente las cotizaciones, no incluye ningún precio histórico
+                        //De aquí se toma el mínimo para la cotización más baja
+                        $output3 = $output2;
+                        $keys_historicos = array("idProveedor_6666", "idProveedor_7777", "idProveedor_8888", "idProveedor_9999");
+
+                        //Quito los precios historicos del array output3
+                        for ($i = 0; $i < count($output3); $i++){
+                            foreach($keys_historicos as $key) {
+                                unset($output3[$i][$key]);
+                            }
+                        }
+
+                        var_dump($output3);
+
+
+                        echo "<br>";
+                        echo "SIZE OF: ".count($output2);
+                        echo "<br>";
+
+                        echo "----------------------------";
                         echo "<br>";
                         $maxvalue;
                         $minvalue;
@@ -332,12 +386,13 @@
                             }
 
                             $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+                            $cot_mas_baja =  min($output3[$i]);
 
-                            $pmc = min($prom_frec, $minvalue);
+                            $pmc = min($prom_frec, $cot_mas_baja);
 
                             echo "Promedio frecuencias: ".round($prom_frec, 2);
                             echo "<br>";
-                            echo "Valor minimo: ".$minvalue;
+                            echo "Cotización más baja: ".$cot_mas_baja;
                             echo "<br>";
                             echo "<br>";
                             echo "PMC = ".$pmc;
@@ -352,7 +407,7 @@
 
                         //echo round(1.125, 2);
 
-
+                        --------------------------------------------------------------*/
                     ?>
                 </var>
 

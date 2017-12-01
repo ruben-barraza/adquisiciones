@@ -321,18 +321,20 @@ for ($i = 0; $i < $num_contactos; $i++) {
             <tbody>';
                 for($j = 0; $j < $tableRows; $j++)
                 {
-                    $html .= '<tr>';
-                    $html .= '<td align="center" width="45">'.$im_concepto[$j]["partida"].'</td>';
-                    $html .= '<td align="center" width="60">'.$im_concepto[$j]["codigo"].'</td>';
-                    $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["descripcion"], 'utf-8').'</td>';
-                    $html .= '<td align="center" width="350">'.mb_strtoupper($im_concepto[$j]["descripcionDetallada"], 'utf-8').'</td>';
-                    $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["especificacion"], 'utf-8').'</td>';
-                    $html .= '<td align="center" width="70">'.$im_concepto[$j]["plazoEntrega"].'</td>';
-                    $html .= '<td align="center" width="30">'.$im_concepto[$j]["cantidad"].'</td>';
-                    $html .= '<td align="center" width="30">'.mb_strtoupper($im_concepto[$j]["clave"], 'utf-8').'</td>';
-                    $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["lugarEntrega"], 'utf-8').'</td>';
-                    $html .= '<td align="center">'.$im_concepto[$j]["direccionEntrega"].'</td>';
-                    $html .= '</tr>';
+                    if($im_concepto[$j]["lugarEntrega"] != "0"){
+                        $html .= '<tr>';
+                        $html .= '<td align="center" width="45">'.$im_concepto[$j]["partida"].'</td>';
+                        $html .= '<td align="center" width="60">'.$im_concepto[$j]["codigo"].'</td>';
+                        $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["descripcion"], 'utf-8').'</td>';
+                        $html .= '<td align="center" width="350">'.mb_strtoupper($im_concepto[$j]["descripcionDetallada"], 'utf-8').'</td>';
+                        $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["especificacion"], 'utf-8').'</td>';
+                        $html .= '<td align="center" width="70">'.$im_concepto[$j]["plazoEntrega"].'</td>';
+                        $html .= '<td align="center" width="30">'.$im_concepto[$j]["cantidad"].'</td>';
+                        $html .= '<td align="center" width="30">'.mb_strtoupper($im_concepto[$j]["clave"], 'utf-8').'</td>';
+                        $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["lugarEntrega"], 'utf-8').'</td>';
+                        $html .= '<td align="center">'.$im_concepto[$j]["direccionEntrega"].'</td>';
+                        $html .= '</tr>';
+                    }
                 }
     $html .= '</tbody>';
     $html .= '</table>';

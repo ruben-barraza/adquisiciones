@@ -916,6 +916,7 @@
             for(index = 0; index < historico.length; index++){
                 for(k = 0; k < longitudTablaArticulo; k++){
                     var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                    var articuloCodigo = $("#codigo_" + cuentaActual2).val();
                     var partida = $("#partida_" + cuentaActual2).val();
                     var cantidad = $("#cantidad_" + cuentaActual2).val();
                     $.ajax({

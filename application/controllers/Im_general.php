@@ -185,7 +185,6 @@ class Im_general extends CI_Controller
                 foreach(array_keys($output) as $key) {
                     unset($output[$key]['partida']);
                 }
-                $output2 = array_values($output);
 
                 $cotizaciones = 0;
 
