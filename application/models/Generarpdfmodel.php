@@ -145,6 +145,7 @@ class Generarpdfmodel extends CI_Model
     */
     function get_im_concepto($id)
     {
+        $this->db->distinct();
         $this->db->select('im_concepto.partida, articulo.codigo, articulo.descripcion, articulo.descripcionDetallada, articulo.especificacion, 
                     im_concepto.plazoEntrega, im_concepto.cantidad, unidadmedida.clave, im_concepto.lugarEntrega, im_concepto.direccionEntrega');
         $this->db->from('im_concepto');

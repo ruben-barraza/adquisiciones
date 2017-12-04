@@ -343,7 +343,7 @@
 													echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. mb_strtoupper($i->nombre) .'</option>';
 												}
 											?>
-											<option value="<?php echo sizeof($almacenes)+1?>">OTRO</option>
+											<option value="otro">OTRO</option>
 										</select>
 									</td>
 									<td class="col-md-2">
@@ -786,7 +786,7 @@
 			}	
 		});
 
-		
+
 
 		$("#botonGuardar").click(function(){
 			//Longitud - 1 para el número real de renglones en la tabla
@@ -819,7 +819,6 @@
 						if(contacto.val() != "" && contacto.css('display') != 'none')
 						{
 							//console.log("[" + clave + ", " + j + "]");
-							
 							$.ajax({
 								url: '<?php echo base_url();?>index.php/Po_general/crearRelacionProveedor',
 								method: 'POST',
@@ -876,31 +875,68 @@
 			var tipoProveedor = $('#tipoProveedor').val();
 			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
 
-			for(k = 0; k < longitudTablaArticulo; k++){
-				var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
-				var articuloCodigo = $("#codigo_" + cuentaActual2).val();
-				var partida = $("#partida_" + cuentaActual2).val();
-				var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
-				var cantidad = $("#cantidad_" + cuentaActual2).val();
-				var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
-				var lugarEntrega = lugar.split("- ").pop();
-				var direccion = $("#direccionentrega_" + cuentaActual2).val();
-				$.ajax({
-					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
-					method: 'POST',
-					async: false,
-					data: {
-						id: idPog,
-						tipo: tipoProveedor,
-						articuloCodigo: articuloCodigo,
-						partida: partida,
-						plazoEntrega: plazoEntrega,
-						cantidad: cantidad,
-						lugarEntrega: lugarEntrega,
-						direccion: direccion 
-					}
-				});
-			}
+
+
+			for(l=0; l < longitudTabla; l++){
+                var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + l + ") input:first").attr("name").split("_").pop();
+                var clave = $("#clave_" + cuentaActual1).val();
+                for(k = 0; k < longitudTablaArticulo; k++){
+                    var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                    var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+                    var partida = $("#partida_" + cuentaActual2).val();
+                    var plazoEntrega = $("#plazoentrega_" + cuentaActual2).val();
+                    var cantidad = $("#cantidad_" + cuentaActual2).val();
+                    var lugar = $("#lugarentrega_" + cuentaActual2 + " option:selected").text();
+                    var lugarEntrega = lugar.split("- ").pop();
+                    var almacen = $("#lugarentrega_" + cuentaActual2 + " option:selected").val();
+                    var direccion = $("#direccionentrega_" + cuentaActual2).val();
+                    $.ajax({
+                        url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
+                        method: 'POST',
+                        async: false,
+                        data: {
+                            id: idPog,
+                            idImg: idPog,
+                            tipo: tipoProveedor,
+                            articuloCodigo: articuloCodigo,
+                            partida: partida,
+                            clave: clave,
+                            plazoEntrega: plazoEntrega,
+                            cantidad: cantidad,
+                            lugarEntrega: lugarEntrega,
+                            direccion: direccion,
+                            almacen: almacen
+                        }
+                    });
+                }
+            }
+
+            var historico = [6666, 7777, 8888, 9999];
+            var index;
+            for(index = 0; index < historico.length; index++){
+                for(k = 0; k < longitudTablaArticulo; k++){
+                    var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                    var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+                    var partida = $("#partida_" + cuentaActual2).val();
+                    var cantidad = $("#cantidad_" + cuentaActual2).val();
+                    $.ajax({
+                        url: '<?php echo base_url();?>index.php/Po_general/crearHistorico',
+                        method: 'POST',
+                        async: false,
+                        data: {
+                            id: idPog,
+                            idImg: idPog,
+                            tipo: tipoProveedor,
+                            articuloCodigo: articuloCodigo,
+                            idProveedor: historico[index],
+                            partida: partida,
+                            cantidad: cantidad,
+                        }
+                    });
+                }
+            }
+
+
      	});
 		 
 

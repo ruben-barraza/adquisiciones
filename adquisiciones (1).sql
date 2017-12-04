@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 05-09-2017 a las 18:39:05
--- Versión del servidor: 5.7.14
--- Versión de PHP: 5.6.25
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 09-11-2017 a las 18:16:23
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,7 +28,8 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `almacen`
 --
 
-CREATE TABLE `almacen` (
+DROP TABLE IF EXISTS `almacen`;
+CREATE TABLE IF NOT EXISTS `almacen` (
   `id` int(11) NOT NULL,
   `centroMM` char(4) COLLATE utf8_spanish_ci NOT NULL,
   `idEmpleadoResponsable` int(11) NOT NULL,
@@ -34,7 +37,11 @@ CREATE TABLE `almacen` (
   `domicilio` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
   `telefono` int(11) NOT NULL,
-  `codigoPostal` char(5) COLLATE utf8_spanish_ci NOT NULL
+  `codigoPostal` char(5) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ALM_CMM` (`centroMM`),
+  KEY `almacen_ibfk_1` (`idEmpleadoResponsable`),
+  KEY `almacen_ibfk_2` (`idMunicipio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -51,7 +58,8 @@ INSERT INTO `almacen` (`id`, `centroMM`, `idEmpleadoResponsable`, `nombre`, `dom
 -- Estructura de tabla para la tabla `articulo`
 --
 
-CREATE TABLE `articulo` (
+DROP TABLE IF EXISTS `articulo`;
+CREATE TABLE IF NOT EXISTS `articulo` (
   `id` int(11) NOT NULL,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
@@ -62,7 +70,11 @@ CREATE TABLE `articulo` (
   `precioUnitario` decimal(15,2) NOT NULL,
   `status` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'A=Activo, B=Bloqueado',
   `cantidadEmbalaje` int(15) NOT NULL COMMENT 'Cantidad por embalaje',
-  `tiempoEntrega` int(11) NOT NULL COMMENT 'Cantidad de días de entrega'
+  `tiempoEntrega` int(11) NOT NULL COMMENT 'Cantidad de días de entrega',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ART_CODIGO` (`codigo`),
+  KEY `articulo_ibfk_1` (`idUnidadMedida`),
+  KEY `articulo_ibfk_2` (`idFamilia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -81,9 +93,11 @@ INSERT INTO `articulo` (`id`, `codigo`, `descripcion`, `idUnidadMedida`, `descri
 -- Estructura de tabla para la tabla `categoria`
 --
 
-CREATE TABLE `categoria` (
+DROP TABLE IF EXISTS `categoria`;
+CREATE TABLE IF NOT EXISTS `categoria` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -95,7 +109,8 @@ INSERT INTO `categoria` (`id`, `nombre`) VALUES
 (3, 'CATEGORIA 3'),
 (4, 'CATEGORIA 1'),
 (5, 'CATEGORIA 4'),
-(6, 'Jefe');
+(6, 'JEFE DE DEPARTAMENTO'),
+(7, 'PROFESIONISTA');
 
 -- --------------------------------------------------------
 
@@ -103,9 +118,11 @@ INSERT INTO `categoria` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `departamento`
 --
 
-CREATE TABLE `departamento` (
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE IF NOT EXISTS `departamento` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -118,7 +135,8 @@ INSERT INTO `departamento` (`id`, `nombre`) VALUES
 (3, 'Recursos Humanos'),
 (4, 'Finanzas'),
 (5, 'NORMALIZACION'),
-(6, 'Departamento de Programación y Confiabilidad de Bienes');
+(6, 'Departamento de Programación y Confiabilidad de Bienes'),
+(7, 'MANTENIMIENTO DE LINEAS Y REDES');
 
 -- --------------------------------------------------------
 
@@ -126,7 +144,8 @@ INSERT INTO `departamento` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `empleado`
 --
 
-CREATE TABLE `empleado` (
+DROP TABLE IF EXISTS `empleado`;
+CREATE TABLE IF NOT EXISTS `empleado` (
   `id` int(11) NOT NULL,
   `rpe` char(5) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
@@ -135,7 +154,11 @@ CREATE TABLE `empleado` (
   `correoElectronico` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `titulo` varchar(3) COLLATE utf8_spanish_ci NOT NULL,
   `idDepartamento` int(11) NOT NULL,
-  `idCategoria` int(11) NOT NULL
+  `idCategoria` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_EMP_RPE` (`rpe`),
+  KEY `empleado_ibfk_1` (`idCategoria`),
+  KEY `empleado_ibfk_2` (`idDepartamento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -147,8 +170,9 @@ INSERT INTO `empleado` (`id`, `rpe`, `nombre`, `apellidoPaterno`, `apellidoMater
 (2, '00002', 'JUAN JOSÉ', 'LOPEZ', 'MARTINEZ', 'juanlopez@correo.com', 'BCD', 3, 5),
 (3, '00003', 'CARLOS', 'SASDF', 'DFASDF', 'carlos@correo.com', 'SDF', 5, 3),
 (4, '00004', 'ANA', 'ASDFAD', 'DSHRHTSD', 'anaasdf@correo.com', 'BCD', 4, 4),
-(6, '00005', 'Carlos Emilio', 'Acosta', 'Figueroa', 'carlos.acosta02@cfe.gob.mx', 'ING', 6, 6),
-(7, '00006', 'José', 'Urias', 'Urias', 'jose.urias@cfe.gob.mx', 'ING', 6, 6);
+(6, '9EL26', 'CARLOS EMILIO', 'ACOSTA', 'FIGUEROA', 'carlos.acosta02@cfe.gob.mx', 'ING', 6, 6),
+(7, '9EL2B', 'JOSE ALBERTO', 'URIAS', 'ESTRELLA', 'jose.urias@cfe.gob.mx', 'ING', 6, 7),
+(8, '9AU1D', 'EDUARDO', 'ACOSTA', 'FELIX', 'eduardo.acosta@cfe.gob.mx', 'ING', 7, 6);
 
 -- --------------------------------------------------------
 
@@ -156,9 +180,11 @@ INSERT INTO `empleado` (`id`, `rpe`, `nombre`, `apellidoPaterno`, `apellidoMater
 -- Estructura de tabla para la tabla `estado`
 --
 
-CREATE TABLE `estado` (
+DROP TABLE IF EXISTS `estado`;
+CREATE TABLE IF NOT EXISTS `estado` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -206,10 +232,13 @@ INSERT INTO `estado` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `familia`
 --
 
-CREATE TABLE `familia` (
+DROP TABLE IF EXISTS `familia`;
+CREATE TABLE IF NOT EXISTS `familia` (
   `id` int(11) NOT NULL,
   `clave` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `clave` (`clave`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -223,10 +252,10 @@ INSERT INTO `familia` (`id`, `clave`, `descripcion`) VALUES
 (4, 'CABLES', 'CABLES'),
 (5, 'CAPACITORES', 'CAPACITORES'),
 (6, 'CCF', 'CORTACIRCUITOS FUSIBLE'),
-(7, 'COM', 'COMUNICACIONES'),
+(7, 'COMM', 'COMUNICACIONES'),
 (8, 'CONECT', 'CONECTADORES'),
 (9, 'CUCH', 'CUCHILLAS'),
-(10, 'EQ MED PRU', 'EQUIPO MED Y PRUEBAS'),
+(10, 'EQ MED PRU', 'EQUIPO MEDICION Y PRUEBAS'),
 (11, 'HERR', 'HERRAJES'),
 (12, 'FLEJE', 'FLEJE'),
 (13, 'INF', 'INFORMATICA'),
@@ -238,14 +267,16 @@ INSERT INTO `familia` (`id`, `clave`, `descripcion`) VALUES
 (19, 'REMATES', 'REMATES'),
 (20, 'REST', 'RESTAURADORES'),
 (21, 'SECC', 'SECCIONADORES'),
-(22, 'SUBT', 'SUBTERRANEO'),
-(23, 'T.C.', 'TRANSF CORRIENTE'),
-(24, 'TR DIST', 'TRANSF DIST'),
-(25, 'TR POTENCIAL', 'TRANSF POTENCIAL'),
+(22, 'SUBT', 'ACCESORIOS SUBTERRANEOS'),
+(23, 'T.C.', 'TRANSFORMADORES DE CORRIENTE'),
+(24, 'TR DIST', 'TRANSFORMADORES DE DISTRIBUCION'),
+(25, 'T.P.', 'TRANSFORMADORES DE POTENCIAL'),
 (26, 'CINTA', 'CINTA AISLANTE'),
 (27, 'JGO CONEX', 'JUEGO DE CONEXION'),
-(28, 'ANTI', 'ANTIFAUNA'),
-(29, 'TR CORR', 'TR CORRIENTE');
+(28, 'ANTIFAUNA', 'ANTIFAUNA'),
+(30, 'BCO BAT', 'BANCO DE BATERÍAS'),
+(31, 'INTERRUPTORES', 'INTERRUPTORES'),
+(32, 'TR POT', 'TRANSFORMADORES DE POTENCIA');
 
 -- --------------------------------------------------------
 
@@ -253,7 +284,8 @@ INSERT INTO `familia` (`id`, `clave`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `formularioconsideracion`
 --
 
-CREATE TABLE `formularioconsideracion` (
+DROP TABLE IF EXISTS `formularioconsideracion`;
+CREATE TABLE IF NOT EXISTS `formularioconsideracion` (
   `id` int(11) NOT NULL,
   `fc1` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fc2` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -272,7 +304,8 @@ CREATE TABLE `formularioconsideracion` (
   `fc15` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fc16` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fc17` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `fc18` varchar(255) COLLATE utf8_spanish_ci NOT NULL
+  `fc18` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -281,7 +314,8 @@ CREATE TABLE `formularioconsideracion` (
 -- Estructura de tabla para la tabla `im_concepto`
 --
 
-CREATE TABLE `im_concepto` (
+DROP TABLE IF EXISTS `im_concepto`;
+CREATE TABLE IF NOT EXISTS `im_concepto` (
   `id` int(11) NOT NULL,
   `idImg` int(11) NOT NULL,
   `idPog` int(11) NOT NULL,
@@ -293,19 +327,27 @@ CREATE TABLE `im_concepto` (
   `cantidad` int(11) NOT NULL,
   `cantidadPO` int(11) NOT NULL,
   `cantidadIM` varchar(11) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'N/C',
+  `preciounitarioIM` decimal(15,2) NOT NULL,
+  `importeIM` decimal(15,2) NOT NULL,
   `lugarEntrega` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `direccionEntrega` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `idAlmacen` int(11) NOT NULL
+  `idAlmacen` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idImg` (`idImg`),
+  KEY `idArticulo` (`idArticulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `im_concepto`
 --
 
-INSERT INTO `im_concepto` (`id`, `idImg`, `idPog`, `tipo`, `idArticulo`, `idProveedor`, `partida`, `plazoEntrega`, `cantidad`, `cantidadPO`, `cantidadIM`, `lugarEntrega`, `direccionEntrega`, `idAlmacen`) VALUES
-(1, -1, 2, 'B', 3, -1, 1, 50, 4, 0, '0', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', -1),
-(2, -1, 2, 'B', 2, -1, 2, 50, 3, 0, '0', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', -1),
-(3, -1, 2, 'B', 1, -1, 3, 25, 2, 0, '0', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', -1);
+INSERT INTO `im_concepto` (`id`, `idImg`, `idPog`, `tipo`, `idArticulo`, `idProveedor`, `partida`, `plazoEntrega`, `cantidad`, `cantidadPO`, `cantidadIM`, `preciounitarioIM`, `importeIM`, `lugarEntrega`, `direccionEntrega`, `idAlmacen`) VALUES
+(1, 1, 1, 'B', 3, 16, 1, 50, 5, 0, '0', '97.50', '487.50', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(2, 1, 1, 'B', 2, 16, 2, 50, 3, 0, '0', '5.50', '16.50', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
+(3, 1, 1, 'B', 1, 16, 3, 25, 2, 0, '0', '6.50', '13.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(4, 1, 1, 'B', 3, 18, 1, 50, 7, 0, '0', '6.50', '45.50', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(5, 1, 1, 'B', 2, 18, 2, 50, 46, 0, '0', '9.00', '414.00', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
+(6, 1, 1, 'B', 1, 18, 3, 25, 9, 0, '0', '4.00', '36.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1);
 
 -- --------------------------------------------------------
 
@@ -313,7 +355,8 @@ INSERT INTO `im_concepto` (`id`, `idImg`, `idPog`, `tipo`, `idArticulo`, `idProv
 -- Estructura de tabla para la tabla `im_general`
 --
 
-CREATE TABLE `im_general` (
+DROP TABLE IF EXISTS `im_general`;
+CREATE TABLE IF NOT EXISTS `im_general` (
   `id` int(11) NOT NULL,
   `idPog` int(11) NOT NULL,
   `titulo` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -322,7 +365,12 @@ CREATE TABLE `im_general` (
   `fechaElaboracion` date NOT NULL,
   `idMunicipioElaboracion` int(11) NOT NULL,
   `estatus` char(1) COLLATE utf8_spanish_ci NOT NULL,
-  `SOLPED` int(12) NOT NULL
+  `SOLPED` int(12) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `im_general_ibfk_1` (`idEmpleadoAutoriza`),
+  KEY `im_general_ibfk_2` (`idEmpleadoFormula`),
+  KEY `idPog` (`idPog`),
+  KEY `im_general_ibfk_3` (`idMunicipioElaboracion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -330,7 +378,7 @@ CREATE TABLE `im_general` (
 --
 
 INSERT INTO `im_general` (`id`, `idPog`, `titulo`, `idEmpleadoFormula`, `idEmpleadoAutoriza`, `fechaElaboracion`, `idMunicipioElaboracion`, `estatus`, `SOLPED`) VALUES
-(1, 2, 'ADQUISICIÓN DE ACEITE AISLANTE', 4, 2, '2017-09-01', 1805, '0', 0);
+(1, 1, 'ADQUISICIÓN DE ACEITE AISLANTE', 4, 3, '2017-11-07', 1805, 'I', 111222333);
 
 -- --------------------------------------------------------
 
@@ -338,10 +386,13 @@ INSERT INTO `im_general` (`id`, `idPog`, `titulo`, `idEmpleadoFormula`, `idEmple
 -- Estructura de tabla para la tabla `municipio`
 --
 
-CREATE TABLE `municipio` (
+DROP TABLE IF EXISTS `municipio`;
+CREATE TABLE IF NOT EXISTS `municipio` (
   `id` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `municipio_ibfk_1` (`idEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2702,9 +2753,11 @@ INSERT INTO `municipio` (`id`, `idEstado`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `po_aclaracion`
 --
 
-CREATE TABLE `po_aclaracion` (
+DROP TABLE IF EXISTS `po_aclaracion`;
+CREATE TABLE IF NOT EXISTS `po_aclaracion` (
   `idPog` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  KEY `relacion_empleado` (`idEmpleado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2712,8 +2765,8 @@ CREATE TABLE `po_aclaracion` (
 --
 
 INSERT INTO `po_aclaracion` (`idPog`, `idEmpleado`) VALUES
-(2, 2),
-(2, 4);
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -2721,9 +2774,11 @@ INSERT INTO `po_aclaracion` (`idPog`, `idEmpleado`) VALUES
 -- Estructura de tabla para la tabla `po_acuse`
 --
 
-CREATE TABLE `po_acuse` (
+DROP TABLE IF EXISTS `po_acuse`;
+CREATE TABLE IF NOT EXISTS `po_acuse` (
   `idPog` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL
+  `idEmpleado` int(11) NOT NULL,
+  KEY `relacion_empleado2` (`idEmpleado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2731,8 +2786,8 @@ CREATE TABLE `po_acuse` (
 --
 
 INSERT INTO `po_acuse` (`idPog`, `idEmpleado`) VALUES
-(2, 2),
-(2, 4);
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -2740,7 +2795,8 @@ INSERT INTO `po_acuse` (`idPog`, `idEmpleado`) VALUES
 -- Estructura de tabla para la tabla `po_consideracion`
 --
 
-CREATE TABLE `po_consideracion` (
+DROP TABLE IF EXISTS `po_consideracion`;
+CREATE TABLE IF NOT EXISTS `po_consideracion` (
   `id` int(11) NOT NULL,
   `idpog` int(11) NOT NULL,
   `fc1` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
@@ -2760,7 +2816,9 @@ CREATE TABLE `po_consideracion` (
   `fc15` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `fc16` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `fc17` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
-  `fc18` varchar(500) COLLATE utf8_spanish_ci NOT NULL
+  `fc18` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `po_consideracion_ibfk_1` (`idpog`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2768,7 +2826,7 @@ CREATE TABLE `po_consideracion` (
 --
 
 INSERT INTO `po_consideracion` (`id`, `idpog`, `fc1`, `fc2`, `fc3`, `fc4`, `fc5`, `fc6`, `fc7`, `fc8`, `fc9`, `fc10`, `fc11`, `fc12`, `fc13`, `fc14`, `fc15`, `fc16`, `fc17`, `fc18`) VALUES
-(2, 2, '																<i>Especificaciones Técnicas ____________________</i>\r\n							', '																<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>\r\n							', '																<i>El lugar de entrega será ____________________</i>\r\n							', '																<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>\r\n							', '																<i>Condición de los precios será: ____________</i>\r\n							', '																<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>\r\n							', '																<i>La condición de los precios será variable</i>\r\n							', '																<i>Moneda a cotizar será en moneda nacional.</i>\r\n							', '																<i>Idioma de cotización: Español México</i>\r\n							', '																<i>Porcentaje de Garantía: ___________________________</i>\r\n							', '																<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>\r\n							', '																<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>\r\n							', '																<i>Deducciones:___________________________________________</i>\r\n							', '																<i>Se aceptan entregas parciales y anticipadas.</i>\r\n							', '																<i>Vigencia de la Cotización 90 días</i>\r\n							', '', '', '');
+(1, 1, '																<i>Especificaciones Técnicas ____________________</i>\r\n							', '																<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>\r\n							', '																<i>El lugar de entrega será ____________________</i>\r\n							', '																<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>\r\n							', '																<i>Condición de los precios será: ____________</i>\r\n							', '																<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>\r\n							', '																<i>La condición de los precios será variable</i>\r\n							', '																<i>Moneda a cotizar será en moneda nacional.</i>\r\n							', '																<i>Idioma de cotización: Español México</i>\r\n							', '																<i>Porcentaje de Garantía: ___________________________</i>\r\n							', '																<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>\r\n							', '																<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>\r\n							', '																<i>Deducciones:___________________________________________</i>\r\n							', '																<i>Se aceptan entregas parciales y anticipadas.</i>\r\n							', '																<i>Vigencia de la Cotización 90 días</i>\r\n							', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -2776,7 +2834,8 @@ INSERT INTO `po_consideracion` (`id`, `idpog`, `fc1`, `fc2`, `fc3`, `fc4`, `fc5`
 -- Estructura de tabla para la tabla `po_general`
 --
 
-CREATE TABLE `po_general` (
+DROP TABLE IF EXISTS `po_general`;
+CREATE TABLE IF NOT EXISTS `po_general` (
   `id` int(11) NOT NULL,
   `tipo` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'B = Bienes, S = Servicios',
   `actividad` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'A = Adquisición, R = Arrendamiento, S = Prestación de servicios',
@@ -2792,7 +2851,12 @@ CREATE TABLE `po_general` (
   `fechaElaboracion` date NOT NULL,
   `asunto` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
-  `fechaUltimaModificacion` datetime NOT NULL
+  `fechaUltimaModificacion` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idEmpleadoFormula` (`idEmpleadoFormula`),
+  KEY `idEmpleadoResponsable` (`idEmpleadoResponsable`),
+  KEY `idMunicipio` (`idMunicipio`),
+  KEY `idFamilia` (`idFamilia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2800,7 +2864,7 @@ CREATE TABLE `po_general` (
 --
 
 INSERT INTO `po_general` (`id`, `tipo`, `actividad`, `idFamilia`, `domicilio`, `idEmpleadoResponsable`, `idEmpleadoFormula`, `fechaLimitePresentacion`, `horaLimitePresentacion`, `ccp1`, `ccp2`, `ccp3`, `fechaElaboracion`, `asunto`, `idMunicipio`, `fechaUltimaModificacion`) VALUES
-(2, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 2, 4, '2017-09-08', '11:00', '', '', '', '2017-09-01', 'Petición de Ofertas de Bienes', 1805, '2017-09-05 11:38:15');
+(1, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-11-14', '11:00', '', '', '', '2017-11-07', 'Petición de Ofertas de Bienes', 1805, '2017-11-07 10:30:20');
 
 -- --------------------------------------------------------
 
@@ -2808,11 +2872,13 @@ INSERT INTO `po_general` (`id`, `tipo`, `actividad`, `idFamilia`, `domicilio`, `
 -- Estructura de tabla para la tabla `po_numoficio`
 --
 
-CREATE TABLE `po_numoficio` (
+DROP TABLE IF EXISTS `po_numoficio`;
+CREATE TABLE IF NOT EXISTS `po_numoficio` (
   `idPog` int(11) NOT NULL,
   `numOficio` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date NOT NULL,
+  UNIQUE KEY `oficio-year` (`numOficio`,`anio`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -2820,7 +2886,8 @@ CREATE TABLE `po_numoficio` (
 --
 
 INSERT INTO `po_numoficio` (`idPog`, `numOficio`, `anio`, `fecha`) VALUES
-(2, 1, 2017, '2017-09-01');
+(1, 2, 2017, '2017-11-07'),
+(1, 1, 2017, '2017-11-07');
 
 -- --------------------------------------------------------
 
@@ -2828,10 +2895,13 @@ INSERT INTO `po_numoficio` (`idPog`, `numOficio`, `anio`, `fecha`) VALUES
 -- Estructura de tabla para la tabla `po_proveedor`
 --
 
-CREATE TABLE `po_proveedor` (
+DROP TABLE IF EXISTS `po_proveedor`;
+CREATE TABLE IF NOT EXISTS `po_proveedor` (
   `idPog` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL COMMENT '1 = nombre1, 2 = nombre2, 3 = nombre3',
-  `contacto` char(1) CHARACTER SET latin1 NOT NULL
+  `contacto` char(1) CHARACTER SET latin1 NOT NULL,
+  UNIQUE KEY `UK_POP_REL` (`idPog`,`idProveedor`,`contacto`) USING BTREE,
+  KEY `idProveedor` (`idProveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2839,7 +2909,8 @@ CREATE TABLE `po_proveedor` (
 --
 
 INSERT INTO `po_proveedor` (`idPog`, `idProveedor`, `contacto`) VALUES
-(2, 1, '1');
+(1, 16, '1'),
+(1, 18, '1');
 
 -- --------------------------------------------------------
 
@@ -2847,7 +2918,8 @@ INSERT INTO `po_proveedor` (`idPog`, `idProveedor`, `contacto`) VALUES
 -- Estructura de tabla para la tabla `proveedor`
 --
 
-CREATE TABLE `proveedor` (
+DROP TABLE IF EXISTS `proveedor`;
+CREATE TABLE IF NOT EXISTS `proveedor` (
   `id` int(11) NOT NULL,
   `clave` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `rfc` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
@@ -2880,7 +2952,14 @@ CREATE TABLE `proveedor` (
   `correoElectronico3` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `extension3` int(11) NOT NULL,
   `estatus` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'A = Activo, B = Bloquedo',
-  `tipo` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'B = Bienes, S = Servicios, A = Ambos'
+  `tipo` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'B = Bienes, S = Servicios, A = Ambos',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_PRO_CLAVE` (`clave`),
+  UNIQUE KEY `UK_PRO_RFC` (`rfc`),
+  KEY `municipio` (`idMunicipio`),
+  KEY `municipio1` (`idMunicipio1`),
+  KEY `municipio2` (`idMunicipio2`),
+  KEY `municipio3` (`idMunicipio3`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2893,7 +2972,62 @@ INSERT INTO `proveedor` (`id`, `clave`, `rfc`, `razonSocial`, `direccion`, `codi
 (4, '2', 'XXXXXXXXXXXX', 'TUK:   TUK SONORA S.A. DE C.V.', 'conocido', '83000', 1805, 'EVERARDO ACEDO CUETO', 'CONOCIDO', 1805, 'xxxxx', '662-153040', '662-153040', 'tuksonora@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
 (5, '3', 'XXXXXXXXX', 'GRUPO FIBRA UNO S.A. DE C.V.', 'CONOCIDA', 'XXXXX', 872, 'SR. JOSE DE JESUS MEDINA OYERVIDES', 'CONOCIDO', 872, 'XXXXX', '81-12537358', '81-83757864', 'ventas@fibrauno.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
 (6, '5', 'XXXXXXXXXXXXXXX', 'DISTRIBUIDORA MAYECEN S.A. DE C.V. ', 'CONOCIDO', 'XXXXX', 1805, 'MONICA SAMANIEGO CHAVEZ,  ', 'CONOCIDO', 1805, 'XXXXX', '2602080', '2602080', 'infos@mayecen.com,', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
-(7, '6', '', 'VIMA SUMINISTROS INDUSTRIALES S.A. DE C.V.', 'conocido', 'xxxxx', 0, 'INDEFONSO LUGO ARMENTA', '', 0, '', '2609400', '2167501 ', 'ventas@vimasin.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B');
+(7, '6', '', 'VIMA SUMINISTROS INDUSTRIALES S.A. DE C.V.', 'conocido', 'xxxxx', 0, 'INDEFONSO LUGO ARMENTA', '', 0, '', '2609400', '2167501 ', 'ventas@vimasin.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(8, '8', 'DC08202203T1', 'DELTA CONECTORES', 'DAVID GUZMAN HERNANDEZ NO.110  ', '20290', 17, 'FRANCISCO OCHOA CORTEZ ', '', 17, '', '44 99710843', '', 'fochoa@deltaconectores.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(9, '9', 'PAR9708223D9', 'PARTALUM', 'AV. GIRASOLES 104-B    FRACC. LOS GIRASOLES  ', '66053', 854, 'ING. MARTIN SANDOVAL', '', 0, '', '81 83970030', '', 'ventas@partalum.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(10, '10', 'ACO9503092H1', 'ANDERSON CONECTORES', 'PONCIANO ARRIAGA 10-F   COL. LEANDRO VALLE   ', '54040', 0, 'JULIO ARTURO AMAYA GARCIA', '', 0, '', '55-5362 0195', '', 'elco2@prodigy.net.mx ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(11, '13', '22222222222222', 'ALHESA: INDUSTRIA DE ALUMBRADO Y HERRAJES', '', '', 0, 'LEOPOLDO HERRERA MENDOZA', '', 0, '', '33 36686331', '', 'leopoldo.herrera@polesa.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(12, '14', '140000000000000', 'PROMESA: PRODUCTOS METALICOS ESPECIALIZADOS', '', '', 1805, 'RICARDO RUIZ', '', 0, '', '87-17502060 ', '', 'ventas_planta@promesacv.com,  ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(13, '15', '150000000000', 'PREFORMADOS DE MEXICO', '', '', 1805, 'MIGUEL ANGEL GUERRERO ARANGO', '', 0, '', '5552031602', '', 'miguel.guerrero@plpmexico.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(14, '16', '16000000000', 'INDUSTRIAS PERMONT S.A. DE C.V.', '', '', 1805, 'ING. VALENTIN PEREZ RODRIGUEZ', '', 0, '', '871-750 09 9171', '', 'permont@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(15, '17', '17000000000', 'PRODUCTORA SHN', '', '', 1805, 'ING. ARTURO LUCAS CERVANTES', '', 0, '', '5582830016', '', 'gshn@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(16, '18', 'BME511128MZ2', 'BARDAHL DE MEXICO S.A. DE C.V.', 'Eje 1 Norte No. 16 Manzana 1 Col. Parque Industrial Toluca 2000,   Entre Calle 6 Norte y Calle 7 Norte,', '50233', 656, 'ADRIAN RIVAS LACHICA', '', 0, '', '55 56244960', '5539773742', 'evagonzalez@dranmak.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(17, '19', '19000000000000', 'INDUSTRIAS DRANMAK S.A. DE C.V.', '', '', 1805, 'ROGELIO DIAZ AYLLON', '', 0, '', '5553213260', '', 'evagonzalez@dranmak.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(18, '20', '2000000000000', 'CHEMICAL & SCHUTZLS.COM', '', '', 1805, 'ADRIANA LICONA PONCE ', '', 0, '', '', '4499252400', 'alicona@schutzls.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(19, '21', '2100000000000', 'ORGANIZACIÓN 15 S.A. DE C.V.', '', '', 1805, 'PILAR SANABRIA MONCADA', '', 0, '', '55 5240 7436', '', 'ventas@organizacion15.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(20, '22', '220000000000', 'MEXICANA DE LUBRICANTES S.A. DE C.V.', '', '', 1805, 'LIC. ALEJANDRA LÓPEZ HERNANDEZ', '', 0, '', '(55)58 64 31 32', '', 'e.cedillo@akron.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(21, '23|', '2300000000000', 'MR: MR DISTRIBUCIONES ELECTRICAS', '', '', 1805, 'MARCO ANTONIO RAMIREZ WONG ', '', 0, '', '2160203 EXT 110', '', 'marcel.ramirez@mrdistel.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(22, '24', '2400000000000', 'MULTIELECTRICA INDUSTRIAL S.A. DE C.V.', '', '', 0, 'MIGUEL ANGEL VAZQUEZ COLIN', '', 0, '', '(55)53 87 02 56', '', 'mavazquez@mei-telecom.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(23, '25', '2500000000000', 'GIPE S.A. DE C.V. ', '', '', 0, 'LAURA PEREZ HERNANDEZ', '', 0, '', '5557689730 ', '', 'gipeventas@gmail.com ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(24, '26', '2600000000', 'TROOP Y COMPAÑÍA S.A. DE C.V.', '', '', 0, 'JOSE MATEOS FARFAN', '', 0, '', '55 50 82 10 30 ', '', 'josemateos@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(25, '30', '30000000000000', 'ABB', '', '', 1805, 'LUIS VASQUEZ ROMO', '', 0, '', '6622 29 16 73', '', 'luis.vasquez@mx.abb.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(26, '31', '31000000000', 'ALSTOM GRID', '', '', 656, 'FERNANDO MEDINA', '', 0, '', '55 11 01 10 00 ', '', 'fernando.medina@fe.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(27, '32', '3200000000', 'SCHNEIDER: SCHNEIDER ELECTRIC MEXICO, S.A. DE C.V.', '', '', 9, 'CLAUS KUKUTSCHKA', '', 0, '', '58045000 ', '5510693518', 'claus.kukutschka@schneider-electric.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(28, '33', '3300000000', 'SANCO', '', '', 29, 'EDUARDO RENE GARCIA DURAN', '', 0, '', '686 5224237', '686 522 42 38', 'erenegarciad@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(29, '34', '3400000000', 'FORESTAL LA REFORMA', '', '', 179, 'GLORIA BARRAZA', '', 0, '', '618 81 41 452', '618) 814−0464', 'gbarraza@grupolareforma.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(30, '35', '350000000000', 'IMPREGNACIONES ESPECIALES S.A DE C.V.', '', '', 1805, 'RAYMUNDO JINER AGUIRRE', '', 0, '', '614 436 11 11', '', 'ies86 @prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(31, '36', '3600000000', 'SOLUCIONES ELÉCTRICAS DEL PACÍFICO', '', '', 1805, 'JOSE LUIS MOLINA', '', 0, '', '2617777', '', 'selectricas@hotmail.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(32, '37', '3700000000000', 'SERVICIOS Y DESARROLLOS TERVEL SA DE CV', '', '', 1805, 'José René Rodriguez Hurtado', '', 0, '', '6623186856', '', 'sdtervel@gmail.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(33, '38', '3800000000', '3M MEXICO S.A. DE C.V.', '', '', 1805, 'JOSE G. FIGUEROA MIRANDA', '', 0, '', '', '', '', 0, '', '', 0, '', '6622689230', '', 'jgfigueroamiranda@mmm.com', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(34, '39', '390000000000', 'ALSTOM GRID', '', '', 656, 'ANA DELGADILLO', '', 0, '', '5530985954  ', '', 'adelgadillo@arteche.com.mx,', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(35, '40', '400000000000000', 'COMANEL S.A. DE C.V.', '', '', 0, 'ANGEL RUBIO', '', 0, '', '5555540033', '(55) 2124 8203', 'arubio@comanel.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(36, '41', '410000000000000', 'Schneider Electric', '', '', 645, 'JUAN PEDRO ROMERO', '', 0, '', '55 5804 5000', '55 5406 1879', 'juan-pedro.romero@schneider-electric.com ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(37, '42', '420000000', 'PROLEC', '', '', 839, 'LUIS DE FLON ', '', 0, '', '55 53 29 27 00', '015553292700', 'ldeflon@prolec.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(38, '43', '430000000000', 'GRUPO IG', '', '', 1805, 'ALFREDO ALVAREZ', '', 0, '', '2189107', '6622570097', 'VENTAS1_HERMOSILLO@IG.COM.MX', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(39, '44', '440000000000', 'CONDUCTORES MONTERREY-VIAKON', '', '', 879, ' Pablo Adrian Luna Lugo', '', 0, '', '(55) 5249-1124', '', 'pluna@cmsa.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(40, '45', '45000000000000', 'CONDUMEX', '', '', 0, 'Juan José Olvera', '', 0, '', ' 55 57 29 97 00', ' 55)5328-9905', 'maguilar@condumex.com.mx, ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(41, '46', '4600000000000', 'MEXICANA DE LUBRICANTES', '', '', 0, 'LIC. ALEJANDRA LOPEZ HERNANDEZ', '', 0, '', '5558643132', '', 'e.cedillo@akron.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(42, '47', '47000000000', 'ALIANZA ELECTRICA DEL PACIFICO', '', '', 1805, 'GERARDO RODRIGUEZ', '', 0, '', '6622617777', '6623534558', 'gerardo.rodriguez@alianzaelectrica.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(43, '48', '480000000000', 'ECISA CONSTRUCCIONES', '', '', 0, 'JORGE SALAZAR GONZALEZ', '', 0, '', '52864551 ', '', 'ecisa87@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(44, '49', '490000000000000', 'TRANSFORMADORA INDUSTRIAL MEXICANA', '', '', 1805, 'GUSTAVO MICHEL SCHIELE', '', 0, '', '14777880400', '', 'proyectos@timexicana.net', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(45, '50', '500000000000000', 'CENTRIFUGADOS MEXICANOS', '', '', 545, 'ENRIQUE ARCEO ROSADO', '', 0, '', '3338364740', '3338971240', 'earceo@cenmex.com,', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(46, '51', '510000000000000', 'PYPCO S.A DE C.V.', '', '', 1805, 'CARLOS AGUILAR GASTELUM', '', 0, '', '6677600157', '', 'erendira.soberanes@pypco.com.mx, ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(47, '52', '520000000000', 'ELECTRAMEX  SA DE C.V ', '', '', 0, 'LILIA BRAVO JIMENEZ', '', 0, '', '5515 460128', '5515460126', 'ventasgobierno@electramex.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(48, '53', '53000000000', 'ELEMSA: ELEMENTO ELÉCTRICOS SA DE CV', '', '', 0, 'JOSÉ CARLOS JARAMILLO ALARCÓN', '', 0, '', '5555396633', '', 'carlos.jaramillo@elemsa.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(49, '55', '55000000000000', 'EQUIPOS ELECTRICOS DE SINALOA SA DE CV', '', '', 1763, 'VICTORIANO SANCHEZ', '', 0, '', '(667)760 04 28', '', 'victorianoss@hotmail.com, ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(50, '56', '56000000000', 'MM DISTRIBUCIONES S. DE R.L. DE C.V.', '', '', 1805, 'VIRGEN MABEL SANCHEZ RODRIGUEZ', '', 0, '', '(662)300 37 14 ', '2 62 71 00', 'mabel.sanchez@mmd.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(51, '57', '57000000000000', 'SIEMENS INNOVACIONES SA DE CV', '', '', 1805, 'JOEL OSNAYA ', '', 0, '', '55-53293916', '', 'joel.osnaya@siemens.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(52, '58', '580000000000', 'TRANSFORMADORES BUENDIA', '', '', 1805, 'BUENDIA', '', 0, '', '01 800 877 6342', '', '', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(53, '59', '590000000000000', 'TRANSPORTES GAMEZ', '', '', 1805, 'transportes gamez', '', 0, '', '2 50-03-74 ', '6621 54-37-44', 'transportesgamez1@gamil.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'S'),
+(54, '60', '6000000000', 'PELAYO: GRUPO PELAYO, S.A. DE C.V. ', '', '', 230, 'ING. FRANCISCO GRANADOS ', '', 0, '', '462) 626 2191', '462 100 35 37', 'ventas_cfe@ig.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(55, '61', '610000000000', 'EMSA: ELECTROMANUFACTURAS S. DE R.L.   ', '', '', 522, 'KETZIA GARCIA', '', 0, '', '0133 37 70 36 ', '013337960879', 'garciaketzia@eaton.com / ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(56, '62', '620000000000', 'CORPORACIÓN INDUSTRIAL MULTICO', '', '', 236, 'SR. JUAN JOSÉ  BALVER GONZALEZ', '', 0, '', '(469) 692-03-45', ' 692-14-66', 'jjbalver@multico.com.mx, ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(57, '63|', '630000000000000', 'IUSA MEDICIÓN', '', '', 0, 'ING. PLINEO CASTILLO SANCHEZ', '', 0, '', '51-18-14-00', '5118 1581', 'pacastillo@iusa.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(58, '64', '640000000000', 'PDS', '', '', 181, 'Erika Perea Carranza ', '', 0, '', ' (871) 714-2289', '', 'erika.perea@potenciads.com.mx, ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(59, '65', '6500000000', 'ALTEC-F', '', '', 0, 'JORGE CALLEJAS', '', 0, '', '015558440247 ', ' 58448648', 'jorge.callejas@altec-f.com.mx, , ', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(60, '7', '70000000000', 'ALE ELECTROCONSTRUCCIONES S.A. DE C.V.', '', '', 2344, 'ING. INDEFONSO LUGO ARMENTA', '', 0, '', '664-4120023', '', 'aleectro@prodigy.net.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(61, '11', '110000000000000', 'BURNDY PRODUCTS MEXICO', '', '', 1805, 'ING. MIGUEL MINERO ALFARO', '', 0, '', '7222654435', ' 55 41 88 44 45', 'mminero@burndy.com', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B'),
+(62, '12', '12000000000000', 'CONHESA: COMPAÑÍA NACIONAL DE HERRAJES ELECTRICOS ', '', '', 463, 'LIC. MONSERRAT VALENCIA', '', 0, '', '33 31450343', '33 31450295', 'ventasj@conhesa.com.mx', 0, '', '', 0, '', '', '', '', 0, '', '', 0, '', '', '', '', 0, 'A', 'B');
 
 -- --------------------------------------------------------
 
@@ -2901,9 +3035,11 @@ INSERT INTO `proveedor` (`id`, `clave`, `rfc`, `razonSocial`, `direccion`, `codi
 -- Estructura de tabla para la tabla `relacionproveedorfamilia`
 --
 
-CREATE TABLE `relacionproveedorfamilia` (
+DROP TABLE IF EXISTS `relacionproveedorfamilia`;
+CREATE TABLE IF NOT EXISTS `relacionproveedorfamilia` (
   `idProveedor` int(11) NOT NULL,
-  `idFamilia` int(11) NOT NULL
+  `idFamilia` int(11) NOT NULL,
+  UNIQUE KEY `UK_REL_PF` (`idProveedor`,`idFamilia`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2955,7 +3091,67 @@ INSERT INTO `relacionproveedorfamilia` (`idProveedor`, `idFamilia`) VALUES
 (7, 4),
 (8, 1),
 (8, 4),
-(8, 26);
+(8, 8),
+(8, 26),
+(9, 8),
+(10, 8),
+(11, 8),
+(11, 11),
+(12, 11),
+(13, 19),
+(14, 11),
+(15, 11),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 24),
+(22, 30),
+(23, 30),
+(24, 30),
+(25, 17),
+(26, 17),
+(27, 24),
+(28, 16),
+(29, 16),
+(30, 16),
+(31, 22),
+(32, 22),
+(33, 22),
+(34, 24),
+(35, 17),
+(36, 31),
+(37, 24),
+(38, 24),
+(39, 4),
+(40, 4),
+(41, 1),
+(42, 14),
+(43, 15),
+(44, 15),
+(45, 15),
+(46, 15),
+(47, 14),
+(48, 14),
+(49, 3),
+(49, 6),
+(49, 24),
+(50, 11),
+(51, 31),
+(51, 32),
+(52, 24),
+(54, 24),
+(55, 24),
+(56, 2),
+(57, 2),
+(57, 3),
+(57, 6),
+(58, 11),
+(59, 14),
+(60, 4),
+(61, 8),
+(62, 11);
 
 -- --------------------------------------------------------
 
@@ -2963,10 +3159,13 @@ INSERT INTO `relacionproveedorfamilia` (`idProveedor`, `idFamilia`) VALUES
 -- Estructura de tabla para la tabla `unidadmedida`
 --
 
-CREATE TABLE `unidadmedida` (
+DROP TABLE IF EXISTS `unidadmedida`;
+CREATE TABLE IF NOT EXISTS `unidadmedida` (
   `id` int(11) NOT NULL,
   `clave` varchar(3) CHARACTER SET latin1 NOT NULL,
-  `descripcion` varchar(15) CHARACTER SET latin1 NOT NULL
+  `descripcion` varchar(15) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_UM_CLAVE` (`clave`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2975,160 +3174,6 @@ CREATE TABLE `unidadmedida` (
 
 INSERT INTO `unidadmedida` (`id`, `clave`, `descripcion`) VALUES
 (1, 'UMP', 'Prueba');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `almacen`
---
-ALTER TABLE `almacen`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK_ALM_CMM` (`centroMM`),
-  ADD KEY `almacen_ibfk_1` (`idEmpleadoResponsable`),
-  ADD KEY `almacen_ibfk_2` (`idMunicipio`);
-
---
--- Indices de la tabla `articulo`
---
-ALTER TABLE `articulo`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK_ART_CODIGO` (`codigo`),
-  ADD KEY `articulo_ibfk_1` (`idUnidadMedida`),
-  ADD KEY `articulo_ibfk_2` (`idFamilia`);
-
---
--- Indices de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `departamento`
---
-ALTER TABLE `departamento`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `empleado`
---
-ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK_EMP_RPE` (`rpe`),
-  ADD KEY `empleado_ibfk_1` (`idCategoria`),
-  ADD KEY `empleado_ibfk_2` (`idDepartamento`);
-
---
--- Indices de la tabla `estado`
---
-ALTER TABLE `estado`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `familia`
---
-ALTER TABLE `familia`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `clave` (`clave`);
-
---
--- Indices de la tabla `formularioconsideracion`
---
-ALTER TABLE `formularioconsideracion`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `im_concepto`
---
-ALTER TABLE `im_concepto`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idImg` (`idImg`),
-  ADD KEY `idArticulo` (`idArticulo`);
-
---
--- Indices de la tabla `im_general`
---
-ALTER TABLE `im_general`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `im_general_ibfk_1` (`idEmpleadoAutoriza`),
-  ADD KEY `im_general_ibfk_2` (`idEmpleadoFormula`),
-  ADD KEY `idPog` (`idPog`),
-  ADD KEY `im_general_ibfk_3` (`idMunicipioElaboracion`);
-
---
--- Indices de la tabla `municipio`
---
-ALTER TABLE `municipio`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `municipio_ibfk_1` (`idEstado`);
-
---
--- Indices de la tabla `po_aclaracion`
---
-ALTER TABLE `po_aclaracion`
-  ADD KEY `relacion_empleado` (`idEmpleado`);
-
---
--- Indices de la tabla `po_acuse`
---
-ALTER TABLE `po_acuse`
-  ADD KEY `relacion_empleado2` (`idEmpleado`);
-
---
--- Indices de la tabla `po_consideracion`
---
-ALTER TABLE `po_consideracion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `po_consideracion_ibfk_1` (`idpog`);
-
---
--- Indices de la tabla `po_general`
---
-ALTER TABLE `po_general`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idEmpleadoFormula` (`idEmpleadoFormula`),
-  ADD KEY `idEmpleadoResponsable` (`idEmpleadoResponsable`),
-  ADD KEY `idMunicipio` (`idMunicipio`),
-  ADD KEY `idFamilia` (`idFamilia`);
-
---
--- Indices de la tabla `po_numoficio`
---
-ALTER TABLE `po_numoficio`
-  ADD UNIQUE KEY `oficio-year` (`numOficio`,`anio`);
-
---
--- Indices de la tabla `po_proveedor`
---
-ALTER TABLE `po_proveedor`
-  ADD UNIQUE KEY `UK_POP_REL` (`idPog`,`idProveedor`,`contacto`) USING BTREE,
-  ADD KEY `idProveedor` (`idProveedor`);
-
---
--- Indices de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK_PRO_CLAVE` (`clave`),
-  ADD UNIQUE KEY `UK_PRO_RFC` (`rfc`),
-  ADD KEY `municipio` (`idMunicipio`),
-  ADD KEY `municipio1` (`idMunicipio1`),
-  ADD KEY `municipio2` (`idMunicipio2`),
-  ADD KEY `municipio3` (`idMunicipio3`);
-
---
--- Indices de la tabla `relacionproveedorfamilia`
---
-ALTER TABLE `relacionproveedorfamilia`
-  ADD UNIQUE KEY `UK_REL_PF` (`idProveedor`,`idFamilia`) USING BTREE;
-
---
--- Indices de la tabla `unidadmedida`
---
-ALTER TABLE `unidadmedida`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UK_UM_CLAVE` (`clave`);
 
 --
 -- Restricciones para tablas volcadas
@@ -3204,6 +3249,7 @@ ALTER TABLE `proveedor`
   ADD CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idMunicipio1`) REFERENCES `municipio` (`id`),
   ADD CONSTRAINT `proveedor_ibfk_3` FOREIGN KEY (`idMunicipio2`) REFERENCES `municipio` (`id`),
   ADD CONSTRAINT `proveedor_ibfk_4` FOREIGN KEY (`idMunicipio3`) REFERENCES `municipio` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

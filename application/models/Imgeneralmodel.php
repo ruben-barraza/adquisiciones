@@ -35,9 +35,8 @@ class Imgeneralmodel extends CI_Model
         $this->db->join('familia', 'familia.id = po_general.idFamilia', 'inner');
         $this->db->order_by('im_general.fechaElaboracion', 'DESC');
         $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        }
+        return $query->result_array();
+
 
     }
 
@@ -54,26 +53,8 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
-    function suma_imgeneral()
-    {
-        $this->db->select('SUM(articulo.precioUnitario * im_concepto.cantidadIM) as subtotal');
-        $this->db->from('articulo');
-        $this->db->join('im_concepto', 'im_concepto.idArticulo=articulo.id ', 'inner');
-        $this->db->join('unidadmedida', 'articulo.idUnidadMedida=unidadmedida.id ', 'inner');
-        return $this->db->get()->row_array();
 
-    }
 
-    function get_empleadoImGeneral($rpe)
-    {
-        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
-        $this->db->from('empleado');
-        $this->db->where('rpe', $rpe);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        }
-    }
 
     /*
      * function to add new im_general
@@ -151,16 +132,137 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
-    function get_empleado($rpe)
+    public function getEmpleadoAutoriza($id)
     {
-        $this->db->select('nombre, apellidoPaterno, apellidoMaterno');
-        $this->db->from('empleado');
-        $this->db->where('rpe', $rpe);
+        $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('im_general');
+        $this->db->join('empleado', 'im_general.idEmpleadoAutoriza = empleado.id', 'inner');
+        $this->db->where('im_general.id', $id);
         $query = $this->db->get();
-        if ($query->num_rows() > 0) {
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
+
+    public function getEmpleadoFormula($id)
+    {
+        $this->db->select('empleado.rpe, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
+        $this->db->from('im_general');
+        $this->db->join('empleado', 'im_general.idEmpleadoFormula = empleado.id', 'inner');
+        $this->db->where('im_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
             return $query->result_array();
         }
     }
+
+    function get_idEmpleado($rpe)
+    {
+        $this->db->select('id');
+        $this->db->from('empleado');
+        $this->db->where('rpe', $rpe);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('id');
+        }
+    }
+
+    public function get_pog_id($id)
+    {
+        $this->db->select('idPog');
+        $this->db->from('im_general');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('idPog');
+        }
+    }
+
+    public function get_img_proveedores($pog_id)
+    {
+        $this->db->select('proveedor.id, proveedor.razonSocial');
+        $this->db->from('po_general');
+        $this->db->join('po_proveedor', 'po_general.id = po_proveedor.idPog', 'inner');
+        $this->db->join('proveedor', 'proveedor.id = po_proveedor.idProveedor', 'inner');
+        $this->db->where('po_general.id', $pog_id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    public function get_imc_concepto($pog_id)
+    {
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->group_by("im_concepto.partida");
+        $this->db->where('im_concepto.idPog', $pog_id);
+        $this->db->order_by("partida", "asc");
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    public function get_imc_precios($prov_id, $idPog)
+    {
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad, im_concepto.preciounitarioIM, im_concepto.importeIM');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $this->db->where('im_concepto.idPog', $idPog);
+        $this->db->order_by("partida", "asc");
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    public function get_imc_subtotal($prov_id, $idPog)
+    {
+        $this->db->select('sum(importeIM) as subtotal');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $this->db->where('im_concepto.idPog', $idPog);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['subtotal'];
+    }
+
+    public function update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog){
+        $data = array('cantidad' => $cantidad, 'preciounitarioIM' => $precioIM, 'importeIM' => $importe);
+        $arraywhere = array('idProveedor' => $idProveedor, 'idArticulo' => $idArticulo, 'idPog' => $idPog);
+        $this->db->where($arraywhere);
+        $this->db->update('im_concepto', $data);
+    }
+
+    function get_idArticulo($codigo)
+    {
+        $this->db->select('id');
+        $this->db->from('articulo');
+        $this->db->where('codigo', $codigo);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['id'];
+    }
+
+    function get_pmc_data($id)
+    {
+        $this->db->select('partida, idProveedor, importeIM');
+        $this->db->from('im_concepto');
+        $this->db->where('idImg', $id);
+        $this->db->order_by("idProveedor", "asc");
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
+
 
     public function GuardarDatosModel()
     {

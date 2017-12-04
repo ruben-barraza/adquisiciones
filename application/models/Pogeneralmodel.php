@@ -83,6 +83,7 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('im_concepto',$params);
     }
 
+
     function add_numero_oficio($params)
     {
         $this->db->insert('po_numoficio',$params);
@@ -365,11 +366,13 @@ class Pogeneralmodel extends CI_Model
 
     public function getImConcepto($id)
     {
+
         $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.plazoEntrega, im_concepto.cantidad, im_concepto.lugarEntrega, im_concepto.direccionEntrega');
         $this->db->from('im_concepto');
         $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
         $this->db->where('im_concepto.idPog', $id);
+        $this->db->group_by("im_concepto.partida");
         $this->db->order_by("partida", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){

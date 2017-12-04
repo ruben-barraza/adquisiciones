@@ -70,6 +70,7 @@ class Po_general extends CI_Controller{
 
     function crearRelacionIMConcepto(){
         $idPog = $_POST['id'];
+        $idImg = $_POST['idImg'];
         $tipo = $_POST['tipo'];
         $codigo = $_POST['articuloCodigo'];
         $partida = $_POST['partida'];
@@ -77,17 +78,31 @@ class Po_general extends CI_Controller{
         $cantidad = $_POST['cantidad'];
         $lugarEntrega = $_POST['lugarEntrega'];
         $direccion = $_POST['direccion'];
+        $almacen = $_POST['almacen'];
+        $idAlmacen = 0;
+
+        if($almacen == "otro"){
+            $idAlmacen = -1;
+        } else {
+            $idAlmacen = $almacen;
+        }
+
+        $clave = $_POST['clave'];
+        $proveedor = $this->Pogeneralmodel->get_idProveedor($clave);
+        $idProveedor = array_values($proveedor)[0]['id'];
 
         //Obtener el ID del artículo según el código
         $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
         $idArticulo = array_values($articulo)[0]['id'];
 
+
+
         $params = array(
             'idPog' => $idPog,
-            'idImg' => -1,
+            'idImg' => $idImg,
             'tipo' => $tipo,
             'idArticulo' => $idArticulo,
-            'idProveedor' => -1,
+            'idProveedor' => $idProveedor,
             'partida' => $partida,
             'plazoEntrega' => $plazoEntrega,
             'cantidad' => $cantidad,
@@ -95,7 +110,39 @@ class Po_general extends CI_Controller{
             'cantidadIM' => 0,
             'lugarEntrega' => $lugarEntrega,
             'direccionEntrega' => $direccion,
-            'idAlmacen' => -1,
+            'idAlmacen' => $idAlmacen,
+        );
+
+        $this->Pogeneralmodel->add_im_concepto($params);
+    }
+
+    function crearHistorico(){
+        $idPog = $_POST['id'];
+        $idImg = $_POST['idImg'];
+        $tipo = $_POST['tipo'];
+        $codigo = $_POST['articuloCodigo'];
+        $idProveedor = $_POST['idProveedor'];
+        $partida = $_POST['partida'];
+        $cantidad = $_POST['cantidad'];
+
+        //Obtener el ID del artículo según el código
+        $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
+        $idArticulo = array_values($articulo)[0]['id'];
+
+        $params = array(
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => $idProveedor,
+            'partida' => $partida,
+            'plazoEntrega' => 0,
+            'cantidad' => $cantidad,
+            'cantidadPO' => 0,
+            'cantidadIM' => 0,
+            'lugarEntrega' => 0,
+            'direccionEntrega' => 0,
+            'idAlmacen' => 0,
         );
 
         $this->Pogeneralmodel->add_im_concepto($params);

@@ -33,6 +33,58 @@ class Im_general extends CI_Controller
 
     }
 
+    function obtenerNombreEmpleadoImGeneral()
+    {
+        $rpe = $_POST['rpe'];
+        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
+        echo json_encode($data);
+    }
+
+    function obtenerPreciosIMC()
+    {
+        $prov_id = $_POST['idProveedor'];
+        $idPog = $_POST['idPog'];
+        $data['preciosimc'] = $this->Imgeneralmodel->get_imc_precios($prov_id, $idPog);
+        $data['subtotalimc'] = $this->Imgeneralmodel->get_imc_subtotal($prov_id, $idPog);
+        echo json_encode($data);
+    }
+
+    function updatePreciosIMC()
+    {
+        $cantidad = $_POST['cantidad'];
+        $importe = $_POST['importe'];
+        $idProveedor = $_POST['idProveedor'];
+        $idPog = $_POST['idPog'];
+        $precioIM = $_POST['precio'];
+
+        $codigo = $_POST['codigo'];
+        $idArticulo = $this->Imgeneralmodel->get_idArticulo($codigo);
+
+        $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog);
+    }
+
+    function updateIMG()
+    {
+        $idimg = $_POST['idimg'];
+        $titulo = $_POST['titulo'];
+        $autorizaRpe = $_POST['empleadoAutorizaRpe'];
+        $formulaRpe = $_POST['empleadoFormulaRpe'];
+        $solped = $_POST['solped'];
+        $estatus = $_POST['imcestatus'];
+
+        $idEmpleadoAutoriza = $this->Imgeneralmodel->get_idEmpleado($autorizaRpe);
+        $idEmpleadoFormula = $this->Imgeneralmodel->get_idEmpleado($formulaRpe);
+
+        $params = array(
+            'titulo' => $titulo,
+            'idEmpleadoFormula' => $idEmpleadoFormula,
+            'idEmpleadoAutoriza' => $idEmpleadoAutoriza,
+            'estatus' => $estatus,
+            'SOLPED' => $solped,
+        );
+
+        $this->Imgeneralmodel->update_im_general($idimg, $params);
+    }
 
     /*
      * Adding a new im_general
@@ -76,13 +128,6 @@ class Im_general extends CI_Controller
         }
     }
 
-    function obtenerNombreEmpleadoImGeneral()
-    {
-        $rpe = $_POST['rpe'];
-        $data['nombre'] = $this->Imgeneralmodel->get_empleado($rpe);
-        echo json_encode($data);
-    }
-
     /*
      * Editing a im_general
      */
@@ -90,34 +135,61 @@ class Im_general extends CI_Controller
     {
         // check if the im_general exists before trying to edit it
         $data['im_general'] = $this->Imgeneralmodel->get_im_general($id);
+        $pog_id = $this->Imgeneralmodel->get_pog_id($id);
 
         if (isset($data['im_general']['id'])) {
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('titulo', 'Titulo', 'max_length[255]|required');
-            $this->form_validation->set_rules('idEmpleadoFormula', 'IdEmpleadoFormula', 'required');
-            $this->form_validation->set_rules('idEmpleadoAutoriza', 'IdEmpleadoAutoriza', 'required');
-            $this->form_validation->set_rules('fechaElaboracion', 'FechaElaboracion', 'required');
-            $this->form_validation->set_rules('idMunicipioElaboracion', 'IdMunicipioElaboracion', 'required');
+            $this->form_validation->set_rules('empleadoFormula', 'empleadoFormula', 'required');
+            $this->form_validation->set_rules('empleadoAutoriza', 'empleadoAutoriza', 'required');
 
             if ($this->form_validation->run()) {
+                /*
                 $params = array(
                     'titulo' => $this->input->post('titulo'),
-                    'idEmpleadoFormula' => $this->input->post('idEmpleadoFormula'),
-                    'idEmpleadoAutoriza' => $this->input->post('idEmpleadoAutoriza'),
-                    'fechaElaboracion' => $this->input->post('fechaElaboracion'),
-                    'idMunicipioElaboracion' => $this->input->post('idMunicipioElaboracion'),
+                    'idEmpleadoFormula' => $this->input->post('empleadoFormula'),
+                    'idEmpleadoAutoriza' => $this->input->post('empleadoAutoriza'),
                 );
 
                 $this->Imgeneralmodel->update_im_general($id, $params);
                 redirect('im_general/index');
+                */
             } else {
-                $this->load->model('Empleadomodel');
-                $data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
-                $data['all_listaempleado'] = $this->Empleadomodel->get_all_listaempleado();
 
-                $this->load->model('Municipiomodel');
-                $data['all_listamunicipio'] = $this->Municipiomodel->get_all_listamunicipio();
+                $data['empleadoAutoriza'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
+                $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
+                $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
+                $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
+
+                $arr = $this->Imgeneralmodel->get_pmc_data($id);
+                $data['arr'] = $arr;
+
+                $output = array();
+
+                foreach($arr as $item){
+                    if(in_array($item['partida'], array_column($output, 'partida'))){
+                        // add store to already existing item
+                        $key = array_search($item['partida'], array_column($arr, 'partida'));
+                        $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['importeIM']);
+                    }else{
+                        // add new item with store
+                        $tmp = array(
+                            'partida' => $item['partida'],
+                            'idProveedor_' . $item['idProveedor'] => floatval($item['importeIM']),
+                        );
+                        $output[] = $tmp;
+                    }
+                }
+
+                foreach(array_keys($output) as $key) {
+                    unset($output[$key]['partida']);
+                }
+
+                $cotizaciones = 0;
+
+                $data['cotizaciones'] = $cotizaciones;
+                $data['output2'] = $output;
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);
