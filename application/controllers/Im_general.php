@@ -56,11 +56,25 @@ class Im_general extends CI_Controller
         $idProveedor = $_POST['idProveedor'];
         $idPog = $_POST['idPog'];
         $precioIM = $_POST['precio'];
-
         $codigo = $_POST['codigo'];
         $idArticulo = $this->Imgeneralmodel->get_idArticulo($codigo);
-
         $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog);
+    }
+
+    function updatePMC(){
+        $idImg = $_POST['idImg'];
+
+        $array_pmc = $this->Imgeneralmodel->get_pmc_data($idImg);
+        $output = $this->formatPmcArray($array_pmc);
+
+        $num_cotizaciones = $this->calcularCotizaciones($output);
+        $data['num_cotizaciones'] = $num_cotizaciones;
+
+        if ($num_cotizaciones > 1){
+            $pmc = $this->calcularPMC($output, $num_cotizaciones);
+            $data['pmc'] = $pmc;
+        }
+        echo json_encode($data);
     }
 
     function updateIMG()
@@ -84,6 +98,220 @@ class Im_general extends CI_Controller
         );
 
         $this->Imgeneralmodel->update_im_general($idimg, $params);
+    }
+
+    function formatPmcArray($arr){
+
+        $output = array();
+
+        foreach($arr as $item){
+            if(in_array($item['partida'], array_column($output, 'partida'))){
+                // add store to already existing item
+                $key = array_search($item['partida'], array_column($arr, 'partida'));
+                $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['importeIM']);
+            }else{
+                // add new item with store
+                $tmp = array(
+                    'partida' => $item['partida'],
+                    'idProveedor_' . $item['idProveedor'] => floatval($item['importeIM']),
+                );
+                $output[] = $tmp;
+            }
+        }
+
+        //Quito la llave "partida" del arreglo
+        foreach(array_keys($output) as $key) {
+            unset($output[$key]['partida']);
+        }
+
+        return $output;
+    }
+
+    //Recibo una referencia del arreglo que viene de la BD
+    function calcularCotizaciones(&$output){
+        //Guardo en un arreglo todas las llaves del subarreglo. Como cada subarreglo tiene las mismas llave, tomo el índice 0.
+        $subarraykeys = array_keys($output[0]);
+        //En este array vacío se van agregando los idProveedor que no cuenten con cotizacion
+        $removekeys = array();
+
+        $num_cotizaciones = 0;
+
+        //Checo el número de cotizaciones, si la suma de algún idProveedor = 0, agrego a esa llave a $removekeys
+        foreach($subarraykeys as $key){
+            if(array_sum(array_column($output, $key)) != 0){
+                $num_cotizaciones++;
+            } else if(array_sum(array_column($output, $key)) == 0) {
+                array_push($removekeys, $key);
+            }
+        }
+
+        //Quito los proveedores que no tienen cotizaciones
+        for ($i = 0; $i < count($output); $i++){
+            foreach($removekeys as $key) {
+                unset($output[$i][$key]);
+            }
+        }
+
+        return $num_cotizaciones;
+    }
+
+    function calcularPMC($output, $num_cotizaciones){
+        /*
+
+
+        //Guardo en un arreglo todas las llaves del subarreglo. Como cada subarreglo tiene las mismas llave, tomo el índice 0.
+        $subarraykeys = array_keys($output[0]);
+        //En este array vacío se van agregando los idProveedor que no cuenten con cotizacion
+        $removekeys = array();
+
+        $num_cotizaciones = 0;
+
+        //Checo el número de cotizaciones, si la suma de algún idProveedor = 0, agrego a esa llave a $removekeys
+        foreach($subarraykeys as $key){
+            if(array_sum(array_column($output, $key)) != 0){
+                $num_cotizaciones++;
+            } else if(array_sum(array_column($output, $key)) == 0) {
+                array_push($removekeys, $key);
+            }
+        }
+
+        //Quito los proveedores que no tienen cotizaciones
+        for ($i = 0; $i < count($output); $i++){
+            foreach($removekeys as $key) {
+                unset($output[$i][$key]);
+            }
+        }
+        */
+
+        //Array donde se guardan los PMC
+        $array_pmc = array();
+
+        $num_partidas = count($output);
+
+        //Este array va a contener solamente las cotizaciones, no incluye ningún precio histórico
+        //De aquí se toma el mínimo para la cotización más baja
+        $array_cotizaciones = $output;
+        $keys_historicos = array("idProveedor_6666", "idProveedor_7777", "idProveedor_8888", "idProveedor_9999");
+
+        //Quito los precios historicos del array output3
+        for ($i = 0; $i < count($array_cotizaciones); $i++){
+            foreach($keys_historicos as $key) {
+                unset($array_cotizaciones[$i][$key]);
+            }
+        }
+
+        $num_intervalos = $num_cotizaciones - 1;
+
+
+        //Ciclo para cada partida
+        for ($i = 0; $i < $num_partidas; $i++)
+        {
+            //En este array se agregan la frecuencia y el promedio que hubo en cada intervalo (donde no fue 0)
+            $array_promedios = array();
+
+            //Contiene los promedios de los intervalos con mayor número de frecuencias
+            $max_frec_prom = array();
+
+            //Toma los valores máximos y mínimos sin importar si son cotizaciones o históricos
+            $maxvalue = max($output[$i]);
+            $minvalue = min($output[$i]);
+
+
+            $val_diferencia = $maxvalue - $minvalue;
+            //Valor de rango del intervalo
+            $val_rango = $val_diferencia/$num_intervalos;
+
+            //Ciclo para cada intervalo
+            for($j = 0; $j < $num_intervalos; $j++){
+                //El primer intervalo empieza con el valor mínimo
+                if($j == 0)
+                    $lim_inf = $minvalue;
+                $lim_sup = $lim_inf + $val_rango;
+
+                //Es un array temporal usado en este ciclo compuesto de dos llaves "frecuancia" y "promedio"
+                //Solo se crea si hubo una cotización en este intervalo
+                $frec_promedio = array();
+                $frecuencias = 0;
+
+                //Array que contiene todas las cotizaciones en ese intervalo
+                $precios_intervalo = array();
+
+                //Recorre cada subarreglo (cotizaciones)
+                foreach($output[$i] as $value){
+                    //Si está en el último intervalo cambia la condicional
+                    if($j == $num_intervalos - 1){
+                        if($value >= $lim_inf && $value <= $lim_sup){
+                            $frecuencias++;
+                            array_push($precios_intervalo, $value);
+                        }
+                    } else {
+                        if($value >= $lim_inf && $value < $lim_sup) {
+                            $frecuencias++;
+                            array_push($precios_intervalo, $value);
+                        }
+                    }
+                }
+
+                if (empty($precios_intervalo)){
+                    //Si no hubo cotizaciones en ese intervalo
+                    $prom_intervalo = 0;
+                } else {
+                    //Se calcula el promedio de las cotizaciones en ese intervalo
+                    $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                }
+                $frec_promedio['frecuencias'] = $frecuencias;
+                $frec_promedio['promedio'] = round($prom_intervalo, 2);
+
+                array_push($array_promedios, $frec_promedio);
+                $lim_inf = $lim_sup;
+
+            }
+
+            //Valor max de frecuencias
+            $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+            //Checo el arreglo $array_promedios y todos los promedios que coincidan con el valor máximo de frecuencias
+            //se agregan a $max_frec_prom
+            foreach ($array_promedios as $row){
+                if ($row['frecuencias'] == $max_frecuencias){
+                    array_push($max_frec_prom, $row['promedio']);
+                }
+            }
+
+            //Saco el promedio de los promedios que tengan el máximo número de frecuencias
+            $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+            $cot_mas_baja =  min(array_filter($array_cotizaciones[$i]));
+
+            $pmc = min($prom_frec, $cot_mas_baja);
+            array_push($array_pmc, number_format($pmc, 2, '.', ','));
+        }
+        return $array_pmc;
+    }
+
+    //Obtener el tipo de cambio
+    function get_TipoDeCambioPesoDolar() {
+
+        $resultado='';
+        $tc='0.00';
+        $client = new SoapClient(null, array('location' => 'http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL',
+            'uri'      => 'http://DgieWSWeb/DgieWS?WSDL',
+            'encoding' => 'ISO-8859-1',
+            'trace'    => 1) );
+        try {
+            $resultado = $client->tiposDeCambioBanxico();
+        } catch (SoapFault $exception) {
+
+        }
+        if(!empty($resultado)) {
+            $dom = new DomDocument();
+            $dom->loadXML($resultado);
+            $xmlDatos = $dom->getElementsByTagName( "Obs" );
+            if($xmlDatos->length>1) {
+                $item = $xmlDatos->item(1);
+                $tc = $item->getAttribute('OBS_VALUE');
+            }
+        }
+
+        return $tc;
     }
 
     /*
@@ -110,7 +338,6 @@ class Im_general extends CI_Controller
                 'idMunicipioElaboracion' => $this->input->post('idMunicipioElaboracion'),
             );
 
-            $im_general_id = $this->Imgeneralmodel->add_im_general($params);
             redirect('im_general/index');
         } else {
             $this->load->model('Comboboxesmodel');
@@ -165,6 +392,7 @@ class Im_general extends CI_Controller
                 $arr = $this->Imgeneralmodel->get_pmc_data($id);
                 $data['arr'] = $arr;
 
+                /*
                 $output = array();
 
                 foreach($arr as $item){
@@ -182,14 +410,33 @@ class Im_general extends CI_Controller
                     }
                 }
 
+                //Quito la llave "partida" del arreglo
                 foreach(array_keys($output) as $key) {
                     unset($output[$key]['partida']);
                 }
 
-                $cotizaciones = 0;
+                //Copia para ver el debug en edit var
+                $output2 = $output;
+                */
 
-                $data['cotizaciones'] = $cotizaciones;
-                $data['output2'] = $output;
+                $output = $this->formatPmcArray($arr);
+                $output2 = $output;
+
+                $num_cotizaciones = $this->calcularCotizaciones($output);
+                $data['num_cotizaciones'] = $num_cotizaciones;
+                $data['newOutput'] = $output;
+
+                if ($num_cotizaciones > 1){
+                    $pmc = $this->calcularPMC($output, $num_cotizaciones);
+                    $data['pmc'] = $pmc;
+                }
+
+                $data['output2'] = $output2;
+
+                //Tipo de cambio
+                $tipo_cambio = $this->get_TipoDeCambioPesoDolar();
+                $data['tipo_cambio'] = $tipo_cambio;
+
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);
