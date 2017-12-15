@@ -43,6 +43,18 @@
     	resize: none;
 		margin-top: 5px;
 	}
+
+    .short-field {
+        width: 60px;
+    }
+
+    .dias-field {
+        width: 90px;
+    }
+
+    .med-field {
+        width: 110px;
+    }
 </style>
 
 <div class="row">
@@ -318,19 +330,19 @@
 							<tbody>
 								<tr>
 									<td >
-										<input type="text" name="partida_1" id="partida_1" class="form-control partida" value=1 disabled/> 
+										<input type="text" name="partida_1" id="partida_1" class="form-control partida short-field" value=1 disabled/>
 									</td>
 									<td >
-										<input type="text" name="codigo_1" id="codigo_1" class="form-control" maxlength="10"/>
+										<input type="text" name="codigo_1" id="codigo_1" class="form-control med-field" maxlength="10"/>
 									</td>
 									<td >
 										<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
 									</td>
 									<td >
-										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control" maxlength="11"/>
+										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control dias-field" maxlength="11"/>
 									</td>
 									<td >
-										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control" maxlength="11"/>
+										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control short-field" maxlength="11"/>
 									</td>
 									<td class="col-md-1">
 										<input type="text" name="um_1" id="um_1" class="form-control" disabled/>

@@ -43,6 +43,18 @@
     	resize: none;
 		margin-top: 5px;
 	}
+
+    .short-field {
+        width: 60px;
+    }
+
+    .dias-field {
+        width: 90px;
+    }
+
+    .med-field {
+        width: 110px;
+    }
 </style>
 
 <div class="row">
@@ -355,19 +367,19 @@
 										$html_im = '
 											<tr>
 												<td >
-													<input type="text" name="partida_'.($i+1).'" id="partida_'.($i+1).'" value="'.$imConcepto[$i]["partida"].'" class="form-control partida" disabled/> 
+													<input type="text" name="partida_'.($i+1).'" id="partida_'.($i+1).'" value="'.$imConcepto[$i]["partida"].'" class="form-control partida short-field" disabled/> 
 												</td>
 												<td >
-													<input type="text" name="codigo_'.($i+1).'" id="codigo_'.($i+1).'" value="'.$imConcepto[$i]["codigo"].'" class="form-control" maxlength="10"/>
+													<input type="text" name="codigo_'.($i+1).'" id="codigo_'.($i+1).'" value="'.$imConcepto[$i]["codigo"].'" class="form-control med-field" maxlength="10"/>
 												</td>
 												<td >
 													<input type="text" name="descripcion_'.($i+1).'" id="descripcion_'.($i+1).'" value="'.$imConcepto[$i]["descripcion"].'" class="form-control" disabled/>
 												</td>
 												<td >
-													<input type="text" name="plazoentrega_'.($i+1).'" id="plazoentrega_'.($i+1).'" value="'.$imConcepto[$i]["plazoEntrega"].'" class="form-control" maxlength="11"/>
+													<input type="text" name="plazoentrega_'.($i+1).'" id="plazoentrega_'.($i+1).'" value="'.$imConcepto[$i]["plazoEntrega"].'" class="form-control dias-field" maxlength="11"/>
 												</td>
 												<td >
-													<input type="text" name="cantidad_'.($i+1).'" id="cantidad_'.($i+1).'" value="'.$imConcepto[$i]["cantidad"].'" class="form-control" maxlength="11"/>
+													<input type="text" name="cantidad_'.($i+1).'" id="cantidad_'.($i+1).'" value="'.$imConcepto[$i]["cantidad"].'" class="form-control short-field" maxlength="11"/>
 												</td>
 												<td class="col-md-1">
 													<input type="text" name="um_'.($i+1).'" id="um_'.($i+1).'" value="'.$imConcepto[$i]["clave"].'" class="form-control" disabled/>
