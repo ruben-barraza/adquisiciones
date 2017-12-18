@@ -99,7 +99,7 @@
                             </td>
                             <td>
                                 <a href="<?php echo site_url('generar_pdf/pdf/' . $p['id']); ?>"
-                                   class="btn btn-primary btn-xs"><span class="fa fa-print"></span></a>
+                                   class="btn btn-primary btn-xs"><span class="fa fa-download"></span></a>
                             </td>
                         </tr>
                     </tbody>
