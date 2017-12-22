@@ -381,7 +381,7 @@
 									<option value="0">Seleccione</option>
 										<?php 
 											foreach ($familias as $i) {
-												echo '<option value="'. $i->clave .'">'. $i->clave .'</option>';
+												echo '<option value="'. $i->clave .'">'. $i->descripcion .'</option>';
 											}
 										?>
 								</select>
@@ -428,6 +428,7 @@
 		$("#idEstado1 option:contains('NINGUNO')").remove();
 		$("#idEstado2 option:contains('NINGUNO')").remove();
 		$("#idEstado3 option:contains('NINGUNO')").remove();
+        $("#idFamilia option:contains('NINGUNO')").remove();
 		//console.log("<?php echo $proveedor['tipo'] ?>");
 		
 		/* Si el proveedor que se quiere editar es originalmente de bienes

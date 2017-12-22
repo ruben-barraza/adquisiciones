@@ -1,3 +1,6 @@
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
 <div class="row">
   	<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -116,3 +119,10 @@
         </div>
   	</div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#idFamilia option:contains('NINGUNO')").remove();
+    });
+</script>

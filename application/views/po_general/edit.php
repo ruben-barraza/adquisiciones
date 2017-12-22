@@ -425,7 +425,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
+        $("#idFamilia option:contains('NINGUNO')").remove();
 		//console.log("<?php echo $imTitulo ?>");
 
 		var options = {
