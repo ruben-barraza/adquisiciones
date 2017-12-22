@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 09-11-2017 a las 18:16:23
--- Versión del servidor: 5.7.19
--- Versión de PHP: 5.6.31
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-12-2017 a las 19:59:11
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,8 +26,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `almacen`
 --
 
-DROP TABLE IF EXISTS `almacen`;
-CREATE TABLE IF NOT EXISTS `almacen` (
+CREATE TABLE `almacen` (
   `id` int(11) NOT NULL,
   `centroMM` char(4) COLLATE utf8_spanish_ci NOT NULL,
   `idEmpleadoResponsable` int(11) NOT NULL,
@@ -37,11 +34,7 @@ CREATE TABLE IF NOT EXISTS `almacen` (
   `domicilio` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
   `telefono` int(11) NOT NULL,
-  `codigoPostal` char(5) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_ALM_CMM` (`centroMM`),
-  KEY `almacen_ibfk_1` (`idEmpleadoResponsable`),
-  KEY `almacen_ibfk_2` (`idMunicipio`)
+  `codigoPostal` char(5) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -58,8 +51,7 @@ INSERT INTO `almacen` (`id`, `centroMM`, `idEmpleadoResponsable`, `nombre`, `dom
 -- Estructura de tabla para la tabla `articulo`
 --
 
-DROP TABLE IF EXISTS `articulo`;
-CREATE TABLE IF NOT EXISTS `articulo` (
+CREATE TABLE `articulo` (
   `id` int(11) NOT NULL,
   `codigo` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
@@ -70,11 +62,7 @@ CREATE TABLE IF NOT EXISTS `articulo` (
   `precioUnitario` decimal(15,2) NOT NULL,
   `status` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'A=Activo, B=Bloqueado',
   `cantidadEmbalaje` int(15) NOT NULL COMMENT 'Cantidad por embalaje',
-  `tiempoEntrega` int(11) NOT NULL COMMENT 'Cantidad de días de entrega',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_ART_CODIGO` (`codigo`),
-  KEY `articulo_ibfk_1` (`idUnidadMedida`),
-  KEY `articulo_ibfk_2` (`idFamilia`)
+  `tiempoEntrega` int(11) NOT NULL COMMENT 'Cantidad de días de entrega'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -85,7 +73,9 @@ INSERT INTO `articulo` (`id`, `codigo`, `descripcion`, `idUnidadMedida`, `descri
 (1, '1111111111', 'buen aceite', 1, 'CABLE DE COBRE THHW-LS 1/0. CABLE DE COBRE SUAVE CALIBRE 1/O AWG, TIPO DE AISLAMIENTO TERMOPLÁSTICO THHW-LS, VOLTAJE MÁXIMO DE OPERACIÓN: 600 V, TEMPERATURA MÁXIMA DE OPERACIÓN: 90°C. EL RESTO DE LAS CARACTERÍSTICAS TÉCNICAS Y DIMENSIONALES DEBEN DE CUMPLIR CON LA ESPECIFICACIÓN CFE-E0000-03 VIGENTE.', 'aceite', 1, '150.00', 'A', 25, 25),
 (2, '2222222222', 'aceite', 1, 'aceite aislante', 'aceite', 1, '35.50', 'A', 40, 50),
 (3, '3333333333', 'aceite', 1, 'aceite aislante', 'aceite', 1, '90.00', 'A', 50, 50),
-(4, '4545454545', 'hola', 1, 'duhfudhfufd', 'dfdfdf', 12, '200.00', 'S', 1, 2);
+(4, '4545454545', 'hola', 1, 'duhfudhfufd', 'dfdfdf', 12, '200.00', 'S', 1, 2),
+(5, '4444444444', 'ACEITE 4', 1, 'ACEITE 4', 'ACEITE', 1, '95.80', 'A', 2, 45),
+(6, '5555555555', 'ACEITE 5', 1, 'ACEITE', 'ACEITE', 1, '55.50', 'A', 4, 25);
 
 -- --------------------------------------------------------
 
@@ -93,11 +83,9 @@ INSERT INTO `articulo` (`id`, `codigo`, `descripcion`, `idUnidadMedida`, `descri
 -- Estructura de tabla para la tabla `categoria`
 --
 
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE IF NOT EXISTS `categoria` (
+CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -118,11 +106,9 @@ INSERT INTO `categoria` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `departamento`
 --
 
-DROP TABLE IF EXISTS `departamento`;
-CREATE TABLE IF NOT EXISTS `departamento` (
+CREATE TABLE `departamento` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `nombre` varchar(150) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -144,8 +130,7 @@ INSERT INTO `departamento` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `empleado`
 --
 
-DROP TABLE IF EXISTS `empleado`;
-CREATE TABLE IF NOT EXISTS `empleado` (
+CREATE TABLE `empleado` (
   `id` int(11) NOT NULL,
   `rpe` char(5) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
@@ -154,11 +139,7 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   `correoElectronico` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `titulo` varchar(3) COLLATE utf8_spanish_ci NOT NULL,
   `idDepartamento` int(11) NOT NULL,
-  `idCategoria` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_EMP_RPE` (`rpe`),
-  KEY `empleado_ibfk_1` (`idCategoria`),
-  KEY `empleado_ibfk_2` (`idDepartamento`)
+  `idCategoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -180,11 +161,9 @@ INSERT INTO `empleado` (`id`, `rpe`, `nombre`, `apellidoPaterno`, `apellidoMater
 -- Estructura de tabla para la tabla `estado`
 --
 
-DROP TABLE IF EXISTS `estado`;
-CREATE TABLE IF NOT EXISTS `estado` (
+CREATE TABLE `estado` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -232,13 +211,10 @@ INSERT INTO `estado` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `familia`
 --
 
-DROP TABLE IF EXISTS `familia`;
-CREATE TABLE IF NOT EXISTS `familia` (
+CREATE TABLE `familia` (
   `id` int(11) NOT NULL,
   `clave` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `clave` (`clave`)
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -246,6 +222,7 @@ CREATE TABLE IF NOT EXISTS `familia` (
 --
 
 INSERT INTO `familia` (`id`, `clave`, `descripcion`) VALUES
+(0, 'NINGUNO', 'NINGUNO'),
 (1, 'ACEITE', 'ACEITE AISLANTE'),
 (2, 'AISLADORES', 'AISLADORES'),
 (3, 'APARTARRAYOS', 'APARTARRAYOS'),
@@ -284,8 +261,7 @@ INSERT INTO `familia` (`id`, `clave`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `formularioconsideracion`
 --
 
-DROP TABLE IF EXISTS `formularioconsideracion`;
-CREATE TABLE IF NOT EXISTS `formularioconsideracion` (
+CREATE TABLE `formularioconsideracion` (
   `id` int(11) NOT NULL,
   `fc1` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fc2` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -304,8 +280,7 @@ CREATE TABLE IF NOT EXISTS `formularioconsideracion` (
   `fc15` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fc16` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `fc17` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `fc18` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `fc18` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -314,8 +289,7 @@ CREATE TABLE IF NOT EXISTS `formularioconsideracion` (
 -- Estructura de tabla para la tabla `im_concepto`
 --
 
-DROP TABLE IF EXISTS `im_concepto`;
-CREATE TABLE IF NOT EXISTS `im_concepto` (
+CREATE TABLE `im_concepto` (
   `id` int(11) NOT NULL,
   `idImg` int(11) NOT NULL,
   `idPog` int(11) NOT NULL,
@@ -331,10 +305,7 @@ CREATE TABLE IF NOT EXISTS `im_concepto` (
   `importeIM` decimal(15,2) NOT NULL,
   `lugarEntrega` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `direccionEntrega` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `idAlmacen` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idImg` (`idImg`),
-  KEY `idArticulo` (`idArticulo`)
+  `idAlmacen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -342,12 +313,23 @@ CREATE TABLE IF NOT EXISTS `im_concepto` (
 --
 
 INSERT INTO `im_concepto` (`id`, `idImg`, `idPog`, `tipo`, `idArticulo`, `idProveedor`, `partida`, `plazoEntrega`, `cantidad`, `cantidadPO`, `cantidadIM`, `preciounitarioIM`, `importeIM`, `lugarEntrega`, `direccionEntrega`, `idAlmacen`) VALUES
-(1, 1, 1, 'B', 3, 16, 1, 50, 5, 0, '0', '97.50', '487.50', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
-(2, 1, 1, 'B', 2, 16, 2, 50, 3, 0, '0', '5.50', '16.50', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
-(3, 1, 1, 'B', 1, 16, 3, 25, 2, 0, '0', '6.50', '13.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
-(4, 1, 1, 'B', 3, 18, 1, 50, 7, 0, '0', '6.50', '45.50', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
-(5, 1, 1, 'B', 2, 18, 2, 50, 46, 0, '0', '9.00', '414.00', 'ALMACÉN OBREGÓN', 'CALLE 456 #789', 2),
-(6, 1, 1, 'B', 1, 18, 3, 25, 9, 0, '0', '4.00', '36.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1);
+(1, 1, 1, 'B', 3, 16, 1, 50, 3, 0, '0', '0.00', '0.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(2, 1, 1, 'B', 3, 6666, 1, 0, 3, 0, '0', '0.00', '0.00', '0', '0', 0),
+(3, 1, 1, 'B', 3, 7777, 1, 0, 3, 0, '0', '0.00', '0.00', '0', '0', 0),
+(4, 1, 1, 'B', 3, 8888, 1, 0, 3, 0, '0', '0.00', '0.00', '0', '0', 0),
+(5, 1, 1, 'B', 3, 9999, 1, 0, 3, 0, '0', '0.00', '0.00', '0', '0', 0),
+(6, 3, 3, 'B', 3, 16, 1, 50, 4, 0, '0', '0.00', '0.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(7, 3, 3, 'B', 2, 16, 2, 50, 4, 0, '0', '0.00', '0.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(8, 3, 3, 'B', 3, 18, 1, 50, 4, 0, '0', '0.00', '0.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(9, 3, 3, 'B', 2, 18, 2, 50, 4, 0, '0', '0.00', '0.00', 'ALMACÉN DIVISIONAL', 'Carretera Hermosillo El Novillo, Km. 3.5', 1),
+(10, 3, 3, 'B', 3, 6666, 1, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(11, 3, 3, 'B', 2, 6666, 2, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(12, 3, 3, 'B', 3, 7777, 1, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(13, 3, 3, 'B', 2, 7777, 2, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(14, 3, 3, 'B', 3, 8888, 1, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(15, 3, 3, 'B', 2, 8888, 2, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(16, 3, 3, 'B', 3, 9999, 1, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0),
+(17, 3, 3, 'B', 2, 9999, 2, 0, 4, 0, '0', '0.00', '0.00', '0', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -355,8 +337,7 @@ INSERT INTO `im_concepto` (`id`, `idImg`, `idPog`, `tipo`, `idArticulo`, `idProv
 -- Estructura de tabla para la tabla `im_general`
 --
 
-DROP TABLE IF EXISTS `im_general`;
-CREATE TABLE IF NOT EXISTS `im_general` (
+CREATE TABLE `im_general` (
   `id` int(11) NOT NULL,
   `idPog` int(11) NOT NULL,
   `titulo` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -365,12 +346,7 @@ CREATE TABLE IF NOT EXISTS `im_general` (
   `fechaElaboracion` date NOT NULL,
   `idMunicipioElaboracion` int(11) NOT NULL,
   `estatus` char(1) COLLATE utf8_spanish_ci NOT NULL,
-  `SOLPED` int(12) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `im_general_ibfk_1` (`idEmpleadoAutoriza`),
-  KEY `im_general_ibfk_2` (`idEmpleadoFormula`),
-  KEY `idPog` (`idPog`),
-  KEY `im_general_ibfk_3` (`idMunicipioElaboracion`)
+  `SOLPED` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -378,7 +354,9 @@ CREATE TABLE IF NOT EXISTS `im_general` (
 --
 
 INSERT INTO `im_general` (`id`, `idPog`, `titulo`, `idEmpleadoFormula`, `idEmpleadoAutoriza`, `fechaElaboracion`, `idMunicipioElaboracion`, `estatus`, `SOLPED`) VALUES
-(1, 1, 'ADQUISICIÓN DE ACEITE AISLANTE', 4, 3, '2017-11-07', 1805, 'I', 111222333);
+(1, 1, 'ADQUISICIÓN DE ACEITE AISLANTE', 2, 1, '2017-12-20', 1805, '0', 0),
+(2, 2, 'Servicio de mantenimiento', 2, 1, '2017-12-22', 1805, '0', 0),
+(3, 3, 'ADQUISICIÓN DE ACEITE AISLANTE', 2, 1, '2017-12-22', 1805, '0', 0);
 
 -- --------------------------------------------------------
 
@@ -386,13 +364,10 @@ INSERT INTO `im_general` (`id`, `idPog`, `titulo`, `idEmpleadoFormula`, `idEmple
 -- Estructura de tabla para la tabla `municipio`
 --
 
-DROP TABLE IF EXISTS `municipio`;
-CREATE TABLE IF NOT EXISTS `municipio` (
+CREATE TABLE `municipio` (
   `id` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `municipio_ibfk_1` (`idEstado`)
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2753,11 +2728,9 @@ INSERT INTO `municipio` (`id`, `idEstado`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `po_aclaracion`
 --
 
-DROP TABLE IF EXISTS `po_aclaracion`;
-CREATE TABLE IF NOT EXISTS `po_aclaracion` (
+CREATE TABLE `po_aclaracion` (
   `idPog` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL,
-  KEY `relacion_empleado` (`idEmpleado`)
+  `idEmpleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2766,7 +2739,11 @@ CREATE TABLE IF NOT EXISTS `po_aclaracion` (
 
 INSERT INTO `po_aclaracion` (`idPog`, `idEmpleado`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -2774,11 +2751,9 @@ INSERT INTO `po_aclaracion` (`idPog`, `idEmpleado`) VALUES
 -- Estructura de tabla para la tabla `po_acuse`
 --
 
-DROP TABLE IF EXISTS `po_acuse`;
-CREATE TABLE IF NOT EXISTS `po_acuse` (
+CREATE TABLE `po_acuse` (
   `idPog` int(11) NOT NULL,
-  `idEmpleado` int(11) NOT NULL,
-  KEY `relacion_empleado2` (`idEmpleado`)
+  `idEmpleado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2787,7 +2762,11 @@ CREATE TABLE IF NOT EXISTS `po_acuse` (
 
 INSERT INTO `po_acuse` (`idPog`, `idEmpleado`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -2795,8 +2774,7 @@ INSERT INTO `po_acuse` (`idPog`, `idEmpleado`) VALUES
 -- Estructura de tabla para la tabla `po_consideracion`
 --
 
-DROP TABLE IF EXISTS `po_consideracion`;
-CREATE TABLE IF NOT EXISTS `po_consideracion` (
+CREATE TABLE `po_consideracion` (
   `id` int(11) NOT NULL,
   `idpog` int(11) NOT NULL,
   `fc1` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
@@ -2816,9 +2794,7 @@ CREATE TABLE IF NOT EXISTS `po_consideracion` (
   `fc15` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `fc16` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
   `fc17` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
-  `fc18` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `po_consideracion_ibfk_1` (`idpog`)
+  `fc18` varchar(500) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2826,7 +2802,9 @@ CREATE TABLE IF NOT EXISTS `po_consideracion` (
 --
 
 INSERT INTO `po_consideracion` (`id`, `idpog`, `fc1`, `fc2`, `fc3`, `fc4`, `fc5`, `fc6`, `fc7`, `fc8`, `fc9`, `fc10`, `fc11`, `fc12`, `fc13`, `fc14`, `fc15`, `fc16`, `fc17`, `fc18`) VALUES
-(1, 1, '																<i>Especificaciones Técnicas ____________________</i>\r\n							', '																<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>\r\n							', '																<i>El lugar de entrega será ____________________</i>\r\n							', '																<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>\r\n							', '																<i>Condición de los precios será: ____________</i>\r\n							', '																<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>\r\n							', '																<i>La condición de los precios será variable</i>\r\n							', '																<i>Moneda a cotizar será en moneda nacional.</i>\r\n							', '																<i>Idioma de cotización: Español México</i>\r\n							', '																<i>Porcentaje de Garantía: ___________________________</i>\r\n							', '																<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>\r\n							', '																<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>\r\n							', '																<i>Deducciones:___________________________________________</i>\r\n							', '																<i>Se aceptan entregas parciales y anticipadas.</i>\r\n							', '																<i>Vigencia de la Cotización 90 días</i>\r\n							', '', '', '');
+(1, 1, '																<i>Especificaciones Técnicas ____________________</i>\r\n							', '																<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>\r\n							', '																<i>El lugar de entrega será ____________________</i>\r\n							', '																<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>\r\n							', '																<i>Condición de los precios será: ____________</i>\r\n							', '																<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>\r\n							', '																<i>La condición de los precios será variable</i>\r\n							', '																<i>Moneda a cotizar será en moneda nacional.</i>\r\n							', '																<i>Idioma de cotización: Español México</i>\r\n							', '																<i>Porcentaje de Garantía: ___________________________</i>\r\n							', '																<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>\r\n							', '																<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>\r\n							', '																<i>Deducciones:___________________________________________</i>\r\n							', '																<i>Se aceptan entregas parciales y anticipadas.</i>\r\n							', '																<i>Vigencia de la Cotización 90 días</i>\r\n							', '', '', ''),
+(2, 2, '																<i>Especificaciones Técnicas ____________________</i>\r\n							', '																<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>\r\n							', '																<i>El lugar de entrega será ____________________</i>\r\n							', '																<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>\r\n							', '																<i>Condición de los precios será: ____________</i>\r\n							', '																<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>\r\n							', '																<i>La condición de los precios será variable</i>\r\n							', '																<i>Moneda a cotizar será en moneda nacional.</i>\r\n							', '																<i>Idioma de cotización: Español México</i>\r\n							', '																<i>Porcentaje de Garantía: ___________________________</i>\r\n							', '																<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>\r\n							', '																<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>\r\n							', '																<i>Deducciones:___________________________________________</i>\r\n							', '																<i>Se aceptan entregas parciales y anticipadas.</i>\r\n							', '																<i>Vigencia de la Cotización 90 días</i>\r\n							', '', '', ''),
+(3, 3, '																<i>Especificaciones Técnicas ____________________</i>\r\n							', '																<i>Plazo de entrega del bien o de la prestación del servicio: será ____________________</i>\r\n							', '																<i>El lugar de entrega será ____________________</i>\r\n							', '																<i>Considerar en su cotización que el pago será de ______ días naturales a partir de la aceptación de la factura, por entrega realizada.</i>\r\n							', '																<i>Condición de los precios será: ____________</i>\r\n							', '																<i>El porcentaje de la garantía de cumplimiento que deberá aplicarse a los contratos que sean generados de los procedimientos de contratación, será del 10% y será divisible.</i>\r\n							', '																<i>La condición de los precios será variable</i>\r\n							', '																<i>Moneda a cotizar será en moneda nacional.</i>\r\n							', '																<i>Idioma de cotización: Español México</i>\r\n							', '																<i>Porcentaje de Garantía: ___________________________</i>\r\n							', '																<i>-Modalidad de Garantía: garantía de sostenimiento de oferta, de anticipo, de cumplimiento, de calidad, de los vicios ocultos, de cualquier otra responsabilidad.</i>\r\n							', '																<i>-Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, 2 % diario el cual en su conjunto no podrá exceder del 30% del monto total del contrato sin incluir el IVA.</i>\r\n							', '																<i>Deducciones:___________________________________________</i>\r\n							', '																<i>Se aceptan entregas parciales y anticipadas.</i>\r\n							', '																<i>Vigencia de la Cotización 90 días</i>\r\n							', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -2834,8 +2812,7 @@ INSERT INTO `po_consideracion` (`id`, `idpog`, `fc1`, `fc2`, `fc3`, `fc4`, `fc5`
 -- Estructura de tabla para la tabla `po_general`
 --
 
-DROP TABLE IF EXISTS `po_general`;
-CREATE TABLE IF NOT EXISTS `po_general` (
+CREATE TABLE `po_general` (
   `id` int(11) NOT NULL,
   `tipo` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'B = Bienes, S = Servicios',
   `actividad` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'A = Adquisición, R = Arrendamiento, S = Prestación de servicios',
@@ -2851,12 +2828,7 @@ CREATE TABLE IF NOT EXISTS `po_general` (
   `fechaElaboracion` date NOT NULL,
   `asunto` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `idMunicipio` int(11) NOT NULL,
-  `fechaUltimaModificacion` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idEmpleadoFormula` (`idEmpleadoFormula`),
-  KEY `idEmpleadoResponsable` (`idEmpleadoResponsable`),
-  KEY `idMunicipio` (`idMunicipio`),
-  KEY `idFamilia` (`idFamilia`)
+  `fechaUltimaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2864,7 +2836,9 @@ CREATE TABLE IF NOT EXISTS `po_general` (
 --
 
 INSERT INTO `po_general` (`id`, `tipo`, `actividad`, `idFamilia`, `domicilio`, `idEmpleadoResponsable`, `idEmpleadoFormula`, `fechaLimitePresentacion`, `horaLimitePresentacion`, `ccp1`, `ccp2`, `ccp3`, `fechaElaboracion`, `asunto`, `idMunicipio`, `fechaUltimaModificacion`) VALUES
-(1, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-11-14', '11:00', '', '', '', '2017-11-07', 'Petición de Ofertas de Bienes', 1805, '2017-11-07 10:30:20');
+(1, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-12-27', '11:00', '', '', '', '2017-12-20', 'Petición de Ofertas de Bienes', 1805, '2017-12-20 11:58:12'),
+(2, 'S', 'S', 0, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-12-29', '11:00', '', '', '', '2017-12-22', 'Petición de Ofertas de Servicios', 1805, '2017-12-22 11:41:27'),
+(3, 'B', 'A', 1, 'Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000', 1, 2, '2017-12-29', '11:00', '', '', '', '2017-12-22', 'Petición de Ofertas de Bienes', 1805, '2017-12-22 12:51:56');
 
 -- --------------------------------------------------------
 
@@ -2872,13 +2846,11 @@ INSERT INTO `po_general` (`id`, `tipo`, `actividad`, `idFamilia`, `domicilio`, `
 -- Estructura de tabla para la tabla `po_numoficio`
 --
 
-DROP TABLE IF EXISTS `po_numoficio`;
-CREATE TABLE IF NOT EXISTS `po_numoficio` (
+CREATE TABLE `po_numoficio` (
   `idPog` int(11) NOT NULL,
   `numOficio` int(11) NOT NULL,
   `anio` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  UNIQUE KEY `oficio-year` (`numOficio`,`anio`)
+  `fecha` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -2886,8 +2858,11 @@ CREATE TABLE IF NOT EXISTS `po_numoficio` (
 --
 
 INSERT INTO `po_numoficio` (`idPog`, `numOficio`, `anio`, `fecha`) VALUES
-(1, 2, 2017, '2017-11-07'),
-(1, 1, 2017, '2017-11-07');
+(3, 5, 2017, '2017-12-22'),
+(3, 4, 2017, '2017-12-22'),
+(2, 3, 2017, '2017-12-22'),
+(2, 2, 2017, '2017-12-22'),
+(1, 1, 2017, '2017-12-20');
 
 -- --------------------------------------------------------
 
@@ -2895,13 +2870,10 @@ INSERT INTO `po_numoficio` (`idPog`, `numOficio`, `anio`, `fecha`) VALUES
 -- Estructura de tabla para la tabla `po_proveedor`
 --
 
-DROP TABLE IF EXISTS `po_proveedor`;
-CREATE TABLE IF NOT EXISTS `po_proveedor` (
+CREATE TABLE `po_proveedor` (
   `idPog` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL COMMENT '1 = nombre1, 2 = nombre2, 3 = nombre3',
-  `contacto` char(1) CHARACTER SET latin1 NOT NULL,
-  UNIQUE KEY `UK_POP_REL` (`idPog`,`idProveedor`,`contacto`) USING BTREE,
-  KEY `idProveedor` (`idProveedor`)
+  `contacto` char(1) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -2909,8 +2881,11 @@ CREATE TABLE IF NOT EXISTS `po_proveedor` (
 --
 
 INSERT INTO `po_proveedor` (`idPog`, `idProveedor`, `contacto`) VALUES
+(2, 1, '1'),
 (1, 16, '1'),
-(1, 18, '1');
+(3, 16, '1'),
+(3, 18, '1'),
+(2, 53, '1');
 
 -- --------------------------------------------------------
 
@@ -2918,8 +2893,7 @@ INSERT INTO `po_proveedor` (`idPog`, `idProveedor`, `contacto`) VALUES
 -- Estructura de tabla para la tabla `proveedor`
 --
 
-DROP TABLE IF EXISTS `proveedor`;
-CREATE TABLE IF NOT EXISTS `proveedor` (
+CREATE TABLE `proveedor` (
   `id` int(11) NOT NULL,
   `clave` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `rfc` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
@@ -2952,14 +2926,7 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
   `correoElectronico3` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `extension3` int(11) NOT NULL,
   `estatus` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'A = Activo, B = Bloquedo',
-  `tipo` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'B = Bienes, S = Servicios, A = Ambos',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_PRO_CLAVE` (`clave`),
-  UNIQUE KEY `UK_PRO_RFC` (`rfc`),
-  KEY `municipio` (`idMunicipio`),
-  KEY `municipio1` (`idMunicipio1`),
-  KEY `municipio2` (`idMunicipio2`),
-  KEY `municipio3` (`idMunicipio3`)
+  `tipo` char(1) COLLATE utf8_spanish_ci NOT NULL COMMENT 'B = Bienes, S = Servicios, A = Ambos'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -3035,11 +3002,9 @@ INSERT INTO `proveedor` (`id`, `clave`, `rfc`, `razonSocial`, `direccion`, `codi
 -- Estructura de tabla para la tabla `relacionproveedorfamilia`
 --
 
-DROP TABLE IF EXISTS `relacionproveedorfamilia`;
-CREATE TABLE IF NOT EXISTS `relacionproveedorfamilia` (
+CREATE TABLE `relacionproveedorfamilia` (
   `idProveedor` int(11) NOT NULL,
-  `idFamilia` int(11) NOT NULL,
-  UNIQUE KEY `UK_REL_PF` (`idProveedor`,`idFamilia`) USING BTREE
+  `idFamilia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -3159,13 +3124,10 @@ INSERT INTO `relacionproveedorfamilia` (`idProveedor`, `idFamilia`) VALUES
 -- Estructura de tabla para la tabla `unidadmedida`
 --
 
-DROP TABLE IF EXISTS `unidadmedida`;
-CREATE TABLE IF NOT EXISTS `unidadmedida` (
+CREATE TABLE `unidadmedida` (
   `id` int(11) NOT NULL,
   `clave` varchar(3) CHARACTER SET latin1 NOT NULL,
-  `descripcion` varchar(15) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_UM_CLAVE` (`clave`)
+  `descripcion` varchar(15) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -3174,6 +3136,160 @@ CREATE TABLE IF NOT EXISTS `unidadmedida` (
 
 INSERT INTO `unidadmedida` (`id`, `clave`, `descripcion`) VALUES
 (1, 'UMP', 'Prueba');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `almacen`
+--
+ALTER TABLE `almacen`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_ALM_CMM` (`centroMM`),
+  ADD KEY `almacen_ibfk_1` (`idEmpleadoResponsable`),
+  ADD KEY `almacen_ibfk_2` (`idMunicipio`);
+
+--
+-- Indices de la tabla `articulo`
+--
+ALTER TABLE `articulo`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_ART_CODIGO` (`codigo`),
+  ADD KEY `articulo_ibfk_1` (`idUnidadMedida`),
+  ADD KEY `articulo_ibfk_2` (`idFamilia`);
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_EMP_RPE` (`rpe`),
+  ADD KEY `empleado_ibfk_1` (`idCategoria`),
+  ADD KEY `empleado_ibfk_2` (`idDepartamento`);
+
+--
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `familia`
+--
+ALTER TABLE `familia`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `clave` (`clave`);
+
+--
+-- Indices de la tabla `formularioconsideracion`
+--
+ALTER TABLE `formularioconsideracion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `im_concepto`
+--
+ALTER TABLE `im_concepto`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idImg` (`idImg`),
+  ADD KEY `idArticulo` (`idArticulo`);
+
+--
+-- Indices de la tabla `im_general`
+--
+ALTER TABLE `im_general`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `im_general_ibfk_1` (`idEmpleadoAutoriza`),
+  ADD KEY `im_general_ibfk_2` (`idEmpleadoFormula`),
+  ADD KEY `idPog` (`idPog`),
+  ADD KEY `im_general_ibfk_3` (`idMunicipioElaboracion`);
+
+--
+-- Indices de la tabla `municipio`
+--
+ALTER TABLE `municipio`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `municipio_ibfk_1` (`idEstado`);
+
+--
+-- Indices de la tabla `po_aclaracion`
+--
+ALTER TABLE `po_aclaracion`
+  ADD KEY `relacion_empleado` (`idEmpleado`);
+
+--
+-- Indices de la tabla `po_acuse`
+--
+ALTER TABLE `po_acuse`
+  ADD KEY `relacion_empleado2` (`idEmpleado`);
+
+--
+-- Indices de la tabla `po_consideracion`
+--
+ALTER TABLE `po_consideracion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `po_consideracion_ibfk_1` (`idpog`);
+
+--
+-- Indices de la tabla `po_general`
+--
+ALTER TABLE `po_general`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEmpleadoFormula` (`idEmpleadoFormula`),
+  ADD KEY `idEmpleadoResponsable` (`idEmpleadoResponsable`),
+  ADD KEY `idMunicipio` (`idMunicipio`),
+  ADD KEY `idFamilia` (`idFamilia`);
+
+--
+-- Indices de la tabla `po_numoficio`
+--
+ALTER TABLE `po_numoficio`
+  ADD UNIQUE KEY `oficio-year` (`numOficio`,`anio`);
+
+--
+-- Indices de la tabla `po_proveedor`
+--
+ALTER TABLE `po_proveedor`
+  ADD UNIQUE KEY `UK_POP_REL` (`idPog`,`idProveedor`,`contacto`) USING BTREE,
+  ADD KEY `idProveedor` (`idProveedor`);
+
+--
+-- Indices de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_PRO_CLAVE` (`clave`),
+  ADD UNIQUE KEY `UK_PRO_RFC` (`rfc`),
+  ADD KEY `municipio` (`idMunicipio`),
+  ADD KEY `municipio1` (`idMunicipio1`),
+  ADD KEY `municipio2` (`idMunicipio2`),
+  ADD KEY `municipio3` (`idMunicipio3`);
+
+--
+-- Indices de la tabla `relacionproveedorfamilia`
+--
+ALTER TABLE `relacionproveedorfamilia`
+  ADD UNIQUE KEY `UK_REL_PF` (`idProveedor`,`idFamilia`) USING BTREE;
+
+--
+-- Indices de la tabla `unidadmedida`
+--
+ALTER TABLE `unidadmedida`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_UM_CLAVE` (`clave`);
 
 --
 -- Restricciones para tablas volcadas
@@ -3249,7 +3365,6 @@ ALTER TABLE `proveedor`
   ADD CONSTRAINT `proveedor_ibfk_2` FOREIGN KEY (`idMunicipio1`) REFERENCES `municipio` (`id`),
   ADD CONSTRAINT `proveedor_ibfk_3` FOREIGN KEY (`idMunicipio2`) REFERENCES `municipio` (`id`),
   ADD CONSTRAINT `proveedor_ibfk_4` FOREIGN KEY (`idMunicipio3`) REFERENCES `municipio` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
