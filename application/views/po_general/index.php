@@ -30,7 +30,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>PO Generales</h2>
+                <h2>Solicitud de propuesta de precio</h2>
                 <div class="nav navbar-right">
                     <a href="<?php echo site_url('po_general/add'); ?>" class="btn btn-success btn-sm">Agregar</a>
                 </div>

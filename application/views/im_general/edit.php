@@ -1,18 +1,34 @@
 <style>
-    .short-field {
-        width: 60px;
-    }
 
-    .med-field {
-        width: 110px;
-    }
-
-    .precio-field{
-        width: 120px;
-    }
 
     .table {
         margin: 50px 0 20px 0;
+    }
+
+    .table .check {
+        text-align: center; /* center checkbox horizontally */
+        vertical-align: middle; /* center checkbox vertically */
+    }
+
+    .myAlert-top{
+        position: fixed;
+        top: 5%;
+        left: 45%;
+        width: 20%;
+        font-size: 20px;
+    }
+
+    .myAlert-bottom{
+        position: fixed;
+        bottom: 5px;
+        left:2%;
+        width: 96%;
+    }
+
+
+
+    .alert{
+        display: none;
     }
 </style>
 
@@ -21,7 +37,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Edit</h2>
+                <h2>Investigación de Condiciones de Mercado</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -98,7 +114,7 @@
                                 'I' => 'Inicial',
                                 'E' => 'Enviado',
                                 'R' => 'Recepción',
-                                'T' => 'Concluido',
+                                'T' => 'Terminado',
                                 'C' => 'Cancelado',
                             );
 
@@ -112,6 +128,24 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="fechaElaboracion" class="col-sm-2 control-label">Fecha de Elaboración</label>
+                    <div class="col-md-2">
+                        <input type="text" name="fechaElaboracion" value="<?php
+                        $fecha = $im_general['fechaElaboracion'];
+                        $fechaElaboracion = date("d/m/Y", strtotime($fecha));
+                        echo ($this->input->post('fechaElaboracion') ? $this->input->post('fechaElaboracion') : $fechaElaboracion); ?>" class="form-control" id="fechaElaboracion" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="cotizaciones" class="control-label col-sm-2">Referencias de Precio</label>
+                    <div class="col-md-1">
+                        <input name="cotizaciones" id="cotizaciones" value="<?php echo $num_cotizaciones; ?>" class="form-control" disabled/>
+                    </div>
+                </div>
+
 
                 <hr/>
 
@@ -119,7 +153,6 @@
                     <label for="imc_proveedor" class="control-label col-sm-2">Proveedor</label>
                     <div class="col-md-4">
                         <select name="imc_proveedor" id="imc_proveedor" class="form-control">
-                            <option value="0">Seleccione</option>
                             <?php foreach($imcProveedores as $proveedor) : ?>
                                 <option value="<?php echo $proveedor['id']; ?>"><?php echo $proveedor['razonSocial']; ?></option>
                             <?php endforeach; ?>
@@ -131,81 +164,116 @@
                     </div>
                 </div>
 
-                <div id="tabla_total" class="hidden">
+                <div class="form-group">
+
+                </div>
+                <div id="tabla_total" class="">
                     <div class="form-group">
                         <label for="moneda" class="control-label col-sm-2">Moneda</label>
                         <div class="col-md-2">
                             <select name="moneda" id="moneda" class="form-control">
-                                <option value="0">Seleccione</option>
-                                <?php
-                                $moneda_values = array(
-                                    'MXN' => 'MXN',
-                                    'USD' => 'USD',
-                                );
-
-                                foreach ($moneda_values as $value => $display_text) {
-                                    echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-                                }
-                                ?>
+                                <option value="MXN">MXN</option>
+                                <option value="USD">USD</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="tipocambio" class="control-label col-sm-2">Tipo de cambio</label>
-                        <div class="col-md-2">
-                            <input name="tipocambio" id="tipocambio" class="form-control" value="<?php echo $tipo_cambio ?>" disabled/>
+
+                    <div class="hidden" id="tipocambio_oculto">
+                        <div class="form-group">
+                            <label for="fechaCotizacion" class="col-sm-2 control-label">Fecha de Cotización</label>
+                            <div class="col-md-2">
+                                <input type="text" name="fechaCotizacion" value="<?php //echo $this->input->post('fechaElaboracion'); ?>" class="form-control" id="fechaCotizacion" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipocambio" class="control-label col-sm-2">Tipo de cambio</label>
+                            <div class="col-md-2">
+                                <input name="tipocambio" id="tipocambio" class="form-control" value="<?php //echo $tipo_cambio ?>" disabled/>
+                            </div>
                         </div>
                     </div>
 
-                    <table id="tablaArticulos" class="table table-hover">
-                        <thead class="thead-inverse">
-                        <th>Partida</th>
-                        <th>Código</th>
-                        <th>Descripción</th>
-                        <th>Cantidad</th>
-                        <th>UM</th>
-                        <th>Precio Unitario ($)</th>
-                        <th>Importe ($)</th>
-                        <th>PMC</th>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $rows = count($imcConcepto);
-                        for($i = 0; $i < $rows; $i++){ ?>
-                            <tr>
-                                <td>
-                                    <input type="text" name="<?php echo "partida_".($i+1) ?>" id="<?php echo "partida_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["partida"] ?>" class="form-control short-field" disabled/>
-                                </td>
-                                <td>
-                                    <input type="text" name="<?php echo "codigo_".($i+1) ?>" id="<?php echo "codigo_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["codigo"] ?>" class="form-control med-field" disabled/>
-                                </td>
-                                <td>
-                                    <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["descripcion"] ?>" class="form-control" disabled/>
-                                </td>
-                                <td>
-                                    <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["cantidad"] ?>" class="form-control short-field cantidad"/>
-                                </td>
-                                <td>
-                                    <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="<?php echo $imcConcepto[$i]["clave"] ?>" class="form-control short-field" disabled/>
-                                </td>
-                                <td class="col-md-1">
-                                    <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control precio-field precio"/>
-                                </td>
-                                <td>
-                                    <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control importe precio-field" disabled/>
-                                </td>
-                                <td>
-                                    <input type="text" name=""<?php echo "pmc_".($i+1) ?>" id="<?php echo "pmc_".($i+1) ?>" value="<?php
-                                    if(isset($pmc))
-                                        echo $pmc[$i];
-                                    else
-                                        echo 0;
-                                    ?>" class="form-control precio-field" />
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
+
+                        <table id="tablaArticulos" class="table table-hover">
+                            <thead class="thead-inverse">
+                            <th class="check">N/C</th>
+                            <th>Partida</th>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>UM</th>
+                            <th>Precio Unitario ($)</th>
+                            <th>Importe ($)</th>
+                            <th>PMC ($)</th>
+                            <th>IMC (S)</th>
+                            <th>AMP 100% ($)</th>
+
+                            <!--
+                            <th>PMC</th>
+                            -->
+                            </thead>
+                            <tbody>
+                            <?php
+                            $rows = count($imcConcepto);
+                            for($i = 0; $i < $rows; $i++){ ?>
+                                <tr>
+                                    <td class="check">
+                                        <input class="form-check-input no-cotizo" type="checkbox" value="" id="<?php echo "nc_".($i+1) ?>">
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <input type="text" name="<?php echo "partida_".($i+1) ?>" id="<?php echo "partida_".($i+1) ?>" value="" class="form-control" disabled/>
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <input type="text" name="<?php echo "codigo_".($i+1) ?>" id="<?php echo "codigo_".($i+1) ?>" value="" class="form-control" disabled/>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="" class="form-control" disabled/>
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="" class="form-control cantidad" disabled/>
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="" class="form-control" disabled/>
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control precio"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<?php echo "importe_".($i+1) ?>" id="<?php echo "importe_".($i+1) ?>" value="" class="form-control importe" disabled/>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<?php echo "pmc_".($i+1) ?>" id="<?php echo "pmc_".($i+1) ?>" value="<?php
+                                        if(isset($pmc))
+                                            echo $pmc[$i];
+                                        else
+                                            echo 0;
+                                        ?>" class="form-control precio-field" />
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<?php echo "imc_".($i+1) ?>" id="<?php echo "imc_".($i+1) ?>" value="<?php
+                                        if(isset($pmc)){
+                                            $imc = $imcConcepto[$i]["cantidad"] * $pmc[$i];
+                                            echo  number_format($imc, 2, ".", ",");
+                                        }
+                                        else
+                                            echo 0;
+                                        ?>" class="form-control precio-field" />
+                                    </td>
+                                    <td>
+                                        <input type="text" name="<?php echo "ampliacion_".($i+1) ?>" id="<?php echo "ampliacion_".($i+1) ?>" value="<?php
+                                        if(isset($imc)){
+                                            echo number_format($imc * 2, 2, ".", ",");
+                                        }
+                                        else
+                                            echo 0;
+                                        ?>" class="form-control precio-field" />
+                                    </td>
+
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+
 
                     <hr />
 
@@ -229,14 +297,6 @@
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <label for="cotizaciones" class="control-label col-sm-2">Cotizaciones</label>
-                    <div class="col-md-1">
-                        <input name="cotizaciones" id="cotizaciones" value="<?php echo $num_cotizaciones; ?>" class="form-control" disabled/>
-                    </div>
-                </div>
-
                 <hr/>
 
                 <div class="form-group">
@@ -250,20 +310,23 @@
                     </div>
                 </div>
 
+
+                <div class="myAlert-top alert alert-success text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Cambios guardados</strong>
+                </div>
+                <div class="myAlert-bottom alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
+                </div>
+
+
+                <!--
                 <var>
                     <?php
-
-                    echo "TIPO DE CAMBIO: ".$tipo_cambio;
-                    echo "<br>";
-                    echo $num_cotizaciones;
-                    var_dump($newOutput);
-                    ?>
-                </var>
-
-
-                <var>
-                    <?php
+                    /*
                         //var_dump($pmc);
+
                         echo "********************************************************************************************";
 
                         var_dump($output2);
@@ -326,114 +389,121 @@
                         echo "<br>";
                         echo "SIZE OF: ".count($output2);
                         echo "<br>";
+                        echo "NUMERO DE PARTIDAS: ".$num_partidas;
+                        echo "<br>";
 
                         echo "----------------------------";
                         echo "<br>";
                         $maxvalue;
                         $minvalue;
                         $num_intervalos = $num_cotizaciones - 1;
-                        for ($i = 0; $i < $num_partidas; $i++)
-                        {
-                            echo "PARTIDA ".($i + 1);
-                            echo "<br>";
 
-                            $array_promedios = array();
-
-                            //Contiene los promedios de los intervalos con mayor número de frecuencias
-                            $max_frec_prom = array();
-
-                            $prom_frec = 0;
-
-                            $maxvalue = max($output2[$i]);
-                            $minvalue = min($output2[$i]);
-                            $val_diferencia = $maxvalue - $minvalue;
-                            $val_rango = $val_diferencia/$num_intervalos;
-                            echo "VL: $val_rango";
-                            echo "<br>";
-                            for($j = 0; $j < $num_intervalos; $j++){
-                                echo "Intervalo ".($j+1);
+                        //if($num_partidas > 1) {
+                            for ($i = 0; $i < $num_partidas; $i++)
+                            {
+                                echo "PARTIDA ".($i + 1);
                                 echo "<br>";
-                                if($j == 0)
-                                    $lim_inf = $minvalue;
-                                echo "Límite inferior: ".round($lim_inf, 2);
-                                echo "<br>";
-                                $lim_sup = $lim_inf + $val_rango;
 
-                                echo "Límite superior: ".round($lim_sup, 2);
+                                $array_promedios = array();
+
+                                //Contiene los promedios de los intervalos con mayor número de frecuencias
+                                $max_frec_prom = array();
+
+                                $prom_frec = 0;
+
+                                $maxvalue = max($output2[$i]);
+                                $minvalue = min($output2[$i]);
+                                $val_diferencia = $maxvalue - $minvalue;
+                                $val_rango = $val_diferencia/$num_intervalos;
+                                echo "VL: $val_rango";
                                 echo "<br>";
-                                $frec_promedio = array();
-                                $frecuencias = 0;
-                                $k = 0;
-                                $precios_intervalo = array();
-                                $prom_intervalo = 0;
-                                foreach($output2[$i] as $array){
-                                    if($j == $num_intervalos - 1){
-                                        if($array >= $lim_inf && $array <= $lim_sup){
-                                            $frecuencias++;
-                                            array_push($precios_intervalo, $array);
+                                for($j = 0; $j < $num_intervalos; $j++){
+                                    echo "Intervalo ".($j+1);
+                                    echo "<br>";
+                                    if($j == 0)
+                                        $lim_inf = $minvalue;
+                                    echo "Límite inferior: ".round($lim_inf, 2);
+                                    echo "<br>";
+                                    $lim_sup = $lim_inf + $val_rango;
+
+                                    echo "Límite superior: ".round($lim_sup, 2);
+                                    echo "<br>";
+                                    $frec_promedio = array();
+                                    $frecuencias = 0;
+                                    $k = 0;
+                                    $precios_intervalo = array();
+                                    $prom_intervalo = 0;
+                                    foreach($output2[$i] as $array){
+                                        if($j == $num_intervalos - 1){
+                                            if($array >= $lim_inf && $array <= $lim_sup){
+                                                $frecuencias++;
+                                                array_push($precios_intervalo, $array);
+                                            }
+                                        } else {
+                                            if($array >= $lim_inf && $array < $lim_sup) {
+                                                $frecuencias++;
+                                                array_push($precios_intervalo, $array);
+                                            }
                                         }
-                                    } else {
-                                        if($array >= $lim_inf && $array < $lim_sup) {
-                                            $frecuencias++;
-                                            array_push($precios_intervalo, $array);
-                                        }
+
+                                        $k++;
                                     }
 
-                                    $k++;
+                                    if (empty($precios_intervalo)){
+                                        $prom_intervalo = 0;
+                                    } else {
+                                        $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                                    }
+                                    echo "Frecuencias en el intervalo: $frecuencias";
+                                    echo "<br>";
+                                    echo "Promedio del intervalo: ".round($prom_intervalo, 2);
+                                    echo "<br>";
+                                    echo "<br>";
+                                    $frec_promedio['frecuencias'] = $frecuencias;
+                                    $frec_promedio['promedio'] = round($prom_intervalo, 2);
+
+                                    array_push($array_promedios, $frec_promedio);
+                                    $lim_inf = $lim_sup;
+
+                                }
+                                var_dump($array_promedios);
+
+                                //Valor max de frecuencias
+                                $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+                                foreach ($array_promedios as $row){
+                                    if ($row['frecuencias'] == $max_frecuencias){
+                                        array_push($max_frec_prom, $row['promedio']);
+                                    }
                                 }
 
-                                if (empty($precios_intervalo)){
-                                    $prom_intervalo = 0;
-                                } else {
-                                    $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
-                                }
-                                echo "Frecuencias en el intervalo: $frecuencias";
-                                echo "<br>";
-                                echo "Promedio del intervalo: ".round($prom_intervalo, 2);
-                                echo "<br>";
-                                echo "<br>";
-                                $frec_promedio['frecuencias'] = $frecuencias;
-                                $frec_promedio['promedio'] = round($prom_intervalo, 2);
+                                $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+                                $cot_mas_baja =  min($output3[$i]);
 
-                                array_push($array_promedios, $frec_promedio);
-                                $lim_inf = $lim_sup;
+                                $pmc = min($prom_frec, $cot_mas_baja);
 
+                                echo "Promedio frecuencias: ".round($prom_frec, 2);
+                                echo "<br>";
+                                echo "Cotización más baja: ".$cot_mas_baja;
+                                echo "<br>";
+                                echo "<br>";
+                                echo "PMC = ".$pmc;
+                                echo "<br>";
+                                echo "<br>";
+                                echo "<br>";
+                                echo "------------------------------------------------------------------------------";
+                                echo "<br>";
+                                //echo $val_rango;
+                                echo "<br>";
                             }
-                            var_dump($array_promedios);
+                        //}
 
-                            //Valor max de frecuencias
-                            $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
-                            foreach ($array_promedios as $row){
-                                if ($row['frecuencias'] == $max_frecuencias){
-                                    array_push($max_frec_prom, $row['promedio']);
-                                }
-                            }
-
-                            $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
-                            $cot_mas_baja =  min($output3[$i]);
-
-                            $pmc = min($prom_frec, $cot_mas_baja);
-
-                            echo "Promedio frecuencias: ".round($prom_frec, 2);
-                            echo "<br>";
-                            echo "Cotización más baja: ".$cot_mas_baja;
-                            echo "<br>";
-                            echo "<br>";
-                            echo "PMC = ".$pmc;
-                            echo "<br>";
-                            echo "<br>";
-                            echo "<br>";
-                            echo "------------------------------------------------------------------------------";
-                            echo "<br>";
-                            //echo $val_rango;
-                            echo "<br>";
-                        }
 
                         //echo round(1.125, 2);
 
-
+                    */
                     ?>
                 </var>
+                -->
 
                 <?php echo form_close(); ?>
             </div>
@@ -443,11 +513,112 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
         var idPog = <?php echo $im_general['idPog'] ?>;
         var idImg = <?php echo $im_general['id'] ?>;
 
         var longitudTablaArticulo = $("#tablaArticulos tbody tr").length;
 
+        function myAlertTop(){
+            $(".myAlert-top").show();
+            setTimeout(function(){
+                $(".myAlert-top").hide();
+            }, 2000);
+        }
+
+        function myAlertBottom(){
+            $(".myAlert-bottom").show();
+            setTimeout(function(){
+                $(".myAlert-bottom").hide();
+            }, 2000);
+        }
+
+        //Cambia el idioma del datepicker a español
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        $("#fechaElaboracion").datepicker({  maxDate: new Date });
+        $("#fechaCotizacion").datepicker({  maxDate: new Date });
+
+
+
+        $("#fechaCotizacion").on("change", function(){
+            var selected = $(this).val();
+            //  dd/mm/yyyy
+            var dateAr = selected.split('/');
+            var newDate = dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0];
+
+            //Consulta API Banxico
+            $.ajax({
+                url : "https://www.banxico.org.mx/SieAPIRest/service/v1/series/SF63528/datos/"+ newDate + "/" + newDate +"?token=24e1c912006ef11065ac185c186ed1bce351171f730c0eddc3168b89a6aafc6a",
+                jsonp : "callback",
+                dataType : "jsonp", //Se utiliza JSONP para realizar la consulta cross-site
+                success : function(response) {  //Handler de la respuesta
+                    var series = response.bmx.series;
+                    var tipocambio = series[0].datos[0].dato;
+                    $('#tipocambio').val(tipocambio);
+                    console.log(tipocambio);
+                }
+            });
+
+        });
+
+        var $prov_id = $('#imc_proveedor').val();
+        update_imctable($prov_id);
+
+        $('#tablaArticulos').on('change', ':checkbox', function () {
+            $(this).closest('tr').find('input:text').prop('disabled', this.checked);
+            if(this.checked){
+                $(this).closest('tr').find('input.precio:text').val(0);
+                $(this).closest('tr').find('input.importe:text').val(0);
+            }
+        }).find(':checkbox').change();
+
+        /*
+        var $moneda_def = "  echo $imcConcepto[0]["moneda"] ";
+        console.log("HOLA" + $moneda_def);
+        if($moneda_def == "USD"){
+            $('#moneda option[value=USD]').prop('selected', true);
+            $("#tipocambio_oculto").removeClass("hidden");
+            $("#tipocambio_oculto").show();
+
+
+            var fecha_cot_def = "
+            $fechaCotizacion = date("d/m/Y", strtotime($imcConcepto[0]["fechaElaboracion"]));
+            echo $fechaCotizacion;
+             ";
+
+            $("#tipocambio").val("  echo $imcConcepto[0]["tipoCambio"] ");
+            $("#fechaCotizacion").val(fecha_cot_def);
+
+
+        }
+        */
+        /*
+        $("#fechaElaboracion").datepicker({
+            onSelect: function() {
+                //var dt = $('#fechaElaboracion').datepicker('getDate');
+                var date = $("#scheduleDate").datepicker({ dateFormat: 'dd,MM,yyyy' }).val()
+                console.log("HOLA");
+            }
+        });
+        */
 
         $('.precio').keyup(function(event) {
 
@@ -540,8 +711,19 @@
             return components.join(".");
         }
 
-        $('#imc_proveedor').change(function(){
-            var $prov_id = $(this).val();
+        $('#moneda').change(function(){
+            var $moneda = $(this).val();
+            if($moneda == "MXN"){
+                $("#tipocambio_oculto").hide();
+            } else {
+                $("#tipocambio_oculto").removeClass("hidden");
+                $("#tipocambio_oculto").show();
+            }
+        });
+
+
+        function update_imctable($prov_id){
+
             if($prov_id == 0){
                 $("#tabla_total").hide();
             } else {
@@ -559,12 +741,13 @@
                         var returned = JSON.parse(returned);
 
                         jQuery.each(returned.preciosimc, function( i, val ) {
-                            //console.log(i);
+                            //console.log(returned.preciosimc);
                             $("#partida_" + (i+1)).val(val.partida);
                             $("#codigo_" + (i+1)).val(val.codigo);
                             $("#descripcion_" + (i+1)).val(val.descripcion);
-                            $("#cantidad_" + (i+1)).val(val.cantidad);
+                            $("#cantidad_" + (i+1)).val(val.cantidadPO);
                             $("#um_" + (i+1)).val(val.clave);
+
                             if(val.preciounitarioIM == 0){
                                 $("#preciounitario_" + (i+1)).val("0");
                             }
@@ -572,6 +755,7 @@
                                 var preciounitario = FormatNumber(parseFloat(val.preciounitarioIM));
                                 $("#preciounitario_" + (i+1)).val(preciounitario);
                             }
+
                             if(val.importeIM == 0){
                                 $("#importe_" + (i+1)).val("0");
                             }
@@ -580,11 +764,69 @@
                                 $("#importe_" + (i+1)).val(importe);
                             }
 
+                            if(val.cotizado == "N"){
+                                $("#nc_" + (i+1)).prop('checked', true);
+
+                                $("#partida_" + (i+1)).prop('disabled', true);
+                                $("#codigo_" + (i+1)).prop('disabled', true);
+                                $("#descripcion_" + (i+1)).prop('disabled', true);
+                                $("#cantidad_" + (i+1)).prop('disabled', true);
+                                $("#um_" + (i+1)).prop('disabled', true);
+                                $("#preciounitario_" + (i+1)).prop('disabled', true);
+                                $("#importe_" + (i+1)).prop('disabled', true);;
+                                $("#pmc_" + (i+1)).prop('disabled', true);
+                                $("#imc_" + (i+1)).prop('disabled', true);
+                                $("#ampliacion_" + (i+1)).prop('disabled', true);
+
+                            } else {
+                                $("#nc_" + (i+1)).prop('checked', false);
+                                $("#partida_" + (i+1)).prop('disabled', true);
+                                $("#codigo_" + (i+1)).prop('disabled', true);
+                                $("#descripcion_" + (i+1)).prop('disabled', true);
+                                $("#cantidad_" + (i+1)).prop('disabled', true);
+                                $("#um_" + (i+1)).prop('disabled', true);
+                                $("#preciounitario_" + (i+1)).prop('disabled', false);
+                                $("#importe_" + (i+1)).prop('disabled', true);;
+                                $("#pmc_" + (i+1)).prop('disabled', true);
+                                $("#imc_" + (i+1)).prop('disabled', true);
+                                $("#ampliacion_" + (i+1)).prop('disabled', true);
+                            }
+
                         });
                         calcularTotal(returned.subtotalimc);
+
+
+                        var moneda = returned.moneda;
+                        if(moneda != 0){
+                            $("#moneda").val(moneda);
+                            if(moneda == "USD"){
+                                $("#tipocambio_oculto").removeClass("hidden");
+                                $("#tipocambio_oculto").show();
+                            } else {
+                                $("#tipocambio_oculto").hide();
+                            }
+                        } else {
+                            $('#moneda option[value=MXN]').prop('selected', true);
+                            $("#tipocambio_oculto").hide();
+                        }
+
+
+                        var tipo_cambio = returned.tipo_cambio;
+                        if(tipo_cambio != 0){
+                            $("#tipocambio").val(tipo_cambio);
+                            $("#fechaCotizacion").val(returned.fecha_cot);
+                        } else {
+                            $("#tipocambio").val("<?php echo $tipo_cambio ?>");
+                            $("#fechaCotizacion").datepicker().datepicker("setDate", new Date());
+                        }
                     }
                 });
             }
+        }
+
+        $('#imc_proveedor').change(function(){
+            var $prov_id = $(this).val();
+            update_imctable($prov_id);
         });
 
         function calcularTotal(subtotal){
@@ -599,8 +841,6 @@
             $("#imctotal").val(totalformat);
         }
 
-
-
         $("#botonGuardar").click(function(){
 
             //Guarda info basica IM
@@ -609,6 +849,9 @@
             var empleadoFormulaRpe = $("#empleadoFormula").val();
             var solped = $("#solped").val();
             var imcestatus = $('#imc_estatus').val();
+            var fechaElaboracion = $('#fechaElaboracion').val();
+
+
             $.ajax({
                 url: '<?php echo base_url();?>index.php/Im_general/updateIMG',
                 method: 'POST',
@@ -620,6 +863,7 @@
                     empleadoFormulaRpe: empleadoFormulaRpe,
                     solped: solped,
                     imcestatus: imcestatus,
+                    fechaElaboracion: fechaElaboracion,
                 }
             });
 
@@ -631,6 +875,25 @@
                 var cantidad = $("#cantidad_" + i).val();
                 var precio = $("#preciounitario_" + i).val().replace(/,/g, '');
                 var importe = $("#importe_" + i).val().replace(/,/g, '');
+                var moneda = $("#moneda").val();
+                var tipocambio = 0;
+                var fecha = 0;
+                if (moneda == "MXN"){
+                    tipocambio = 0;
+                    fecha = "0000-00-00";
+                } else {
+                    tipocambio = $("#tipocambio").val();
+                    fecha = $('#fechaCotizacion').val();
+                }
+
+                var is_checked = $('#nc_' + i).is(":checked");
+                var cotizado = 0;
+                if(is_checked == true){
+                    cotizado = "N";
+                } else {
+                    cotizado = "S";
+                }
+
                 $.ajax({
                     url: '<?php echo base_url();?>index.php/Im_general/updatePreciosIMC',
                     method: 'POST',
@@ -641,7 +904,11 @@
                         codigo: codigo,
                         cantidad: cantidad,
                         precio: precio,
-                        importe: importe
+                        importe: importe,
+                        moneda: moneda,
+                        tipocambio: tipocambio,
+                        fecha: fecha,
+                        cotizado: cotizado,
                     }
                 });
             }
@@ -664,11 +931,13 @@
                     var longitudArrPmc = returned.pmc.length;
 
                     for (var i = 0; i < longitudArrPmc; i++){
-                        console.log(returned.pmc[i]);
+                        //console.log(returned.pmc[i]);
                         $("#pmc_" + (i+1)).val(returned.pmc[i]);
                     }
                 }
             });
+
+            myAlertTop();
         });
     });
 

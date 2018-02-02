@@ -43,18 +43,6 @@
     	resize: none;
 		margin-top: 5px;
 	}
-
-    .short-field {
-        width: 60px;
-    }
-
-    .dias-field {
-        width: 90px;
-    }
-
-    .med-field {
-        width: 110px;
-    }
 </style>
 
 <div class="row">
@@ -350,23 +338,24 @@
 
 						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
-								<th>Partida</th>
+								<th class="col-md-1">Partida</th>
 								<th>Código</th>
 								<th>Descripción</th>
-								<th>Plazo de entrega (días)</th>
+								<th class="col-md-1">Plazo de entrega (días)</th>
 								<th>Cantidad</th>
-								<th>UM</th>
+								<th class="col-md-1">UM</th>
 								<th>Lugar de entrega</th>
-								<th>Dirección de entrega</th>
+								<th class="col-md-2">Dirección de entrega</th>
 								<th></th>
 							</thead>
 							<tbody>
 								<?php
-									$rowsim = count($imConcepto);
-									for($i = 0; $i < $rowsim; $i++){
-										$html_im = '
+                                    if(isset($imConcepto)){
+                                        $rowsim = count($imConcepto);
+                                        for($i = 0; $i < $rowsim; $i++){
+                                            $html_im = '
 											<tr>
-												<td >
+												<td class="col-md-1">
 													<input type="text" name="partida_'.($i+1).'" id="partida_'.($i+1).'" value="'.$imConcepto[$i]["partida"].'" class="form-control partida short-field" disabled/> 
 												</td>
 												<td >
@@ -375,7 +364,7 @@
 												<td >
 													<input type="text" name="descripcion_'.($i+1).'" id="descripcion_'.($i+1).'" value="'.$imConcepto[$i]["descripcion"].'" class="form-control" disabled/>
 												</td>
-												<td >
+												<td class="col-md-1">
 													<input type="text" name="plazoentrega_'.($i+1).'" id="plazoentrega_'.($i+1).'" value="'.$imConcepto[$i]["plazoEntrega"].'" class="form-control dias-field" maxlength="11"/>
 												</td>
 												<td >
@@ -388,7 +377,7 @@
 													<select name="lugarentrega_'.($i+1).'" id="lugarentrega_'.($i+1).'" class="form-control select-lugar">
 													</select>
 												</td>';
-										$html_im .= '
+                                            $html_im .= '
 												<td class="col-md-2">
 													<input type="text" name="direccionentrega_'.($i+1).'" id="direccionentrega_'.($i+1).'"  value="'.$imConcepto[$i]["direccionEntrega"].'" class="form-control input-direccion" disabled/>
 												</td>
@@ -397,8 +386,45 @@
 													<a name="buscararticulo_'.($i+1).'" id="buscararticulo_'.($i+1).'" class="btn btn-info btn-xs buscararticulo"><span class="fa fa-search"></span></a>
 												</td>
 											</tr>';
-										echo $html_im;
-									}
+                                            echo $html_im;
+                                        }
+                                    } else {
+                                        $html_im = '
+											<tr>
+												<td >
+													<input type="text" name="partida_1" id="partida_1" value="1" class="form-control partida short-field" disabled/> 
+												</td>
+												<td >
+													<input type="text" name="codigo_1" id="codigo_1" value="" class="form-control med-field" maxlength="10"/>
+												</td>
+												<td >
+													<input type="text" name="descripcion_1" id="descripcion_1" value="" class="form-control" disabled/>
+												</td>
+												<td >
+													<input type="text" name="plazoentrega_1" id="plazoentrega_1" value="" class="form-control dias-field" maxlength="11"/>
+												</td>
+												<td >
+													<input type="text" name="cantidad_1" id="cantidad_1" value="" class="form-control short-field" maxlength="11"/>
+												</td>
+												<td class="col-md-1">
+													<input type="text" name="um_1" id="um_1" value="" class="form-control" disabled/>
+												</td>
+												<td >
+													<select name="lugarentrega_1" id="lugarentrega_1" class="form-control select-lugar">
+													</select>
+												</td>';
+
+                                        $html_im .= '
+												<td class="col-md-2">
+													<input type="text" name="direccionentrega_1" id="direccionentrega_1"  value="" class="form-control input-direccion" disabled/>
+												</td>
+												<td>
+													<a name="quitararticulo_1" id="quitararticulo_1" class="btn btn-danger btn-xs quitararticulo"><span class="fa fa-trash"></span></a>
+													<a name="buscararticulo_1" id="buscararticulo_1" class="btn btn-info btn-xs buscararticulo"><span class="fa fa-search"></span></a>
+												</td>
+											</tr>';
+                                        echo $html_im;
+                                    }
 								?>
 							</tbody>
 						</table>
@@ -589,31 +615,40 @@
 		});
 
 		//Poblar los selects de lugar de entrega
-		$rowsArticulos = $("#tablaArticulos > tbody > tr").length;
-		
-		for($j = 0; $j < $rowsArticulos; $j++){
-			var htmlOptions = '<?php 
-				
+		var $rowsArticulos = $("#tablaArticulos > tbody > tr").length;
+		for(var $j = 0; $j < $rowsArticulos; $j++){
+			var htmlOptions = '<?php
 				echo '<option value="0">Seleccione</option>';
 				foreach ($almacenes as $i) {
 					echo '<option value="'. $i->id .'">'. $i->centroMM .' - '. mb_strtoupper($i->nombre) .'</option>';
 				}
 				echo '<option value="otro">OTRO</option>';
+
 			?>';
 			$("#lugarentrega_" + ($j+1)).append(htmlOptions);
 		}
 
-		//Seleccionar el lugar de entrega correspondiente para cada select
-		var arrayFromPHP = <?php echo json_encode($imConcepto); ?>;
-		//console.log(arrayFromPHP);
-		var arrayLength = arrayFromPHP.length;
 
-		for (i = 0; i < arrayLength; i++){
-			$("#lugarentrega_" + (i+1) + " option:contains(" + (arrayFromPHP[i].lugarEntrega).toUpperCase() + ")").prop("selected", true);
-			if(arrayFromPHP[i].lugarEntrega == "OTRO"){
-				$("#direccionentrega_" + (i+1)).prop("disabled", false);
-			}
-		}
+
+		//Seleccionar el lugar de entrega correspondiente para cada select
+
+		var arrayFromPHP = <?php
+            if(isset($imConcepto))
+                echo json_encode($imConcepto);
+            else
+                echo "0"
+            ?>;
+        console.log(arrayFromPHP);
+        if(arrayFromPHP != 0){
+            var arrayLength = arrayFromPHP.length;
+
+            for (var i = 0; i < arrayLength; i++){
+                $("#lugarentrega_" + (i+1) + " option:contains(" + (arrayFromPHP[i].lugarEntrega).toUpperCase() + ")").prop("selected", true);
+                if(arrayFromPHP[i].lugarEntrega == "OTRO"){
+                    $("#direccionentrega_" + (i+1)).prop("disabled", false);
+                }
+            }
+        }
 
 		//Agrega una fila en blanco a la tabla de proveedores
 		$("#agregarRegistroProveedores").click(function(){
@@ -774,7 +809,6 @@
 					success: function (returned) {
 						var returned = JSON.parse(returned);
 						var longitud = returned.listaarticulos.length;
-
 						$("#tablaArticulos").find("tr:gt(1)").remove();
 						
 						var cuentaActual = $("#tablaArticulos tbody tr:last input:last").attr("name").split("_").pop();
@@ -891,6 +925,7 @@
 			}
 
 			var tipoProveedor = $('#tipoProveedor').val();
+
 			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
 
             for(l=0; l < longitudTabla; l++){
@@ -927,29 +962,32 @@
                 }
             }
 
-            var historico = [6666, 7777, 8888, 9999];
-            var index;
-            for(index = 0; index < historico.length; index++){
-                for(k = 0; k < longitudTablaArticulo; k++){
-                    var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
-                    var partida = $("#partida_" + cuentaActual2).val();
-                    var cantidad = $("#cantidad_" + cuentaActual2).val();
-                    $.ajax({
-                        url: '<?php echo base_url();?>index.php/Po_general/crearHistorico',
-                        method: 'POST',
-                        async: false,
-                        data: {
-                            id: id,
-                            idImg: id,
-                            tipo: tipoProveedor,
-                            articuloCodigo: articuloCodigo,
-                            idProveedor: historico[index],
-                            partida: partida,
-                            cantidad: cantidad,
-                        }
-                    });
+            if(tipoProveedor == "B"){
+                var historico = [6666, 7777, 8888, 9999];
+                var index;
+                for(index = 0; index < historico.length; index++){
+                    for(k = 0; k < longitudTablaArticulo; k++){
+                        var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                        var partida = $("#partida_" + cuentaActual2).val();
+                        var cantidad = $("#cantidad_" + cuentaActual2).val();
+                        $.ajax({
+                            url: '<?php echo base_url();?>index.php/Po_general/crearHistorico',
+                            method: 'POST',
+                            async: false,
+                            data: {
+                                id: id,
+                                idImg: id,
+                                tipo: tipoProveedor,
+                                articuloCodigo: articuloCodigo,
+                                idProveedor: historico[index],
+                                partida: partida,
+                                cantidad: cantidad,
+                            }
+                        });
+                    }
                 }
             }
+
 
      	});
 	});

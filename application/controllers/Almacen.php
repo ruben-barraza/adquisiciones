@@ -30,12 +30,12 @@ class Almacen extends CI_Controller{
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('centroMM','CentroMM','exact_length[4]|required');
-		$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable','required');
+		$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable');
 		$this->form_validation->set_rules('nombre','Nombre','max_length[150]|required');
 		$this->form_validation->set_rules('domicilio','Domicilio','max_length[150]|required');
 		$this->form_validation->set_rules('idMunicipio','IdMunicipio','required');
-		$this->form_validation->set_rules('telefono','Telefono','max_length[10]|required');
-		$this->form_validation->set_rules('codigoPostal','CodigoPostal','exact_length[5]|required');
+		$this->form_validation->set_rules('telefono','Telefono','max_length[10]');
+		$this->form_validation->set_rules('codigoPostal','CodigoPostal','exact_length[5]');
 		
 		if($this->form_validation->run())     
         {   
@@ -81,12 +81,12 @@ class Almacen extends CI_Controller{
             $this->load->library('form_validation');
 
 			$this->form_validation->set_rules('centroMM','CentroMM','exact_length[4]|required');
-			$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable','required');
+			$this->form_validation->set_rules('idEmpleadoResponsable','IdEmpleadoResponsable');
 			$this->form_validation->set_rules('nombre','Nombre','max_length[150]|required');
 			$this->form_validation->set_rules('domicilio','Domicilio','max_length[150]|required');
 			$this->form_validation->set_rules('idMunicipio','IdMunicipio','required');
-			$this->form_validation->set_rules('telefono','Telefono','max_length[10]|required');
-			$this->form_validation->set_rules('codigoPostal','CodigoPostal','exact_length[5]|required');
+			$this->form_validation->set_rules('telefono','Telefono','max_length[10]');
+			$this->form_validation->set_rules('codigoPostal','CodigoPostal','exact_length[5]');
 		
 			if($this->form_validation->run())     
             {   

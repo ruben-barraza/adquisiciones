@@ -45,7 +45,28 @@ class Im_general extends CI_Controller
         $prov_id = $_POST['idProveedor'];
         $idPog = $_POST['idPog'];
         $data['preciosimc'] = $this->Imgeneralmodel->get_imc_precios($prov_id, $idPog);
+
         $data['subtotalimc'] = $this->Imgeneralmodel->get_imc_subtotal($prov_id, $idPog);
+
+        $moneda = $this->Imgeneralmodel->get_imc_moneda($prov_id, $idPog);
+        $data['moneda'] = $moneda;
+
+        $data['fecha_cot'] = 0;
+
+        $fecha_cot = $this->Imgeneralmodel->get_imc_fecha($prov_id, $idPog);
+        if($moneda == "USD"){
+            $fechaCotizacion = date("d/m/Y", strtotime($fecha_cot));
+            $data['fecha_cot'] = $fechaCotizacion;
+        } else {
+            $data['fecha_cot'] = $fecha_cot;
+        }
+
+        $data['tipo_cambio'] = $this->Imgeneralmodel->get_imc_cambio($prov_id, $idPog);
+
+
+
+
+
         echo json_encode($data);
     }
 
@@ -57,8 +78,22 @@ class Im_general extends CI_Controller
         $idPog = $_POST['idPog'];
         $precioIM = $_POST['precio'];
         $codigo = $_POST['codigo'];
+        $tipocambio = $_POST['tipocambio'];
+        $moneda = $_POST['moneda'];
+        $cotizado = $_POST['cotizado'];
+
+        $fecha = $_POST['fecha'];
+        if (fecha != "0000-00-00"){
+            $fecharep = str_replace('/', '-', $fecha);
+            $fechaelaboracion = date("Y-m-d", strtotime($fecharep));
+        } else {
+            $fechaelaboracion = $fecha;
+        }
+
+
         $idArticulo = $this->Imgeneralmodel->get_idArticulo($codigo);
-        $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog);
+
+        $this->Imgeneralmodel->update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog, $moneda, $tipocambio, $fechaelaboracion, $cotizado);
     }
 
     function updatePMC(){
@@ -86,6 +121,10 @@ class Im_general extends CI_Controller
         $solped = $_POST['solped'];
         $estatus = $_POST['imcestatus'];
 
+        $fecha = $_POST['fechaElaboracion'];
+        $fecharep = str_replace('/', '-', $fecha);
+        $fechaelaboracion = date("Y-m-d", strtotime($fecharep));
+
         $idEmpleadoAutoriza = $this->Imgeneralmodel->get_idEmpleado($autorizaRpe);
         $idEmpleadoFormula = $this->Imgeneralmodel->get_idEmpleado($formulaRpe);
 
@@ -95,6 +134,7 @@ class Im_general extends CI_Controller
             'idEmpleadoAutoriza' => $idEmpleadoAutoriza,
             'estatus' => $estatus,
             'SOLPED' => $solped,
+            'fechaElaboracion' => $fechaelaboracion,
         );
 
         $this->Imgeneralmodel->update_im_general($idimg, $params);
@@ -108,12 +148,12 @@ class Im_general extends CI_Controller
             if(in_array($item['partida'], array_column($output, 'partida'))){
                 // add store to already existing item
                 $key = array_search($item['partida'], array_column($arr, 'partida'));
-                $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['importeIM']);
+                $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['preciounitarioIM']);
             }else{
                 // add new item with store
                 $tmp = array(
                     'partida' => $item['partida'],
-                    'idProveedor_' . $item['idProveedor'] => floatval($item['importeIM']),
+                    'idProveedor_' . $item['idProveedor'] => floatval($item['preciounitarioIM']),
                 );
                 $output[] = $tmp;
             }
@@ -432,6 +472,7 @@ class Im_general extends CI_Controller
                 }
 
                 $data['output2'] = $output2;
+
 
                 //Tipo de cambio
                 $tipo_cambio = $this->get_TipoDeCambioPesoDolar();

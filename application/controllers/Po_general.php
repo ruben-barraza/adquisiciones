@@ -55,6 +55,7 @@ class Po_general extends CI_Controller{
         $empleadoFormula = array_values($idEmpleado2)[0]['id'];
 
         $params_im = array(
+            'id' => $idPog,
             'idPog' => $idPog,
             'titulo' => $titulo,
             'idEmpleadoFormula' => $empleadoFormula,
@@ -106,7 +107,7 @@ class Po_general extends CI_Controller{
             'partida' => $partida,
             'plazoEntrega' => $plazoEntrega,
             'cantidad' => $cantidad,
-            'cantidadPO' => 0,
+            'cantidadPO' => $cantidad,
             'cantidadIM' => 0,
             'lugarEntrega' => $lugarEntrega,
             'direccionEntrega' => $direccion,
@@ -138,7 +139,7 @@ class Po_general extends CI_Controller{
             'partida' => $partida,
             'plazoEntrega' => 0,
             'cantidad' => $cantidad,
-            'cantidadPO' => 0,
+            'cantidadPO' => $cantidad,
             'cantidadIM' => 0,
             'lugarEntrega' => 0,
             'direccionEntrega' => 0,
@@ -298,7 +299,7 @@ class Po_general extends CI_Controller{
             $empleadoFormula = array_values($idEmpleadoFormula)[0]['id']; 
 
             $tipo = $this->input->post('tipo');
-            $actividad;
+            $actividad = 0;
             if($tipo == 'S'){
                 $actividad = 'S';
             } else if ($tipo == 'B'){

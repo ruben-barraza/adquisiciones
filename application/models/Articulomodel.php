@@ -24,10 +24,21 @@ class Articulomodel extends CI_Model
      */
     function get_all_listaarticulo()
     {
+        $this->db->select('articulo.id, articulo.codigo, articulo.descripcion, unidadmedida.clave unidadmedida, familia.clave familia, articulo.descripcionDetallada, articulo.especificacion, articulo.cantidadEmbalaje, articulo.tiempoEntrega, articulo.status');
+        $this->db->from('articulo');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function get_all_lista_articulo_familia($idFamilia)
+    {
         $this->db->select('articulo.id, articulo.codigo, familia.clave familia, unidadmedida.clave unidadmedida, articulo.descripcion, articulo.descripcionDetallada, articulo.especificacion, articulo.precioUnitario, articulo.cantidadEmbalaje, articulo.tiempoEntrega, articulo.status');
         $this->db->from('articulo');
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
         $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('articulo.idFamilia', $idFamilia);
         $query = $this->db->get();
         return $query->result_array();
     }

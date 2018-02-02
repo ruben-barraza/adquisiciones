@@ -44,17 +44,7 @@
 		margin-top: 5px;
 	}
 
-    .short-field {
-        width: 60px;
-    }
 
-    .dias-field {
-        width: 90px;
-    }
-
-    .med-field {
-        width: 110px;
-    }
 </style>
 
 <div class="row">
@@ -317,19 +307,19 @@
 
 						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
-								<th>Partida</th>
+								<th class="col-md-1">Partida</th>
 								<th>Código</th>
 								<th>Descripción</th>
-								<th>Plazo de entrega (días)</th>
+								<th class="col-md-1">Plazo de entrega (días)</th>
 								<th>Cantidad</th>
-								<th>UM</th>
+								<th class="col-md-1">UM</th>
 								<th>Lugar de entrega</th>
-								<th>Dirección de entrega</th>
+								<th class="col-md-2">Dirección de entrega</th>
 								<th></th>
 							</thead>
 							<tbody>
 								<tr>
-									<td >
+									<td class="col-md-1">
 										<input type="text" name="partida_1" id="partida_1" class="form-control partida short-field" value=1 disabled/>
 									</td>
 									<td >
@@ -338,7 +328,7 @@
 									<td >
 										<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
 									</td>
-									<td >
+									<td class="col-md-1">
 										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control dias-field" maxlength="11"/>
 									</td>
 									<td >
@@ -476,12 +466,13 @@
 			}
 		});
 
-		var asunto = "Petición de Ofertas de ";
+		var asunto = "";
 		//Oculta secciones dependiendo de la elección de tipo de proveedor
 		$('#tipoProveedor').change(function(){
 			var val = $(this).val();
 			
 			if (val == "B"){
+			    asunto = "Petición de Ofertas de ";
 				$('.seccion-oculta').removeClass('hidden');
 				$('.seccion-oculta').show();
 				$('.seccion-proveedores').removeClass('hidden');
@@ -494,6 +485,7 @@
 
 				$("#asunto").val(asunto + "Bienes");
 			} else if (val == "S"){
+			    asunto = "Solicitud de cotización";
 				$('.seccion-oculta').hide();
 				$('.seccion-proveedores').removeClass('hidden');
 				$('.seccion-proveedores').show();
@@ -502,7 +494,7 @@
 				$('#cargarProveedoresBienes').hide();
 				$('.seccion-articulos').hide();
 
-				$("#asunto").val(asunto + "Servicios");
+				$("#asunto").val(asunto);
 			} else {
 				$('.seccion-oculta').hide();
 				$('.seccion-proveedores').hide();
@@ -949,9 +941,6 @@
                 }
             }
      	});
-		 
-
-
 	});
 
 	//Carga la dirección del almacén seleccionado en el campo de dirección

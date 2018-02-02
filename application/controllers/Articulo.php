@@ -9,7 +9,16 @@ class Articulo extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Articulomodel');
-    } 
+    }
+
+
+    //Obtiene una lista de los proveedores que ofrecen la familia seleccionada
+    function obtenerListaArticuloFamilia(){
+        $this->load->model('Articulomodel');
+        $idFamilia = $_POST['idFamilia'];
+        $data['listaarticulofamilia'] = $this->Articulomodel->get_all_lista_articulo_familia($idFamilia);
+        echo json_encode($data);
+    }
 
     /*
      * Listing of listaarticulo
@@ -19,6 +28,8 @@ class Articulo extends CI_Controller{
         $data['listaarticulo'] = $this->Articulomodel->get_all_listaarticulo();
 
         $data['_view'] = 'articulo/index';
+        $this->load->model('Comboboxesmodel');
+        $data['familias'] = $this->Comboboxesmodel->getFamilias();
         $this->load->view('layouts/main',$data);
     }
 
@@ -32,13 +43,13 @@ class Articulo extends CI_Controller{
 		$this->form_validation->set_rules('codigo','Codigo','max_length[10]|required');
 		$this->form_validation->set_rules('descripcion','Descripcion','max_length[150]|required');
 		$this->form_validation->set_rules('idUnidadMedida','IdUnidadMedida','required');
-		$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[500]|required');
-		$this->form_validation->set_rules('especificacion','Especificacion','max_length[50]|required');
+		$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[500]');
+		$this->form_validation->set_rules('especificacion','Especificacion','max_length[50]');
 		$this->form_validation->set_rules('idFamilia','IdFamilia','required');
-		$this->form_validation->set_rules('precioUnitario','PrecioUnitario','required|decimal');
+		$this->form_validation->set_rules('precioUnitario','PrecioUnitario','decimal');
 		$this->form_validation->set_rules('status','Status','required');
-		$this->form_validation->set_rules('cantidadEmbalaje','CantidadEmbalaje','required|integer');
-		$this->form_validation->set_rules('tiempoEntrega','TiempoEntrega','integer|required');
+		$this->form_validation->set_rules('cantidadEmbalaje','CantidadEmbalaje','integer');
+		$this->form_validation->set_rules('tiempoEntrega','TiempoEntrega','integer');
 		
 		if($this->form_validation->run())     
         {   

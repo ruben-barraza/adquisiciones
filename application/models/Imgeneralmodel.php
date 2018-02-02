@@ -209,7 +209,7 @@ class Imgeneralmodel extends CI_Model
 
     public function get_imc_precios($prov_id, $idPog)
     {
-        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad, im_concepto.preciounitarioIM, im_concepto.importeIM');
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidadPO, im_concepto.preciounitarioIM, im_concepto.importeIM, im_concepto.cotizado');
         $this->db->from('im_concepto');
         $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
         $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
@@ -220,6 +220,42 @@ class Imgeneralmodel extends CI_Model
         if($query->num_rows() > 0){
             return $query->result_array();
         }
+    }
+
+    public function get_imc_moneda($prov_id, $idPog)
+    {
+        $this->db->distinct();
+        $this->db->select('moneda');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $this->db->where('im_concepto.idPog', $idPog);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['moneda'];
+    }
+
+    public function get_imc_cambio($prov_id, $idPog)
+    {
+        $this->db->distinct();
+        $this->db->select('tipoCambio');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $this->db->where('im_concepto.idPog', $idPog);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['tipoCambio'];
+    }
+
+    public function get_imc_fecha($prov_id, $idPog)
+    {
+        $this->db->distinct();
+        $this->db->select('fechaElaboracion');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idProveedor', $prov_id);
+        $this->db->where('im_concepto.idPog', $idPog);
+        $query = $this->db->get();
+        $vl = $query->row_array();
+        return $vl['fechaElaboracion'];
     }
 
     public function get_imc_subtotal($prov_id, $idPog)
@@ -233,8 +269,8 @@ class Imgeneralmodel extends CI_Model
         return $vl['subtotal'];
     }
 
-    public function update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog){
-        $data = array('cantidad' => $cantidad, 'preciounitarioIM' => $precioIM, 'importeIM' => $importe);
+    public function update_imc_precios($cantidad, $precioIM, $importe, $idProveedor, $idArticulo, $idPog, $moneda, $tipocambio, $fechaelaboracion, $cotizado){
+        $data = array('cantidad' => $cantidad, 'preciounitarioIM' => $precioIM, 'importeIM' => $importe, 'moneda' => $moneda, 'tipoCambio' => $tipocambio, 'fechaElaboracion' => $fechaelaboracion, 'cotizado' => $cotizado);
         $arraywhere = array('idProveedor' => $idProveedor, 'idArticulo' => $idArticulo, 'idPog' => $idPog);
         $this->db->where($arraywhere);
         $this->db->update('im_concepto', $data);
@@ -252,7 +288,7 @@ class Imgeneralmodel extends CI_Model
 
     function get_pmc_data($id)
     {
-        $this->db->select('partida, idProveedor, importeIM');
+        $this->db->select('partida, idProveedor, preciounitarioIM');
         $this->db->from('im_concepto');
         $this->db->where('idImg', $id);
         $this->db->order_by("idProveedor", "asc");

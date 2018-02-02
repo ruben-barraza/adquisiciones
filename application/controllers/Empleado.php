@@ -34,7 +34,7 @@ class Empleado extends CI_Controller{
 		$this->form_validation->set_rules('apellidoPaterno','ApellidoPaterno','max_length[100]|required');
 		$this->form_validation->set_rules('apellidoMaterno','ApellidoMaterno','max_length[100]|required');
         $this->form_validation->set_rules('correoElectronico','correoElectronico','max_length[100]|required');
-		$this->form_validation->set_rules('titulo','Titulo','max_length[3]|required');
+		$this->form_validation->set_rules('titulo','Titulo','max_length[3]');
 		$this->form_validation->set_rules('idDepartamento','IdDepartamento','required');
 		$this->form_validation->set_rules('idCategoria','IdCategoria','required');
 		
@@ -84,7 +84,7 @@ class Empleado extends CI_Controller{
 			$this->form_validation->set_rules('apellidoPaterno','ApellidoPaterno','max_length[100]|required');
 			$this->form_validation->set_rules('apellidoMaterno','ApellidoMaterno','max_length[100]|required');
             $this->form_validation->set_rules('correoElectronico','correoElectronico','max_length[100]|required');
-			$this->form_validation->set_rules('titulo','Titulo','max_length[3]|required');
+			$this->form_validation->set_rules('titulo','Titulo','max_length[3]');
 			$this->form_validation->set_rules('idDepartamento','IdDepartamento','required');
 			$this->form_validation->set_rules('idCategoria','IdCategoria','required');
 		

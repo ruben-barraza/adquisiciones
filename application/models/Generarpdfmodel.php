@@ -15,6 +15,18 @@ class Generarpdfmodel extends CI_Model
     * SELECCIONA LA RAZÓN SOCIAL, EL NOMBRE DEL CONTACTO Y EL CORREO ELECTRÓNICO 
     * DEL DESTINATARIO DE LA PETICIÓN OFERTA GENERAL
     */
+
+    function get_po_tipo($id){
+        $this->db->select('tipo');
+        $this->db->from('po_general');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('tipo');
+        } else {
+            return 0;
+        }
+    }
     
     function get_contactos($id)
     {
@@ -73,7 +85,7 @@ class Generarpdfmodel extends CI_Model
 
     function get_pog_data($id)
     {
-        $this->db->select('familia.clave, familia.descripcion, po_general.actividad, estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion, po_general.asunto');
+        $this->db->select('familia.clave, familia.descripcion, po_general.actividad, estado.nombre estado, municipio.nombre municipio, po_general.fechaElaboracion, po_general.domicilio, po_general.fechaLimitePresentacion, po_general.horaLimitePresentacion, po_general.asunto, po_general.ccp1, po_general.ccp2, po_general.ccp3');
         $this->db->from('po_general');
         $this->db->join('municipio', 'po_general.idMunicipio = municipio.id', 'inner');
         $this->db->join('estado', 'municipio.idEstado = estado.id', 'inner');

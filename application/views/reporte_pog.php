@@ -118,7 +118,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    $pdf->SetAutoPageBreak(TRUE, 0);
 
     // set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -163,6 +163,9 @@ for ($i = 0; $i < $num_contactos; $i++) {
     
     $pdf->Ln(7);
     $pdf->SetFont('helvetica', 'I', 11);
+
+
+
     $pdf->Cell(0, 0, 'ASUNTO: '.$po_general[0]["asunto"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
 
     $telFijo = "";
@@ -191,17 +194,17 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $actividad = "";
 
     if($po_general[0]["actividad"] == "A"){
-        $actividad = "la adquisición";
+        $actividad = "la adquisición de <b>".$po_general[0]["descripcion"]."</b>";
     } else if($po_general[0]["actividad"] == "R"){
-        $actividad = "el arrendamiento";
+        $actividad = "el arrendamiento de <b>".$po_general[0]["descripcion"]."</b>";
     } else if($po_general[0]["actividad"] == "S"){
-        $actividad = "la prestación de servicios";
+        $actividad = "la adquisición de <b>".$im_general[0]["titulo"]."</b>";
     }
 
 
     // TEXTO BASE
     $html = '<span style="text-align:justify; line-height: 17px;"><br /><i>Comisión Federal de Electricidad, como Empresa Productiva del Estado <b>(División de Distribución Noroeste)</b>,
-    requiere para sus actividades '.$actividad.' de <b>'.$po_general[0]["descripcion"].'</b>, mismos que se encuentran reguladas
+    requiere para sus actividades '.$actividad.', mismos que se encuentran reguladas
     por las Disposiciones Generales en materia de adquisiciones, arrendamientos, contratación de servicios y ejecución de obras de la Comisión Federal de Electricidad y
     sus empresas productivas subsidiarias (DIG&#39;s) con el objeto de obtener información que permita contratar bajo las mejores condiciones disponibles para el Estado.
     <br /><br />
@@ -245,6 +248,42 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $GLOBALS['pageOrientation'] = 'P';
     $pdf->AddPage();
 
+
+    $emp_responsable = "";
+    //Nombre del empleado
+    if($pog_responsable[0]["titulo"] == ""){
+        $emp_responsable = "a <b>".$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"]."</b>";
+    } else {
+        $emp_responsable = "al <b>".$pog_responsable[0]["titulo"].'. '.$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"]."</b>";
+    }
+
+    $ccp_array = array();
+    for($k = 1; $k <= 3; $k++){
+        if($po_general[0]["ccp".$k] != ""){
+            array_push($ccp_array, $po_general[0]["ccp".$k]);
+        }
+    }
+
+    $string_correos = "";
+    $ccp_array_length = count($ccp_array);
+
+
+    if (empty($ccp_array)){
+        $string_correos = $pog_responsable[0]["correoElectronico"]." y ".$pog_formula[0]["correoElectronico"];
+    } else {
+        $string_correos = $pog_responsable[0]["correoElectronico"].", ".$pog_formula[0]["correoElectronico"];
+        $k = 1;
+        foreach($ccp_array as $correo){
+            if($k == $ccp_array_length){
+                $string_correos .= " y ".$correo;
+            } else {
+                $string_correos .= ", ".$correo;
+            }
+            $k++;
+        }
+    }
+
+
     $html = '<span style="text-align:justify; line-height: 17px;"><br /><i>
     <b>Su cotización deberá contener la siguiente información: </b>
     
@@ -254,9 +293,9 @@ for ($i = 0; $i < $num_contactos; $i++) {
         Si en alguna ofrece algo similar o superior o si cuenta con alguna inovación tecnológica.</li>
         <li>Cuestionario de Evaluación.</li>
     </ol>
-    Dicha cotización deberá ser enviada en hojas membretadas de la empresa y firma autógrafa del representante legal en atencion al <b>'.$pog_responsable[0]["titulo"].'. '.$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"].' '.
-    $pog_responsable[0]["categoria"].' del '.$pog_responsable[0]["departamento"].'</b> a más tardar el día <b>'.$diaLimite.' de '.$mesLimite.' de '.$yearLimite.'</b>, indicando lugar, fecha y vigencia de la misma, la cual no deberá ser menor de 90 días, a la siguiente dirección: <b>'.
-    $po_general[0]["domicilio"].' en '.$po_general[0]["municipio"].', '.$po_general[0]["estado"].'</b> y por correo electrónico a las direcciones <b>'.$pog_responsable[0]["correoElectronico"].' y '.$pog_formula[0]["correoElectronico"].'</b> comentarios y/o aclaraciones comunicarse al 
+    Dicha cotización deberá ser enviada en hojas membretadas de la empresa y firma autógrafa del representante legal en atencion '.$emp_responsable.' '.
+    $pog_responsable[0]["categoria"].' del Departamento de '.$pog_responsable[0]["departamento"].'</b> a más tardar el día <b>'.$diaLimite.' de '.$mesLimite.' de '.$yearLimite.'</b>, indicando lugar, fecha y vigencia de la misma, la cual no deberá ser menor de 90 días, a la siguiente dirección: <b>'.
+    $po_general[0]["domicilio"].' en '.$po_general[0]["municipio"].', '.$po_general[0]["estado"].'</b> y por correo electrónico a las direcciones <b>'.$string_correos.'</b> comentarios y/o aclaraciones comunicarse al 
     teléfono <b>(662)259 11 00 ext. 11628 y 11804.</b>
     <br /><br />
     Vencido el plazo de recepción de cotizaciones y de no contar con la de su representada, <b>Comisión Federal de Electricidad División de Distribución Noroeste</b> considerará que no exisitó interés en participar en la investigación de condiciones de mercado y no generará obligación alguna para la entidad.
@@ -274,35 +313,50 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->Cell(0, 0, 'A T E N T A M E N T E', 0, false, 'C', 0, '', 0, false, 'M', 'M');
     
     $pdf->Ln(35);
-    $pdf->Cell(0, 0, $pog_responsable[0]["titulo"].'. '.$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
+
+    $emp_firma = "";
+    //Nombre del empleado
+    if($pog_responsable[0]["titulo"] == ""){
+        $emp_firma = $pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"];
+    } else {
+        $emp_firma = $pog_responsable[0]["titulo"].'. '.$pog_responsable[0]["nombre"].' '.$pog_responsable[0]["apellidoPaterno"].' '.$pog_responsable[0]["apellidoMaterno"];
+    }
+
+
+    $pdf->Cell(0, 0, $emp_firma, 0, false, 'C', 0, '', 0, false, 'M', 'M');
     $pdf->Ln();
-    $pdf->Cell(0, 0, $pog_responsable[0]["categoria"].' de '.$pog_responsable[0]["departamento"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
     // reset pointer to the last page
     $pdf->lastPage();
-    // ---------------------------------------------------------
-    //TERCERA PÁGINA: TABLA IM
 
-    // add a page
-    $GLOBALS['pageOrientation'] = 'L';
-    $pdf->AddPage('L');
+    if($tipo == "B"){
 
-    // set font
-    $pdf->SetFont('helvetica', 'B', 9);
-    $pdf->Cell(0, 0, $im_general[0]["titulo"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
-    $pdf->Ln();
-    $pdf->SetFont('helvetica', 'B', 8);
-    $pdf->Cell(0, 0, "PETICIÓN DE OFERTAS DE BIENES", 0, false, 'C', 0, '', 0, false, 'M', 'M');
-    $pdf->Ln();
-    $pdf->SetFont('helvetica', '', 8);
-    $pdf->Cell(0, 0, $po_general[0]["municipio"].', '.$po_general[0]["estado"].', '.$dia.' de '.ucfirst($mes).' del '.$year, 0, false, 'R', 0, '', 0, false, 'M', 'M');
+        //Indicar en el nombre del archivo pdf el nombre de la familia, si no existe indicar que es de servicios
+        $tipo_titulo = $po_general[0]["clave"];
+
+        // ---------------------------------------------------------
+        //TERCERA PÁGINA: TABLA IM
+
+        // add a page
+        $GLOBALS['pageOrientation'] = 'L';
+        $pdf->AddPage('L');
+
+        // set font
+        $pdf->SetFont('helvetica', 'B', 9);
+        $pdf->Cell(0, 0, $im_general[0]["titulo"], 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $pdf->Ln();
+        $pdf->SetFont('helvetica', 'B', 8);
+        $pdf->Cell(0, 0, "PETICIÓN DE OFERTAS DE BIENES", 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $pdf->Ln();
+        $pdf->SetFont('helvetica', '', 8);
+        $pdf->Cell(0, 0, $po_general[0]["municipio"].', '.$po_general[0]["estado"].', '.$dia.' de '.ucfirst($mes).' del '.$year, 0, false, 'R', 0, '', 0, false, 'M', 'M');
 
 
-    $pdf->Ln(10);
+        $pdf->Ln(10);
 
-    //Número de renglones que tendrá la tabla IM CONCEPTO
-    $tableRows = count($im_concepto);
+        //Número de renglones que tendrá la tabla IM CONCEPTO
+        $tableRows = count($im_concepto);
 
-    $html = '
+        $html = '
         <table border="1" cellspacing="0" cellpadding="2">
             <thead>
                 <tr style="background-color:#D3D3D3;">
@@ -319,47 +373,66 @@ for ($i = 0; $i < $num_contactos; $i++) {
                 </tr>
             </thead>
             <tbody>';
-                for($j = 0; $j < $tableRows; $j++)
-                {
-                    if($im_concepto[$j]["lugarEntrega"] != "0"){
-                        $html .= '<tr>';
-                        $html .= '<td align="center" width="45">'.$im_concepto[$j]["partida"].'</td>';
-                        $html .= '<td align="center" width="60">'.$im_concepto[$j]["codigo"].'</td>';
-                        $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["descripcion"], 'utf-8').'</td>';
-                        $html .= '<td align="center" width="350">'.mb_strtoupper($im_concepto[$j]["descripcionDetallada"], 'utf-8').'</td>';
-                        $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["especificacion"], 'utf-8').'</td>';
-                        $html .= '<td align="center" width="70">'.$im_concepto[$j]["plazoEntrega"].'</td>';
-                        $html .= '<td align="center" width="30">'.$im_concepto[$j]["cantidad"].'</td>';
-                        $html .= '<td align="center" width="30">'.mb_strtoupper($im_concepto[$j]["clave"], 'utf-8').'</td>';
-                        $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["lugarEntrega"], 'utf-8').'</td>';
-                        $html .= '<td align="center">'.$im_concepto[$j]["direccionEntrega"].'</td>';
-                        $html .= '</tr>';
-                    }
-                }
-    $html .= '</tbody>';
-    $html .= '</table>';
+        for($j = 0; $j < $tableRows; $j++)
+        {
+            if($im_concepto[$j]["lugarEntrega"] != "0"){
+                $html .= '<tr>';
+                $html .= '<td align="center" width="45">'.$im_concepto[$j]["partida"].'</td>';
+                $html .= '<td align="center" width="60">'.$im_concepto[$j]["codigo"].'</td>';
+                $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["descripcion"], 'utf-8').'</td>';
+                $html .= '<td align="center" width="350">'.mb_strtoupper($im_concepto[$j]["descripcionDetallada"], 'utf-8').'</td>';
+                $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["especificacion"], 'utf-8').'</td>';
+                $html .= '<td align="center" width="70">'.$im_concepto[$j]["plazoEntrega"].'</td>';
+                $html .= '<td align="center" width="30">'.$im_concepto[$j]["cantidad"].'</td>';
+                $html .= '<td align="center" width="30">'.mb_strtoupper($im_concepto[$j]["clave"], 'utf-8').'</td>';
+                $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["lugarEntrega"], 'utf-8').'</td>';
+                $html .= '<td align="center">'.$im_concepto[$j]["direccionEntrega"].'</td>';
+                $html .= '</tr>';
+            }
+        }
+        $html .= '</tbody>';
+        $html .= '</table>';
 
-    // set core font
-    $pdf->SetFont('helvetica', '', 7);
+        // set core font
+        $pdf->SetFont('helvetica', '', 7);
 
-    // output the HTML content
-    $pdf->writeHTML($html,  true, false, false, false, '');
+        // output the HTML content
+        $pdf->writeHTML($html,  true, false, false, false, '');
 
-    $pdf->Ln(5);
+        $pdf->Ln(5);
 
-    $pdf->SetFont('helvetica', 'B', 9);
-    $pdf->Cell(50);
-    $pdf->Cell(150, 0, 'ELABORÓ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-    $pdf->Cell(0, 0, 'APROBÓ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
-    $pdf->Ln(20);
-    $pdf->Cell(30);
-    $pdf->Cell(150, 0, mb_strtoupper($im_elabora[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_elabora[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoMaterno"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
-    $pdf->Cell(150, 0, mb_strtoupper($im_aprueba[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_aprueba[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoMaterno"], 'utf-8'), 0, false, 'L', 0, '', 0, false, 'M', 'M');
+        $pdf->SetFont('helvetica', 'B', 9);
+        $pdf->Cell(50);
+        $pdf->Cell(150, 0, 'ELABORÓ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+        $pdf->Cell(0, 0, 'APROBÓ', 0, false, 'L', 0, '', 0, false, 'M', 'M');
+        $pdf->Ln(20);
+        $pdf->Cell(30);
+
+        $emp_elabora = "";
+        $emp_aprueba = "";
+        //Nombre del empleado
+        if($im_elabora[0]["titulo"] == ""){
+            $emp_elabora = mb_strtoupper($im_elabora[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoMaterno"], 'utf-8');
+        } else {
+            $emp_elabora = mb_strtoupper($im_elabora[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_elabora[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_elabora[0]["apellidoMaterno"], 'utf-8');
+        }
+
+        if($im_aprueba[0]["titulo"] == ""){
+            $emp_aprueba = mb_strtoupper($im_aprueba[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoMaterno"], 'utf-8');
+        } else {
+            $emp_aprueba = mb_strtoupper($im_aprueba[0]["titulo"], 'utf-8').'. '.mb_strtoupper($im_aprueba[0]["nombre"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoPaterno"], 'utf-8').' '.mb_strtoupper($im_aprueba[0]["apellidoMaterno"], 'utf-8');
+        }
+        $pdf->Cell(150, 0, $emp_elabora, 0, false, 'L', 0, '', 0, false, 'M', 'M');
+        $pdf->Cell(150, 0, $emp_aprueba, 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    } else {
+        $tipo_titulo = "SERVICIOS";
+    }
+
 
     
-    $pdf->Output($tmp.'/Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf', 'F');
-    array_push($nombresArchivos, 'Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
-    array_push($archivos, $tmp.'/Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$po_general[0]["clave"].'.pdf');
+    $pdf->Output($tmp.'/Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$tipo_titulo.'.pdf', 'F');
+    array_push($nombresArchivos, 'Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$tipo_titulo.'.pdf');
+    array_push($archivos, $tmp.'/Oficio Pet Of 137-'.sprintf("%'03d", $numero_oficio[$i]["numOficio"]).'-'.$numero_oficio[$i]["anio"].' - '.$tipo_titulo.'.pdf');
     
 }
 
