@@ -222,6 +222,97 @@
 						</div>
 					</div>
 
+                    <div class="form-group">
+                        <label for="tiempoPago" class="col-md-2 control-label">Tiempo de pago (días)</label>
+                        <div class="col-md-2">
+                            <input type="text" name="tiempoPago" value="20<?php echo $this->input->post('tiempoPago'); ?>" class="form-control" id="tiempoPago" maxlength="250"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="condicionPrecio" class="col-md-2 control-label">Condición de Precio</label>
+                        <div class="col-md-2">
+                            <select id="condicionPrecio" name="condicionPrecio" class="form-control">
+                                <?php
+                                $condicion_values = array(
+                                    'F'=>'Fijo',
+                                    'V'=>'Variable'
+                                );
+                                foreach($condicion_values as $value => $display_text)
+                                {
+                                    $selected = ($value == $this->input->post('condicionPrecio')) ? ' selected="selected"' : "";
+                                    echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="moneda" class="col-md-2 control-label">Moneda</label>
+                        <div class="col-md-2">
+                            <select id="moneda" name="moneda" class="form-control">
+                                <?php
+                                $moneda_values = array(
+                                    'MXN'=>'Pesos',
+                                    'USD'=>'Dolarés'
+                                );
+                                foreach($moneda_values as $value => $display_text)
+                                {
+                                    $selected = ($value == $this->input->post('moneda')) ? ' selected="selected"' : "";
+                                    echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="porcentajeGarantia" class="col-md-2 control-label">Porcentaje de Garantía (%)</label>
+                        <div class="col-md-2">
+                            <input type="text" name="porcentajeGarantia" value="10<?php echo $this->input->post('porcentajeGarantia'); ?>" class="form-control" id="porcentajeGarantia" maxlength="250"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="penaconvencional" class="col-md-2 control-label">Pena convencional (% diario)</label>
+                        <div class="col-md-2">
+                            <input type="text" name="penaconvencional" value="2<?php echo $this->input->post('penaconvencional'); ?>" class="form-control" id="penaconvencional" maxlength="250"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxpenalizacion" class="col-md-2 control-label">Porcentaje máx. de penalización (%)</label>
+                        <div class="col-md-2">
+                            <input type="text" name="maxpenalizacion" value="30<?php echo $this->input->post('maxpenalizacion'); ?>" class="form-control" id="maxpenalizacion" maxlength="250"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="deducciones" class="col-md-2 control-label">Deducciones</label>
+                        <div class="col-md-2">
+                            <input type="text" name="deducciones" value="N/A<?php echo $this->input->post('deducciones'); ?>" class="form-control" id="deducciones" maxlength="250"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="entregaAnticipada" class="col-md-2 control-label">Entrega Anticipada</label>
+                        <div class="col-md-2">
+                            <select id="entregaAnticipada" name="entregaAnticipada" class="form-control">
+                                <?php
+                                $entrega_values = array(
+                                    'S'=>'Sí',
+                                    'N'=>'No'
+                                );
+                                foreach($entrega_values as $value => $display_text)
+                                {
+                                    $selected = ($value == $this->input->post('entregaAnticipada')) ? ' selected="selected"' : "";
+                                    echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vigenciaCotizacion" class="col-md-2 control-label">Vigencia de la cotización (días)</label>
+                        <div class="col-md-2">
+                            <input type="text" name="vigenciaCotizacion" value="30<?php echo $this->input->post('vigenciaCotizacion'); ?>" class="form-control" id="vigenciaCotizacion" maxlength="250"/>
+                        </div>
+                    </div>
+
 					<hr />
 
 					<div class="seccion-proveedores hidden">

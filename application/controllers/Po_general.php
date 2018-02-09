@@ -283,6 +283,17 @@ class Po_general extends CI_Controller{
 		$this->form_validation->set_rules('fechaElaboracion','FechaElaboracion','required');
 		$this->form_validation->set_rules('asunto','Asunto','max_length[255]|required');
 
+
+		$this->form_validation->set_rules('tiempoPago','tiempoPago','max_length[255]|required');
+		$this->form_validation->set_rules('condicionPrecio','condicionPrecio');
+		$this->form_validation->set_rules('moneda','moneda');
+		$this->form_validation->set_rules('porcentajeGarantia','porcentajeGarantia');
+		$this->form_validation->set_rules('entregaAnticipada','entregaAnticipada');
+		$this->form_validation->set_rules('vigenciaCotizacion','vigenciaCotizacion');
+		$this->form_validation->set_rules('penaconvencional','penaconvencional');
+		$this->form_validation->set_rules('maxpenalizacion','maxpenalizacion');
+		$this->form_validation->set_rules('deducciones','deducciones');
+
         //$this->form_validation->set_rules('titulo','Titulo','max_length[255]');
 		//$this->form_validation->set_rules('fechaUltimaModificacion','FechaUltimaModificacion','required');
 		
@@ -322,9 +333,20 @@ class Po_general extends CI_Controller{
 				'asunto' => $this->input->post('asunto'),
 				'idMunicipio' => $this->input->post('idMunicipio'),
 				'fechaUltimaModificacion' => date('Y/m/d H:i:s', time()),
+                'tiempoPago' => $this->input->post('tiempoPago'),
+                'condicionPrecio' => $this->input->post('condicionPrecio'),
+                'moneda' => $this->input->post('moneda'),
+                'porcentajeGarantia' => $this->input->post('porcentajeGarantia'),
+                'penaconvencional' => $this->input->post('penaconvencional'),
+                'maxpenalizacion' => $this->input->post('maxpenalizacion'),
+                'deducciones' => $this->input->post('deducciones'),
+                'entregaAnticipada' => $this->input->post('entregaAnticipada'),
+                'vigenciaCotizacion' => $this->input->post('vigenciaCotizacion'),
             );
             
             $po_general_id = $this->Pogeneralmodel->add_po_general($params);
+
+            $this->load->model('Poconsideracionmodel');
             redirect('po_consideracion/add');
         }
         else
@@ -371,6 +393,16 @@ class Po_general extends CI_Controller{
 			$this->form_validation->set_rules('fechaElaboracion','FechaElaboracion','required');
 			$this->form_validation->set_rules('asunto','Asunto','max_length[255]|required');
 			$this->form_validation->set_rules('fechaUltimaModificacion','FechaUltimaModificacion');
+
+            $this->form_validation->set_rules('tiempoPago','tiempoPago','max_length[255]|required');
+            $this->form_validation->set_rules('condicionPrecio','condicionPrecio');
+            $this->form_validation->set_rules('moneda','moneda');
+            $this->form_validation->set_rules('porcentajeGarantia','porcentajeGarantia');
+            $this->form_validation->set_rules('entregaAnticipada','entregaAnticipada');
+            $this->form_validation->set_rules('vigenciaCotizacion','vigenciaCotizacion');
+            $this->form_validation->set_rules('penaconvencional','penaconvencional');
+            $this->form_validation->set_rules('maxpenalizacion','maxpenalizacion');
+            $this->form_validation->set_rules('deducciones','deducciones');
 		
 			if($this->form_validation->run())     
             {   
@@ -409,6 +441,15 @@ class Po_general extends CI_Controller{
 					'asunto' => $this->input->post('asunto'),
 					'idMunicipio' => $this->input->post('idMunicipio'),
 					'fechaUltimaModificacion' => date('Y/m/d H:i:s', time()),
+                    'tiempoPago' => $this->input->post('tiempoPago'),
+                    'condicionPrecio' => $this->input->post('condicionPrecio'),
+                    'moneda' => $this->input->post('moneda'),
+                    'porcentajeGarantia' => $this->input->post('porcentajeGarantia'),
+                    'penaconvencional' => $this->input->post('penaconvencional'),
+                    'maxpenalizacion' => $this->input->post('maxpenalizacion'),
+                    'deducciones' => $this->input->post('deducciones'),
+                    'entregaAnticipada' => $this->input->post('entregaAnticipada'),
+                    'vigenciaCotizacion' => $this->input->post('vigenciaCotizacion'),
                 );
 
                 $this->Pogeneralmodel->update_po_general($id,$params);            

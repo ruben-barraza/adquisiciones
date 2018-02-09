@@ -46,19 +46,35 @@
 					<div class="form-group">
 						<label for="fc3" class="col-md-4 control-label">Punto 3</label>
 						<div class="col-md-8">
-							<textarea name="fc3" class="form-control summernote" id="fc3"><?php echo ($this->input->post('fc3') ? $this->input->post('fc3') : $po_consideracion['fc3']); ?></textarea>
+							<textarea name="fc3" class="form-control summernote" id="fc3">
+                                <?php echo ($this->input->post('fc3') ? $this->input->post('fc3') : $po_consideracion['fc3']); ?>
+                            </textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="fc4" class="col-md-4 control-label">Punto 4</label>
 						<div class="col-md-8">
-							<textarea name="fc4" class="form-control summernote" id="fc4"><?php echo ($this->input->post('fc4') ? $this->input->post('fc4') : $po_consideracion['fc4']); ?></textarea>
-						</div>
+							<textarea name="fc4" class="form-control summernote" id="fc4">
+                                <?php echo $this->input->post('fc4'); ?>
+                                <i>Considerar en su cotización que el pago será de <u><?php echo $poc_edit[0]["tiempopago"] ?></u> días naturales a partir de la aceptación de la factura, por entrega realizada.</i>
+                            </textarea>
+                        </div>
 					</div>
+
+                    <?php
+                        if($poc_edit[0]["condicionprecio"] == "F")
+                            $condicion = "FIJO";
+                        else
+                            $condicion = "VARIABLE";
+                    ?>
+
 					<div class="form-group">
 						<label for="fc5" class="col-md-4 control-label">Punto 5</label>
 						<div class="col-md-8">
-							<textarea name="fc5" class="form-control summernote" id="fc5"><?php echo ($this->input->post('fc5') ? $this->input->post('fc5') : $po_consideracion['fc5']); ?></textarea>
+							<textarea name="fc5" class="form-control summernote" id="fc5">
+                                <?php echo $this->input->post('fc5'); ?>
+                                <i>Condición de los precios será: <u><?php echo $condicion ?></u></i>
+                            </textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -70,13 +86,27 @@
 					<div class="form-group">
 						<label for="fc7" class="col-md-4 control-label">Punto 7</label>
 						<div class="col-md-8">
-							<textarea name="fc7" class="form-control summernote" id="fc7"><?php echo ($this->input->post('fc7') ? $this->input->post('fc7') : $po_consideracion['fc7']); ?></textarea>
+							<textarea name="fc7" class="form-control summernote" id="fc7">
+                                <?php echo $this->input->post('fc7'); ?>
+                                <i>La condición de los precios será <u><?php echo $condicion ?></u></i>
+                            </textarea>
 						</div>
 					</div>
+
+                    <?php
+                        if($poc_edit[0]["moneda"] == "MXN")
+                            $moneda = "moneda nacional. PESOS MXN.";
+                        else
+                            $moneda = "dólares. USD.";
+                    ?>
+
 					<div class="form-group">
 						<label for="fc8" class="col-md-4 control-label">Punto 8</label>
 						<div class="col-md-8">
-							<textarea name="fc8" class="form-control summernote" id="fc8"><?php echo ($this->input->post('fc8') ? $this->input->post('fc8') : $po_consideracion['fc8']); ?></textarea>
+							<textarea name="fc8" class="form-control summernote" id="fc8">
+                                <?php echo $this->input->post('fc8'); ?>
+                                <i>Moneda a cotizar será en <?php echo $moneda ?></i>
+                            </textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -88,7 +118,10 @@
 					<div class="form-group">
 						<label for="fc10" class="col-md-4 control-label">Punto 10</label>
 						<div class="col-md-8">
-							<textarea name="fc10" class="form-control summernote" id="fc10"><?php echo ($this->input->post('fc10') ? $this->input->post('fc10') : $po_consideracion['fc10']); ?></textarea>
+							<textarea name="fc10" class="form-control summernote" id="fc10">
+                                <?php echo $this->input->post('fc10'); ?>
+                                <i>Porcentaje de Garantía: <u><?php echo $poc_edit[0]["porcentajegarantia"]."%" ?></u></i>
+                            </textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -100,25 +133,43 @@
 					<div class="form-group">
 						<label for="fc12" class="col-md-4 control-label">Punto 12</label>
 						<div class="col-md-8">
-							<textarea name="fc12" class="form-control summernote" id="fc12"><?php echo ($this->input->post('fc12') ? $this->input->post('fc12') : $po_consideracion['fc12']); ?></textarea>
+							<textarea name="fc12" class="form-control summernote" id="fc12">
+                                <?php echo $this->input->post('fc12'); ?>
+                                <i>Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, <b><u><?php echo $poc_edit[0]["penaconvencional"] ?>% diario</u></b> el cual en su conjunto <b><u>no podrá exceder del <?php echo $poc_edit[0]["maxpenalizacion"] ?> del monto total del contrato sin incluir el IVA.</u></b></i>
+                            </textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="fc13" class="col-md-4 control-label">Punto 13</label>
 						<div class="col-md-8">
-							<textarea name="fc13" class="form-control summernote" id="fc13"><?php echo ($this->input->post('fc13') ? $this->input->post('fc13') : $po_consideracion['fc13']); ?></textarea>
+							<textarea name="fc13" class="form-control summernote" id="fc13">
+                                <?php echo $this->input->post('fc13'); ?>
+                                <i>Deducciones:<u> <?php echo $poc_edit[0]["deducciones"] ?></u></i>
+                            </textarea>
 						</div>
 					</div>
+                    <?php
+                        if($poc_edit[0]["entregaanticipada"] == "S")
+                            $entrega = "SÍ";
+                        else
+                            $entrega = "NO";
+                    ?>
 					<div class="form-group">
 						<label for="fc14" class="col-md-4 control-label">Punto 14</label>
 						<div class="col-md-8">
-							<textarea name="fc14" class="form-control summernote" id="fc14"><?php echo ($this->input->post('fc14') ? $this->input->post('fc14') : $po_consideracion['fc14']); ?></textarea>
+							<textarea name="fc14" class="form-control summernote" id="fc14">
+                                <?php echo $this->input->post('fc14'); ?>
+                                <i>Se aceptan entregas parciales y anticipadas. <u><?php echo $entrega ?>.</u></i>
+                            </textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="fc15" class="col-md-4 control-label">Punto 15</label>
 						<div class="col-md-8">
-							<textarea name="fc15" class="form-control summernote" id="fc15"><?php echo ($this->input->post('fc15') ? $this->input->post('fc15') : $po_consideracion['fc15']); ?></textarea>
+							<textarea name="fc15" class="form-control summernote" id="fc15">
+                                <?php echo $this->input->post('fc15'); ?>
+                                <i>Vigencia de la Cotización <?php echo $poc_edit[0]["vigenciacotizacion"] ?> días</i>
+                            </textarea>
 						</div>
 					</div>
 					

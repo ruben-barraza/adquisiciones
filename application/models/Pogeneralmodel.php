@@ -60,6 +60,28 @@ class Pogeneralmodel extends CI_Model
         return $query->result_array();
     }
 
+    function get_poc_inicial()
+    {
+        $this->db->select('tiempopago, condicionprecio, moneda, porcentajegarantia, penaconvencional, maxpenalizacion, deducciones, entregaanticipada, vigenciacotizacion');
+        $this->db->from('po_general');
+        $this->db->order_by("id", "desc");
+        $this->db->limit(0,1);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_poc_edit($id){
+        $this->db->select('tiempopago, condicionprecio, moneda, porcentajegarantia, penaconvencional, maxpenalizacion, deducciones, entregaanticipada, vigenciacotizacion');
+        $this->db->from('po_general');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
     /*
      * function to add new po_general
      */
@@ -145,7 +167,6 @@ class Pogeneralmodel extends CI_Model
         ));
     }
 
-    
     function get_idConsecutivo()
     {
 		$maxid = 1;

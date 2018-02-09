@@ -118,7 +118,9 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, 0);
+    //$pdf->SetAutoPageBreak(TRUE, 0);
+    $pdf->SetAutoPageBreak(FALSE);
+
 
     // set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -248,7 +250,6 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $GLOBALS['pageOrientation'] = 'P';
     $pdf->AddPage();
 
-
     $emp_responsable = "";
     //Nombre del empleado
     if($pog_responsable[0]["titulo"] == ""){
@@ -327,6 +328,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->Ln();
     // reset pointer to the last page
     $pdf->lastPage();
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
     if($tipo == "B"){
 
@@ -339,6 +341,10 @@ for ($i = 0; $i < $num_contactos; $i++) {
         // add a page
         $GLOBALS['pageOrientation'] = 'L';
         $pdf->AddPage('L');
+
+        // set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, 40, PDF_MARGIN_RIGHT);
+
 
         // set font
         $pdf->SetFont('helvetica', 'B', 9);
@@ -359,7 +365,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
         $html = '
         <table border="1" cellspacing="0" cellpadding="2">
             <thead>
-                <tr style="background-color:#D3D3D3;">
+                <tr style="background-color:#D3D3D3;" nobr="true">
                     <th align="center" valign="middle" width="45"><b>Partida</b></th>
                     <th align="center" valign="middle" width="60"><b>Código</b></th>
                     <th align="center" valign="middle"><b>Descripción</b></th>
@@ -376,7 +382,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
         for($j = 0; $j < $tableRows; $j++)
         {
             if($im_concepto[$j]["lugarEntrega"] != "0"){
-                $html .= '<tr>';
+                $html .= '<tr nobr="true">';
                 $html .= '<td align="center" width="45">'.$im_concepto[$j]["partida"].'</td>';
                 $html .= '<td align="center" width="60">'.$im_concepto[$j]["codigo"].'</td>';
                 $html .= '<td align="center">'.mb_strtoupper($im_concepto[$j]["descripcion"], 'utf-8').'</td>';
