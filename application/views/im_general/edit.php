@@ -25,7 +25,24 @@
         width: 96%;
     }
 
+    .partida-col {
+        width: 5%;
+    }
 
+    .codigo-col {
+        width: 8%;
+    }
+    .cantidad-col {
+        width: 7%;
+    }
+
+    .um-col {
+        width: 4%;
+    }
+
+    .precios-col{
+        width: 9%;
+    }
 
     .alert{
         display: none;
@@ -197,16 +214,16 @@
                         <table id="tablaArticulos" class="table table-hover">
                             <thead class="thead-inverse">
                             <th class="check">N/C</th>
-                            <th>Partida</th>
-                            <th>Código</th>
+                            <th class="partida-col">Partida</th>
+                            <th class="codigo-col">Código</th>
                             <th>Descripción</th>
-                            <th>Cantidad</th>
-                            <th>UM</th>
-                            <th>Precio Unitario ($)</th>
-                            <th>Importe ($)</th>
-                            <th>PMC ($)</th>
-                            <th>IMC (S)</th>
-                            <th>AMP 100% ($)</th>
+                            <th class="cantidad-col">Cantidad</th>
+                            <th class="um-col">UM</th>
+                            <th class="precios-col">Precio Unitario ($)</th>
+                            <th class="precios-col">Importe ($)</th>
+                            <th class="precios-col">PMC ($)</th>
+                            <th class="precios-col">IMC (S)</th>
+                            <th class="precios-col">AMP 100% ($)</th>
 
                             <!--
                             <th>PMC</th>
@@ -220,22 +237,22 @@
                                     <td class="check">
                                         <input class="form-check-input no-cotizo" type="checkbox" value="" id="<?php echo "nc_".($i+1) ?>">
                                     </td>
-                                    <td class="col-sm-1">
+                                    <td>
                                         <input type="text" name="<?php echo "partida_".($i+1) ?>" id="<?php echo "partida_".($i+1) ?>" value="" class="form-control" disabled/>
                                     </td>
-                                    <td class="col-sm-1">
+                                    <td>
                                         <input type="text" name="<?php echo "codigo_".($i+1) ?>" id="<?php echo "codigo_".($i+1) ?>" value="" class="form-control" disabled/>
                                     </td>
                                     <td>
                                         <input type="text" name="<?php echo "descripcion_".($i+1) ?>" id="<?php echo "descripcion_".($i+1) ?>" value="" class="form-control" disabled/>
                                     </td>
-                                    <td class="col-sm-1">
+                                    <td>
                                         <input type="text" name="<?php echo "cantidad_".($i+1) ?>" id="<?php echo "cantidad_".($i+1) ?>" value="" class="form-control cantidad" disabled/>
                                     </td>
-                                    <td class="col-sm-1">
+                                    <td>
                                         <input type="text" name="<?php echo "um_".($i+1) ?>" id="<?php echo "um_".($i+1) ?>" value="" class="form-control" disabled/>
                                     </td>
-                                    <td class="col-sm-1">
+                                    <td>
                                         <input type="text" name="<?php echo "preciounitario_".($i+1) ?>" id="<?php echo "preciounitario_".($i+1) ?>" value="" class="form-control precio"/>
                                     </td>
                                     <td>

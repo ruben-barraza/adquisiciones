@@ -97,6 +97,12 @@ class Pogeneralmodel extends CI_Model
     {
         $this->db->insert('im_general',$params);
     }
+
+    function update_im_general($params, $idPog)
+    {
+        $this->db->where('id', $idPog);
+        $this->db->update('im_general',$params);
+    }
     
     function add_im_concepto($params)
     {
@@ -104,6 +110,11 @@ class Pogeneralmodel extends CI_Model
         $this->db->insert('im_concepto',$params);
     }
 
+    function update_im_concepto($idImc, $params)
+    {
+        $this->db->where('id', $idImc);
+        $this->db->update('im_concepto',$params);
+    }
 
     function add_numero_oficio($params)
     {
@@ -161,6 +172,14 @@ class Pogeneralmodel extends CI_Model
 
     function add_relacion_pog_proveedor($idPog, $idProveedor, $numContacto){
         $this->db->insert('po_proveedor', array(
+            'idPog' => $idPog,
+            'idProveedor' => $idProveedor,
+            'contacto' => $numContacto
+        ));
+    }
+
+    function edit_relacion_pog_proveedor($idPog, $idProveedor, $numContacto){
+        $this->db->replace('po_proveedor', array(
             'idPog' => $idPog,
             'idProveedor' => $idProveedor,
             'contacto' => $numContacto
@@ -230,6 +249,22 @@ class Pogeneralmodel extends CI_Model
         if($query->num_rows() > 0){
             return $query->result_array();
         }
+    }
+
+    function get_idImc($idPog, $idArticulo, $idProveedor){
+        $this->db->select('id');
+        $this->db->from('im_concepto');
+        $this->db->where('idPog', $idPog);
+        $this->db->where('idArticulo', $idArticulo);
+        $this->db->where('idProveedor', $idProveedor);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            $vl = $query->row_array();
+            return $vl['id'];
+        } else {
+            return 0;
+        }
+
     }
 
     function get_empleado($rpe)
@@ -415,17 +450,17 @@ class Pogeneralmodel extends CI_Model
 
     function delete_relaciones($id)
     {
-        $this->db->where('idPog', $id);
-        $this->db->delete('po_proveedor');
+        //$this->db->where('idPog', $id);
+        //$this->db->delete('po_proveedor');
 
         $this->db->where('idPog', $id);
         $this->db->delete('po_numoficio');
 
-        $this->db->where('idPog', $id);
-        $this->db->delete('im_general');
+        //$this->db->where('idPog', $id);
+        //$this->db->delete('im_general');
 
-        $this->db->where('idPog', $id);
-        $this->db->delete('im_concepto');
+        //$this->db->where('idPog', $id);
+        //$this->db->delete('im_concepto');
     }
 
     /*

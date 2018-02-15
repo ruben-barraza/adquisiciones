@@ -39,6 +39,26 @@
   		padding-left: 25px !important;
 	}
 
+    .partida-col {
+        width: 5%;
+    }
+
+    .codigo-col {
+        width: 8%;
+    }
+
+    .entrega-col {
+        width: 6%;
+    }
+
+    .cantidad-col {
+        width: 7%;
+    }
+
+    .um-col {
+        width: 4%;
+    }
+
 	textarea {
     	resize: none;
 		margin-top: 5px;
@@ -431,13 +451,13 @@
 
 						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
-								<th class="col-md-1">Partida</th>
-								<th>Código</th>
-								<th>Descripción</th>
-								<th class="col-md-1">Plazo de entrega (días)</th>
-								<th>Cantidad</th>
-								<th class="col-md-1">UM</th>
-								<th>Lugar de entrega</th>
+								<th class="partida-col">Partida</th>
+								<th class="codigo-col">Código</th>
+								<th class="col-md-3">Descripción</th>
+								<th class="entrega-col">P. Entrega (días)</th>
+								<th class="cantidad-col">Cantidad</th>
+								<th class="um-col">UM</th>
+								<th class="col-md-2">Lugar de entrega</th>
 								<th class="col-md-2">Dirección de entrega</th>
 								<th></th>
 							</thead>
@@ -448,7 +468,7 @@
                                         for($i = 0; $i < $rowsim; $i++){
                                             $html_im = '
 											<tr>
-												<td class="col-md-1">
+												<td >
 													<input type="text" name="partida_'.($i+1).'" id="partida_'.($i+1).'" value="'.$imConcepto[$i]["partida"].'" class="form-control partida short-field" disabled/> 
 												</td>
 												<td >
@@ -457,13 +477,13 @@
 												<td >
 													<input type="text" name="descripcion_'.($i+1).'" id="descripcion_'.($i+1).'" value="'.$imConcepto[$i]["descripcion"].'" class="form-control" disabled/>
 												</td>
-												<td class="col-md-1">
+												<td>
 													<input type="text" name="plazoentrega_'.($i+1).'" id="plazoentrega_'.($i+1).'" value="'.$imConcepto[$i]["plazoEntrega"].'" class="form-control dias-field" maxlength="11"/>
 												</td>
 												<td >
 													<input type="text" name="cantidad_'.($i+1).'" id="cantidad_'.($i+1).'" value="'.$imConcepto[$i]["cantidad"].'" class="form-control short-field" maxlength="11"/>
 												</td>
-												<td class="col-md-1">
+												<td>
 													<input type="text" name="um_'.($i+1).'" id="um_'.($i+1).'" value="'.$imConcepto[$i]["clave"].'" class="form-control" disabled/>
 												</td>
 												<td >
@@ -484,7 +504,7 @@
                                     } else {
                                         $html_im = '
 											<tr>
-												<td >
+												<td>
 													<input type="text" name="partida_1" id="partida_1" value="1" class="form-control partida short-field" disabled/> 
 												</td>
 												<td >
@@ -731,7 +751,7 @@
             else
                 echo "0"
             ?>;
-        console.log(arrayFromPHP);
+        //console.log(arrayFromPHP);
         if(arrayFromPHP != 0){
             var arrayLength = arrayFromPHP.length;
 
@@ -965,7 +985,7 @@
 						if(contacto.val() != "" && contacto.css('display') != 'none')
 						{	
 							$.ajax({
-								url: '<?php echo base_url();?>index.php/Po_general/crearRelacionProveedor',
+								url: '<?php echo base_url();?>index.php/Po_general/editRelacionProveedor',
 								method: 'POST',
 								async: false,
 								data: {
@@ -1003,7 +1023,7 @@
 				var rpe1 = $('#empleadoResponsable').val();
 				var rpe2 = $('#empleadoFormula').val();
 				$.ajax({
-					url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMGeneral',
+					url: '<?php echo base_url();?>index.php/Po_general/editRelacionIMGeneral',
 					method: 'POST',
 					async: false,
 					data: {
@@ -1035,7 +1055,7 @@
                     var almacen = $("#lugarentrega_" + cuentaActual2 + " option:selected").val();
                     var direccion = $("#direccionentrega_" + cuentaActual2).val();
                     $.ajax({
-                        url: '<?php echo base_url();?>index.php/Po_general/crearRelacionIMConcepto',
+                        url: '<?php echo base_url();?>index.php/Po_general/editRelacionIMConcepto',
                         method: 'POST',
                         async: false,
                         data: {
@@ -1054,33 +1074,6 @@
                     });
                 }
             }
-
-            if(tipoProveedor == "B"){
-                var historico = [6666, 7777, 8888, 9999];
-                var index;
-                for(index = 0; index < historico.length; index++){
-                    for(k = 0; k < longitudTablaArticulo; k++){
-                        var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
-                        var partida = $("#partida_" + cuentaActual2).val();
-                        var cantidad = $("#cantidad_" + cuentaActual2).val();
-                        $.ajax({
-                            url: '<?php echo base_url();?>index.php/Po_general/crearHistorico',
-                            method: 'POST',
-                            async: false,
-                            data: {
-                                id: id,
-                                idImg: id,
-                                tipo: tipoProveedor,
-                                articuloCodigo: articuloCodigo,
-                                idProveedor: historico[index],
-                                partida: partida,
-                                cantidad: cantidad,
-                            }
-                        });
-                    }
-                }
-            }
-
 
      	});
 	});

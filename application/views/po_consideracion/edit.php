@@ -135,7 +135,7 @@
 						<div class="col-md-8">
 							<textarea name="fc12" class="form-control summernote" id="fc12">
                                 <?php echo $this->input->post('fc12'); ?>
-                                <i>Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, <b><u><?php echo $poc_edit[0]["penaconvencional"] ?>% diario</u></b> el cual en su conjunto <b><u>no podrá exceder del <?php echo $poc_edit[0]["maxpenalizacion"] ?> del monto total del contrato sin incluir el IVA.</u></b></i>
+                                <i>Penas Convencionales: Por atraso en el cumplimiento de las obligaciones, <b><u><?php echo $poc_edit[0]["penaconvencional"] ?>% diario</u></b> el cual en su conjunto <b><u>no podrá exceder del <?php echo $poc_edit[0]["maxpenalizacion"] ?>% del monto total del contrato sin incluir el IVA.</u></b></i>
                             </textarea>
 						</div>
 					</div>

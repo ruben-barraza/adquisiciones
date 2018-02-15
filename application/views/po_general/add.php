@@ -39,6 +39,26 @@
   		padding-left: 25px !important;
 	}
 
+    .partida-col {
+        width: 5%;
+    }
+
+    .codigo-col {
+        width: 8%;
+    }
+
+    .entrega-col {
+        width: 6%;
+    }
+
+    .cantidad-col {
+        width: 7%;
+    }
+
+    .um-col {
+        width: 4%;
+    }
+
 	textarea {
     	resize: none;
 		margin-top: 5px;
@@ -398,19 +418,19 @@
 
 						<table id="tablaArticulos" class="table table-hover">
 							<thead class="thead-inverse">
-								<th class="col-md-1">Partida</th>
-								<th>Código</th>
-								<th>Descripción</th>
-								<th class="col-md-1">Plazo de entrega (días)</th>
-								<th>Cantidad</th>
-								<th class="col-md-1">UM</th>
-								<th>Lugar de entrega</th>
-								<th class="col-md-2">Dirección de entrega</th>
-								<th></th>
+                                <th class="partida-col">Partida</th>
+                                <th class="codigo-col">Código</th>
+                                <th class="col-md-3">Descripción</th>
+                                <th class="entrega-col">P. Entrega (días)</th>
+                                <th class="cantidad-col">Cantidad</th>
+                                <th class="um-col">UM</th>
+                                <th class="col-md-2">Lugar de entrega</th>
+                                <th class="col-md-2">Dirección de entrega</th>
+                                <th></th>
 							</thead>
 							<tbody>
 								<tr>
-									<td class="col-md-1">
+									<td>
 										<input type="text" name="partida_1" id="partida_1" class="form-control partida short-field" value=1 disabled/>
 									</td>
 									<td >
@@ -419,13 +439,13 @@
 									<td >
 										<input type="text" name="descripcion_1" id="descripcion_1" class="form-control" disabled/>
 									</td>
-									<td class="col-md-1">
+									<td>
 										<input type="text" name="plazoentrega_1" id="plazoentrega_1" class="form-control dias-field" maxlength="11"/>
 									</td>
 									<td >
 										<input type="text" name="cantidad_1" id="cantidad_1" class="form-control short-field" maxlength="11"/>
 									</td>
-									<td class="col-md-1">
+									<td>
 										<input type="text" name="um_1" id="um_1" class="form-control" disabled/>
 									</td>
 									<td >
@@ -439,7 +459,7 @@
 											<option value="otro">OTRO</option>
 										</select>
 									</td>
-									<td class="col-md-2">
+									<td>
 										<input type="text" name="direccionentrega_1" id="direccionentrega_1" class="form-control input-direccion" disabled/>
 									</td>
 									<td>

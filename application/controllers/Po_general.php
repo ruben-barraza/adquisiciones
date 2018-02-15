@@ -39,6 +39,16 @@ class Po_general extends CI_Controller{
         $this->Pogeneralmodel->add_relacion_pog_proveedor($idPog, $idProveedor, $contacto);
     }
 
+    function editRelacionProveedor(){
+        $idPog = $_POST['id'];
+        $clave = $_POST['clave'];
+        $contacto = $_POST['numcontacto'];
+
+        $proveedor = $this->Pogeneralmodel->get_idProveedor($clave);
+        $idProveedor = array_values($proveedor)[0]['id'];
+        $this->Pogeneralmodel->edit_relacion_pog_proveedor($idPog, $idProveedor, $contacto);
+    }
+
     function crearRelacionIMGeneral(){
         $idPog = $_POST['id'];
         $titulo = $_POST['titulo'];
@@ -62,10 +72,40 @@ class Po_general extends CI_Controller{
             'idEmpleadoAutoriza' => $empleadoResponsable,
 			'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
             'idMunicipioElaboracion' => $idMunicipio,
-            'estatus' => '0'
+            'estatus' => 'I'
         );
 
         $this->Pogeneralmodel->add_im_general($params_im);
+
+    }
+
+    function editRelacionIMGeneral(){
+        $idPog = $_POST['id'];
+        $titulo = $_POST['titulo'];
+        $rpe1 = $_POST['rpe1'];
+        $rpe2 = $_POST['rpe2'];
+        $idMunicipio = $_POST['idMunicipio'];
+        $fecha = $_POST['fecha'];
+
+        $fechaElaboracion = str_replace('/', '-', $fecha);
+
+        $idEmpleado1 = $this->Pogeneralmodel->get_idEmpleado($rpe1);
+        $empleadoResponsable = array_values($idEmpleado1)[0]['id'];
+        $idEmpleado2 = $this->Pogeneralmodel->get_idEmpleado($rpe2);
+        $empleadoFormula = array_values($idEmpleado2)[0]['id'];
+
+        $params_im = array(
+            'id' => $idPog,
+            'idPog' => $idPog,
+            'titulo' => $titulo,
+            'idEmpleadoFormula' => $empleadoFormula,
+            'idEmpleadoAutoriza' => $empleadoResponsable,
+            'fechaElaboracion' => date("Y-m-d", strtotime($fechaElaboracion)),
+            'idMunicipioElaboracion' => $idMunicipio,
+            'estatus' => 'I'
+        );
+
+        $this->Pogeneralmodel->update_im_general($params_im, $idPog);
 
     }
 
@@ -80,7 +120,6 @@ class Po_general extends CI_Controller{
         $lugarEntrega = $_POST['lugarEntrega'];
         $direccion = $_POST['direccion'];
         $almacen = $_POST['almacen'];
-        $idAlmacen = 0;
 
         if($almacen == "otro"){
             $idAlmacen = -1;
@@ -115,6 +154,62 @@ class Po_general extends CI_Controller{
         );
 
         $this->Pogeneralmodel->add_im_concepto($params);
+    }
+
+    function editRelacionIMConcepto(){
+        $idPog = $_POST['id'];
+        $idImg = $_POST['idImg'];
+        $tipo = $_POST['tipo'];
+        $codigo = $_POST['articuloCodigo'];
+        $partida = $_POST['partida'];
+        $plazoEntrega = $_POST['plazoEntrega'];
+        $cantidad = $_POST['cantidad'];
+        $lugarEntrega = $_POST['lugarEntrega'];
+        $direccion = $_POST['direccion'];
+        $almacen = $_POST['almacen'];
+
+        if($almacen == "otro"){
+            $idAlmacen = -1;
+        } else {
+            $idAlmacen = $almacen;
+        }
+
+        $clave = $_POST['clave'];
+        $proveedor = $this->Pogeneralmodel->get_idProveedor($clave);
+        $idProveedor = array_values($proveedor)[0]['id'];
+
+        //Obtener el ID del artículo según el código
+        $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
+        $idArticulo = array_values($articulo)[0]['id'];
+
+        //Obtener el ID de la tabla im_concepto
+        //En caso de que sea un registro nuevo, se tiene que obtener el id consecutivo
+        $idImc = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, $idProveedor);
+
+
+        $params = array(
+            'id' => $idImc,
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => $idProveedor,
+            'partida' => $partida,
+            'plazoEntrega' => $plazoEntrega,
+            'cantidad' => $cantidad,
+            'cantidadPO' => $cantidad,
+            'cantidadIM' => 0,
+            'lugarEntrega' => $lugarEntrega,
+            'direccionEntrega' => $direccion,
+            'idAlmacen' => $idAlmacen,
+        );
+
+        if ($idImc == 0){
+            $this->Pogeneralmodel->add_im_concepto($params);
+        } else {
+            $this->Pogeneralmodel->update_im_concepto($idImc, $params);
+        }
+
     }
 
     function crearHistorico(){
