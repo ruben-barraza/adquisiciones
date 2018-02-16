@@ -24,8 +24,10 @@ class Proveedor extends CI_Controller{
 	//al editar un proveedor
 	function editarRelacion(){
 		$this->load->model('Proveedormodel');
-		$familias_seleccion = $_POST['familias_seleccion'];
+
+        $familias_seleccion = $_POST['familias_seleccion'];
 		$idProveedor = $_POST['idProveedor'];
+
 		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
 	}
 

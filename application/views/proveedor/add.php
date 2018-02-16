@@ -464,6 +464,7 @@
 		 * para guardar en la tabla relacionproveedorfamilia
 		 */
 		$("#botonGuardar").click(function(){
+
 			if($('#tipoProveedor').val() == "B" || $('#tipoProveedor').val() == "A"){
 				if ($('#listaSeleccion li').length == 0){
 					alert("Necesita agregar las familias para el proveedor");
@@ -474,6 +475,7 @@
 					seleccion.each(function() {
 						familias_seleccion.push($(this).text().replace(/Quitar/,''));
 					});
+
 					$.ajax({
 						url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
 						method: 'POST',
@@ -481,6 +483,7 @@
 					});
 				}
 			}
+
      	});
     });
 

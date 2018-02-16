@@ -625,11 +625,11 @@
 		 * en la tabla relacion proveedor familia
 		 */
 		$("#botonEditar").click(function(){
+            var idProveedor = <?php echo $proveedor['id'] ?>;
+
 			if($('#tipoProveedor').val() == "B" || $('#tipoProveedor').val() == "A"){
 				var seleccion = $("#listaSeleccion li");
 				var familias_seleccion = [];
-				var idProveedor = <?php echo $proveedor['id'] ?>;
-
 				seleccion.each(function() {
 					familias_seleccion.push($(this).text().replace(/Quitar/,''));
 				});
@@ -638,7 +638,7 @@
 					method: 'POST',
 					data: {
 						familias_seleccion: familias_seleccion,
-						idProveedor: idProveedor
+						idProveedor: idProveedor,
 					}
 				});
 			} else if ($('#tipoProveedor').val() == "S" && cambioAServicio==true){
