@@ -641,6 +641,9 @@
 						idProveedor: idProveedor,
 					}
 				});
+                console.log(familias_seleccion);
+
+
 			} else if ($('#tipoProveedor').val() == "S" && cambioAServicio==true){
 				var idProveedor = <?php echo $proveedor['id'] ?>;
 				$.ajax({

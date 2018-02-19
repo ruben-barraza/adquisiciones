@@ -30,13 +30,13 @@ class Proveedormodel extends CI_Model
     /*
      * Obtiene todas los 
      */
-    function get_all_listaproveedorfamilia($clave)
+    function get_all_listaproveedorfamilia($idFamilia)
     {
         $this->db->select('proveedor.id, proveedor.razonSocial, proveedor.nombre1, proveedor.telefonoFijo1, proveedor.telefonoMovil1, proveedor.correoElectronico1, familia.clave');
         $this->db->from('proveedor');
         $this->db->join('relacionproveedorfamilia', 'relacionproveedorfamilia.idProveedor = proveedor.id', 'inner');
         $this->db->join('familia', 'familia.id = relacionproveedorfamilia.idFamilia', 'inner');
-        $this->db->where('familia.clave', $clave);
+        $this->db->where('familia.id', $idFamilia);
         $this->db->order_by('proveedor.razonSocial');
         $query = $this->db->get();
         if($query->num_rows() > 0){
@@ -69,8 +69,8 @@ class Proveedormodel extends CI_Model
      * función para guardar en la tabla relacionproveedofamilia
      */
     function add_uk_proveedor_familia($id, $params){
-        foreach($params as $clave){
-            $this->db->select('id')->from('familia')->where('clave', $clave);
+        foreach($params as $descripcion){
+            $this->db->select('id')->from('familia')->where('descripcion', $descripcion);
             $valor = $this->db->get();
 
             $vl = $valor->row_array();
@@ -213,10 +213,10 @@ class Proveedormodel extends CI_Model
          //return $arrayFamilias;
 
          foreach($arrayFamilias as $idFamilia){
-            $this->db->select('clave')->from('familia')->where('id', $idFamilia);
+            $this->db->select('descripcion')->from('familia')->where('id', $idFamilia);
             $query = $this->db->get();
             $clave = $query->row_array();
-            $arrayClaves[] = $clave['clave']; 
+            $arrayClaves[] = $clave['descripcion'];
         }
 
         return $arrayClaves;

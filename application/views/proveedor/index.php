@@ -57,7 +57,7 @@
 										<option value="0">Seleccione</option>
 										<?php 
 											foreach ($familias as $i) {
-												echo '<option value="'. $i->id .'">'. $i->clave .'</option>';
+												echo '<option value="'. $i->id .'">'. $i->descripcion .'</option>';
 											}
 										?>
 									</select>
@@ -187,8 +187,8 @@
 			$('#tablaOculta').show();
 			$('#table').hide();
 			$('#tablafamilias tbody').empty();
-			var clave = $("#idFamilia option:selected").text();
-			if (clave == "Seleccione"){
+			var idFamilia = $("#idFamilia").val();
+			if (idFamilia == 0){
 				$('#tablaOculta').hide();
 				$('#table').show();
 			} else {
@@ -196,7 +196,7 @@
 					url: '<?php echo base_url(); ?>index.php/Proveedor/obtenerListaProveedorFamilia',
 					method: 'POST',
 					data: {
-						clave: clave
+						idFamilia: idFamilia
 					},
 					success: function (returned) {
 						var returned = JSON.parse(returned);

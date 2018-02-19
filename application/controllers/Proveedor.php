@@ -23,12 +23,10 @@ class Proveedor extends CI_Controller{
 	//Edita las relaciones proveedor-familia si se agregan o quitan familias
 	//al editar un proveedor
 	function editarRelacion(){
-		$this->load->model('Proveedormodel');
-
         $familias_seleccion = $_POST['familias_seleccion'];
 		$idProveedor = $_POST['idProveedor'];
-
-		$this->Proveedormodel->update_uk_proveedor_familia($idProveedor, $familias_seleccion);
+        $this->Proveedormodel->delete_uk_proveedor_familia($idProveedor);
+        $this->Proveedormodel->add_uk_proveedor_familia($idProveedor, $familias_seleccion);
 	}
 
 	//Elimina las relaciones cuando un proveedor cambia de bienes a servicios
@@ -42,8 +40,8 @@ class Proveedor extends CI_Controller{
 	//Obtiene una lista de los proveedores que ofrecen la familia seleccionada
 	function obtenerListaProveedorFamilia(){
 		$this->load->model('Proveedormodel');
-		$clave = $_POST['clave'];
-		$data['listaproveedorfamilia'] = $this->Proveedormodel->get_all_listaproveedorfamilia($clave);
+		$idFamilia = $_POST['idFamilia'];
+		$data['listaproveedorfamilia'] = $this->Proveedormodel->get_all_listaproveedorfamilia($idFamilia);
 		echo json_encode($data);
 	}
 

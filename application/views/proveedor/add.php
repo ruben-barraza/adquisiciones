@@ -477,10 +477,12 @@
 					});
 
 					$.ajax({
-						url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
-						method: 'POST',
-						data: {familias_seleccion: familias_seleccion}
-					});
+                        url: '<?php echo base_url();?>index.php/Proveedor/crearRelacion',
+                        method: 'POST',
+                        data: {familias_seleccion: familias_seleccion}
+                    });
+
+					console.log(familias_seleccion);
 				}
 			}
 
