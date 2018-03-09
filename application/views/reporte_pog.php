@@ -118,7 +118,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // set auto page breaks
-    //$pdf->SetAutoPageBreak(TRUE, 0);
+    //$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
     $pdf->SetAutoPageBreak(FALSE);
 
 
@@ -219,21 +219,21 @@ for ($i = 0; $i < $num_contactos; $i++) {
     <b>Para su cotización deberá considerar los siguientes aspectos:</b>
     
     <ol>
-        <li>'.$po_consideracion[0]["fc1"].'</li>
-        <li>'.$po_consideracion[0]["fc2"].'</li>
-        <li>'.$po_consideracion[0]["fc3"].'</li>
-        <li>'.$po_consideracion[0]["fc4"].'</li>
-        <li>'.$po_consideracion[0]["fc5"].'</li>
-        <li>'.$po_consideracion[0]["fc6"].'</li>
-        <li>'.$po_consideracion[0]["fc7"].'</li>
-        <li>'.$po_consideracion[0]["fc8"].'</li>
-        <li>'.$po_consideracion[0]["fc9"].'</li>
-        <li>'.$po_consideracion[0]["fc10"].'</li>
-        <li>'.$po_consideracion[0]["fc11"].'</li>
-        <li>'.$po_consideracion[0]["fc12"].'</li>
-        <li>'.$po_consideracion[0]["fc13"].'</li>
-        <li>'.$po_consideracion[0]["fc14"].'</li>
-        <li>'.$po_consideracion[0]["fc15"].'</li>
+        <li>'.trim($po_consideracion[0]["fc1"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc2"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc3"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc4"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc5"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc6"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc7"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc8"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc9"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc10"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc11"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc12"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc13"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc14"]).'</li>
+        <li>'.trim($po_consideracion[0]["fc15"]).'</li>
     </ol>     
     </i></span>';
 
@@ -400,7 +400,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
         $html .= '</table>';
 
         // set core font
-        $pdf->SetFont('helvetica', '', 7);
+        $pdf->SetFont('helvetica', '', 5);
 
         // output the HTML content
         $pdf->writeHTML($html,  true, false, false, false, '');

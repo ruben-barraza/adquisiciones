@@ -182,6 +182,23 @@
 							<input type="text" name="domicilio" value="Av. Juárez esq. San Luis Potosí s/n, Col. Centro, CP 83000<?php echo $this->input->post('domicilio'); ?>" class="form-control" id="domicilio" maxlength="255"/>
 						</div>
 					</div>
+
+                    <div class="form-group">
+                        <label for="empleadoFormula" class="col-md-2 control-label">Empleado Formula</label>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="text" id="empleadoFormula" name="empleadoFormula" maxlength="5" class="form-control pull-right" placeholder="Ingrese RPE"/>
+                                <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="text" id="empleadoFormula2" name="empleadoFormula2" class="form-control" readonly placeholder="Nombre del empleado"/>
+                        </div>
+                    </div>
+
 					<div class="form-group">
 						<label for="empleadoResponsable" class="col-md-2 control-label">Empleado Responsable</label>
 						<div class="col-md-2">
@@ -196,21 +213,7 @@
 							<input type="text" id="empleadoResponsable2" name="empleadoResponsable2" class="form-control" readonly placeholder="Nombre del empleado"/>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="empleadoFormula" class="col-md-2 control-label">Empleado Formula</label>
-						<div class="col-md-2">
-							<div class="input-group">
-								<input type="text" id="empleadoFormula" name="empleadoFormula" maxlength="5" class="form-control pull-right" placeholder="Ingrese RPE"/>
-								<span class="input-group-addon">
-									<i class="glyphicon glyphicon-search"></i>	
-								</span>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<input type="text" id="empleadoFormula2" name="empleadoFormula2" class="form-control" readonly placeholder="Nombre del empleado"/>
-						</div>
-					</div>
+
 					<div class="form-group">
 						<label for="fechaLimitePresentacion" class="col-md-2 control-label">Fecha Límite de Presentación</label>
 						<div class="col-md-6">

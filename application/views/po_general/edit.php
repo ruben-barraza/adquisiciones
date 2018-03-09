@@ -192,6 +192,24 @@
 							<input type="text" name="domicilio" value="<?php echo ($this->input->post('domicilio') ? $this->input->post('domicilio') : $po_general['domicilio']); ?>" class="form-control" id="domicilio" />
 						</div>
 					</div>
+
+                    <div class="form-group">
+                        <label for="empleadoFormula" class="col-md-2 control-label">Empleado Formula</label>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="text" id="empleadoFormula" name="empleadoFormula" value="<?php echo $empleadoFormula[0]['rpe']?>" maxlength="5" class="form-control pull-right" placeholder="Ingrese RPE"/>
+                                <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="text" id="empleadoFormula2" value="<?php echo  $empleadoFormula[0]['nombre'].' '.$empleadoFormula[0]['apellidoPaterno'].' '.$empleadoFormula[0]['apellidoMaterno']?>" name="empleadoFormula2" class="form-control" readonly placeholder="Nombre del empleado"/>
+                        </div>
+                    </div>
+
+
 					<div class="form-group">
 						<label for="empleadoResponsable" class="col-md-2 control-label">Empleado Responsable</label>
 						<div class="col-md-2">
@@ -206,21 +224,7 @@
 							<input type="text" id="empleadoResponsable2" value="<?php echo  $empleadoResponsable[0]['nombre'].' '.$empleadoResponsable[0]['apellidoPaterno'].' '.$empleadoResponsable[0]['apellidoMaterno']?>" name="empleadoResponsable2" class="form-control" readonly placeholder="Nombre del empleado"/>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="empleadoFormula" class="col-md-2 control-label">Empleado Formula</label>
-						<div class="col-md-2">
-							<div class="input-group">
-								<input type="text" id="empleadoFormula" name="empleadoFormula" value="<?php echo $empleadoFormula[0]['rpe']?>" maxlength="5" class="form-control pull-right" placeholder="Ingrese RPE"/>
-								<span class="input-group-addon">
-									<i class="glyphicon glyphicon-search"></i>	
-								</span>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<input type="text" id="empleadoFormula2" value="<?php echo  $empleadoFormula[0]['nombre'].' '.$empleadoFormula[0]['apellidoPaterno'].' '.$empleadoFormula[0]['apellidoMaterno']?>" name="empleadoFormula2" class="form-control" readonly placeholder="Nombre del empleado"/>
-						</div>
-					</div>
+
 					<div class="form-group">
 						<label for="fechaLimitePresentacion" class="col-md-2 control-label">Fecha Límite de Presentacion</label>
 						<div class="col-md-6">
@@ -549,8 +553,11 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-8">
 							<button id="botonEditar" type="submit" class="btn btn-success">
-								<i class="fa fa-arrow-right"></i> Continuar
+								<i class="fa fa-check"></i> Guardar
 							</button>
+                            <a href="<?php echo site_url('po_consideracion/edit/'.$po_general['id']); ?>" id="botonConsideracion" class="btn btn-primary">
+                                <span class="fa fa-arrow-right"></span> Editar Consideraciones
+                            </a>
 							<a href="<?php echo site_url('po_general/index/'); ?>" id="botonCancelar" class="btn btn-danger">
 								<span class="fa fa-ban"></span> Cancelar
 							</a>
@@ -564,8 +571,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+        var arr_delArt = [];
+
         $("#idFamilia option:contains('NINGUNO')").remove();
 		//console.log("<?php echo $imTitulo ?>");
+		//console.log("<?php echo count($imConcepto); ?>");
 
 		var options = {
 			twentyFour: true,
@@ -969,6 +980,7 @@
 				async: false,
 				data: {
 					id: id,
+                    delArticulos: arr_delArt,
 				}
 			});
 
@@ -1014,9 +1026,8 @@
 					}
 				});
 			}
-			
 
-			//insertar en la tabla IM_GENERAL
+			//Actualizar en la tabla IM_GENERAL
 			if($('#titulo').val() != ""){
 				var titulo = $('#titulo').val();
 				var idMunicipio = $('#idMunicipio').val();
@@ -1041,6 +1052,7 @@
 
 			var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
 
+			//Actualizar en la tabla IM CONCEPTO
             for(l=0; l < longitudTabla; l++){
                 var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + l + ") input:first").attr("name").split("_").pop();
                 var clave = $("#clave_" + cuentaActual1).val();
@@ -1075,6 +1087,31 @@
                 }
             }
 
+            var historico = [6666, 7777, 8888, 9999];
+            var index;
+            for(index = 0; index < historico.length; index++){
+                for(k = 0; k < longitudTablaArticulo; k++){
+                    var cuentaActual2 = $("#tablaArticulos tbody tr:eq(" + k + ") input:first").attr("name").split("_").pop();
+                    var articuloCodigo = $("#codigo_" + cuentaActual2).val();
+                    var partida = $("#partida_" + cuentaActual2).val();
+                    var cantidad = $("#cantidad_" + cuentaActual2).val();
+                    $.ajax({
+                        url: '<?php echo base_url();?>index.php/Po_general/editHistorico',
+                        method: 'POST',
+                        async: false,
+                        data: {
+                            id: id,
+                            idImg: id,
+                            tipo: tipoProveedor,
+                            articuloCodigo: articuloCodigo,
+                            idProveedor: historico[index],
+                            partida: partida,
+                            cantidad: cantidad,
+                        }
+                    });
+                }
+            }
+
      	});
 	});
 
@@ -1086,6 +1123,7 @@
 		var $row = $mySelect.closest('tr'); // the row where this select element is in.
 		var idAlmacen = $mySelect.val();
 		var opcion = $mySelect.find('option:selected').text();
+
 		if(opcion != "Seleccione" && opcion != "OTRO"){
 			$.ajax({
 				url: '<?php echo base_url(); ?>index.php/Po_general/obtenerDireccionAlmacen',
@@ -1110,9 +1148,25 @@
 		
 	});
 
+    var arr_delArt = [];
+
 	$(document).on("click", "a.btn.quitararticulo" ,function() {
+	    var rowIndex = $(this).closest("tr")[0].rowIndex;
+        var delCodigo = $("#codigo_" + rowIndex).val();
+        arr_delArt.push(delCodigo);
+
+        //console.log(arr_delArt);
+
+
+
 		if($("#tablaArticulos tbody tr").length > 1){
 			var tableRow = $(this).closest('tr');
+
+            //var delCodigo = $("#codigo_" + tableRow).val();
+            //console.log(delCodigo);
+
+
+
     		tableRow.find('td').fadeOut('fast', 
         		function(){ 
             		tableRow.remove();

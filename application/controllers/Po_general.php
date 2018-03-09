@@ -186,6 +186,11 @@ class Po_general extends CI_Controller{
         //En caso de que sea un registro nuevo, se tiene que obtener el id consecutivo
         $idImc = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, $idProveedor);
 
+        $idImc_hist1 = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, '6666');
+        $idImc_hist2 = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, '7777');
+        $idImc_hist3 = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, '8888');
+        $idImc_hist4 = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, '9999');
+
 
         $params = array(
             'id' => $idImc,
@@ -204,11 +209,160 @@ class Po_general extends CI_Controller{
             'idAlmacen' => $idAlmacen,
         );
 
+        /*
+        $params_hist1 = array(
+            'id' => $idImc,
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => '6666',
+            'partida' => $partida,
+            'plazoEntrega' => 0,
+            'cantidad' => $cantidad,
+            'cantidadPO' => $cantidad,
+            'cantidadIM' => 0,
+            'lugarEntrega' => 0,
+            'direccionEntrega' => 0,
+            'idAlmacen' => 0,
+        );
+
+        $params_hist2 = array(
+            'id' => $idImc,
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => '7777',
+            'partida' => $partida,
+            'plazoEntrega' => 0,
+            'cantidad' => $cantidad,
+            'cantidadPO' => $cantidad,
+            'cantidadIM' => 0,
+            'lugarEntrega' => 0,
+            'direccionEntrega' => 0,
+            'idAlmacen' => 0,
+        );
+
+        $params_hist3 = array(
+            'id' => $idImc,
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => '8888',
+            'partida' => $partida,
+            'plazoEntrega' => 0,
+            'cantidad' => $cantidad,
+            'cantidadPO' => $cantidad,
+            'cantidadIM' => 0,
+            'lugarEntrega' => 0,
+            'direccionEntrega' => 0,
+            'idAlmacen' => 0,
+        );
+
+        $params_hist4 = array(
+            'id' => $idImc,
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => '9999',
+            'partida' => $partida,
+            'plazoEntrega' => $plazoEntrega,
+            'cantidad' => $cantidad,
+            'cantidadPO' => $cantidad,
+            'cantidadIM' => 0,
+            'lugarEntrega' => 0,
+            'direccionEntrega' => 0,
+            'idAlmacen' => 0,
+        );
+        */
+
+        if ($idImc == 0){
+            $this->Pogeneralmodel->add_im_concepto($params);
+            /*
+            $this->Pogeneralmodel->add_im_concepto($params_hist1);
+            $this->Pogeneralmodel->add_im_concepto($params_hist2);
+            $this->Pogeneralmodel->add_im_concepto($params_hist3);
+            $this->Pogeneralmodel->add_im_concepto($params_hist4);
+            */
+        } else {
+            $this->Pogeneralmodel->update_im_concepto($idImc, $params);
+            /*
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist1, $params_hist1);
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist2, $params_hist2);
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist3, $params_hist3);
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist4, $params_hist4);
+            */
+        }
+
+        /*
+        if ($idImc_hist1 == 0){
+            $this->Pogeneralmodel->add_im_concepto($params_hist1);
+        } else {
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist1, $params_hist1);
+        }
+
+        if ($idImc_hist2 == 0){
+            $this->Pogeneralmodel->add_im_concepto($params_hist2);
+        } else {
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist2, $params_hist2);
+        }
+
+        if ($idImc_hist3 == 0){
+            $this->Pogeneralmodel->add_im_concepto($params_hist3);
+        } else {
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist3, $params_hist3);
+        }
+
+        if ($idImc_hist4 == 0){
+            $this->Pogeneralmodel->add_im_concepto($params_hist4);
+        } else {
+            $this->Pogeneralmodel->update_im_concepto($idImc_hist4, $params_hist4);
+        }
+        */
+    }
+
+    function editHistorico(){
+        $idPog = $_POST['id'];
+        $idImg = $_POST['idImg'];
+        $tipo = $_POST['tipo'];
+        $codigo = $_POST['articuloCodigo'];
+        $idProveedor = $_POST['idProveedor'];
+        $partida = $_POST['partida'];
+        $cantidad = $_POST['cantidad'];
+
+        //Obtener el ID del artículo según el código
+        $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
+        $idArticulo = array_values($articulo)[0]['id'];
+
+        //Obtener el ID de la tabla im_concepto
+        //En caso de que sea un registro nuevo, se tiene que obtener el id consecutivo
+        $idImc = $this->Pogeneralmodel->get_idImc($idPog, $idArticulo, $idProveedor);
+
+        $params = array(
+            'idPog' => $idPog,
+            'idImg' => $idImg,
+            'tipo' => $tipo,
+            'idArticulo' => $idArticulo,
+            'idProveedor' => $idProveedor,
+            'partida' => $partida,
+            'plazoEntrega' => 0,
+            'cantidad' => $cantidad,
+            'cantidadPO' => $cantidad,
+            'cantidadIM' => 0,
+            'lugarEntrega' => 0,
+            'direccionEntrega' => 0,
+            'idAlmacen' => 0,
+        );
+
         if ($idImc == 0){
             $this->Pogeneralmodel->add_im_concepto($params);
         } else {
             $this->Pogeneralmodel->update_im_concepto($idImc, $params);
         }
+
 
     }
 
@@ -332,7 +486,10 @@ class Po_general extends CI_Controller{
 
     function eliminarRelaciones(){
         $id = $_POST['id'];
+        $delArticulos = $_POST['delArticulos'];
+
         $this->Pogeneralmodel->delete_relaciones($id);
+        $this->Pogeneralmodel->delete_articulos($id, $delArticulos);
 
     }
 
@@ -550,7 +707,7 @@ class Po_general extends CI_Controller{
                 $this->Pogeneralmodel->update_po_general($id,$params);            
                 $this->Pogeneralmodel->edit_uk_po_aclaracion_acuse($id, $empleadoResponsable, $empleadoFormula);
 
-                redirect('po_consideracion/edit/'.$id);
+                redirect('po_general/edit/'.$id);
             }
             else
             {

@@ -299,6 +299,21 @@ class Imgeneralmodel extends CI_Model
 
     }
 
+    function get_pmc_cpp_data($id)
+    {
+        $this->db->select('partida, importeIM');
+        $this->db->from('im_concepto');
+        $this->db->where('idImg', $id);
+        $this->db->order_by("partida", "asc");
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
+
+
+
 
     public function GuardarDatosModel()
     {

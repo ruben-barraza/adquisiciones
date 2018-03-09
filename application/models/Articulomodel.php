@@ -63,6 +63,21 @@ class Articulomodel extends CI_Model
 		}
 		return $maxid;
 	}
+
+	function get_familia($id)
+    {
+        $this->db->select('familia.clave');
+        $this->db->from('articulo');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('articulo.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            $vl = $query->row_array();
+            return $vl['clave'];
+        } else {
+            return 0;
+        }
+    }
     
     /*
      * function to update articulo

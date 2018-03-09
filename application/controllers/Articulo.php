@@ -30,6 +30,12 @@ class Articulo extends CI_Controller{
         $data['_view'] = 'articulo/index';
         $this->load->model('Comboboxesmodel');
         $data['familias'] = $this->Comboboxesmodel->getFamilias();
+
+        $this->load->library('session');
+        if($this->session->flashdata('familia')){
+            $data['familia_selected'] = $this->session->flashdata('familia');
+        }
+
         $this->load->view('layouts/main',$data);
     }
 
@@ -98,7 +104,7 @@ class Articulo extends CI_Controller{
 			$this->form_validation->set_rules('codigo','Codigo','max_length[10]|required');
 			$this->form_validation->set_rules('descripcion','Descripcion','max_length[150]|required');
 			$this->form_validation->set_rules('idUnidadMedida','IdUnidadMedida','required');
-			$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[500]|required');
+			$this->form_validation->set_rules('descripcionDetallada','DescripcionDetallada','max_length[500]');
 			$this->form_validation->set_rules('especificacion','Especificacion','max_length[50]|required');
 			$this->form_validation->set_rules('idFamilia','IdFamilia','required');
 			$this->form_validation->set_rules('precioUnitario','PrecioUnitario','required|decimal');
@@ -121,8 +127,15 @@ class Articulo extends CI_Controller{
 					'tiempoEntrega' => $this->input->post('tiempoEntrega'),
                 );
 
-                $this->Articulomodel->update_articulo($id,$params);            
-                redirect('articulo/index');
+                $this->Articulomodel->update_articulo($id,$params);
+
+                $this->load->library('session');
+                $familia = $this->Articulomodel->get_familia($id);
+                $this->session->set_flashdata('familia', $familia);
+
+                //$data['_view'] = 'articulo/index';
+                redirect('articulo/index/');
+                //$this->load->view('layouts/main',$data);
             }
             else
             {

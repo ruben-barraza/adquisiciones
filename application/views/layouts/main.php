@@ -32,6 +32,8 @@
         <link href="<?php echo site_url('resources/summernote/summernote.css');?>" rel="stylesheet">
         <!-- include wickedpicker css-->
         <link href="<?php echo site_url('resources/wickedpicker/stylesheets/wickedpicker.css');?>" rel="stylesheet">
+        <!-- include DataTable css-->
+        <link href="<?php echo site_url('resources/DataTables/css/jquery.dataTables.min.css');?>" rel="stylesheet">
 
         
         <script src="<?php echo site_url('resources/js/jquery-1.9.1.js');?>"></script>
@@ -285,6 +287,8 @@
         <script src="<?php echo site_url('resources/wickedpicker/src/wickedpicker.js');?>"></script>
         <!-- include price format js-->
         <script src="<?php echo site_url('resources/priceformat/jquery.priceformat.min.js');?>"></script>
+        <!-- include DataTables js-->
+        <script src="<?php echo site_url('resources/DataTables/js/jquery.dataTables.min.js');?>"></script>
 
         <!-- Custom Theme Scripts -->
         <script src="<?php echo site_url('resources/js/custom.min.js');?>"></script>

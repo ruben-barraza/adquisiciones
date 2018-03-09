@@ -88,7 +88,7 @@
 						<label for="status" class="col-md-4 control-label">Status</label>
 						<div class="col-md-8">
 							<select name="status" class="form-control">
-								<option value="">select</option>
+								<option value="">Seleccione</option>
 								<?php 
 									$status_values = array(
 										'A'=>'Activo',

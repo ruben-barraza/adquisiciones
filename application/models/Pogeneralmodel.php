@@ -463,6 +463,20 @@ class Pogeneralmodel extends CI_Model
         //$this->db->delete('im_concepto');
     }
 
+    function delete_articulos($id, $delArticulos){
+
+	    echo "HOLA";
+	    /*
+	    foreach ($delArticulos as $codigo){
+            $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
+            $idArticulo = array_values($articulo)[0]['id'];
+            $this->db->where('idPog', $id);
+            $this->db->where('idArticulo', $idArticulo);
+            $this->db->delete('im_concepto');
+        }
+	    */
+    }
+
     /*
      * function to update po_general
      */

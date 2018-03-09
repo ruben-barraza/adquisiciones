@@ -4,7 +4,7 @@
  * www.crudigniter.com
  */
 
-
+error_reporting(0);
 
 class Im_general extends CI_Controller
 {
@@ -103,7 +103,11 @@ class Im_general extends CI_Controller
         $output = $this->formatPmcArray($array_pmc);
 
         $num_cotizaciones = $this->calcularCotizaciones($output);
+        $arr_cpp = $this->calcularCPP($output);
+
         $data['num_cotizaciones'] = $num_cotizaciones;
+        $data['arr_cpp'] = $arr_cpp;
+
 
         if ($num_cotizaciones > 1){
             $pmc = $this->calcularPMC($output, $num_cotizaciones);
@@ -193,6 +197,20 @@ class Im_general extends CI_Controller
         }
 
         return $num_cotizaciones;
+    }
+
+    //Calcular cotizaciones por partida
+    function calcularCPP(&$output){
+        //array donde se va a guardar el número de cotizaciones por cada partida
+        $array_cpp = [];
+
+        foreach($output as $partida){
+            $cotizaciones = count(array_filter($partida));
+            array_push($array_cpp, $cotizaciones);
+        }
+
+        return $array_cpp;
+
     }
 
     function calcularPMC($output, $num_cotizaciones){
@@ -319,10 +337,11 @@ class Im_general extends CI_Controller
 
             //Saco el promedio de los promedios que tengan el máximo número de frecuencias
             $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+
             $cot_mas_baja =  min(array_filter($array_cotizaciones[$i]));
 
             $pmc = min($prom_frec, $cot_mas_baja);
-            array_push($array_pmc, number_format($pmc, 2, '.', ','));
+            array_push($array_pmc, $pmc);
         }
         return $array_pmc;
     }
@@ -432,6 +451,11 @@ class Im_general extends CI_Controller
                 $arr = $this->Imgeneralmodel->get_pmc_data($id);
                 $data['arr'] = $arr;
 
+
+                $arr_cpp = $this->Imgeneralmodel->get_pmc_cpp_data($id);
+                $data['arr_cpp'] = $arr_cpp;
+
+
                 /*
                 $output = array();
 
@@ -463,7 +487,11 @@ class Im_general extends CI_Controller
                 $output2 = $output;
 
                 $num_cotizaciones = $this->calcularCotizaciones($output);
+                $arr_cpp = $this->calcularCPP($output);
+
                 $data['num_cotizaciones'] = $num_cotizaciones;
+                $data['arr_cpp'] = $arr_cpp;
+
                 $data['newOutput'] = $output;
 
                 if ($num_cotizaciones > 1){

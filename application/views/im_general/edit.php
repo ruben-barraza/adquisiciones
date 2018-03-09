@@ -71,25 +71,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="empleadoAutoriza" class="col-md-2 control-label">Empleado Autoriza</label>
-                    <div class="col-md-2">
-                        <div class="input-group">
-                            <input type="text" id="empleadoAutoriza" name="empleadoAutoriza"
-                                   value="<?php echo $empleadoAutoriza[0]['rpe'] ?>" maxlength="5"
-                                   class="form-control pull-right" placeholder="Ingrese RPE"/>
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" id="empleadoAutoriza2"
-                               value="<?php echo $empleadoAutoriza[0]['nombre'] . ' ' . $empleadoAutoriza[0]['apellidoPaterno'] . ' ' . $empleadoAutoriza[0]['apellidoMaterno'] ?>"
-                               name="empleadoAutoriza2" class="form-control" readonly
-                               placeholder="Nombre del empleado"/>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="empleadoFormula" class="col-md-2 control-label">Empleado Formula</label>
                     <div class="col-md-2">
                         <div class="input-group">
@@ -106,6 +87,26 @@
                         <input type="text" id="empleadoFormula2"
                                value="<?php echo $empleadoFormula[0]['nombre'] . ' ' . $empleadoFormula[0]['apellidoPaterno'] . ' ' . $empleadoFormula[0]['apellidoMaterno'] ?>"
                                name="empleadoFormula2" class="form-control" readonly placeholder="Nombre del empleado"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="empleadoAutoriza" class="col-md-2 control-label">Empleado Autoriza</label>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <input type="text" id="empleadoAutoriza" name="empleadoAutoriza"
+                                   value="<?php echo $empleadoAutoriza[0]['rpe'] ?>" maxlength="5"
+                                   class="form-control pull-right" placeholder="Ingrese RPE"/>
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="empleadoAutoriza2"
+                               value="<?php echo $empleadoAutoriza[0]['nombre'] . ' ' . $empleadoAutoriza[0]['apellidoPaterno'] . ' ' . $empleadoAutoriza[0]['apellidoMaterno'] ?>"
+                               name="empleadoAutoriza2" class="form-control" readonly
+                               placeholder="Nombre del empleado"/>
                     </div>
                 </div>
 
@@ -223,9 +224,9 @@
                             <th class="precios-col">Importe ($)</th>
                             <th class="precios-col">PMC ($)</th>
                             <th class="precios-col">IMC (S)</th>
-                            <th class="precios-col">AMP 100% ($)</th>
-
+                            <th class="partida-col">CPP</th>
                             <!--
+                            <th class="precios-col">AMP 100% ($)</th>
                             <th>PMC</th>
                             -->
                             </thead>
@@ -261,7 +262,7 @@
                                     <td>
                                         <input type="text" name="<?php echo "pmc_".($i+1) ?>" id="<?php echo "pmc_".($i+1) ?>" value="<?php
                                         if(isset($pmc))
-                                            echo $pmc[$i];
+                                            echo number_format($pmc[$i], 2, '.', ',');
                                         else
                                             echo 0;
                                         ?>" class="form-control precio-field" />
@@ -274,18 +275,29 @@
                                         }
                                         else
                                             echo 0;
-                                        ?>" class="form-control precio-field" />
+                                        ?>" class="form-control" />
                                     </td>
                                     <td>
-                                        <input type="text" name="<?php echo "ampliacion_".($i+1) ?>" id="<?php echo "ampliacion_".($i+1) ?>" value="<?php
+                                        <input type="text" name="<?php echo "cpp_".($i+1) ?>" id="<?php echo "cpp_".($i+1) ?>" value="<?php
+                                        if(isset($arr_cpp))
+                                            echo $arr_cpp[$i];
+                                        else
+                                            echo 0;
+                                        ?>" class="form-control precio-field" disabled/>
+                                    </td>
+
+                                    <!--
+                                    <td>
+                                        <input type="text" name="<?php /* echo "ampliacion_".($i+1) ?>" id="<?php echo "ampliacion_".($i+1) ?>" value="<?php
                                         if(isset($imc)){
                                             echo number_format($imc * 2, 2, ".", ",");
                                         }
                                         else
                                             echo 0;
+                                        */
                                         ?>" class="form-control precio-field" />
                                     </td>
-
+                                    -->
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -337,6 +349,14 @@
                     <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
                 </div>
 
+                <!--
+                <var>
+                    <?php
+                    var_dump($output2);
+                    var_dump($arr_cpp);
+                    ?>
+                </var>
+                -->
 
                 <!--
                 <var>
@@ -609,7 +629,6 @@
 
         /*
         var $moneda_def = "  echo $imcConcepto[0]["moneda"] ";
-        console.log("HOLA" + $moneda_def);
         if($moneda_def == "USD"){
             $('#moneda option[value=USD]').prop('selected', true);
             $("#tipocambio_oculto").removeClass("hidden");
@@ -632,7 +651,7 @@
             onSelect: function() {
                 //var dt = $('#fechaElaboracion').datepicker('getDate');
                 var date = $("#scheduleDate").datepicker({ dateFormat: 'dd,MM,yyyy' }).val()
-                console.log("HOLA");
+
             }
         });
         */
@@ -686,7 +705,6 @@
                     },
                     success: function (returned) {
                         var returned = JSON.parse(returned);
-                        //console.log(returned.nombre.length);
 
                         jQuery.each(returned.nombre, function( i, val ) {
                             nombre = val.nombre + " " + val.apellidoPaterno + " " + val.apellidoMaterno;
@@ -758,7 +776,7 @@
                         var returned = JSON.parse(returned);
 
                         jQuery.each(returned.preciosimc, function( i, val ) {
-                            //console.log(returned.preciosimc);
+
                             $("#partida_" + (i+1)).val(val.partida);
                             $("#codigo_" + (i+1)).val(val.codigo);
                             $("#descripcion_" + (i+1)).val(val.descripcion);
@@ -793,7 +811,8 @@
                                 $("#importe_" + (i+1)).prop('disabled', true);;
                                 $("#pmc_" + (i+1)).prop('disabled', true);
                                 $("#imc_" + (i+1)).prop('disabled', true);
-                                $("#ampliacion_" + (i+1)).prop('disabled', true);
+                                $("#cpp_" + (i+1)).prop('disabled', true);
+                                //$("#ampliacion_" + (i+1)).prop('disabled', true);
 
                             } else {
                                 $("#nc_" + (i+1)).prop('checked', false);
@@ -806,7 +825,8 @@
                                 $("#importe_" + (i+1)).prop('disabled', true);;
                                 $("#pmc_" + (i+1)).prop('disabled', true);
                                 $("#imc_" + (i+1)).prop('disabled', true);
-                                $("#ampliacion_" + (i+1)).prop('disabled', true);
+                                $("#cpp_" + (i+1)).prop('disabled', true);
+                                //$("#ampliacion_" + (i+1)).prop('disabled', true);
                             }
 
                         });
@@ -951,6 +971,13 @@
                         //console.log(returned.pmc[i]);
                         $("#pmc_" + (i+1)).val(returned.pmc[i]);
                     }
+
+                    var longitudCPP = returned.arr_cpp.length;
+                    for (var i = 0; i < longitudCPP; i++){
+                        $("#cpp_" + (i+1)).val(returned.arr_cpp[i]);
+                    }
+                    //console.log(returned.arr_cpp);
+
                 }
             });
 
