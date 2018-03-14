@@ -465,8 +465,11 @@ class Pogeneralmodel extends CI_Model
 
     function delete_articulos($id, $delArticulos){
 
-	    echo "HOLA";
-	    /*
+
+        //$this->db->where('idPog', $id);
+        //$this->db->delete('im_concepto');
+
+
 	    foreach ($delArticulos as $codigo){
             $articulo = $this->Pogeneralmodel->get_idArticulo($codigo);
             $idArticulo = array_values($articulo)[0]['id'];
@@ -474,7 +477,7 @@ class Pogeneralmodel extends CI_Model
             $this->db->where('idArticulo', $idArticulo);
             $this->db->delete('im_concepto');
         }
-	    */
+
     }
 
     /*

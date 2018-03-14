@@ -572,8 +572,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-        var arr_delArt = [];
-
         $("#idFamilia option:contains('NINGUNO')").remove();
 		//console.log("<?php echo $imTitulo ?>");
 		//console.log("<?php echo count($imConcepto); ?>");
@@ -1151,9 +1149,10 @@
     var arr_delArt = [];
 
 	$(document).on("click", "a.btn.quitararticulo" ,function() {
-	    var rowIndex = $(this).closest("tr")[0].rowIndex;
-        var delCodigo = $("#codigo_" + rowIndex).val();
-        arr_delArt.push(delCodigo);
+
+        var $this = $(this);
+        var codigo = $this.closest('tr').find('input:eq(1)').val();
+        arr_delArt.push(codigo);
 
         //console.log(arr_delArt);
 
@@ -1161,9 +1160,6 @@
 
 		if($("#tablaArticulos tbody tr").length > 1){
 			var tableRow = $(this).closest('tr');
-
-            //var delCodigo = $("#codigo_" + tableRow).val();
-            //console.log(delCodigo);
 
 
 
