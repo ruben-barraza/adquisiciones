@@ -98,6 +98,7 @@ class Im_general extends CI_Controller
 
     function updatePMC(){
         $idImg = $_POST['idImg'];
+        $idPog = $_POST['idPog'];
 
         $array_pmc = $this->Imgeneralmodel->get_pmc_data($idImg);
         $output = $this->formatPmcArray($array_pmc);
@@ -110,7 +111,7 @@ class Im_general extends CI_Controller
 
 
         if ($num_cotizaciones > 1){
-            $pmc = $this->calcularPMC($output, $num_cotizaciones);
+            $pmc = $this->calcularPMC($output, $num_cotizaciones, $idPog);
             $data['pmc'] = $pmc;
         }
         echo json_encode($data);
@@ -213,7 +214,7 @@ class Im_general extends CI_Controller
 
     }
 
-    function calcularPMC($output, $num_cotizaciones){
+    function calcularPMC($output, $num_cotizaciones, $pog_id){
         /*
 
 
@@ -258,91 +259,120 @@ class Im_general extends CI_Controller
             }
         }
 
-        $num_intervalos = $num_cotizaciones - 1;
+        //$num_intervalos = $num_cotizaciones - 1;
+
+        //QUITA LOS PROVEEDORES QUE NO TIENEN COTIZACION
+        foreach($output as $row => $innerArray){
+            foreach($innerArray as $key => $value){
+                if($value == 0){
+                    unset($output[$row][$key]);
+                }
+            }
+        }
+
+        foreach($array_cotizaciones as $row => $innerArray){
+            foreach($innerArray as $key => $value){
+                if($value == 0){
+                    unset($array_cotizaciones[$row][$key]);
+                }
+            }
+        }
 
 
         //Ciclo para cada partida
         for ($i = 0; $i < $num_partidas; $i++)
         {
-            //En este array se agregan la frecuencia y el promedio que hubo en cada intervalo (donde no fue 0)
-            $array_promedios = array();
+            if (count($output[$i]) <= 1){
+                //NO NECESITA HACER NADA MAS PORQUE ESA PARTIDA SOLO TIENE UNA COTIZACION
+                array_push($array_pmc, 0);
 
-            //Contiene los promedios de los intervalos con mayor número de frecuencias
-            $max_frec_prom = array();
+            } else {
+                //En este array se agregan la frecuencia y el promedio que hubo en cada intervalo (donde no fue 0)
+                $array_promedios = array();
 
-            //Toma los valores máximos y mínimos sin importar si son cotizaciones o históricos
-            $maxvalue = max($output[$i]);
-            $minvalue = min($output[$i]);
+                //Contiene los promedios de los intervalos con mayor número de frecuencias
+                $max_frec_prom = array();
+
+                //Toma los valores máximos y mínimos sin importar si son cotizaciones o históricos
+                $maxvalue = max($output[$i]);
+                $minvalue = min($output[$i]);
+
+                $num_intervalos = count($output[$i]) - 1;
 
 
-            $val_diferencia = $maxvalue - $minvalue;
-            //Valor de rango del intervalo
-            $val_rango = $val_diferencia/$num_intervalos;
+                $val_diferencia = $maxvalue - $minvalue;
+                //Valor de rango del intervalo
+                $val_rango = $val_diferencia/$num_intervalos;
 
-            //Ciclo para cada intervalo
-            for($j = 0; $j < $num_intervalos; $j++){
-                //El primer intervalo empieza con el valor mínimo
-                if($j == 0)
-                    $lim_inf = $minvalue;
-                $lim_sup = $lim_inf + $val_rango;
+                //Ciclo para cada intervalo
+                for($j = 0; $j < $num_intervalos; $j++){
+                    //El primer intervalo empieza con el valor mínimo
+                    if($j == 0)
+                        $lim_inf = $minvalue;
+                    $lim_sup = $lim_inf + $val_rango;
 
-                //Es un array temporal usado en este ciclo compuesto de dos llaves "frecuancia" y "promedio"
-                //Solo se crea si hubo una cotización en este intervalo
-                $frec_promedio = array();
-                $frecuencias = 0;
+                    //Es un array temporal usado en este ciclo compuesto de dos llaves "frecuancia" y "promedio"
+                    //Solo se crea si hubo una cotización en este intervalo
+                    $frec_promedio = array();
+                    $frecuencias = 0;
 
-                //Array que contiene todas las cotizaciones en ese intervalo
-                $precios_intervalo = array();
+                    //Array que contiene todas las cotizaciones en ese intervalo
+                    $precios_intervalo = array();
 
-                //Recorre cada subarreglo (cotizaciones)
-                foreach($output[$i] as $value){
-                    //Si está en el último intervalo cambia la condicional
-                    if($j == $num_intervalos - 1){
-                        if($value >= $lim_inf && $value <= $lim_sup){
-                            $frecuencias++;
-                            array_push($precios_intervalo, $value);
+                    //Recorre cada subarreglo (cotizaciones)
+                    foreach($output[$i] as $value){
+                        //Si está en el último intervalo cambia la condicional
+                        if($j == $num_intervalos - 1){
+                            if($value >= $lim_inf && $value <= $lim_sup){
+                                $frecuencias++;
+                                array_push($precios_intervalo, $value);
+                            }
+                        } else {
+                            if($value >= $lim_inf && $value < $lim_sup) {
+                                $frecuencias++;
+                                array_push($precios_intervalo, $value);
+                            }
                         }
+                    }
+
+                    if (empty($precios_intervalo)){
+                        //Si no hubo cotizaciones en ese intervalo
+                        $prom_intervalo = 0;
                     } else {
-                        if($value >= $lim_inf && $value < $lim_sup) {
-                            $frecuencias++;
-                            array_push($precios_intervalo, $value);
-                        }
+                        //Se calcula el promedio de las cotizaciones en ese intervalo
+                        $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                    }
+                    $frec_promedio['frecuencias'] = $frecuencias;
+                    $frec_promedio['promedio'] = round($prom_intervalo, 2);
+
+                    array_push($array_promedios, $frec_promedio);
+                    $lim_inf = $lim_sup;
+
+                }
+
+                //Valor max de frecuencias
+                $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+                //Checo el arreglo $array_promedios y todos los promedios que coincidan con el valor máximo de frecuencias
+                //se agregan a $max_frec_prom
+                foreach ($array_promedios as $row){
+                    if ($row['frecuencias'] == $max_frecuencias){
+                        array_push($max_frec_prom, $row['promedio']);
                     }
                 }
 
-                if (empty($precios_intervalo)){
-                    //Si no hubo cotizaciones en ese intervalo
-                    $prom_intervalo = 0;
-                } else {
-                    //Se calcula el promedio de las cotizaciones en ese intervalo
-                    $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
-                }
-                $frec_promedio['frecuencias'] = $frecuencias;
-                $frec_promedio['promedio'] = round($prom_intervalo, 2);
+                //Saco el promedio de los promedios que tengan el máximo número de frecuencias
+                $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
 
-                array_push($array_promedios, $frec_promedio);
-                $lim_inf = $lim_sup;
+                $cot_mas_baja =  min(array_filter($array_cotizaciones[$i]));
 
+                $pmc = min($prom_frec, $cot_mas_baja);
+                array_push($array_pmc, $pmc);
             }
-
-            //Valor max de frecuencias
-            $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
-            //Checo el arreglo $array_promedios y todos los promedios que coincidan con el valor máximo de frecuencias
-            //se agregan a $max_frec_prom
-            foreach ($array_promedios as $row){
-                if ($row['frecuencias'] == $max_frecuencias){
-                    array_push($max_frec_prom, $row['promedio']);
-                }
-            }
-
-            //Saco el promedio de los promedios que tengan el máximo número de frecuencias
-            $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
-
-            $cot_mas_baja =  min(array_filter($array_cotizaciones[$i]));
-
-            $pmc = min($prom_frec, $cot_mas_baja);
-            array_push($array_pmc, $pmc);
         }
+
+        //Guardar pmc en la tabla im_concepto
+        $this->Imgeneralmodel->update_pmc($array_pmc, $pog_id);
+
         return $array_pmc;
     }
 
@@ -495,7 +525,7 @@ class Im_general extends CI_Controller
                 $data['newOutput'] = $output;
 
                 if ($num_cotizaciones > 1){
-                    $pmc = $this->calcularPMC($output, $num_cotizaciones);
+                    $pmc = $this->calcularPMC($output, $num_cotizaciones, $pog_id);
                     $data['pmc'] = $pmc;
                 }
 

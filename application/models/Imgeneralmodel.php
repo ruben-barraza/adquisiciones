@@ -312,6 +312,18 @@ class Imgeneralmodel extends CI_Model
 
     }
 
+    function update_pmc($array_pmc, $idPog){
+        $partidaslength = sizeof($array_pmc);
+
+        for ($i = 0; $i < $partidaslength; $i++){
+            $partida = $i + 1;
+            $this->db->where('idPog', $idPog);
+            $this->db->where('partida', $partida);
+            $this->db->update('im_concepto', array('pmc' => $array_pmc[$i]));
+
+        }
+    }
+
 
 
 
