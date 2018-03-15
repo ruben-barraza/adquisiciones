@@ -349,19 +349,20 @@
                     <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
                 </div>
 
-                <!--
+
                 <var>
                     <?php
-                    var_dump($output2);
-                    var_dump($arr_cpp);
+                    //var_dump($output2);
+                    //var_dump($pmc);
+                    //var_dump($arr_cpp);
+                    //var_dump($output2);
                     ?>
                 </var>
-                -->
 
                 <!--
                 <var>
                     <?php
-                    /*
+                        /*
                         //var_dump($pmc);
 
                         echo "********************************************************************************************";
@@ -420,7 +421,184 @@
                         }
                         echo "ARRAY COTIZACIONES";
                         var_dump($output3);
+
+
                         var_dump($output2);
+
+
+
+
+
+                    $i = 0;
+                    foreach($iterator as $key => $val) {
+                        if($val == 0) {
+                            unset($output3[$i][$key]);
+                        }
+                        $i++;
+                    }
+
+
+
+                    $array_sinHistorico = removeEmptyKeys($output3);
+                    removeEmptyKeys($output2);
+
+                    //FUNCION PARA QUITAR elementos vacios de los subarrays
+                    function removeEmptyKeys($array) {
+                        foreach($array as $row => $innerArray){
+                            foreach($innerArray as $key => $value){
+                                if($value == 0){
+                                    unset($array[$row][$key]);
+                                }
+                            }
+                        }
+                        return $array;
+                    }
+
+
+                    //QUITA LOS PROVEEDORES QUE NO TIENEN COTIZACION
+                    foreach($output3 as $row => $innerArray){
+                        foreach($innerArray as $key => $value){
+                            if($value == 0){
+                                unset($output3[$row][$key]);
+                            }
+                        }
+                    }
+
+                    foreach($output2 as $row => $innerArray){
+                        foreach($innerArray as $key => $value){
+                            if($value == 0){
+                                unset($output2[$row][$key]);
+                            }
+                        }
+                    }
+
+
+                    //DE OUTPUT 3 SE TOMA LA COTIZACION MÁS BAJA
+                        var_dump($output3);
+                        var_dump($output2);
+
+                    //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
+                    echo "<br>";
+                    echo "SIZE OF: ".count($output2);
+                    echo "<br>";
+                    echo "NUMERO DE PARTIDAS: ".$num_partidas;
+                    echo "<br>";
+
+                    echo "----------------------------";
+                    echo "<br>";
+
+                    if($num_partidas > 1) {
+                        for ($i = 0; $i < $num_partidas; $i++)
+                        {
+                            echo "PARTIDA ".($i + 1);
+                            echo "<br>";
+                            if (count($output2[$i]) <= 1){
+                                //NO NECESITA HACER NADA MAS PORQUE ESA PARTIDA SOLO TIENE UNA COTIZACION
+
+                                echo "SOLO HAY UNA COTIZACION EN ESTA PARTIDA";
+                                echo "PMC = 0";
+                            } else{
+                                //NUMERO DE LAS COTIZACIONES POR PARTIDA - 1
+                                $num_intervalos = count($output2[$i]) - 1;
+
+                                $array_promedios = array();
+
+                                //Contiene los promedios de los intervalos con mayor número de frecuencias
+                                $max_frec_prom = array();
+
+                                $prom_frec = 0;
+
+                                $maxvalue = max($output2[$i]);
+                                $minvalue = min($output2[$i]);
+                                $val_diferencia = $maxvalue - $minvalue;
+                                $val_rango = $val_diferencia/$num_intervalos;
+                                echo "VL: $val_rango";
+                                echo "<br>";
+
+                                for($j = 0; $j < $num_intervalos; $j++){
+                                    echo "Intervalo ".($j+1);
+                                    echo "<br>";
+                                    if($j == 0)
+                                        $lim_inf = $minvalue;
+                                    echo "Límite inferior: ".round($lim_inf, 2);
+                                    echo "<br>";
+                                    $lim_sup = $lim_inf + $val_rango;
+
+                                    echo "Límite superior: ".round($lim_sup, 2);
+                                    echo "<br>";
+                                    $frec_promedio = array();
+                                    $frecuencias = 0;
+                                    $k = 0;
+                                    $precios_intervalo = array();
+                                    $prom_intervalo = 0;
+                                    foreach($output2[$i] as $array){
+                                        if($j == $num_intervalos - 1){
+                                            if($array >= $lim_inf && $array <= $lim_sup){
+                                                $frecuencias++;
+                                                array_push($precios_intervalo, $array);
+                                            }
+                                        } else {
+                                            if($array >= $lim_inf && $array < $lim_sup) {
+                                                $frecuencias++;
+                                                array_push($precios_intervalo, $array);
+                                            }
+                                        }
+
+                                        $k++;
+                                    }
+
+                                    if (empty($precios_intervalo)){
+                                        $prom_intervalo = 0;
+                                    } else {
+                                        $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                                    }
+                                    echo "Frecuencias en el intervalo: $frecuencias";
+                                    echo "<br>";
+                                    echo "Promedio del intervalo: ".round($prom_intervalo, 2);
+                                    echo "<br>";
+                                    echo "<br>";
+                                    $frec_promedio['frecuencias'] = $frecuencias;
+                                    $frec_promedio['promedio'] = round($prom_intervalo, 2);
+
+                                    array_push($array_promedios, $frec_promedio);
+                                    $lim_inf = $lim_sup;
+
+                                }
+                                var_dump($array_promedios);
+
+                                //Valor max de frecuencias
+                                $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+                                foreach ($array_promedios as $row){
+                                    if ($row['frecuencias'] == $max_frecuencias){
+                                        array_push($max_frec_prom, $row['promedio']);
+                                    }
+                                }
+
+                                $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+                                $cot_mas_baja =  min($output3[$i]);
+
+                                $pmc = min($prom_frec, $cot_mas_baja);
+
+                                echo "Promedio frecuencias: ".round($prom_frec, 2);
+                                echo "<br>";
+                                echo "Cotización más baja: ".$cot_mas_baja;
+                                echo "<br>";
+                                echo "<br>";
+                                echo "PMC = ".$pmc;
+                                echo "<br>";
+                                echo "<br>";
+                                echo "<br>";
+                                echo "------------------------------------------------------------------------------";
+                                echo "<br>";
+                                //echo $val_rango;
+                                echo "<br>";
+
+                            }
+                        }
+                    }
+
+                    //echo count($output2[0]);
+                    //echo count($output2[1]);
 
 
                         echo "<br>";
@@ -435,7 +613,7 @@
                         $minvalue;
                         $num_intervalos = $num_cotizaciones - 1;
 
-                        //if($num_partidas > 1) {
+                        if($num_partidas > 1) {
                             for ($i = 0; $i < $num_partidas; $i++)
                             {
                                 echo "PARTIDA ".($i + 1);
@@ -532,13 +710,13 @@
                                 //echo $val_rango;
                                 echo "<br>";
                             }
-                        //}
+                        }
 
 
                         //echo round(1.125, 2);
+                        */
 
-                    */
-                    ?>
+                     ?>
                 </var>
                 -->
 
@@ -878,6 +1056,8 @@
             $("#imctotal").val(totalformat);
         }
 
+
+
         $("#botonGuardar").click(function(){
 
             //Guarda info basica IM
@@ -955,7 +1135,8 @@
                 method: 'POST',
                 async: false,
                 data: {
-                    idImg: idImg
+                    idImg: idImg,
+                    idPog: idPog,
                 },
                 success: function (returned) {
                     var returned = JSON.parse(returned);
@@ -967,9 +1148,15 @@
 
                     var longitudArrPmc = returned.pmc.length;
 
+                    // Create our number formatter.
+                    var formatter = new Intl.NumberFormat('en-US', {
+                        style: 'decimal',
+                        minimumFractionDigits: 2,
+                    });
+
                     for (var i = 0; i < longitudArrPmc; i++){
                         //console.log(returned.pmc[i]);
-                        $("#pmc_" + (i+1)).val(returned.pmc[i]);
+                        $("#pmc_" + (i+1)).val(formatter.format(returned.pmc[i]));
                     }
 
                     var longitudCPP = returned.arr_cpp.length;
