@@ -44,6 +44,26 @@ class Generar_PDF extends CI_Controller{
 
 
     }
+
+    function pdf_imc($id){
+
+        $data['imc_header'] = $this->Generarpdfmodel->get_imc_header($id);
+        $data['im_elabora'] = $this->Generarpdfmodel->get_im_empleado_elabora($id);
+        $data['im_aprueba'] = $this->Generarpdfmodel->get_im_empleado_autoriza($id);
+
+        $nombres_proveedores = $this->Generarpdfmodel->get_razonsocial($id);
+
+        //DIVIDIR LA LISTA DE PROVEEDORES EN GRUPOS DE 5 (5 PROVS EN CADA PÁGINA)
+        $proveedores_split = array_chunk($nombres_proveedores, 5);
+
+        $data['prov_split'] = $proveedores_split;
+
+
+        $this->load->view('reporte_imc.php', $data);
+
+        //Para probar los queries del modelo
+        //$this->load->view('reporte_prueba_bd', $data);
+    }
     
 }
 

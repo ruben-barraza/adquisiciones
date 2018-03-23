@@ -511,6 +511,8 @@
                                 $maxvalue = max($output2[$i]);
                                 $minvalue = min($output2[$i]);
                                 $val_diferencia = $maxvalue - $minvalue;
+                                echo "VAL DIFERENCIA: $val_diferencia";
+                                echo "<br>";
                                 $val_rango = $val_diferencia/$num_intervalos;
                                 echo "VL: $val_rango";
                                 echo "<br>";
@@ -599,8 +601,8 @@
 
                     //echo count($output2[0]);
                     //echo count($output2[1]);
-
-
+                    //ALGORITMO PMC VIEJO
+                    /*
                         echo "<br>";
                         echo "SIZE OF: ".count($output2);
                         echo "<br>";
@@ -712,9 +714,9 @@
                             }
                         }
 
-
-                        //echo round(1.125, 2);
                         */
+                        //echo round(1.125, 2);
+
 
                      ?>
                 </var>
@@ -1107,6 +1109,8 @@
                 var cotizado = 0;
                 if(is_checked == true){
                     cotizado = "N";
+                } else if(importe == 0){
+                    cotizado = "0";
                 } else {
                     cotizado = "S";
                 }

@@ -71,8 +71,8 @@
                             <th>Descripción</th>
                             <th>Status</th>
                             <th>SOLPED</th>
-                            <th>Importe</th>
                             <th>Fecha</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -88,7 +88,6 @@
                             <td><?php echo $i['titulo']; ?></td>
                             <td><?php echo $i['estatus']; ?></td>
                             <td><?php echo $i['SOLPED']; ?></td>
-                            <td>Importe</td>
                             <?php
                             $fecha = $i['fechaElaboracion'];
                             $fechaElaboracion = date("d/m/Y", strtotime($fecha));
@@ -101,6 +100,10 @@
                                 <a href="<?php echo site_url('im_general/remove/' . $i['id']); ?>"
                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
                                    -->
+                            </td>
+                            <td>
+                                <a href="<?php echo site_url('generar_pdf/pdf_imc/' . $i['id']); ?>"
+                                   class="btn btn-primary btn-xs"><span class="fa fa-download"></span></a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -115,7 +118,6 @@
                             <th>Descripción</th>
                             <th>Status</th>
                             <th>SOLPED</th>
-                            <th>0</th>
                             <th>Fecha</th>
                             <th></th>
                         </tr>

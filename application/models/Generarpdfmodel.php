@@ -185,6 +185,20 @@ class Generarpdfmodel extends CI_Model
 
     }
 
+    function get_imc_header($id){
+        $this->db->distinct();
+        $this->db->select('im_general.SOLPED, familia.descripcion');
+        $this->db->from('im_general');
+        $this->db->join('im_concepto', 'im_general.id = im_concepto.idImg', 'inner');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('im_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
     function get_im_empleado_elabora($id)
     {
         $this->db->select('empleado.titulo, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');
@@ -209,4 +223,17 @@ class Generarpdfmodel extends CI_Model
         }
     }
 
+    /* OBTENER LA RAZÓN SOCIAL DE LOS PROVEEDORES (PARA EL THEAD DE LA TABLA) */
+    function get_razonsocial($id){
+        $this->db->distinct();
+        $this->db->select('proveedor.razonSocial');
+        $this->db->from('im_concepto');
+        $this->db->join('proveedor', 'im_concepto.idProveedor = proveedor.id', 'inner');
+        $this->db->where('im_concepto.idImg', $id);
+        $this->db->where('im_concepto.cotizado', 'S');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
 }
