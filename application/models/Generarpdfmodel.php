@@ -226,11 +226,88 @@ class Generarpdfmodel extends CI_Model
     /* OBTENER LA RAZÓN SOCIAL DE LOS PROVEEDORES (PARA EL THEAD DE LA TABLA) */
     function get_razonsocial($id){
         $this->db->distinct();
-        $this->db->select('proveedor.razonSocial');
+        $this->db->select('proveedor.id, proveedor.razonSocial');
         $this->db->from('im_concepto');
         $this->db->join('proveedor', 'im_concepto.idProveedor = proveedor.id', 'inner');
         $this->db->where('im_concepto.idImg', $id);
         $this->db->where('im_concepto.cotizado', 'S');
+        $this->db->order_by('proveedor.id', 'ASC');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    /* CONSULTA PARA LOS DATOS BÁSICOS DE LA TABLA IMC */
+    function get_imcdata($id){
+        $this->db->distinct();
+        $this->db->select('im_concepto.partida, articulo.codigo, articulo.descripcion, im_concepto.cantidad, unidadmedida.clave, familia.descripcion as familia, im_concepto.pmc');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->join('familia', 'articulo.idFamilia = familia.id', 'inner');
+        $this->db->where('im_concepto.idImg', $id);
+        $this->db->order_by('im_concepto.partida', 'ASC');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    /*
+    function get_cotizaciones($id){
+        $this->db->select('im_concepto.preciounitarioIM');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idImg', $id);
+        $this->db->where('im_concepto.cotizado', 'S');
+        $this->db->order_by('im_concepto.idProveedor', 'ASC');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+    */
+
+    function get_cotizacion($idImg, $idProveedor){
+        $this->db->select('im_concepto.preciounitarioIM');
+        $this->db->from('im_concepto');
+        $this->db->where('im_concepto.idImg', $idImg);
+        $this->db->where('im_concepto.idProveedor', $idProveedor);
+        $this->db->order_by('im_concepto.partida', 'ASC');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+
+    //PARA EL REPORTE RESUMEN ICM
+    function get_resumenicm2(){
+        $this->db->select('p.razonSocial, a.descripcion, imc.cantidad, imc.partida, a.tiempoEntrega, "ALMACEN DIVISIONAL", imc.moneda, pog.vigenciacotizacion, a.especificacion, imc.preciounitarioIM, imc.preciounitarioIM * imc.cantidad AS total');
+        $this->db->from('im_concepto imc, articulo a, proveedor p, po_general pog ');
+        $this->db->where('idImg', 14);
+        $this->db->where('preciounitarioIM >', 0);
+        $this->db->where('a.id', 'imc.idArticulo');
+        $this->db->where('p.id', 'imc.idProveedor');
+        $this->db->where('pog.id', 'imc.idPog');
+        $this->db->order_by('imc.idProveedor', 'ASC');
+        $this->db->order_by('imc.partida', 'ASC');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    function get_resumenicm($id){
+        $this->db->select('proveedor.razonSocial, articulo.descripcion, im_concepto.cantidad, im_concepto.partida, articulo.tiempoEntrega, im_concepto.lugarEntrega, im_concepto.moneda, po_general.vigenciacotizacion, articulo.especificacion, im_concepto.preciounitarioIM, im_concepto.preciounitarioIM, im_concepto.cantidad');
+        $this->db->from('im_concepto');
+        $this->db->join('proveedor', 'im_concepto.idProveedor = proveedor.id', 'inner');
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('po_general', 'im_concepto.idPog = po_general.id', 'inner');
+        $this->db->where('idImg', $id);
+        $this->db->where('preciounitarioIM >', 0);
+        $this->db->order_by('im_concepto.idProveedor', 'ASC');
+        $this->db->order_by('im_concepto.partida', 'ASC');
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();

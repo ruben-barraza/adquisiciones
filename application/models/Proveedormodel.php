@@ -58,7 +58,7 @@ class Proveedormodel extends CI_Model
     function get_idConsecutivo()
     {
 		$maxid = 1;
-        $row = $this->db->query("select max(id) as 'maxid' from proveedor")->row();
+        $row = $this->db->query("select max(id) as 'maxid' from proveedor where id < 6666")->row();
 		if ($row) {
 			$maxid = $row->maxid + 1;
 		}

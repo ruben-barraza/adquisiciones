@@ -74,6 +74,7 @@
                             <th>Fecha</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -94,15 +95,19 @@
                             ?>
                             <td><?php echo $fechaElaboracion; ?></td>
                             <td>
-                                <a href="<?php echo site_url('im_general/edit/' . $i['id']); ?>"
+                                <a title="Editar" href="<?php echo site_url('im_general/edit/' . $i['id']); ?>"
                                    class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a>
                                 <!--
                                 <a href="<?php echo site_url('im_general/remove/' . $i['id']); ?>"
                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
                                    -->
                             </td>
-                            <td>
-                                <a href="<?php echo site_url('generar_pdf/pdf_imc/' . $i['id']); ?>"
+                            <td align="center">
+                                <a title="Reporte IM" href="<?php echo site_url('generar_pdf/pdf_imc/' . $i['id']); ?>"
+                                   class="btn btn-primary btn-xs"><span class="fa fa-download"></span></a>
+                            </td>
+                            <td align="center">
+                                <a title="Cuadro Resumen ICM" href="<?php echo site_url('generar_pdf/resumen_icm/' . $i['id']); ?>"
                                    class="btn btn-primary btn-xs"><span class="fa fa-download"></span></a>
                             </td>
                         </tr>
