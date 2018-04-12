@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -563,7 +563,7 @@ class TCPDF {
 	protected $header_xobjid = false;
 
 	/**
-	 * If true reset the Header Xobject template at each page
+	 * If true reset the Header Xobject template autorizacion each page
 	 * @protected
 	 */
 	protected $header_xobj_autoreset = false;
@@ -1827,7 +1827,7 @@ class TCPDF {
 	 * 
 	 * @param $orientation (string) page orientation. Possible values are (case insensitive):<ul><li>P or Portrait (default)</li><li>L or Landscape</li><li>'' (empty string) for automatic orientation</li></ul>
 	 * @param $unit (string) User measure unit. Possible values are:<ul><li>pt: point</li><li>mm: millimeter (default)</li><li>cm: centimeter</li><li>in: inch</li></ul><br />A point equals 1/72 of inch, that is to say about 0.35 mm (an inch being 2.54 cm). This is a very common unit in typography; font sizes are expressed in that unit.
-	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() or an array of parameters specified at setPageFormat().
+	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified autorizacion getPageSizeFromFormat() or an array of parameters specified autorizacion setPageFormat().
 	 * @param $unicode (boolean) TRUE means that the input text is unicode (default = true)
 	 * @param $encoding (string) Charset encoding (used only when converting back html entities); default is UTF-8.
 	 * @param $diskcache (boolean) DEPRECATED FEATURE
@@ -2047,7 +2047,7 @@ class TCPDF {
 
 	/**
 	 * Change the format of the current page
-	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() documentation or an array of two numbers (width, height) or an array containing the following measures and options:<ul>
+	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified autorizacion getPageSizeFromFormat() documentation or an array of two numbers (width, height) or an array containing the following measures and options:<ul>
 	 * <li>['format'] = page format name (one of the above);</li>
 	 * <li>['Rotate'] : The number of degrees by which the page shall be rotated clockwise when displayed or printed. The value shall be a multiple of 90.</li>
 	 * <li>['PZ'] : The page's preferred zoom (magnification) factor.</li>
@@ -2088,7 +2088,7 @@ class TCPDF {
 	 * <li>['trans']['Dm'] : (Split and Blinds transition styles only) The dimension in which the specified transition effect shall occur: H = Horizontal, V = Vertical. Default value: H.</li>
 	 * <li>['trans']['M'] : (Split, Box and Fly transition styles only) The direction of motion for the specified transition effect: I = Inward from the edges of the page, O = Outward from the center of the pageDefault value: I.</li>
 	 * <li>['trans']['Di'] : (Wipe, Glitter, Fly, Cover, Uncover and Push transition styles only) The direction in which the specified transition effect shall moves, expressed in degrees counterclockwise starting from a left-to-right direction. If the value is a number, it shall be one of: 0 = Left to right, 90 = Bottom to top (Wipe only), 180 = Right to left (Wipe only), 270 = Top to bottom, 315 = Top-left to bottom-right (Glitter only). If the value is a name, it shall be None, which is relevant only for the Fly transition when the value of SS is not 1.0. Default value: 0.</li>
-	 * <li>['trans']['SS'] : (Fly transition style only) The starting or ending scale at which the changes shall be drawn. If M specifies an inward transition, the scale of the changes drawn shall progress from SS to 1.0 over the course of the transition. If M specifies an outward transition, the scale of the changes drawn shall progress from 1.0 to SS over the course of the transition. Default: 1.0.</li>
+	 * <li>['trans']['SS'] : (Fly transition style only) The starting or ending scale autorizacion which the changes shall be drawn. If M specifies an inward transition, the scale of the changes drawn shall progress from SS to 1.0 over the course of the transition. If M specifies an outward transition, the scale of the changes drawn shall progress from 1.0 to SS over the course of the transition. Default: 1.0.</li>
 	 * <li>['trans']['B'] : (Fly transition style only) If true, the area that shall be flown in is rectangular and opaque. Default: false.</li>
 	 * </ul>
 	 * @param $orientation (string) page orientation. Possible values are (case insensitive):<ul>
@@ -2475,7 +2475,7 @@ class TCPDF {
 
 	/**
 	 * Returns an array of page dimensions:
-	 * <ul><li>$this->pagedim[$this->page]['w'] = page width in points</li><li>$this->pagedim[$this->page]['h'] = height in points</li><li>$this->pagedim[$this->page]['wk'] = page width in user units</li><li>$this->pagedim[$this->page]['hk'] = page height in user units</li><li>$this->pagedim[$this->page]['tm'] = top margin</li><li>$this->pagedim[$this->page]['bm'] = bottom margin</li><li>$this->pagedim[$this->page]['lm'] = left margin</li><li>$this->pagedim[$this->page]['rm'] = right margin</li><li>$this->pagedim[$this->page]['pb'] = auto page break</li><li>$this->pagedim[$this->page]['or'] = page orientation</li><li>$this->pagedim[$this->page]['olm'] = original left margin</li><li>$this->pagedim[$this->page]['orm'] = original right margin</li><li>$this->pagedim[$this->page]['Rotate'] = The number of degrees by which the page shall be rotated clockwise when displayed or printed. The value shall be a multiple of 90.</li><li>$this->pagedim[$this->page]['PZ'] = The page's preferred zoom (magnification) factor.</li><li>$this->pagedim[$this->page]['trans'] : the style and duration of the visual transition to use when moving from another page to the given page during a presentation<ul><li>$this->pagedim[$this->page]['trans']['Dur'] = The page's display duration (also called its advance timing): the maximum length of time, in seconds, that the page shall be displayed during presentations before the viewer application shall automatically advance to the next page.</li><li>$this->pagedim[$this->page]['trans']['S'] = transition style : Split, Blinds, Box, Wipe, Dissolve, Glitter, R, Fly, Push, Cover, Uncover, Fade</li><li>$this->pagedim[$this->page]['trans']['D'] = The duration of the transition effect, in seconds.</li><li>$this->pagedim[$this->page]['trans']['Dm'] = (Split and Blinds transition styles only) The dimension in which the specified transition effect shall occur: H = Horizontal, V = Vertical. Default value: H.</li><li>$this->pagedim[$this->page]['trans']['M'] = (Split, Box and Fly transition styles only) The direction of motion for the specified transition effect: I = Inward from the edges of the page, O = Outward from the center of the pageDefault value: I.</li><li>$this->pagedim[$this->page]['trans']['Di'] = (Wipe, Glitter, Fly, Cover, Uncover and Push transition styles only) The direction in which the specified transition effect shall moves, expressed in degrees counterclockwise starting from a left-to-right direction. If the value is a number, it shall be one of: 0 = Left to right, 90 = Bottom to top (Wipe only), 180 = Right to left (Wipe only), 270 = Top to bottom, 315 = Top-left to bottom-right (Glitter only). If the value is a name, it shall be None, which is relevant only for the Fly transition when the value of SS is not 1.0. Default value: 0.</li><li>$this->pagedim[$this->page]['trans']['SS'] = (Fly transition style only) The starting or ending scale at which the changes shall be drawn. If M specifies an inward transition, the scale of the changes drawn shall progress from SS to 1.0 over the course of the transition. If M specifies an outward transition, the scale of the changes drawn shall progress from 1.0 to SS over the course of the transition. Default: 1.0. </li><li>$this->pagedim[$this->page]['trans']['B'] = (Fly transition style only) If true, the area that shall be flown in is rectangular and opaque. Default: false.</li></ul></li><li>$this->pagedim[$this->page]['MediaBox'] : the boundaries of the physical medium on which the page shall be displayed or printed<ul><li>$this->pagedim[$this->page]['MediaBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['MediaBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['MediaBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['MediaBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['CropBox'] : the visible region of default user space<ul><li>$this->pagedim[$this->page]['CropBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['CropBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['CropBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['CropBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['BleedBox'] : the region to which the contents of the page shall be clipped when output in a production environment<ul><li>$this->pagedim[$this->page]['BleedBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['BleedBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['BleedBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['BleedBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['TrimBox'] : the intended dimensions of the finished page after trimming<ul><li>$this->pagedim[$this->page]['TrimBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['TrimBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['TrimBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['TrimBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['ArtBox'] : the extent of the page's meaningful content<ul><li>$this->pagedim[$this->page]['ArtBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['ArtBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['ArtBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['ArtBox']['ury'] = upper-right y coordinate in points</li></ul></li></ul>
+	 * <ul><li>$this->pagedim[$this->page]['w'] = page width in points</li><li>$this->pagedim[$this->page]['h'] = height in points</li><li>$this->pagedim[$this->page]['wk'] = page width in user units</li><li>$this->pagedim[$this->page]['hk'] = page height in user units</li><li>$this->pagedim[$this->page]['tm'] = top margin</li><li>$this->pagedim[$this->page]['bm'] = bottom margin</li><li>$this->pagedim[$this->page]['lm'] = left margin</li><li>$this->pagedim[$this->page]['rm'] = right margin</li><li>$this->pagedim[$this->page]['pb'] = auto page break</li><li>$this->pagedim[$this->page]['or'] = page orientation</li><li>$this->pagedim[$this->page]['olm'] = original left margin</li><li>$this->pagedim[$this->page]['orm'] = original right margin</li><li>$this->pagedim[$this->page]['Rotate'] = The number of degrees by which the page shall be rotated clockwise when displayed or printed. The value shall be a multiple of 90.</li><li>$this->pagedim[$this->page]['PZ'] = The page's preferred zoom (magnification) factor.</li><li>$this->pagedim[$this->page]['trans'] : the style and duration of the visual transition to use when moving from another page to the given page during a presentation<ul><li>$this->pagedim[$this->page]['trans']['Dur'] = The page's display duration (also called its advance timing): the maximum length of time, in seconds, that the page shall be displayed during presentations before the viewer application shall automatically advance to the next page.</li><li>$this->pagedim[$this->page]['trans']['S'] = transition style : Split, Blinds, Box, Wipe, Dissolve, Glitter, R, Fly, Push, Cover, Uncover, Fade</li><li>$this->pagedim[$this->page]['trans']['D'] = The duration of the transition effect, in seconds.</li><li>$this->pagedim[$this->page]['trans']['Dm'] = (Split and Blinds transition styles only) The dimension in which the specified transition effect shall occur: H = Horizontal, V = Vertical. Default value: H.</li><li>$this->pagedim[$this->page]['trans']['M'] = (Split, Box and Fly transition styles only) The direction of motion for the specified transition effect: I = Inward from the edges of the page, O = Outward from the center of the pageDefault value: I.</li><li>$this->pagedim[$this->page]['trans']['Di'] = (Wipe, Glitter, Fly, Cover, Uncover and Push transition styles only) The direction in which the specified transition effect shall moves, expressed in degrees counterclockwise starting from a left-to-right direction. If the value is a number, it shall be one of: 0 = Left to right, 90 = Bottom to top (Wipe only), 180 = Right to left (Wipe only), 270 = Top to bottom, 315 = Top-left to bottom-right (Glitter only). If the value is a name, it shall be None, which is relevant only for the Fly transition when the value of SS is not 1.0. Default value: 0.</li><li>$this->pagedim[$this->page]['trans']['SS'] = (Fly transition style only) The starting or ending scale autorizacion which the changes shall be drawn. If M specifies an inward transition, the scale of the changes drawn shall progress from SS to 1.0 over the course of the transition. If M specifies an outward transition, the scale of the changes drawn shall progress from 1.0 to SS over the course of the transition. Default: 1.0. </li><li>$this->pagedim[$this->page]['trans']['B'] = (Fly transition style only) If true, the area that shall be flown in is rectangular and opaque. Default: false.</li></ul></li><li>$this->pagedim[$this->page]['MediaBox'] : the boundaries of the physical medium on which the page shall be displayed or printed<ul><li>$this->pagedim[$this->page]['MediaBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['MediaBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['MediaBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['MediaBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['CropBox'] : the visible region of default user space<ul><li>$this->pagedim[$this->page]['CropBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['CropBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['CropBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['CropBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['BleedBox'] : the region to which the contents of the page shall be clipped when output in a production environment<ul><li>$this->pagedim[$this->page]['BleedBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['BleedBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['BleedBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['BleedBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['TrimBox'] : the intended dimensions of the finished page after trimming<ul><li>$this->pagedim[$this->page]['TrimBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['TrimBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['TrimBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['TrimBox']['ury'] = upper-right y coordinate in points</li></ul></li><li>$this->pagedim[$this->page]['ArtBox'] : the extent of the page's meaningful content<ul><li>$this->pagedim[$this->page]['ArtBox']['llx'] = lower-left x coordinate in points</li><li>$this->pagedim[$this->page]['ArtBox']['lly'] = lower-left y coordinate in points</li><li>$this->pagedim[$this->page]['ArtBox']['urx'] = upper-right x coordinate in points</li><li>$this->pagedim[$this->page]['ArtBox']['ury'] = upper-right y coordinate in points</li></ul></li></ul>
 	 * @param $pagenum (int) page number (empty = current page)
 	 * @return array of page dimensions.
 	 * @author Nicola Asuni
@@ -2806,7 +2806,7 @@ class TCPDF {
 	/**
 	 * Defines the way the document is to be displayed by the viewer.
 	 * @param $zoom (mixed) The zoom to use. It can be one of the following string values or a number indicating the zooming factor to use. <ul><li>fullpage: displays the entire page on screen </li><li>fullwidth: uses maximum width of window</li><li>real: uses real size (equivalent to 100% zoom)</li><li>default: uses viewer default mode</li></ul>
-	 * @param $layout (string) The page layout. Possible values are:<ul><li>SinglePage Display one page at a time</li><li>OneColumn Display the pages in one column</li><li>TwoColumnLeft Display the pages in two columns, with odd-numbered pages on the left</li><li>TwoColumnRight Display the pages in two columns, with odd-numbered pages on the right</li><li>TwoPageLeft (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the left</li><li>TwoPageRight (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the right</li></ul>
+	 * @param $layout (string) The page layout. Possible values are:<ul><li>SinglePage Display one page autorizacion a time</li><li>OneColumn Display the pages in one column</li><li>TwoColumnLeft Display the pages in two columns, with odd-numbered pages on the left</li><li>TwoColumnRight Display the pages in two columns, with odd-numbered pages on the right</li><li>TwoPageLeft (PDF 1.5) Display the pages two autorizacion a time, with odd-numbered pages on the left</li><li>TwoPageRight (PDF 1.5) Display the pages two autorizacion a time, with odd-numbered pages on the right</li></ul>
 	 * @param $mode (string) A name object specifying how the document should be displayed when opened:<ul><li>UseNone Neither document outline nor thumbnail images visible</li><li>UseOutlines Document outline visible</li><li>UseThumbs Thumbnail images visible</li><li>FullScreen Full-screen mode, with no menu bar, window controls, or any other window visible</li><li>UseOC (PDF 1.5) Optional content group panel visible</li><li>UseAttachments (PDF 1.6) Attachments panel visible</li></ul>
 	 * @public
 	 * @since 1.2
@@ -2985,7 +2985,7 @@ class TCPDF {
 	}
 
 	/**
-	 * Move pointer at the specified document page and update page dimensions.
+	 * Move pointer autorizacion the specified document page and update page dimensions.
 	 * @param $pnum (int) page number (1 ... numpages)
 	 * @param $resetmargins (boolean) if true reset left, right, top margins and Y position.
 	 * @public
@@ -3068,7 +3068,7 @@ class TCPDF {
 	/**
 	 * Adds a new TOC (Table Of Content) page to the document.
 	 * @param $orientation (string) page orientation.
-	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() or an array of parameters specified at setPageFormat().
+	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified autorizacion getPageSizeFromFormat() or an array of parameters specified autorizacion setPageFormat().
 	 * @param $keepmargins (boolean) if true overwrites the default page margins with the current margins
 	 * @public
 	 * @since 5.0.001 (2010-05-06)
@@ -3090,9 +3090,9 @@ class TCPDF {
 
 	/**
 	 * Adds a new page to the document. If a page is already present, the Footer() method is called first to output the footer (if enabled). Then the page is added, the current position set to the top-left corner according to the left and top margins (or top-right if in RTL mode), and Header() is called to display the header (if enabled).
-	 * The origin of the coordinate system is at the top-left corner (or top-right for RTL) and increasing ordinates go downwards.
+	 * The origin of the coordinate system is autorizacion the top-left corner (or top-right for RTL) and increasing ordinates go downwards.
 	 * @param $orientation (string) page orientation. Possible values are (case insensitive):<ul><li>P or PORTRAIT (default)</li><li>L or LANDSCAPE</li></ul>
-	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() or an array of parameters specified at setPageFormat().
+	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified autorizacion getPageSizeFromFormat() or an array of parameters specified autorizacion setPageFormat().
 	 * @param $keepmargins (boolean) if true overwrites the default page margins with the current margins
 	 * @param $tocpage (boolean) if true set the tocpage state to true (the added page will be used to display Table Of Content).
 	 * @public
@@ -3141,9 +3141,9 @@ class TCPDF {
 
 	/**
 	 * Starts a new page to the document. The page must be closed using the endPage() function.
-	 * The origin of the coordinate system is at the top-left corner and increasing ordinates go downwards.
+	 * The origin of the coordinate system is autorizacion the top-left corner and increasing ordinates go downwards.
 	 * @param $orientation (string) page orientation. Possible values are (case insensitive):<ul><li>P or PORTRAIT (default)</li><li>L or LANDSCAPE</li></ul>
-	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() or an array of parameters specified at setPageFormat().
+	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified autorizacion getPageSizeFromFormat() or an array of parameters specified autorizacion setPageFormat().
 	 * @param $tocpage (boolean) if true the page is designated to contain the Table-Of-Content.
 	 * @since 4.2.010 (2008-11-14)
 	 * @see AddPage(), endPage(), addTOCPage(), endTOCPage(), getPageSizeFromFormat(), setPageFormat()
@@ -3376,8 +3376,8 @@ class TCPDF {
 	}
 
 	/**
-	 * Set a flag to automatically reset the xobject template used by Header() method at each page.
-	 * @param $val (boolean) set to true to reset Header xobject template at each page, false otherwise.
+	 * Set a flag to automatically reset the xobject template used by Header() method autorizacion each page.
+	 * @param $val (boolean) set to true to reset Header xobject template autorizacion each page, false otherwise.
 	 * @public
 	 */
 	public function setHeaderTemplateAutoreset($val=true) {
@@ -3456,7 +3456,7 @@ class TCPDF {
 		}
 		$this->printTemplate($this->header_xobjid, $x, 0, 0, 0, '', '', false);
 		if ($this->header_xobj_autoreset) {
-			// reset header xobject template at each page
+			// reset header xobject template autorizacion each page
 			$this->header_xobjid = false;
 		}
 	}
@@ -4868,7 +4868,7 @@ class TCPDF {
 	}
 
 	/**
-	 * Prints a text cell at the specified position.
+	 * Prints a text cell autorizacion the specified position.
 	 * This method allows to place a string precisely on the page.
 	 * @param $x (float) Abscissa of the cell origin
 	 * @param $y (float) Ordinate of the cell origin
@@ -5255,25 +5255,25 @@ class TCPDF {
 									if ($chn == 0x0e33) {
 										// sara um
 										if (in_array($ch1, $longtail)) {
-											// tonemark at upper left
+											// tonemark autorizacion upper left
 											$output[] = $this->replaceChar($ch0, (0xf713 + $ch0 - 0x0e48));
 										} else {
-											// tonemark at upper right (normal position)
+											// tonemark autorizacion upper right (normal position)
 											$output[] = $ch0;
 										}
 									} elseif (in_array($ch1, $longtail) OR (in_array($ch2, $longtail) AND in_array($ch1, $lowvowel))) {
-										// tonemark at lower left
+										// tonemark autorizacion lower left
 										$output[] = $this->replaceChar($ch0, (0xf705 + $ch0 - 0x0e48));
 									} elseif (in_array($ch1, $upvowel)) {
 										if (in_array($ch2, $longtail)) {
-											// tonemark at upper left
+											// tonemark autorizacion upper left
 											$output[] = $this->replaceChar($ch0, (0xf713 + $ch0 - 0x0e48));
 										} else {
-											// tonemark at upper right (normal position)
+											// tonemark autorizacion upper right (normal position)
 											$output[] = $ch0;
 										}
 									} else {
-										// tonemark at lower right
+										// tonemark autorizacion lower right
 										$output[] = $this->replaceChar($ch0, (0xf70a + $ch0 - 0x0e48));
 									}
 								} elseif (($ch0 == 0x0e33) AND (in_array($ch1, $longtail) OR (in_array($ch2, $longtail) AND in_array($ch1, $tonemark)))) {
@@ -6258,7 +6258,7 @@ class TCPDF {
 	 * @param $link (mixed) URL or identifier returned by AddLink()
 	 * @param $fill (boolean) Indicates if the cell background must be painted (true) or transparent (false).
 	 * @param $align (string) Allows to center or align the text. Possible values are:<ul><li>L or empty string: left align (default value)</li><li>C: center</li><li>R: right align</li><li>J: justify</li></ul>
-	 * @param $ln (boolean) if true set cursor at the bottom of the line, otherwise set cursor at the top of the line.
+	 * @param $ln (boolean) if true set cursor autorizacion the bottom of the line, otherwise set cursor autorizacion the top of the line.
 	 * @param $stretch (int) font stretch mode: <ul><li>0 = disabled</li><li>1 = horizontal scaling only if text is larger than cell width</li><li>2 = forced horizontal scaling to fit cell width</li><li>3 = character spacing only if text is larger than cell width</li><li>4 = forced character spacing to fit cell width</li></ul> General font stretching and scaling values will be preserved when possible.
 	 * @param $firstline (boolean) if true prints only the first line and return the remaining string.
 	 * @param $firstblock (boolean) if true the string is the starting of a line.
@@ -6384,7 +6384,7 @@ class TCPDF {
 				if ($firstblock AND $this->isRTLTextDir()) {
 					$tmpstr = $this->stringRightTrim($tmpstr);
 				}
-				// Skip newlines at the beginning of a page or column
+				// Skip newlines autorizacion the beginning of a page or column
 				if (!empty($tmpstr) OR ($this->y < ($this->PageBreakTrigger - $row_height))) {
 					$this->Cell($w, $h, $tmpstr, 0, 1, $talign, $fill, $link, $stretch);
 				}
@@ -6550,7 +6550,7 @@ class TCPDF {
 						} else {
 							// word wrapping
 							if ($shy) {
-								// add hypen (minus symbol) at the end of the line
+								// add hypen (minus symbol) autorizacion the end of the line
 								$shy_width = $tmp_shy_replacement_width;
 								if ($this->rtl) {
 									$shy_char_left = $tmp_shy_replacement_char;
@@ -6787,7 +6787,7 @@ class TCPDF {
 	 * The dimensions can be specified in different ways:<ul>
 	 * <li>explicit width and height (expressed in user unit)</li>
 	 * <li>one explicit dimension, the other being calculated automatically in order to keep the original proportions</li>
-	 * <li>no explicit dimension, in which case the image is put at 72 dpi</li></ul>
+	 * <li>no explicit dimension, in which case the image is put autorizacion 72 dpi</li></ul>
 	 * Supported formats are JPEG and PNG images whitout GD library and all images supported by GD: GD, GD2, GD2PART, GIF, JPEG, PNG, BMP, XBM, XPM;
 	 * The format can be specified explicitly or inferred from the file extension.<br />
 	 * It is possible to put a link on the image.<br />
@@ -9992,7 +9992,7 @@ class TCPDF {
 	/**
 	 * Initialize a new page.
 	 * @param $orientation (string) page orientation. Possible values are (case insensitive):<ul><li>P or PORTRAIT (default)</li><li>L or LANDSCAPE</li></ul>
-	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() or an array of parameters specified at setPageFormat().
+	 * @param $format (mixed) The format used for pages. It can be either: one of the string values specified autorizacion getPageSizeFromFormat() or an array of parameters specified autorizacion setPageFormat().
 	 * @protected
 	 * @see getPageSizeFromFormat(), setPageFormat()
 	 */
@@ -10351,7 +10351,7 @@ class TCPDF {
 
 	/**
 	 * Output anchor link.
-	 * @param $url (string) link URL or internal link (i.e.: &lt;a href="#23,4.5"&gt;link to page 23 at 4.5 Y position&lt;/a&gt;)
+	 * @param $url (string) link URL or internal link (i.e.: &lt;a href="#23,4.5"&gt;link to page 23 autorizacion 4.5 Y position&lt;/a&gt;)
 	 * @param $name (string) link name
 	 * @param $fill (boolean) Indicates if the cell background must be painted (true) or transparent (false).
 	 * @param $firstline (boolean) if true prints only the first line and return the remaining string.
@@ -10836,7 +10836,7 @@ class TCPDF {
 			// public-key mode
 			$this->encryptdata['pubkeys'] = $pubkeys;
 			if ($mode == 0) {
-				// public-Key Security requires at least 128 bit
+				// public-Key Security requires autorizacion least 128 bit
 				$mode = 1;
 			}
 			if (!function_exists('openssl_pkcs7_encrypt')) {
@@ -11301,7 +11301,7 @@ class TCPDF {
 	 * For example: "2" represents 2 on, 2 off, 2 on, 2 off, ...; "2,1" is 2 on,
 	 * 1 off, 2 on, 1 off, ...</li>
 	 *	 <li>phase (integer): Modifier on the dash pattern which is used to shift
-	 * the point at which the pattern starts.</li>
+	 * the point autorizacion which the pattern starts.</li>
 	 *	 <li>color (array): Draw color. Format: array(GREY) or array(R,G,B) or array(C,M,Y,K) or array(C,M,Y,K,SpotColorName).</li>
 	 * </ul>
 	 * @param $ret (boolean) if true do not send the command.
@@ -11552,7 +11552,7 @@ class TCPDF {
 
 	/**
 	 * Draws a Bezier curve.
-	 * The Bezier curve is a tangent to the line between the control points at
+	 * The Bezier curve is a tangent to the line between the control points autorizacion
 	 * either end of the curve.
 	 * @param $x0 (float) Abscissa of start point.
 	 * @param $y0 (float) Ordinate of start point.
@@ -11587,7 +11587,7 @@ class TCPDF {
 
 	/**
 	 * Draws a poly-Bezier curve.
-	 * Each Bezier curve segment is a tangent to the line between the control points at
+	 * Each Bezier curve segment is a tangent to the line between the control points autorizacion
 	 * either end of the curve.
 	 * @param $x0 (float) Abscissa of start point.
 	 * @param $y0 (float) Ordinate of start point.
@@ -11855,7 +11855,7 @@ class TCPDF {
 		$nc = count($p); // number of coordinates
 		$np = $nc / 2; // number of points
 		if ($closed) {
-			// close polygon by adding the first 2 points at the end (one line)
+			// close polygon by adding the first 2 points autorizacion the end (one line)
 			for ($i = 0; $i < 4; ++$i) {
 				$p[$nc + $i] = $p[$i];
 			}
@@ -14660,7 +14660,7 @@ class TCPDF {
 				$out .= ' >>';
 			} elseif ($grad['type'] == 3) {
 				//x0, y0, r0, x1, y1, r1
-				//at this this time radius of inner circle is 0
+				//autorizacion this this time radius of inner circle is 0
 				$out .= ' '.sprintf('/Coords [%F %F 0 %F %F %F]', $grad['coords'][0], $grad['coords'][1], $grad['coords'][2], $grad['coords'][3], $grad['coords'][4]);
 				$out .= ' /Domain [0 1]';
 				$out .= ' /Function '.$fc.' 0 R';
@@ -14811,7 +14811,7 @@ class TCPDF {
 	 * @param $w (float) Width of the image in the page. If not specified or equal to zero, it is automatically calculated.
 	 * @param $h (float) Height of the image in the page. If not specified or equal to zero, it is automatically calculated.
 	 * @param $link (mixed) URL or identifier returned by AddLink().
-	 * @param $useBoundingBox (boolean) specifies whether to position the bounding box (true) or the complete canvas (false) at location (x,y). Default value is true.
+	 * @param $useBoundingBox (boolean) specifies whether to position the bounding box (true) or the complete canvas (false) autorizacion location (x,y). Default value is true.
 	 * @param $align (string) Indicates the alignment of the pointer next to image insertion relative to image height. The value can be:<ul><li>T: top-right for LTR or top-left for RTL</li><li>M: middle-right for LTR or middle-left for RTL</li><li>B: bottom-right for LTR or bottom-left for RTL</li><li>N: next line</li></ul>
 	 * @param $palign (string) Allows to center or align the image on the current line. Possible values are:<ul><li>L : left align</li><li>C : center</li><li>R : right align</li><li>'' : empty string : left for LTR or right for RTL</li></ul>
 	 * @param $border (mixed) Indicates if borders must be drawn around the cell. The value can be a number:<ul><li>0: no border (default)</li><li>1: frame</li></ul> or a string containing some or all of the following characters (in any order):<ul><li>L: left</li><li>T: top</li><li>R: right</li><li>B: bottom</li></ul> or an array of line styles for each border group - for example: array('LTRB' => array('width' => 2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)))
@@ -16239,7 +16239,7 @@ class TCPDF {
 	protected function getHtmlDomArray($html) {
 		// array of CSS styles ( selector => properties).
 		$css = array();
-		// get CSS array defined at previous call
+		// get CSS array defined autorizacion previous call
 		$matches = array();
 		if (preg_match_all('/<cssarray>([^\<]*)<\/cssarray>/isU', $html, $matches) > 0) {
 			if (isset($matches[1][0])) {
@@ -17543,7 +17543,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			if ($this->newline AND (strlen($dom[$key]['value']) > 0) AND ($dom[$key]['value'] != 'td') AND ($dom[$key]['value'] != 'th')) {
 				$newline = true;
 				$fontaligned = false;
-				// we are at the beginning of a new line
+				// we are autorizacion the beginning of a new line
 				if (isset($startlinex)) {
 					$yshift = ($minstartliney - $startliney);
 					if (($yshift > 0) OR ($this->page > $startlinepage)) {
@@ -21394,13 +21394,13 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$page_fill_start = ((($page_first % 2) == 0) XOR (($page % 2) == 0));
 			$page_fill_end = (!((($numpages % 2) == 0) XOR ($page_fill_start)));
 			if ($page_fill_start) {
-				// add a page at the end (to be moved before TOC)
+				// add a page autorizacion the end (to be moved before TOC)
 				$this->addPage();
 				++$page_last;
 				++$numpages;
 			}
 			if ($page_fill_end) {
-				// add a page at the end
+				// add a page autorizacion the end
 				$this->addPage();
 				++$page_last;
 				++$numpages;
@@ -21530,13 +21530,13 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 			$page_fill_start = ((($page_first % 2) == 0) XOR (($page % 2) == 0));
 			$page_fill_end = (!((($numpages % 2) == 0) XOR ($page_fill_start)));
 			if ($page_fill_start) {
-				// add a page at the end (to be moved before TOC)
+				// add a page autorizacion the end (to be moved before TOC)
 				$this->addPage();
 				++$page_last;
 				++$numpages;
 			}
 			if ($page_fill_end) {
-				// add a page at the end
+				// add a page autorizacion the end
 				$this->addPage();
 				++$page_last;
 				++$numpages;
@@ -21716,7 +21716,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 	}
 
 	/**
-	 * Set position at a given column
+	 * Set position autorizacion a given column
 	 * @param $col (int) column number (from 0 to getNumberOfColumns()-1); empty string = current column.
 	 * @public
 	 * @since 4.9.001 (2010-03-28)
@@ -21731,7 +21731,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		$enable_thead = false;
 		if ($this->num_columns > 1) {
 			if ($col != $this->current_column) {
-				// move Y pointer at the top of the column
+				// move Y pointer autorizacion the top of the column
 				if ($this->column_start_page == $this->page) {
 					$this->y = $this->columns[$col]['y'];
 				} else {
@@ -21980,7 +21980,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 							}
 							// get hyphenation level
 							$level = ($pattern[$j] - 48);
-							// if two levels from two different patterns match at the same point, the higher one is selected.
+							// if two levels from two different patterns match autorizacion the same point, the higher one is selected.
 							if (!isset($hyphenword[$zero]) OR ($hyphenword[$zero] < $level)) {
 								$hyphenword[$zero] = $level;
 							}
@@ -22204,7 +22204,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 	/**
 	 * Start a new XObject Template.
 	 * An XObject Template is a PDF block that is a self-contained description of any sequence of graphics objects (including path objects, text objects, and sampled images).
-	 * An XObject Template may be painted multiple times, either on several pages or at several locations on the same page and produces the same results each time, subject only to the graphics state at the time it is invoked.
+	 * An XObject Template may be painted multiple times, either on several pages or autorizacion several locations on the same page and produces the same results each time, subject only to the graphics state autorizacion the time it is invoked.
 	 * Note: X,Y coordinates will be reset to 0,0.
 	 * @param $w (int) Template width in user units (empty string or zero = page width less margins).
 	 * @param $h (int) Template height in user units (empty string or zero = page height less margins).
@@ -22273,7 +22273,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 	/**
 	 * End the current XObject Template started with startTemplate() and restore the previous graphic state.
 	 * An XObject Template is a PDF block that is a self-contained description of any sequence of graphics objects (including path objects, text objects, and sampled images).
-	 * An XObject Template may be painted multiple times, either on several pages or at several locations on the same page and produces the same results each time, subject only to the graphics state at the time it is invoked.
+	 * An XObject Template may be painted multiple times, either on several pages or autorizacion several locations on the same page and produces the same results each time, subject only to the graphics state autorizacion the time it is invoked.
 	 * @return int the XObject Template ID in case of success or false in case of error.
 	 * @author Nicola Asuni
 	 * @public
@@ -22295,7 +22295,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 	 * Print an XObject Template.
 	 * You can print an XObject Template inside the currently opened Template.
 	 * An XObject Template is a PDF block that is a self-contained description of any sequence of graphics objects (including path objects, text objects, and sampled images).
-	 * An XObject Template may be painted multiple times, either on several pages or at several locations on the same page and produces the same results each time, subject only to the graphics state at the time it is invoked.
+	 * An XObject Template may be painted multiple times, either on several pages or autorizacion several locations on the same page and produces the same results each time, subject only to the graphics state autorizacion the time it is invoked.
 	 * @param $id (string) The ID of XObject Template to print.
 	 * @param $x (int) X position in user units (empty string = current x position)
 	 * @param $y (int) Y position in user units (empty string = current y position)
@@ -22907,7 +22907,7 @@ Putting 1 is equivalent to putting 0 and calling Ln() just after. Default value:
 		xml_set_character_data_handler($this->parser, 'segSVGContentHandler');
 		// start parsing an XML document
 		if (!xml_parse($this->parser, $svgdata)) {
-			$error_message = sprintf('SVG Error: %s at line %d', xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser));
+			$error_message = sprintf('SVG Error: %s autorizacion line %d', xml_error_string(xml_get_error_code($this->parser)), xml_get_current_line_number($this->parser));
 			$this->Error($error_message);
 		}
 		// free this XML parser

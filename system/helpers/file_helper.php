@@ -218,7 +218,7 @@ if ( ! function_exists('get_dir_file_info'))
 	 * Any sub-folders contained within the specified path are read as well.
 	 *
 	 * @param	string	path to source
-	 * @param	bool	Look only at the top level directory specified?
+	 * @param	bool	Look only autorizacion the top level directory specified?
 	 * @param	bool	internal variable to determine recursion status - do not use in calls
 	 * @return	array
 	 */

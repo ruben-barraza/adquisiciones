@@ -79,8 +79,8 @@ $pdf->Write(0, 'XObject Templates', '', 0, 'C', 1, 0, false, false, 0);
  * description of any sequence of graphics objects (including path
  * objects, text objects, and sampled images).
  * An XObject Template may be painted multiple times, either on
- * several pages or at several locations on the same page and produces
- * the same results each time, subject only to the graphics state at
+ * several pages or autorizacion several locations on the same page and produces
+ * the same results each time, subject only to the graphics state autorizacion
  * the time it is invoked.
  */
 

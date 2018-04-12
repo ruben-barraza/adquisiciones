@@ -113,6 +113,18 @@ class Im_general extends CI_Controller
         if ($num_cotizaciones > 1){
             $pmc = $this->calcularPMC($output, $num_cotizaciones, $idPog);
             $data['pmc'] = $pmc;
+        } else {
+            $this->Imgeneralmodel->clear_pmc($idPog);
+
+            //Arreglo que contiene los pmc al cargar la página inicialmente
+            $pmc = $this->Imgeneralmodel->get_pmc_array($idPog);
+
+            $array_pmc = array();
+            foreach ($pmc as $partida){
+                array_push($array_pmc, $partida["pmc"]);
+            }
+
+            $data['pmc'] = $array_pmc;
         }
         echo json_encode($data);
     }
@@ -449,92 +461,56 @@ class Im_general extends CI_Controller
      */
     function edit($id)
     {
+
         // check if the im_general exists before trying to edit it
         $data['im_general'] = $this->Imgeneralmodel->get_im_general($id);
         $pog_id = $this->Imgeneralmodel->get_pog_id($id);
 
         if (isset($data['im_general']['id'])) {
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('titulo', 'Titulo', 'max_length[255]|required');
-            $this->form_validation->set_rules('empleadoFormula', 'empleadoFormula', 'required');
-            $this->form_validation->set_rules('empleadoAutoriza', 'empleadoAutoriza', 'required');
-
-            if ($this->form_validation->run()) {
-                /*
-                $params = array(
-                    'titulo' => $this->input->post('titulo'),
-                    'idEmpleadoFormula' => $this->input->post('empleadoFormula'),
-                    'idEmpleadoAutoriza' => $this->input->post('empleadoAutoriza'),
-                );
-
-                $this->Imgeneralmodel->update_im_general($id, $params);
-                redirect('im_general/index');
-                */
-            } else {
-
-                $data['empleadoAutoriza'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
-                $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
-                $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
-                $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
-
-                $arr = $this->Imgeneralmodel->get_pmc_data($id);
-                $data['arr'] = $arr;
 
 
-                $arr_cpp = $this->Imgeneralmodel->get_pmc_cpp_data($id);
-                $data['arr_cpp'] = $arr_cpp;
+
+                $this->load->library('form_validation');
+
+                $this->form_validation->set_rules('titulo', 'Titulo', 'max_length[255]|required');
+                $this->form_validation->set_rules('empleadoFormula', 'empleadoFormula', 'required');
+                $this->form_validation->set_rules('empleadoAutoriza', 'empleadoAutoriza', 'required');
 
 
-                /*
-                $output = array();
+                if ($this->form_validation->run()) {
 
-                foreach($arr as $item){
-                    if(in_array($item['partida'], array_column($output, 'partida'))){
-                        // add store to already existing item
-                        $key = array_search($item['partida'], array_column($arr, 'partida'));
-                        $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['importeIM']);
-                    }else{
-                        // add new item with store
-                        $tmp = array(
-                            'partida' => $item['partida'],
-                            'idProveedor_' . $item['idProveedor'] => floatval($item['importeIM']),
-                        );
-                        $output[] = $tmp;
+
+                } else {
+
+                    $data['empleadoAutoriza'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
+                    $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
+                    $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
+                    $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
+
+
+                    //Arreglo que contiene los pmc al cargar la página inicialmente
+                    $pmc_inicial = $this->Imgeneralmodel->get_pmc_array($pog_id);
+
+                    $array_pmc_inicial = array();
+                    foreach ($pmc_inicial as $partida){
+                        array_push($array_pmc_inicial, $partida["pmc"]);
                     }
-                }
 
-                //Quito la llave "partida" del arreglo
-                foreach(array_keys($output) as $key) {
-                    unset($output[$key]['partida']);
-                }
+                    $data['pmc_inicial'] = $array_pmc_inicial;
 
-                //Copia para ver el debug en edit var
-                $output2 = $output;
-                */
+                    $arr = $this->Imgeneralmodel->get_pmc_data($id);
 
-                $output = $this->formatPmcArray($arr);
-                $output2 = $output;
+                    $output = $this->formatPmcArray($arr);
 
-                $num_cotizaciones = $this->calcularCotizaciones($output);
-                $arr_cpp = $this->calcularCPP($output);
+                    $arr_cpp = $this->calcularCPP($output);
 
-                $data['num_cotizaciones'] = $num_cotizaciones;
-                $data['arr_cpp'] = $arr_cpp;
-
-                $data['newOutput'] = $output;
-
-                if ($num_cotizaciones > 1){
-                    $pmc = $this->calcularPMC($output, $num_cotizaciones, $pog_id);
-                    $data['pmc'] = $pmc;
-                }
-
-                $data['output2'] = $output2;
+                    $data['arr_cpp'] = $arr_cpp;
 
 
-                //Tipo de cambio
-                $tipo_cambio = $this->get_TipoDeCambioPesoDolar();
-                $data['tipo_cambio'] = $tipo_cambio;
+
+                    //Tipo de cambio
+                    $tipo_cambio = $this->get_TipoDeCambioPesoDolar();
+                    $data['tipo_cambio'] = $tipo_cambio;
 
 
                 $data['_view'] = 'im_general/edit';
@@ -542,6 +518,8 @@ class Im_general extends CI_Controller
             }
         } else
             show_error('The im_general you are trying to edit does not exist.');
+
+
     }
 
     /*

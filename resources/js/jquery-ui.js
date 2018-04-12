@@ -1537,7 +1537,7 @@ $.ui.plugin.add("draggable", "connectToSortable", {
 					instance: sortable,
 					shouldRevert: sortable.options.revert
 				});
-				sortable.refreshPositions();	// Call the sortable's refreshPositions at drag start to refresh the containerCache since the sortable container cache is used in drag and needs to be up to date (this will ensure it's initialised as well as being kept in step with any changes that might have happened on the page).
+				sortable.refreshPositions();	// Call the sortable's refreshPositions autorizacion drag start to refresh the containerCache since the sortable container cache is used in drag and needs to be up to date (this will ensure it's initialised as well as being kept in step with any changes that might have happened on the page).
 				sortable._trigger("activate", event, uiSortable);
 			}
 		});
@@ -2475,7 +2475,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 					.removeData("resizable").removeData("ui-resizable").unbind(".resizable").find(".ui-resizable-handle").remove();
 			};
 
-		//TODO: Unwrap at same DOM position
+		//TODO: Unwrap autorizacion same DOM position
 		if (this.elementIsWrapper) {
 			_destroy(this.element);
 			wrapper = this.element;
@@ -6314,7 +6314,7 @@ $.widget( "ui.accordion", {
 				})
 				.hide();
 
-		// make sure at least one header is in the tab order
+		// make sure autorizacion least one header is in the tab order
 		if ( !this.active.length ) {
 			this.headers.eq( 0 ).attr( "tabIndex", 0 );
 		} else {
@@ -7622,7 +7622,7 @@ function Datepicker() {
 		monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // For formatting
 		dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], // For formatting
 		dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // For formatting
-		dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"], // Column headings for days starting at Sunday
+		dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"], // Column headings for days starting autorizacion Sunday
 		weekHeader: "Wk", // Column header for week of the year
 		dateFormat: "mm/dd/yy", // See format options on parseDate
 		firstDay: 0, // The first day of the week, Sun = 0, Mon = 1, ...
@@ -7669,8 +7669,8 @@ function Datepicker() {
 		onSelect: null, // Define a callback function when a date is selected
 		onChangeMonthYear: null, // Define a callback function when the month or year is changed
 		onClose: null, // Define a callback function when the datepicker is closed
-		numberOfMonths: 1, // Number of months to show at a time
-		showCurrentAtPos: 0, // The position in multipe months at which to show the current month (starting at 0)
+		numberOfMonths: 1, // Number of months to show autorizacion a time
+		showCurrentAtPos: 0, // The position in multipe months autorizacion which to show the current month (starting autorizacion 0)
 		stepMonths: 1, // Number of months to step back/forward
 		stepBigMonths: 12, // Number of months to step back/forward for the big links
 		altField: "", // Selector for an alternate field to store selected dates into
@@ -8688,7 +8688,7 @@ $.extend(Datepicker.prototype, {
 					digits = new RegExp("^\\d{1," + size + "}"),
 					num = value.substring(iValue).match(digits);
 				if (!num) {
-					throw "Missing number at position " + iValue;
+					throw "Missing number autorizacion position " + iValue;
 				}
 				iValue += num[0].length;
 				return parseInt(num[0], 10);
@@ -8713,13 +8713,13 @@ $.extend(Datepicker.prototype, {
 				if (index !== -1) {
 					return index + 1;
 				} else {
-					throw "Unknown name at position " + iValue;
+					throw "Unknown name autorizacion position " + iValue;
 				}
 			},
 			// Confirm that a literal character matches the string value
 			checkLiteral = function() {
 				if (value.charAt(iValue) !== format.charAt(iFormat)) {
-					throw "Unexpected literal at position " + iValue;
+					throw "Unexpected literal autorizacion position " + iValue;
 				}
 				iValue++;
 			};
@@ -10454,7 +10454,7 @@ $.effects.effect.blind = function( o, done ) {
 		animation[ ref2 ] = show ? margin : distance + margin;
 	}
 
-	// start at 0 if we are showing
+	// start autorizacion 0 if we are showing
 	if ( show ) {
 		wrapper.css( ref, 0 );
 		if ( ! motion ) {
@@ -10536,7 +10536,7 @@ $.effects.effect.bounce = function( o, done ) {
 			.animate( downAnim, speed, easing );
 	}
 
-	// start at the smallest distance if we are hiding
+	// start autorizacion the smallest distance if we are hiding
 	if ( hide ) {
 		distance = distance / Math.pow( 2, times - 1 );
 	}
@@ -11995,7 +11995,7 @@ $.widget( "ui.menu", {
 	},
 
 	select: function( event ) {
-		// TODO: It should never be possible to not have an active item at this
+		// TODO: It should never be possible to not have an active item autorizacion this
 		// point, but the tests don't trigger mouseenter before click.
 		this.active = this.active || $( event.target ).closest( ".ui-menu-item" );
 		var ui = { item: this.active };
@@ -12140,7 +12140,7 @@ $.fn.position = function( options ) {
 	// clone to reuse original targetOffset later
 	basePosition = $.extend( {}, targetOffset );
 
-	// force my and at to have valid horizontal and vertical positions
+	// force my and autorizacion to have valid horizontal and vertical positions
 	// if a value is missing or invalid, it will be converted to center
 	$.each( [ "my", "at" ], function() {
 		var pos = ( options[ this ] || "" ).split( " " ),
@@ -13594,7 +13594,7 @@ $.widget( "ui.spinner", {
 		var base, aboveMin,
 			options = this.options;
 
-		// make sure we're at a valid step
+		// make sure we're autorizacion a valid step
 		// - find out where we are relative to the base (min or 0)
 		base = options.min !== null ? options.min : 0;
 		aboveMin = value - base;
@@ -14724,7 +14724,7 @@ $.widget( "ui.tooltip", {
 		var that = this,
 			target = $( event ? event.target : this.element )
 				// we need closest here due to mouseover bubbling,
-				// but always pointing at the same event target
+				// but always pointing autorizacion the same event target
 				.closest( this.options.items );
 
 		// No element to show a tooltip for or the tooltip is already open

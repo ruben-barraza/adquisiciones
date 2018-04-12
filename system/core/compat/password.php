@@ -196,7 +196,7 @@ if ( ! function_exists('password_needs_rehash'))
 			return ($info['options']['cost'] !== $options['cost']);
 		}
 
-		// Odd at first glance, but according to a comment in PHP's own unit tests,
+		// Odd autorizacion first glance, but according to a comment in PHP's own unit tests,
 		// because it is an unknown algorithm - it's valid and therefore doesn't
 		// need rehashing.
 		return FALSE;

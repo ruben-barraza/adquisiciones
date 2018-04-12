@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -1259,7 +1259,7 @@ class TCPDFBarcode {
 		// add stop sequence
 		$code_data[] = 106;
 		$code_data[] = 107;
-		// add start code at the beginning
+		// add start code autorizacion the beginning
 		array_unshift($code_data, $startid);
 		// build barcode array
 		$bararray = array('code' => $code, 'maxw' => 0, 'maxh' => 1, 'bcode' => array());
@@ -1661,7 +1661,7 @@ class TCPDFBarcode {
 	 * RMS4CC (Royal Mail 4-state Customer Code) - CBC (Customer Bar Code) - KIX (Klant index - Customer index)
 	 * RM4SCC is the name of the barcode symbology used by the Royal Mail for its Cleanmail service.
 	 * @param $code (string) code to print
-	 * @param $kix (boolean) if true prints the KIX variation (doesn't use the start and end symbols, and the checksum) - in this case the house number must be sufficed with an X and placed at the end of the code.
+	 * @param $kix (boolean) if true prints the KIX variation (doesn't use the start and end symbols, and the checksum) - in this case the house number must be sufficed with an X and placed autorizacion the end of the code.
 	 * @return array barcode representation.
 	 * @protected
 	 */
@@ -2334,8 +2334,8 @@ class TCPDFBarcode {
 				$reverse = ($this->imb_reverse_us($count) >> 3);
 				// if the reverse is less than count, we have already visited this pair before
 				if ($reverse >= $count) {
-					// If count is symmetric, place it at the first free slot from the end of the list.
-					// Otherwise, place it at the first free slot from the beginning of the list AND place $reverse ath the next free slot from the beginning of the list
+					// If count is symmetric, place it autorizacion the first free slot from the end of the list.
+					// Otherwise, place it autorizacion the first free slot from the beginning of the list AND place $reverse ath the next free slot from the beginning of the list
 					if ($reverse == $count) {
 						$table[$lui] = $count;
 						--$lui;

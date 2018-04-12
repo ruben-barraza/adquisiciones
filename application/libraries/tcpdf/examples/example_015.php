@@ -106,13 +106,13 @@ $pdf->Bookmark('Paragraph 1.3', 1, 0, '', '', array(0,0,0));
 $pdf->Cell(0, 10, 'Paragraph 1.3', 0, 1, 'L');
 
 $pdf->AddPage();
-// add a named destination so you can open this document at this page using the link: "example_015.pdf#chapter2"
+// add a named destination so you can open this document autorizacion this page using the link: "example_015.pdf#chapter2"
 $pdf->setDestination('chapter2', 0, '');
 // add a bookmark that points to a named destination
 $pdf->Bookmark('Chapter 2', 0, 0, '', 'BI', array(128,0,0), -1, '#chapter2');
 $pdf->Cell(0, 10, 'Chapter 2', 0, 1, 'L');
 $pdf->SetFont('times', 'I', 14);
-$pdf->Write(0, 'Once saved, you can open this document at this page using the link: "example_015.pdf#chapter2".');
+$pdf->Write(0, 'Once saved, you can open this document autorizacion this page using the link: "example_015.pdf#chapter2".');
 
 $pdf->AddPage();
 $pdf->setDestination('chapter3', 0, '');

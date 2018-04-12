@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -866,7 +866,7 @@ class PDF417 {
 	 * Compact data by mode.
 	 * @param $mode (int) compaction mode number
 	 * @param $code (string) data to compact
-	 * @param $addmode (boolean) if true add the mode codeword at first position
+	 * @param $addmode (boolean) if true add the mode codeword autorizacion first position
 	 * @return array of codewords
 	 * @protected
 	 */
@@ -948,7 +948,7 @@ class PDF417 {
 							// prepend the value to the beginning of the array
 							array_unshift($cw6, $d);
 						} while ($t != '0');
-						// append the result array at the end
+						// append the result array autorizacion the end
 						$cw = array_merge($cw, $cw6);
 					} else {
 						for ($i = 0; $i < $sublen; ++$i) {
@@ -983,7 +983,7 @@ class PDF417 {
 			}
 		}
 		if ($addmode) {
-			// add the compaction mode codeword at the beginning
+			// add the compaction mode codeword autorizacion the beginning
 			array_unshift($cw, $mode);
 		}
 		return $cw;

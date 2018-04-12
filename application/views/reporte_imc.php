@@ -19,7 +19,7 @@ class MYPDF extends TCPDF {
         $mes = strftime("%B", strtotime($fechaElaboracion));
         $year = strftime("%Y", strtotime($fechaElaboracion));
 
-        $image_file = K_PATH_IMAGES.'logo4.gif';
+        $image_file = K_PATH_IMAGES.'logo3.gif';
         if (!$image_file)
         {
             $image= imagecreatefromstring(file_get_contents($image_file));
@@ -50,7 +50,7 @@ class MYPDF extends TCPDF {
 
     // Page footer
     public function Footer() {
-        // Position at 15 mm from bottom
+        // Position autorizacion 15 mm from bottom
         $this->SetY(-15);
         // Set font
         $this->SetFont('helvetica', 'I', 8);
@@ -85,8 +85,7 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
 // set auto page breaks
 //$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-$pdf->SetAutoPageBreak(TRUE);
-
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 // set image scale factor
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -114,14 +113,14 @@ for($i = 0; $i < $num_pags; $i++){
         <table border="1" cellspacing="0" cellpadding="3">
             <thead>
                 <tr style="background-color:#D3D3D3;" nobr="true">
-                    <th align="center" valign="middle" width="34"><b> Partida</b></th>
-                    <th align="center" valign="middle" width="40"><b> Código</b></th>
-                    <th align="center" valign="middle" width="100"><b> Descripción</b></th>
-                    <th align="center" valign="middle" width="40"><b> CANT</b></th>
-                    <th align="center" valign="middle" width="20"><b> UM</b></th>
-                    <th align="center" valign="middle" width="80"><b> Familia</b></th>'.$arr_th[$i].'
-                    <th align="center" valign="middle" width="88"><b> PMC</b></th>
-                    <th align="center" valign="middle" width="88"><b> IMPORTE</b></th>
+                    <th align="center" valign="middle" width="40"><b><br/> Partida</b></th>
+                    <th align="center" valign="middle" width="42"><b><br/> Código</b></th>
+                    <th align="center" valign="middle" width="'.$arr_width[$i]['descripcion'].'"><b><br/> Descripción</b></th>
+                    <th align="center" valign="middle" width="40"><b><br/> CANT</b></th>
+                    <th align="center" valign="middle" width="25"><b><br/> UM</b></th>
+                    <th align="center" valign="middle" width="'.$arr_width[$i]['familia'].'"><b><br/> Familia</b></th>'.$arr_th[$i].'
+                    <th align="center" valign="middle" width="88"><b><br/> PMC</b></th>
+                    <th align="center" valign="middle" width="88"><b><br/> IMPORTE</b></th>
                 </tr>
             </thead>
             <tbody>';
@@ -133,12 +132,12 @@ for($i = 0; $i < $num_pags; $i++){
         $importe = $imc_data[$j]['pmc'] * $imc_data[$j]['cantidad'];
 
         $html .= '<tr nobr="true">';
-        $html .= '<td align="center" width="34">'.$imc_data[$j]['partida'].'</td>';
-        $html .= '<td align="center" width="40">'.$imc_data[$j]['codigo'].'</td>';
-        $html .= '<td align="center" width="100">'.$imc_data[$j]['descripcion'].'</td>';
+        $html .= '<td align="center" width="40">'.$imc_data[$j]['partida'].'</td>';
+        $html .= '<td align="center" width="42">'.$imc_data[$j]['codigo'].'</td>';
+        $html .= '<td align="center" width="'.$arr_width[$i]['descripcion'].'">'.$imc_data[$j]['descripcion'].'</td>';
         $html .= '<td align="center" width="40">'.$imc_data[$j]['cantidad'].'</td>';
-        $html .= '<td align="center" width="20">'.$imc_data[$j]['clave'].'</td>';
-        $html .= '<td align="center" width="80">'.$imc_data[$j]['familia'].'</td>' . $arr_td[$i][$j];
+        $html .= '<td align="center" width="25">'.$imc_data[$j]['clave'].'</td>';
+        $html .= '<td align="center" width="'.$arr_width[$i]['familia'].'">'.$imc_data[$j]['familia'].'</td>' . $arr_td[$i][$j];
         $html .= '<td align="right" width="88"> $ '.number_format($imc_data[$j]['pmc'], '2', '.', ',').'</td>';
         $html .= '<td align="right" width="88"> $ '.number_format($importe, '2', '.', ',').'</td>';
         $html .= '</tr>';
@@ -147,7 +146,7 @@ for($i = 0; $i < $num_pags; $i++){
     $html .= '</table>';
 
     // set core font
-    $pdf->SetFont('helvetica', '', 6);
+    $pdf->SetFont('helvetica', '', 7);
 
     // output the HTML content
     $pdf->writeHTML($html,  true, false, false, false, '');

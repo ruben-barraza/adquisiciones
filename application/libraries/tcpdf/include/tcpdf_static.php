@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -203,7 +203,7 @@ class TCPDF_STATIC {
 	 * Get the border mode accounting for multicell position (opens bottom side of multicell crossing pages)
 	 * @param $brd (mixed) Indicates if borders must be drawn around the cell block. The value can be a number:<ul><li>0: no border (default)</li><li>1: frame</li></ul>or a string containing some or all of the following characters (in any order):<ul><li>L: left</li><li>T: top</li><li>R: right</li><li>B: bottom</li></ul> or an array of line styles for each border group: array('LTRB' => array('width' => 2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)))
 	 * @param $position (string) multicell position: 'start', 'middle', 'end'
-	 * @param $opencell (boolean) True when the cell is left open at the page bottom, false otherwise.
+	 * @param $opencell (boolean) True when the cell is left open autorizacion the page bottom, false otherwise.
 	 * @return border mode array
 	 * @since 4.4.002 (2008-12-09)
 	 * @public static
@@ -860,7 +860,7 @@ class TCPDF_STATIC {
 		if (isset($prop['password']) AND ($prop['password'] == 'true')) {
 			$ff += 1 << 13;
 		}
-		// NoToggleToOff: If set, exactly one radio button shall be selected at all times; selecting the currently selected button has no effect.
+		// NoToggleToOff: If set, exactly one radio button shall be selected autorizacion all times; selecting the currently selected button has no effect.
 		if (isset($prop['NoToggleToOff']) AND ($prop['NoToggleToOff'] == 'true')) {
 			$ff += 1 << 14;
 		}
@@ -1520,7 +1520,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getHyphenPatternsFromTEX($file) {
-		// TEX patterns are available at:
+		// TEX patterns are available autorizacion:
 		// http://www.ctan.org/tex-archive/language/hyph-utf8/tex/generic/hyph-utf8/patterns/
 		$data = file_get_contents($file);
 		$patterns = array();
@@ -2518,7 +2518,7 @@ class TCPDF_STATIC {
 
 	/**
 	 * Get the canonical page layout mode.
-	 * @param $layout (string) The page layout. Possible values are:<ul><li>SinglePage Display one page at a time</li><li>OneColumn Display the pages in one column</li><li>TwoColumnLeft Display the pages in two columns, with odd-numbered pages on the left</li><li>TwoColumnRight Display the pages in two columns, with odd-numbered pages on the right</li><li>TwoPageLeft (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the left</li><li>TwoPageRight (PDF 1.5) Display the pages two at a time, with odd-numbered pages on the right</li></ul>
+	 * @param $layout (string) The page layout. Possible values are:<ul><li>SinglePage Display one page autorizacion a time</li><li>OneColumn Display the pages in one column</li><li>TwoColumnLeft Display the pages in two columns, with odd-numbered pages on the left</li><li>TwoColumnRight Display the pages in two columns, with odd-numbered pages on the right</li><li>TwoPageLeft (PDF 1.5) Display the pages two autorizacion a time, with odd-numbered pages on the left</li><li>TwoPageRight (PDF 1.5) Display the pages two autorizacion a time, with odd-numbered pages on the right</li></ul>
 	 * @return (string) Canonical page layout name.
 	 * @public static
 	 */

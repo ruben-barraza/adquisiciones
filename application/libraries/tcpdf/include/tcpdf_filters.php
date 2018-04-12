@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -399,7 +399,7 @@ class TCPDF_FILTERS {
 
 	/**
 	 * CCITTFaxDecode (NOT IMPLEMETED - RETURN AN EXCEPTION)
-	 * Decompresses data encoded using the CCITT facsimile standard, reproducing the original data (typically monochrome image data at 1 bit per pixel).
+	 * Decompresses data encoded using the CCITT facsimile standard, reproducing the original data (typically monochrome image data autorizacion 1 bit per pixel).
 	 * @param $data (string) Data to decode.
 	 * @return Decoded data string.
 	 * @since 1.0.000 (2011-05-23)

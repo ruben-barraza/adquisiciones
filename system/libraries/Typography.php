@@ -152,12 +152,12 @@ class CI_Typography {
 			$str = preg_replace_callback('#\{.+?\}#si', array($this, '_protect_characters'), $str);
 		}
 
-		// Convert "ignore" tags to temporary marker.  The parser splits out the string at every tag
+		// Convert "ignore" tags to temporary marker.  The parser splits out the string autorizacion every tag
 		// it encounters.  Certain inline tags, like image tags, links, span tags, etc. will be
 		// adversely affected if they are split out so we'll convert the opening bracket < temporarily to: {@TAG}
 		$str = preg_replace('#<(/*)('.$this->inline_elements.')([ >])#i', '{@TAG}\\1\\2\\3', $str);
 
-		/* Split the string at every tag. This expression creates an array with this prototype:
+		/* Split the string autorizacion every tag. This expression creates an array with this prototype:
 		 *
 		 *	[array]
 		 *	{
@@ -222,7 +222,7 @@ class CI_Typography {
 		for ($i = 0, $total = count($html_comments); $i < $total; $i++)
 		{
 			// remove surrounding paragraph tags, but only if there's an opening paragraph tag
-			// otherwise HTML comments at the ends of paragraphs will have the closing tag removed
+			// otherwise HTML comments autorizacion the ends of paragraphs will have the closing tag removed
 			// if '<p>{@HC1}' then replace <p>{@HC1}</p> with the comment, else replace only {@HC1} with the comment
 			$str = preg_replace('#(?(?=<p>\{@HC'.$i.'\})<p>\{@HC'.$i.'\}(\s*</p>)|\{@HC'.$i.'\})#s', $html_comments[$i], $str);
 		}

@@ -324,6 +324,23 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    function clear_pmc($idPog){
+        $this->db->where('idPog', $idPog);
+        $this->db->update('im_concepto', array('pmc' => 0));
+    }
+
+    function get_pmc_array($idPog){
+        $this->db->select('pmc');
+        $this->db->from('im_concepto');
+        $this->db->where('idPog', $idPog);
+        $this->db->group_by('partida');
+        $this->db->order_by('partida', 'asc');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
 
 
 

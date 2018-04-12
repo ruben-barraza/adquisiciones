@@ -61,7 +61,7 @@ class MYPDF extends TCPDF {
     public function Footer() {
         if($GLOBALS['pageOrientation'] == "L")
         {
-            // Position at 15 mm from bottom
+            // Position autorizacion 15 mm from bottom
             $this->SetY(-15);
             // Set font
             $this->SetFont('helvetica', 'I', 8);
@@ -74,7 +74,7 @@ class MYPDF extends TCPDF {
         }
         else
         {
-            // Position at 15 mm from bottom
+            // Position autorizacion 15 mm from bottom
             $this->SetY(-15);
             // Set font
             $this->SetFont('helvetica', 'I', 8);

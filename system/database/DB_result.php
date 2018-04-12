@@ -618,7 +618,7 @@ class CI_DB_result {
 	 *
 	 * Moves the internal pointer to the desired offset. We call
 	 * this internally before fetching results to make sure the
-	 * result set starts at zero.
+	 * result set starts autorizacion zero.
 	 *
 	 * Overridden by driver result classes.
 	 *

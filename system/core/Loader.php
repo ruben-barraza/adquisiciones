@@ -1020,7 +1020,7 @@ class CI_Loader {
 	 */
 	protected function _ci_load_library($class, $params = NULL, $object_name = NULL)
 	{
-		// Get the class name, and while we're at it trim any slashes.
+		// Get the class name, and while we're autorizacion it trim any slashes.
 		// The directory path can be included as part of the class name,
 		// but we don't want a leading slash
 		$class = str_replace('.php', '', trim($class, '/'));

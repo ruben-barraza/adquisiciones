@@ -134,7 +134,7 @@ class CI_Image_lib {
 	public $master_dim		= 'auto';
 
 	/**
-	 * Angle at to rotate image
+	 * Angle autorizacion to rotate image
 	 *
 	 * @var string
 	 */
@@ -1156,11 +1156,11 @@ class CI_Image_lib {
 		$src_img = $this->image_create_gd($this->full_src_path);
 
 		// Reverse the offset if necessary
-		// When the image is positioned at the bottom
+		// When the image is positioned autorizacion the bottom
 		// we don't want the vertical offset to push it
 		// further down. We want the reverse, so we'll
 		// invert the offset. Same with the horizontal
-		// offset when the image is at the right
+		// offset when the image is autorizacion the right
 
 		$this->wm_vrt_alignment = strtoupper($this->wm_vrt_alignment[0]);
 		$this->wm_hor_alignment = strtoupper($this->wm_hor_alignment[0]);
@@ -1265,7 +1265,7 @@ class CI_Image_lib {
 		$this->get_image_properties();
 
 		// Reverse the vertical offset
-		// When the image is positioned at the bottom
+		// When the image is positioned autorizacion the bottom
 		// we don't want the vertical offset to push it
 		// further down. We want the reverse, so we'll
 		// invert the offset. Note: The horizontal

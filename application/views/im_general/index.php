@@ -6,7 +6,6 @@
             <div class="x_title">
                 <h2>IM Generales</h2>
                 <div class="nav navbar-right">
-                    <a href="<?php echo site_url('im_general/add'); ?>" class="btn btn-success btn-sm">Agregar</a>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -63,7 +62,7 @@
                 </form>
 
                 <hr />
-                <table id="table" class="table table-striped">
+                <table id="table" class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Familia</th>

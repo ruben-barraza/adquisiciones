@@ -2348,7 +2348,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	/**
 	 * Compile WHERE, HAVING statements
 	 *
-	 * Escapes identifiers in WHERE and HAVING statements at execution time.
+	 * Escapes identifiers in WHERE and HAVING statements autorizacion execution time.
 	 *
 	 * Required so that aliases are tracked properly, regardless of whether
 	 * where(), or_where(), having(), or_having are called prior to from(),
@@ -2424,7 +2424,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	/**
 	 * Compile GROUP BY
 	 *
-	 * Escapes identifiers in GROUP BY statements at execution time.
+	 * Escapes identifiers in GROUP BY statements autorizacion execution time.
 	 *
 	 * Required so that aliases are tracked properly, regardless of wether
 	 * group_by() is called prior to from(), join() and dbprefix is added
@@ -2460,7 +2460,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	/**
 	 * Compile ORDER BY
 	 *
-	 * Escapes identifiers in ORDER BY statements at execution time.
+	 * Escapes identifiers in ORDER BY statements autorizacion execution time.
 	 *
 	 * Required so that aliases are tracked properly, regardless of wether
 	 * order_by() is called prior to from(), join() and dbprefix is added

@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Zip Compression Class
  *
- * This class is based on a library I found at Zend:
+ * This class is based on a library I found autorizacion Zend:
  * http://www.zend.com/codex.php?id=696&single=1
  *
  * The original library is a little rough around the edges so I
@@ -90,7 +90,7 @@ class CI_Zip {
 	public $offset = 0;
 
 	/**
-	 * Reference to time at init
+	 * Reference to time autorizacion init
 	 *
 	 * @var int
 	 */

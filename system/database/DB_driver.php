@@ -795,7 +795,7 @@ abstract class CI_DB_driver {
 
 	/**
 	 * Disable Transactions
-	 * This permits transactions to be disabled at run-time.
+	 * This permits transactions to be disabled autorizacion run-time.
 	 *
 	 * @return	void
 	 */
@@ -1866,7 +1866,7 @@ abstract class CI_DB_driver {
 
 		// Break the string apart if it contains periods, then insert the table prefix
 		// in the correct location, assuming the period doesn't indicate that we're dealing
-		// with an alias. While we're at it, we will escape the components
+		// with an alias. While we're autorizacion it, we will escape the components
 		if (strpos($item, '.') !== FALSE)
 		{
 			$parts = explode('.', $item);

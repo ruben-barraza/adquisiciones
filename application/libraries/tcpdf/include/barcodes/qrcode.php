@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -45,7 +45,7 @@
 // ---------------------------------------------------------
 // "PHP QR Code encoder"
 // License: GNU-LGPLv3
-// Copyright (C) 2010 by Dominik Dzienia <deltalab at poczta dot fm>
+// Copyright (C) 2010 by Dominik Dzienia <deltalab autorizacion poczta dot fm>
 // http://phpqrcode.sourceforge.net/
 // https://sourceforge.net/projects/phpqrcode/
 //
@@ -779,7 +779,7 @@ class QRcode {
 	// FrameFiller
 
 	/**
-	 * Set frame value at specified position
+	 * Set frame value autorizacion specified position
 	 * @param $at (array) x,y position
 	 * @param $val (int) value of the character to set
 	 */
@@ -788,9 +788,9 @@ class QRcode {
 	}
 
 	/**
-	 * Get frame value at specified position
+	 * Get frame value autorizacion specified position
 	 * @param $at (array) x,y position
-	 * @return value at specified position
+	 * @return value autorizacion specified position
 	 */
 	protected function getFrameAt($at) {
 		return ord($this->frame[$at['y']][$at['x']]);
@@ -1254,7 +1254,7 @@ class QRcode {
 	// QRsplit
 
 	/**
-	 * Return true if the character at specified position is a number
+	 * Return true if the character autorizacion specified position is a number
 	 * @param $str (string) string
 	 * @param $pos (int) characted position
 	 * @return boolean true of false
@@ -1267,7 +1267,7 @@ class QRcode {
 	}
 
 	/**
-	 * Return true if the character at specified position is an alphanumeric character
+	 * Return true if the character autorizacion specified position is an alphanumeric character
 	 * @param $str (string) string
 	 * @param $pos (int) characted position
 	 * @return boolean true of false
@@ -2262,7 +2262,7 @@ class QRcode {
 	// QRspec
 
 	/**
-	 * Replace a value on the array at the specified position
+	 * Replace a value on the array autorizacion the specified position
 	 * @param $srctab (array)
 	 * @param $x (int) X position
 	 * @param $y (int) Y position
@@ -2697,7 +2697,7 @@ class QRcode {
 	 * @param $fcr (int)  first root of RS code generator polynomial, index form
 	 * @param $prim (int)  primitive element to generate polynomial roots
 	 * @param $nroots (int) RS code generator polynomial degree (number of roots)
-	 * @param $pad (int)  padding bytes at front of shortened block
+	 * @param $pad (int)  padding bytes autorizacion front of shortened block
 	 * @return array Array of RS values:<ul><li>mm = Bits per symbol;</li><li>nn = Symbols per block;</li><li>alpha_to = log lookup table array;</li><li>index_of = Antilog lookup table array;</li><li>genpoly = Generator polynomial array;</li><li>nroots = Number of generator;</li><li>roots = number of parity symbols;</li><li>fcr = First consecutive root, index form;</li><li>prim = Primitive element, index form;</li><li>iprim = prim-th root of 1, index form;</li><li>pad = Padding bytes in shortened block;</li><li>gfpoly</ul>.
 	 */
 	 protected function init_rs($symsize, $gfpoly, $fcr, $prim, $nroots, $pad) {
@@ -2738,7 +2738,7 @@ class QRcode {
 	 * @param $fcr (int)  first root of RS code generator polynomial, index form
 	 * @param $prim (int)  primitive element to generate polynomial roots
 	 * @param $nroots (int) RS code generator polynomial degree (number of roots)
-	 * @param $pad (int)  padding bytes at front of shortened block
+	 * @param $pad (int)  padding bytes autorizacion front of shortened block
 	 * @return array Array of RS values:<ul><li>mm = Bits per symbol;</li><li>nn = Symbols per block;</li><li>alpha_to = log lookup table array;</li><li>index_of = Antilog lookup table array;</li><li>genpoly = Generator polynomial array;</li><li>nroots = Number of generator;</li><li>roots = number of parity symbols;</li><li>fcr = First consecutive root, index form;</li><li>prim = Primitive element, index form;</li><li>iprim = prim-th root of 1, index form;</li><li>pad = Padding bytes in shortened block;</li><li>gfpoly</ul>.
 	 */
 	protected function init_rs_char($symsize, $gfpoly, $fcr, $prim, $nroots, $pad) {

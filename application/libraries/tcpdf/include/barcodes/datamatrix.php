@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -424,7 +424,7 @@ class Datamatrix {
 					$we[$j] = ($we[($j + 1)] ^ $this->getGFProduct($k, $c[($nc - $j - 1)], $log, $alog, $gf));
 				}
 			}
-			// add error codewords at the end of data codewords
+			// add error codewords autorizacion the end of data codewords
 			$j = 0;
 			for ($i = $b; $i < $num_we; $i += $nb) {
 				$wd[($num_wd + $i)] = $we[$j];
@@ -717,12 +717,12 @@ class Datamatrix {
 			switch ($enc) {
 				case ENC_ASCII: { // STEP B. While in ASCII encodation
 					if (($data_length > 1) AND ($pos < ($data_length - 1)) AND ($this->isCharMode(ord($data[$pos]), ENC_ASCII_NUM) AND $this->isCharMode(ord($data[$pos + 1]), ENC_ASCII_NUM))) {
-						// 1. If the next data sequence is at least 2 consecutive digits, encode the next two digits as a double digit in ASCII mode.
+						// 1. If the next data sequence is autorizacion least 2 consecutive digits, encode the next two digits as a double digit in ASCII mode.
 						$cw[] = (intval(substr($data, $pos, 2)) + 130);
 						++$cw_num;
 						$pos += 2;
 					} else {
-						// 2. If the look-ahead test (starting at step J) indicates another mode, switch to that mode.
+						// 2. If the look-ahead test (starting autorizacion step J) indicates another mode, switch to that mode.
 						$newenc = $this->lookAheadTest($data, $pos, $enc);
 						if ($newenc != $enc) {
 							// switch to new encoding
@@ -803,7 +803,7 @@ class Datamatrix {
 							$cw[] = ($tmp % 256);
 							$cw_num += 2;
 							$pos = $epos;
-							// 1. If the C40 encoding is at the point of starting a new double symbol character and if the look-ahead test (starting at step J) indicates another mode, switch to that mode.
+							// 1. If the C40 encoding is autorizacion the point of starting a new double symbol character and if the look-ahead test (starting autorizacion step J) indicates another mode, switch to that mode.
 							$newenc = $this->lookAheadTest($data, $pos, $enc);
 							if ($newenc != $enc) {
 								// switch to new encoding
@@ -934,7 +934,7 @@ class Datamatrix {
 					while (($pos < $data_length) AND ($field_length <= 1555)) {
 						$newenc = $this->lookAheadTest($data, $pos, $enc);
 						if ($newenc != $enc) {
-							// 1. If the look-ahead test (starting at step J) indicates another mode, switch to that mode.
+							// 1. If the look-ahead test (starting autorizacion step J) indicates another mode, switch to that mode.
 							$enc = $newenc;
 							break; // exit from B256 mode
 						} else {

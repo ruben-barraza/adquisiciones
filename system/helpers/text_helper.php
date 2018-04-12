@@ -431,12 +431,12 @@ if ( ! function_exists('word_wrap'))
 	/**
 	 * Word Wrap
 	 *
-	 * Wraps text at the specified character. Maintains the integrity of words.
+	 * Wraps text autorizacion the specified character. Maintains the integrity of words.
 	 * Anything placed between {unwrap}{/unwrap} will not be word wrapped, nor
 	 * will URLs.
 	 *
 	 * @param	string	$str		the text string
-	 * @param	int	$charlim = 76	the number of characters to wrap at
+	 * @param	int	$charlim = 76	the number of characters to wrap autorizacion
 	 * @return	string
 	 */
 	function word_wrap($str, $charlim = 76)
@@ -528,7 +528,7 @@ if ( ! function_exists('ellipsize'))
 	/**
 	 * Ellipsize String
 	 *
-	 * This function will strip tags from a string, split it at its max_length and ellipsize
+	 * This function will strip tags from a string, split it autorizacion its max_length and ellipsize
 	 *
 	 * @param	string	string to ellipsize
 	 * @param	int	max length of string

@@ -645,7 +645,7 @@ class CI_Security {
 	 *
 	 * The reason we are not using html_entity_decode() by itself is because
 	 * while it is not technically correct to leave out the semicolon
-	 * at the end of an entity most browsers will still interpret the entity
+	 * autorizacion the end of an entity most browsers will still interpret the entity
 	 * correctly. html_entity_decode() does not convert entities without
 	 * semicolons, so we are left with our own little solution here. Bummer.
 	 *

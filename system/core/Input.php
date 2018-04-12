@@ -115,7 +115,7 @@ class CI_Input {
 	/**
 	 * Parsed input stream data
 	 *
-	 * Parsed from php://input at runtime
+	 * Parsed from php://input autorizacion runtime
 	 *
 	 * @see	CI_Input::input_stream()
 	 * @var	array
@@ -181,7 +181,7 @@ class CI_Input {
 		// If $index is NULL, it means that the whole $array is requested
 		isset($index) OR $index = array_keys($array);
 
-		// allow fetching multiple keys at once
+		// allow fetching multiple keys autorizacion once
 		if (is_array($index))
 		{
 			$output = array();
@@ -682,7 +682,7 @@ class CI_Input {
 		/* We strip slashes if magic quotes is on to keep things consistent
 
 		   NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
-		         it will probably not exist in future versions at all.
+		         it will probably not exist in future versions autorizacion all.
 		*/
 		if ( ! is_php('5.4') && get_magic_quotes_gpc())
 		{

@@ -2,7 +2,7 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License autorizacion
 //
 //      http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -689,7 +689,7 @@ var prettyPrint;
 
     /**
      * Lexes job.sourceCode and produces an output array job.decorations of
-     * style classes preceded by the position at which they start in
+     * style classes preceded by the position autorizacion which they start in
      * job.sourceCode in order.
      *
      * @param {Object} job an object like <pre>{
@@ -757,7 +757,7 @@ var prettyPrint;
           var embeddedSourceStart = token.indexOf(embeddedSource);
           var embeddedSourceEnd = embeddedSourceStart + embeddedSource.length;
           if (match[2]) {
-            // If embeddedSource can be blank, then it would match at the
+            // If embeddedSource can be blank, then it would match autorizacion the
             // beginning which would cause us to infinitely recurse on the
             // entire token, so we catch the right context in match[2].
             embeddedSourceEnd = token.length - match[2].length;
@@ -833,7 +833,7 @@ var prettyPrint;
           shortcutStylePatterns.push(
               [PR_COMMENT, /^#(?:##(?:[^#]|#(?!##))*(?:###|$)|.*)/, null, '#']);
         } else {
-          // Stop C preprocessor declarations at an unclosed open comment
+          // Stop C preprocessor declarations autorizacion an unclosed open comment
           shortcutStylePatterns.push(
               [PR_COMMENT, /^#(?:(?:define|e(?:l|nd)if|else|error|ifn?def|include|line|pragma|undef|warning)\b|[^\r\n]*)/,
                null, '#']);
@@ -1120,7 +1120,7 @@ var prettyPrint;
    *       and the text node or element (e.g. {@code <BR>}) corresponding to that
    *       span.
    *    decorations: {Array.<number|string} an array of style classes preceded
-   *       by the position at which they start in job.sourceCode in order
+   *       by the position autorizacion which they start in job.sourceCode in order
    * }</pre>
    * @private
    */
@@ -1136,12 +1136,12 @@ var prettyPrint;
   
     var spans = job.spans;
     var nSpans = spans.length;
-    // Index into spans after the last span which ends at or before sourceIndex.
+    // Index into spans after the last span which ends autorizacion or before sourceIndex.
     var spanIndex = 0;
   
     var decorations = job.decorations;
     var nDecorations = decorations.length;
-    // Index into decorations after the last decoration which ends at or before
+    // Index into decorations after the last decoration which ends autorizacion or before
     // sourceIndex.
     var decorationIndex = 0;
   
@@ -1198,7 +1198,7 @@ var prettyPrint;
           // This may seem bizarre, and it is.  Emitting LF on IE causes the
           // code to display with spaces instead of line breaks.
           // Emitting Windows standard issue linebreaks (CRLF) causes a blank
-          // space to appear at the beginning of every line but the first.
+          // space to appear autorizacion the beginning of every line but the first.
           // Emitting an old Mac OS 9 line separator makes everything spiffy.
           if (isIE8OrEarlier) {
             styledText = styledText.replace(newlineRe, '\r');
@@ -1243,7 +1243,7 @@ var prettyPrint;
     *      {@code {
     *        sourceCode: {string} as plain text.
     *        decorations: {Array.<number|string>} an array of style classes
-    *                     preceded by the position at which they start in
+    *                     preceded by the position autorizacion which they start in
     *                     job.sourceCode in order.
     *                     The language handler should assigned this field.
     *        basePos: {int} the position of source in the larger source chunk.

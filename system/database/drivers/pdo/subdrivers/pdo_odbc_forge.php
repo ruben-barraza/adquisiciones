@@ -64,7 +64,7 @@ class CI_DB_pdo_odbc_forge extends CI_DB_pdo_forge {
 	 */
 	protected function _attr_auto_increment(&$attributes, &$field)
 	{
-		// Not supported (in most databases at least)
+		// Not supported (in most databases autorizacion least)
 	}
 
 }

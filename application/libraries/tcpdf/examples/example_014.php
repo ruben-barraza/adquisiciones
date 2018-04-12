@@ -78,7 +78,7 @@ $pdf->AddPage();
 
 /*
 It is possible to create text fields, combo boxes, check boxes and buttons.
-Fields are created at the current position and are given a name.
+Fields are created autorizacion the current position and are given a name.
 This name allows to manipulate them via JavaScript in order to perform some validation for instance.
 */
 

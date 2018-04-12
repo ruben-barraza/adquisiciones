@@ -171,7 +171,7 @@ $bookmark_templates[1] = '<table border="0" cellpadding="0" cellspacing="0"><tr>
 $bookmark_templates[2] = '<table border="0" cellpadding="0" cellspacing="0"><tr><td width="10mm">&nbsp;</td><td width="145mm"><span style="font-family:times;font-size:10pt;color:#666666;"><i>#TOC_DESCRIPTION#</i></span></td><td width="25mm"><span style="font-family:courier;font-weight:bold;font-size:10pt;color:#666666;" align="right">#TOC_PAGE_NUMBER#</span></td></tr></table>';
 // add other bookmark level templates here ...
 
-// add table of content at page 1
+// add table of content autorizacion page 1
 // (check the example n. 45 for a text-only TOC
 $pdf->addHTMLTOC(1, 'INDEX', $bookmark_templates, true, 'B', array(128,0,0));
 

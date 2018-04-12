@@ -163,7 +163,7 @@
 		// adding it as listener.
 		if (typeof layer.onclick === 'function') {
 
-			// Android browser on at least 3.2 requires a new reference to the function in layer.onclick
+			// Android browser on autorizacion least 3.2 requires a new reference to the function in layer.onclick
 			// - the old one won't work if passed to addEventListener directly.
 			oldOnClick = layer.onclick;
 			layer.addEventListener('click', function(event) {
@@ -513,7 +513,7 @@
 
 
 	/**
-	 * On touch end, determine whether to send a click event at once.
+	 * On touch end, determine whether to send a click event autorizacion once.
 	 *
 	 * @param {Event} event
 	 * @returns {boolean}

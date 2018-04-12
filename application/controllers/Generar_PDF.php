@@ -55,8 +55,8 @@ class Generar_PDF extends CI_Controller{
 
         $data['nombres'] = $this->Generarpdfmodel->get_razonsocial($id);
 
-        //DIVIDIR LA LISTA DE PROVEEDORES EN GRUPOS DE 5 (5 PROVS EN CADA PÁGINA)
-        $proveedores_split = array_chunk($nombres_proveedores, 5);
+        //DIVIDIR LA LISTA DE PROVEEDORES EN GRUPOS DE 3 (3 PROVS EN CADA PÁGINA)
+        $proveedores_split = array_chunk($nombres_proveedores, 3);
 
         //Arreglo donde se guarda el codigo html que se include en el header de cada tabla
         $arr_th = array();
@@ -72,36 +72,38 @@ class Generar_PDF extends CI_Controller{
             array_push($arr_cot, $cot_proveedor);
         }
 
-        $cot_split = array_chunk($arr_cot, 5);
+        $cot_split = array_chunk($arr_cot, 3);
 
         $data['arr_cot'] = $arr_cot;
         $data['arr_cotsplit'] = $cot_split;
 
         $arr_width = array();
 
+
         foreach($proveedores_split as $prov_group){
             $num_provs = count($prov_group);
 
             switch ($num_provs) {
-                case 1: $width = 466;
-                    break;
-                case 2: $width = 230;
-                    break;
-                case 3: $width = 154;
-                    break;
-                case 4: $width = 115;
-                    break;
-                case 5: $width = 92;
-                    break;
+                case 1: $width_desc = 368;
+                        $width_familia = 170;
+                        break;
+                case 2: $width_desc = 308;
+                        $width_familia = 135;
+                        break;
+                case 3: $width_desc = 248;
+                        $width_familia = 100;
+                        break;
             }
 
             $th = "";
             for ($i = 0; $i < $num_provs; $i++){
-                $th .= '<th align="center" valign="middle" width="'.$width.'"><b>'.$prov_group[$i]['razonSocial'].'</b></th>';
+                $th .= '<th align="center" valign="middle" width="95"><b>'.$prov_group[$i]['razonSocial'].'</b></th>';
             }
 
+            $array_widths = array("descripcion" => $width_desc, "familia" => $width_familia);
+
             array_push($arr_th, $th);
-            array_push($arr_width, $width);
+            array_push($arr_width, $array_widths);
         }
 
         //NUMERO DE COTIZACIONES POR PROVEEDOR. CADA PROVEEDOR TIENE EL MISMO NUMERO DE COTIZACIONES.
@@ -110,18 +112,21 @@ class Generar_PDF extends CI_Controller{
         $arr_td = array();
 
         //count($arr_width) nos dice cuantas páginas se van a generar
-        for($i = 0; $i < count($arr_width); $i++){
+        for($i = 0; $i < count($proveedores_split); $i++){
             $num_provs = count($cot_split[$i]);
             for($j = 0; $j < $cot_por_prov; $j++){
                 $td = "";
                 for ($k = 0; $k < $num_provs; $k++){
-                    $td .= '<td align="right" valign="middle" width="' . $arr_width[$i] . '"> $ '. number_format($cot_split[$i][$k][$j]["preciounitarioIM"], 2, '.', ',')  . '</td>';
+                    $td .= '<td align="right" valign="middle" width="95"> $ '. number_format($cot_split[$i][$k][$j]["preciounitarioIM"], 2, '.', ',')  . '</td>';
                 }
                 //array_push($arr_td, $td);
                 $arr_td[$i][$j] = $td;
             }
 
         }
+
+
+        $data['arr_width'] = $arr_width;
 
 
         $data['prov_split'] = $proveedores_split;
@@ -149,6 +154,8 @@ class Generar_PDF extends CI_Controller{
             $lugar = "";
             if($row['lugarEntrega'] == "OTRO"){
                 $lugar = "ESPECIFICADO EN ANEXO";
+            } else if($row['lugarEntrega'] == "0"){
+                $lugar = "N/A";
             } else {
                 $lugar = $row['lugarEntrega'];
             }

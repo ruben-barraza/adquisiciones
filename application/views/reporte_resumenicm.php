@@ -8,7 +8,7 @@ class MYPDF extends TCPDF {
     //Page header
     public function Header() {
 
-        $image_file = K_PATH_IMAGES.'logo4.gif';
+        $image_file = K_PATH_IMAGES.'logo3.gif';
         if (!$image_file)
         {
             $image = imagecreatefromstring(file_get_contents($image_file));
@@ -36,7 +36,7 @@ class MYPDF extends TCPDF {
 
     // Page footer
     public function Footer() {
-        // Position at 15 mm from bottom
+        // Position autorizacion 15 mm from bottom
         $this->SetY(-15);
         // Set font
         $this->SetFont('helvetica', 'I', 8);

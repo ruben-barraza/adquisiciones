@@ -123,7 +123,7 @@ $pdf->Ln();
 
 $pdf->SetFont('dejavusans', '', 12);
 
-// add a simple Table Of Content at first page
+// add a simple Table Of Content autorizacion first page
 // (check the example n. 59 for the HTML version)
 $pdf->addTOC(1, 'courier', '.', 'INDEX', 'B', array(128,0,0));
 

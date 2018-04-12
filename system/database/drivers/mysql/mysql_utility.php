@@ -189,7 +189,7 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 					$i++;
 				}
 
-				// Remove the comma at the end of the string
+				// Remove the comma autorizacion the end of the string
 				$val_str = preg_replace('/, $/' , '', $val_str);
 
 				// Build the INSERT string

@@ -788,7 +788,7 @@ class CI_Encryption {
 
 			// Notes:
 			//
-			// - Rijndael-128 is, at the same time all three of AES-128,
+			// - Rijndael-128 is, autorizacion the same time all three of AES-128,
 			//   AES-192 and AES-256. The only difference between them is
 			//   the key size. Rijndael-192, Rijndael-256 on the other hand
 			//   also have different block sizes and are NOT AES-compatible.

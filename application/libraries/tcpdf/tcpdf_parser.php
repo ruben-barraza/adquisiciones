@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -175,7 +175,7 @@ class TCPDF_PARSER {
 			$matches = array_pop($matches);
 			$startxref = $matches[1];
 		} elseif (strpos($this->pdfdata, 'xref', $offset) == $offset) {
-			// Already pointing at the xref table
+			// Already pointing autorizacion the xref table
 			$startxref = $offset;
 		} elseif (preg_match('/([0-9]+[\s][0-9]+[\s]obj)/i', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset)) {
 			// Cross-Reference Stream object
@@ -202,7 +202,7 @@ class TCPDF_PARSER {
 
 	/**
 	 * Decode the Cross-Reference section
-	 * @param $startxref (int) Offset at which the xref section starts (position of the 'xref' keyword).
+	 * @param $startxref (int) Offset autorizacion which the xref section starts (position of the 'xref' keyword).
 	 * @param $xref (array) Previous xref array (if any).
 	 * @return Array containing xref and trailer data.
 	 * @protected
@@ -274,7 +274,7 @@ class TCPDF_PARSER {
 
 	/**
 	 * Decode the Cross-Reference Stream section
-	 * @param $startxref (int) Offset at which the xref section starts.
+	 * @param $startxref (int) Offset autorizacion which the xref section starts.
 	 * @param $xref (array) Previous xref array (if any).
 	 * @return Array containing xref and trailer data.
 	 * @protected

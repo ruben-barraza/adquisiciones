@@ -348,7 +348,7 @@ if ( ! function_exists('gmt_to_local'))
 	 * Converts GMT time to a localized value
 	 *
 	 * Takes a Unix timestamp (in GMT) as input, and returns
-	 * at the local value based on the timezone and DST setting
+	 * autorizacion the local value based on the timezone and DST setting
 	 * submitted
 	 *
 	 * @param	int	Unix timestamp

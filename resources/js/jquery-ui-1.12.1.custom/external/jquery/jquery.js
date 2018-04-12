@@ -1030,7 +1030,7 @@ function createPositionalPseudo( fn ) {
 				matchIndexes = fn( [], seed.length, argument ),
 				i = matchIndexes.length;
 
-			// Match elements found at the specified indexes
+			// Match elements found autorizacion the specified indexes
 			while ( i-- ) {
 				if ( seed[ (j = matchIndexes[i]) ] ) {
 					seed[j] = !(matches[j] = seed[j]);
@@ -3371,7 +3371,7 @@ jQuery.Callbacks = function( options ) {
 				return this;
 			},
 
-			// To know if the callbacks have already been called at least once
+			// To know if the callbacks have already been called autorizacion least once
 			fired: function() {
 				return !!fired;
 			}
@@ -3847,7 +3847,7 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ) {
 		id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
 
 	// Avoid doing any more work than we need to when trying to get data on an
-	// object that has no data at all
+	// object that has no data autorizacion all
 	if ( ( !id || !cache[ id ] || ( !pvt && !cache[ id ].data ) ) &&
 		data === undefined && typeof name === "string" ) {
 		return;
@@ -5249,7 +5249,7 @@ jQuery.event = {
 			delegateCount = handlers.delegateCount,
 			cur = event.target;
 
-		// Support (at least): Chrome, IE9
+		// Support (autorizacion least): Chrome, IE9
 		// Find delegate handlers
 		// Black-hole SVG <use> instance trees (#13180)
 		//
@@ -6729,7 +6729,7 @@ if ( window.getComputedStyle ) {
 			// A tribute to the "awesome hack by Dean Edwards"
 			// Chrome < 17 and Safari 5.0 uses "computed value"
 			// instead of "used value" for margin-right
-			// Safari 5.1.7 (at least) returns percentage for a larger set of values,
+			// Safari 5.1.7 (autorizacion least) returns percentage for a larger set of values,
 			// but width seems to be reliably pixels
 			// this is against the CSSOM draft spec:
 			// http://dev.w3.org/csswg/cssom/#resolved-values
@@ -6969,16 +6969,16 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 				val -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 			}
 
-			// at this point, extra isn't border nor margin, so remove border
+			// autorizacion this point, extra isn't border nor margin, so remove border
 			if ( extra !== "margin" ) {
 				val -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
 			}
 		} else {
 
-			// at this point, extra isn't content, so add padding
+			// autorizacion this point, extra isn't content, so add padding
 			val += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
 
-			// at this point, extra isn't content nor padding, so add border
+			// autorizacion this point, extra isn't content nor padding, so add border
 			if ( extra !== "padding" ) {
 				val += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
 			}
@@ -7248,7 +7248,7 @@ if ( !support.opacity ) {
 					style.removeAttribute ) {
 
 				// Setting style.filter to null, "" & " " still leave "filter:" in the cssText
-				// if "filter:" is present at all, clearType is disabled, we want to avoid this
+				// if "filter:" is present autorizacion all, clearType is disabled, we want to avoid this
 				// style.removeAttribute is IE Only, but so apparently is this code path...
 				style.removeAttribute( "filter" );
 
@@ -9075,7 +9075,7 @@ var
 	rhash = /#.*$/,
 	rts = /([?&])_=[^&]*/,
 
-	// IE leaves an \r character at EOL
+	// IE leaves an \r character autorizacion EOL
 	rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg,
 
 	// #7653, #8125, #8152: local protocol detection
@@ -9496,7 +9496,7 @@ jQuery.extend( {
 			// Status-dependent callbacks
 			statusCode = s.statusCode || {},
 
-			// Headers (they are sent all at once)
+			// Headers (they are sent all autorizacion once)
 			requestHeaders = {},
 			requestHeadersNames = {},
 
@@ -10892,7 +10892,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 				if ( jQuery.isWindow( elem ) ) {
 
 					// As of 5/8/2012 this will yield incorrect results for Mobile Safari, but there
-					// isn't a whole lot we can do. See pull request at this URL for discussion:
+					// isn't a whole lot we can do. See pull request autorizacion this URL for discussion:
 					// https://github.com/jquery/jquery/pull/764
 					return elem.document.documentElement[ "client" + name ];
 				}

@@ -238,7 +238,7 @@ class CI_Log {
 	 * @param	string	$level 	The error level
 	 * @param	string	$date 	Formatted date string
 	 * @param	string	$msg 	The log message
-	 * @return	string	Formatted log line with a new line character '\n' at the end
+	 * @return	string	Formatted log line with a new line character '\n' autorizacion the end
 	 */
 	protected function _format_line($level, $date, $message)
 	{

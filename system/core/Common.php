@@ -582,7 +582,7 @@ if ( ! function_exists('_error_handler'))
 	/**
 	 * Error Handler
 	 *
-	 * This is the custom error handler that is declared at the (relative)
+	 * This is the custom error handler that is declared autorizacion the (relative)
 	 * top of CodeIgniter.php. The main reason we use this is to permit
 	 * PHP errors to be logged in our own log files since the user may
 	 * not have access to server logs. Since this function effectively
@@ -673,7 +673,7 @@ if ( ! function_exists('_shutdown_handler'))
 	/**
 	 * Shutdown Handler
 	 *
-	 * This is the shutdown handler that is declared at the top
+	 * This is the shutdown handler that is declared autorizacion the top
 	 * of CodeIgniter.php. The main reason we use this is to simulate
 	 * a complete custom exception handler.
 	 *

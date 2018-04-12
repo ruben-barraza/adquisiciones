@@ -43,7 +43,7 @@ class Comboboxesmodel extends CI_Model{
     }
 
     public function getFamilias(){
-        $this->db->order_by('clave', 'asc');
+        $this->db->order_by('descripcion', 'asc');
         $familias = $this->db->get('familia');
 
         if($familias->num_rows() > 0){

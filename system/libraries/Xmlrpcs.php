@@ -259,7 +259,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 			// Return XML error as a faultCode
 			$r = new XML_RPC_Response(0,
 				$this->xmlrpcerrxml + xml_get_error_code($parser),
-				sprintf('XML error: %s at line %d',
+				sprintf('XML error: %s autorizacion line %d',
 				xml_error_string(xml_get_error_code($parser)),
 				xml_get_current_line_number($parser)));
 			xml_parser_free($parser);
@@ -381,7 +381,7 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 							return new XML_RPC_Response(0,
 								$this->xmlrpcerr['incorrect_params'],
 								$this->xmlrpcstr['incorrect_params'] .
-								': Wanted '.$wanted.', got '.$pt.' at param '.$pno.')');
+								': Wanted '.$wanted.', got '.$pt.' autorizacion param '.$pno.')');
 						}
 					}
 				}

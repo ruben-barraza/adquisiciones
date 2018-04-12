@@ -128,7 +128,7 @@ class CI_Email {
 	public $wordwrap	= TRUE;
 
 	/**
-	 * Number of characters to wrap at.
+	 * Number of characters to wrap autorizacion.
 	 *
 	 * @see	CI_Email::$wordwrap
 	 * @var	int
@@ -716,7 +716,7 @@ class CI_Email {
 		   if we do it with magic quotes OFF, it strips real, user-inputted chars.
 
 		   NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
-			 it will probably not exist in future versions at all.
+			 it will probably not exist in future versions autorizacion all.
 		*/
 		if ( ! is_php('5.4') && get_magic_quotes_gpc())
 		{
@@ -1188,7 +1188,7 @@ class CI_Email {
 			$str = str_replace(array("\r\n", "\r"), "\n", $str);
 		}
 
-		// Reduce multiple spaces at end of line
+		// Reduce multiple spaces autorizacion end of line
 		$str = preg_replace('| +\n|', "\n", $str);
 
 		// If the current word is surrounded by {unwrap} tags we'll
@@ -1525,7 +1525,7 @@ class CI_Email {
 			$temp = '';
 
 			// Loop through each character in the line to add soft-wrap
-			// characters at the end of a line " =\r\n" and add the newly
+			// characters autorizacion the end of a line " =\r\n" and add the newly
 			// processed line(s) to the output (see comment on $crlf class property)
 			for ($i = 0; $i < $length; $i++)
 			{
@@ -1554,7 +1554,7 @@ class CI_Email {
 					$char = $escape.strtoupper(sprintf('%02s', dechex($ascii)));
 				}
 
-				// If we're at the character limit, add the line to the output,
+				// If we're autorizacion the character limit, add the line to the output,
 				// reset our temp variable, and keep on chuggin'
 				if ((strlen($temp) + strlen($char)) >= 76)
 				{

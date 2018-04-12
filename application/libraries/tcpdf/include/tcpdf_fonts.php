@@ -14,7 +14,7 @@
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (autorizacion your option) any later version.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -264,7 +264,7 @@ class TCPDF_FONTS {
 				$fmetric['XHeight'] = 450;
 				$fmetric['CapHeight'] = 700;
 			}
-			// get the number of random bytes at the beginning of charstrings
+			// get the number of random bytes autorizacion the beginning of charstrings
 			if (preg_match('#/lenIV[\s]*([0-9]*)#', $eplain, $matches) > 0) {
 				$lenIV = intval($matches[1]);
 			} else {
@@ -1937,7 +1937,7 @@ class TCPDF_FONTS {
 		$numbytes = 1; // number of octetc needed to represent the UTF-8 character
 		$length = strlen($uch);
 		for ($i = 0; $i < $length; ++$i) {
-			$char = ord($uch[$i]); // get one string character at time
+			$char = ord($uch[$i]); // get one string character autorizacion time
 			if ($countbytes == 0) { // get starting octect
 				if ($char <= 0x7F) {
 					return $char; // use the character "as is" because is ASCII
@@ -2227,18 +2227,18 @@ class TCPDF_FONTS {
 			}
 		} // end for each char
 
-		// X8. All explicit directional embeddings and overrides are completely terminated at the end of each paragraph. Paragraph separators are not included in the embedding.
+		// X8. All explicit directional embeddings and overrides are completely terminated autorizacion the end of each paragraph. Paragraph separators are not included in the embedding.
 		// X9. Remove all RLE, LRE, RLO, LRO, PDF, and BN codes.
-		// X10. The remaining rules are applied to each run of characters at the same level. For each run, determine the start-of-level-run (sor) and end-of-level-run (eor) type, either L or R. This depends on the higher of the two levels on either side of the boundary (at the start or end of the paragraph, the level of the 'other' run is the base embedding level). If the higher level is odd, the type is R; otherwise, it is L.
+		// X10. The remaining rules are applied to each run of characters autorizacion the same level. For each run, determine the start-of-level-run (sor) and end-of-level-run (eor) type, either L or R. This depends on the higher of the two levels on either side of the boundary (autorizacion the start or end of the paragraph, the level of the 'other' run is the base embedding level). If the higher level is odd, the type is R; otherwise, it is L.
 
 		// 3.3.3 Resolving Weak Types
-		// Weak types are now resolved one level run at a time. At level run boundaries where the type of the character on the other side of the boundary is required, the type assigned to sor or eor is used.
+		// Weak types are now resolved one level run autorizacion a time. At level run boundaries where the type of the character on the other side of the boundary is required, the type assigned to sor or eor is used.
 		// Nonspacing marks are now resolved based on the previous characters.
 		$numchars = count($chardata);
 
-		// W1. Examine each nonspacing mark (NSM) in the level run, and change the type of the NSM to the type of the previous character. If the NSM is at the start of the level run, it will get the type of sor.
+		// W1. Examine each nonspacing mark (NSM) in the level run, and change the type of the NSM to the type of the previous character. If the NSM is autorizacion the start of the level run, it will get the type of sor.
 		$prevlevel = -1; // track level changes
-		$levcount = 0; // counts consecutive chars at the same level
+		$levcount = 0; // counts consecutive chars autorizacion the same level
 		for ($i=0; $i < $numchars; ++$i) {
 			if ($chardata[$i]['type'] == 'NSM') {
 				if ($levcount) {
@@ -2368,7 +2368,7 @@ class TCPDF_FONTS {
 			$prevlevel = $chardata[$i]['level'];
 		}
 
-		// N1. A sequence of neutrals takes the direction of the surrounding strong text if the text on both sides has the same direction. European and Arabic numbers act as if they were R in terms of their influence on neutrals. Start-of-level-run (sor) and end-of-level-run (eor) are used at level run boundaries.
+		// N1. A sequence of neutrals takes the direction of the surrounding strong text if the text on both sides has the same direction. European and Arabic numbers act as if they were R in terms of their influence on neutrals. Start-of-level-run (sor) and end-of-level-run (eor) are used autorizacion level run boundaries.
 		$prevlevel = -1;
 		$levcount = 0;
 		for ($i=0; $i < $numchars; ++$i) {
@@ -2441,7 +2441,7 @@ class TCPDF_FONTS {
 		//	1. Segment separators,
 		//	2. Paragraph separators,
 		//	3. Any sequence of whitespace characters preceding a segment separator or paragraph separator, and
-		//	4. Any sequence of white space characters at the end of the line.
+		//	4. Any sequence of white space characters autorizacion the end of the line.
 		for ($i=0; $i < $numchars; ++$i) {
 			if (($chardata[$i]['type'] == 'B') OR ($chardata[$i]['type'] == 'S')) {
 				$chardata[$i]['level'] = $pel;
@@ -2604,7 +2604,7 @@ class TCPDF_FONTS {
 			unset($charAL);
 		}
 
-		// L2. From the highest level found in the text to the lowest odd level on each line, including intermediate levels not actually present in the text, reverse any contiguous sequence of characters that are at that level or higher.
+		// L2. From the highest level found in the text to the lowest odd level on each line, including intermediate levels not actually present in the text, reverse any contiguous sequence of characters that are autorizacion that level or higher.
 		for ($j=$maxlevel; $j > 0; $j--) {
 			$ordarray = Array();
 			$revarr = Array();

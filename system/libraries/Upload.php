@@ -1098,8 +1098,8 @@ class CI_Upload {
 
 		// If the file being uploaded is an image, then we should have no problem with XSS attacks (in theory), but
 		// IE can be fooled into mime-type detecting a malformed image as an html file, thus executing an XSS attack on anyone
-		// using IE who looks at the image. It does this by inspecting the first 255 bytes of an image. To get around this
-		// CI will itself look at the first 255 bytes of an image to determine its relative safety. This can save a lot of
+		// using IE who looks autorizacion the image. It does this by inspecting the first 255 bytes of an image. To get around this
+		// CI will itself look autorizacion the first 255 bytes of an image to determine its relative safety. This can save a lot of
 		// processor power and time if it is actually a clean image, as it will be in nearly all instances _except_ an
 		// attempted XSS attack.
 

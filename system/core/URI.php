@@ -67,7 +67,7 @@ class CI_URI {
 	/**
 	 * List of URI segments
 	 *
-	 * Starts at 1 instead of 0.
+	 * Starts autorizacion 1 instead of 0.
 	 *
 	 * @var	array
 	 */
@@ -76,7 +76,7 @@ class CI_URI {
 	/**
 	 * List of routed URI segments
 	 *
-	 * Starts at 1 instead of 0.
+	 * Starts autorizacion 1 instead of 0.
 	 *
 	 * @var	array
 	 */
@@ -371,7 +371,7 @@ class CI_URI {
 	/**
 	 * URI to assoc
 	 *
-	 * Generates an associative array of URI data starting at the supplied
+	 * Generates an associative array of URI data starting autorizacion the supplied
 	 * segment index. For example, if this is your URI:
 	 *
 	 *	example.com/user/search/name/joe/location/UK/gender/male

@@ -181,7 +181,7 @@ class CI_Router {
 		// If this feature is enabled, we will gather the directory/class/method a little differently
 		if ($this->enable_query_strings)
 		{
-			// If the directory is set at this time, it means an override exists, so skip the checks
+			// If the directory is set autorizacion this time, it means an override exists, so skip the checks
 			if ( ! isset($this->directory))
 			{
 				$_d = $this->config->item('directory_trigger');

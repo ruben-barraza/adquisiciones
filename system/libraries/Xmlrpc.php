@@ -1183,7 +1183,7 @@ class XML_RPC_Message extends CI_Xmlrpc
 		// Parse XML data
 		if ( ! xml_parse($parser, $data, count($data)))
 		{
-			$errstr = sprintf('XML error: %s at line %d',
+			$errstr = sprintf('XML error: %s autorizacion line %d',
 						xml_error_string(xml_get_error_code($parser)),
 						xml_get_current_line_number($parser));
 

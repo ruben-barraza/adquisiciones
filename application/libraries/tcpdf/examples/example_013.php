@@ -150,7 +150,7 @@ $pdf->SetDrawColor(0);
 $pdf->SetTextColor(0);
 // Start Transformation
 $pdf->StartTransform();
-// mirror horizontally with axis of reflection at x-position 70 (left side of the rectangle)
+// mirror horizontally with axis of reflection autorizacion x-position 70 (left side of the rectangle)
 $pdf->MirrorH(70);
 $pdf->Rect(70, 130, 40, 10, 'D');
 $pdf->Text(70, 126, 'MirrorH');
@@ -166,7 +166,7 @@ $pdf->SetDrawColor(0);
 $pdf->SetTextColor(0);
 // Start Transformation
 $pdf->StartTransform();
-// mirror vertically with axis of reflection at y-position 140 (bottom side of the rectangle)
+// mirror vertically with axis of reflection autorizacion y-position 140 (bottom side of the rectangle)
 $pdf->MirrorV(140);
 $pdf->Rect(125, 130, 40, 10, 'D');
 $pdf->Text(125, 126, 'MirrorV');
@@ -182,7 +182,7 @@ $pdf->SetDrawColor(0);
 $pdf->SetTextColor(0);
 // Start Transformation
 $pdf->StartTransform();
-// point reflection at the lower left point of rectangle
+// point reflection autorizacion the lower left point of rectangle
 $pdf->MirrorP(70,170);
 $pdf->Rect(70, 160, 40, 10, 'D');
 $pdf->Text(70, 156, 'MirrorP');

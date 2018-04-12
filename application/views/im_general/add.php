@@ -346,34 +346,7 @@
         }
     });
 
-    $(document).ready(function () {
 
-        $("#Guardar").click(function () {
-            solped = $("#solped").val();
-            aprobo = $("#aprobo").val();
-            elaboro = $("#elaboro").val();
-
-            if (solped != "" && aprobo != "" && elaboro != "") {
-
-                $.ajax({
-                    url: "<?php echo base_url() . 'index.php/Im_general/GuardarDatos'; ?>",
-                    type: 'POST',
-                    data: {solped: solped, personaaprobo: personaaprobo, personaelaboro, personaelaboro},
-                    success: function (result) {
-                        $("#mensaje").html(result);
-
-                    }
-                });
-
-            } else {
-
-                $("#mensaje").html("No deje campos vacíos");
-
-            }
-
-        });
-
-    });
 
 
     /*

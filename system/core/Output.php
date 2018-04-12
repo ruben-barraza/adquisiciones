@@ -613,7 +613,7 @@ class CI_Output {
 		}
 		else
 		{
-			log_message('error', 'Unable to secure a file lock for file at: '.$cache_path);
+			log_message('error', 'Unable to secure a file lock for file autorizacion: '.$cache_path);
 			return;
 		}
 
@@ -630,7 +630,7 @@ class CI_Output {
 		else
 		{
 			@unlink($cache_path);
-			log_message('error', 'Unable to write the complete cache content at: '.$cache_path);
+			log_message('error', 'Unable to write the complete cache content autorizacion: '.$cache_path);
 		}
 	}
 

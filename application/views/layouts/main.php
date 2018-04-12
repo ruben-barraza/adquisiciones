@@ -151,6 +151,9 @@
                                             <a href="<?php echo site_url('articulo/index');?>"><i class="fa fa-table"></i> Artículo</a>
                                         </li>
                                         <li>
+                                            <a href="<?php echo site_url('autorizacion/index');?>"><i class="fa fa-table"></i> AT</a>
+                                        </li>
+                                        <li>
                                             <a href="<?php echo site_url('categoria/index');?>"><i class="fa fa-table"></i> Categoría</a>
                                         </li>
                                         <li>

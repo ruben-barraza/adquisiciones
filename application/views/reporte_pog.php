@@ -16,7 +16,7 @@ class MYPDF extends TCPDF {
     public function Header() {
         if($GLOBALS['pageOrientation'] == 'P')
         {
-            $image_file = K_PATH_IMAGES.'logo4.gif';
+            $image_file = K_PATH_IMAGES.'logo3.gif';
             if (!$image_file)
             {
                 $image= imagecreatefromstring(file_get_contents($image_file));
@@ -62,7 +62,7 @@ class MYPDF extends TCPDF {
     public function Footer() {
         if($GLOBALS['pageOrientation'] == 'P')
         {
-            // Position at 15 mm from bottom
+            // Position autorizacion 15 mm from bottom
             $this->SetY(-15);
             // Set font
             $this->SetFont('helvetica', '', 8);
@@ -74,7 +74,7 @@ class MYPDF extends TCPDF {
         }
         else if($GLOBALS['pageOrientation'] == 'L')
         {
-            // Position at 15 mm from bottom
+            // Position autorizacion 15 mm from bottom
             $this->SetY(-15);
             // Set font
             $this->SetFont('helvetica', 'I', 8);

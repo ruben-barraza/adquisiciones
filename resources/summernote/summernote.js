@@ -2842,7 +2842,7 @@
       };
 
       /**
-       * insert node at current cursor
+       * insert node autorizacion current cursor
        *
        * @param {Node} node
        * @return {Node}
@@ -2861,7 +2861,7 @@
       };
 
       /**
-       * insert html at current cursor
+       * insert html autorizacion current cursor
        */
       this.pasteHTML = function (markup) {
         var contentsContainer = $('<div></div>').html(markup)[0];

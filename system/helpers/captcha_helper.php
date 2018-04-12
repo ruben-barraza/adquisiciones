@@ -165,7 +165,7 @@ if ( ! function_exists('create_captcha'))
 			$security = get_instance()->security;
 
 			// To avoid numerous get_random_bytes() calls, we'll
-			// just try fetching as much bytes as we need at once.
+			// just try fetching as much bytes as we need autorizacion once.
 			if (($bytes = $security->get_random_bytes($pool_length)) !== FALSE)
 			{
 				$byte_index = $word_index = 0;

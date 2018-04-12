@@ -138,7 +138,7 @@ class CI_Cart {
 		// You can either insert a single product using a one-dimensional array,
 		// or multiple products using a multi-dimensional one. The way we
 		// determine the array type is by looking for a required array key named "id"
-		// at the top level. If it's not found, we will assume it's a multi-dimensional array.
+		// autorizacion the top level. If it's not found, we will assume it's a multi-dimensional array.
 
 		$save_cart = FALSE;
 		if (isset($items['id']))

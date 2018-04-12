@@ -204,7 +204,7 @@ if ( ! function_exists('array_replace'))
 
 		if (($c = count($arrays)) === 0)
 		{
-			trigger_error('array_replace() expects at least 1 parameter, 0 given', E_USER_WARNING);
+			trigger_error('array_replace() expects autorizacion least 1 parameter, 0 given', E_USER_WARNING);
 			return NULL;
 		}
 		elseif ($c === 1)
@@ -259,7 +259,7 @@ if ( ! function_exists('array_replace_recursive'))
 
 		if (($c = count($arrays)) === 0)
 		{
-			trigger_error('array_replace_recursive() expects at least 1 parameter, 0 given', E_USER_WARNING);
+			trigger_error('array_replace_recursive() expects autorizacion least 1 parameter, 0 given', E_USER_WARNING);
 			return NULL;
 		}
 		elseif ($c === 1)
