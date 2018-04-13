@@ -322,24 +322,13 @@
                 </div>
 
                 <hr/>
-
-                <var>
-                    <?php var_dump($imcConcepto); ?>
-                </var>
-
-                <var>
-                    <?php
-                    //var_dump($output2);
-                    //var_dump($pmc);
-                    //var_dump($arr_cpp);
-                    //var_dump($output2);
-                    ?>
-                </var>
+                <!--
 
 
                 <var>
                     <?php
 
+                /*
                 //var_dump($pmc);
 
                 echo "********************************************************************************************";
@@ -576,6 +565,9 @@
                 }
             }
 
+            */
+
+
             //echo count($output2[0]);
             //echo count($output2[1]);
             //ALGORITMO PMC VIEJO
@@ -697,6 +689,7 @@
 
                 ?>
                 </var>
+                -->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-8">
                         <a href="<?php echo site_url('im_general/index/'); ?>" id="botonRegresar" class="btn btn-primary">
