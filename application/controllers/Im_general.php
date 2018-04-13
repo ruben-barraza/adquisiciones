@@ -109,7 +109,10 @@ class Im_general extends CI_Controller
         $data['num_cotizaciones'] = $num_cotizaciones;
         $data['arr_cpp'] = $arr_cpp;
 
+        $pmc = $this->calcularPMC($output, $num_cotizaciones, $idPog);
+        $data['pmc'] = $pmc;
 
+        /*
         if ($num_cotizaciones > 1){
             $pmc = $this->calcularPMC($output, $num_cotizaciones, $idPog);
             $data['pmc'] = $pmc;
@@ -126,6 +129,7 @@ class Im_general extends CI_Controller
 
             $data['pmc'] = $array_pmc;
         }
+        */
         echo json_encode($data);
     }
 
@@ -508,6 +512,28 @@ class Im_general extends CI_Controller
 
 
 
+                    //Check pmc
+                    //Copia para ver el debug en edit var
+                    $output2 = $output;
+
+
+                    $output = $this->formatPmcArray($arr);
+                    $output2 = $output;
+                    $num_cotizaciones = $this->calcularCotizaciones($output);
+                    $arr_cpp = $this->calcularCPP($output);
+                    $data['num_cotizaciones'] = $num_cotizaciones;
+                    $data['arr_cpp'] = $arr_cpp;
+                    $data['newOutput'] = $output;
+                    if ($num_cotizaciones > 1){
+                        $pmc = $this->calcularPMC($output, $num_cotizaciones, $pog_id);
+                        $data['pmc'] = $pmc;
+                    }
+                    $data['output2'] = $output2;
+
+
+
+
+                    //////////////
                     //Tipo de cambio
                     $tipo_cambio = $this->get_TipoDeCambioPesoDolar();
                     $data['tipo_cambio'] = $tipo_cambio;

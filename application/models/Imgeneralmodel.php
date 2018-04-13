@@ -292,6 +292,7 @@ class Imgeneralmodel extends CI_Model
         $this->db->from('im_concepto');
         $this->db->where('idImg', $id);
         $this->db->order_by("idProveedor", "asc");
+        $this->db->order_by("partida", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
