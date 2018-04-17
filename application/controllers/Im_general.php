@@ -392,6 +392,7 @@ class Im_general extends CI_Controller
         return $array_pmc;
     }
 
+    /*
     //Obtener el tipo de cambio
     function get_TipoDeCambioPesoDolar() {
 
@@ -418,6 +419,7 @@ class Im_general extends CI_Controller
 
         return $tc;
     }
+    */
 
     /*
      * Adding a new im_general
@@ -512,8 +514,9 @@ class Im_general extends CI_Controller
 
 
                     //Tipo de cambio
-                    $tipo_cambio = $this->get_TipoDeCambioPesoDolar();
-                    $data['tipo_cambio'] = $tipo_cambio;
+                    //CONSEGUIR EL TIPO DE CAMBIO DEL DÍA ALENTA LA PÁGINA
+                    //$tipo_cambio = $this->get_TipoDeCambioPesoDolar();
+                    //$data['tipo_cambio'] = $tipo_cambio;
 
 
                 $data['_view'] = 'im_general/edit';
