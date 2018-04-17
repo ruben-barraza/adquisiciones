@@ -181,11 +181,13 @@ class Imgeneralmodel extends CI_Model
 
     public function get_img_proveedores($pog_id)
     {
+        $this->db->distinct();
         $this->db->select('proveedor.id, proveedor.razonSocial');
         $this->db->from('po_general');
         $this->db->join('po_proveedor', 'po_general.id = po_proveedor.idPog', 'inner');
         $this->db->join('proveedor', 'proveedor.id = po_proveedor.idProveedor', 'inner');
         $this->db->where('po_general.id', $pog_id);
+        $this->db->order_by("proveedor.razonSocial", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){
             return $query->result_array();
