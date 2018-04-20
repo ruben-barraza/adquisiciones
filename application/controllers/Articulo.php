@@ -28,6 +28,7 @@ class Articulo extends CI_Controller{
         $data['listaarticulo'] = $this->Articulomodel->get_all_listaarticulo();
 
         $data['_view'] = 'articulo/index';
+
         $this->load->model('Comboboxesmodel');
         $data['familias'] = $this->Comboboxesmodel->getFamilias();
 

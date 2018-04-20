@@ -115,6 +115,9 @@
                                             <li>
                                                 <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> IMC</a>
                                             </li>
+                                            <li>
+                                                <a href="<?php echo site_url('solcon/index');?>"><i class="fa fa-table"></i> SOLCON</a>
+                                            </li>
                                             <!--
                                             <li>
                                                 <a href="<?php echo site_url('formularioconsideracion/index');?>"><i class="fa fa-table"></i> Formulario consideración</a>

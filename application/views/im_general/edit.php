@@ -156,6 +156,15 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="fechaImpresion" class="col-sm-2 control-label">Fecha de Impresión</label>
+                    <div class="col-md-2">
+                        <input type="text" name="fechaImpresion" value="<?php
+                        //$fecha = $im_general['fechaElaboracion'];
+                        //$fechaElaboracion = date("d/m/Y", strtotime($fecha));
+                        //echo ($this->input->post('fechaElaboracion') ? $this->input->post('fechaElaboracion') : $fechaElaboracion); ?>" class="form-control" id="fechaImpresion" />
+                    </div>
+                </div>
 
 
 
@@ -195,7 +204,7 @@
                         <div class="form-group">
                             <label for="fechaCotizacion" class="col-sm-2 control-label">Fecha de Cotización</label>
                             <div class="col-md-2">
-                                <input type="text" name="fechaCotizacion" value="<?php //echo $this->input->post('fechaElaboracion'); ?>" class="form-control" id="fechaCotizacion" />
+                                <input type="text" name="fechaCotizacion" value="" class="form-control" id="fechaCotizacion" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -392,6 +401,7 @@
         $.datepicker.setDefaults($.datepicker.regional['es']);
 
         $("#fechaElaboracion").datepicker({  maxDate: new Date });
+        $("#fechaImpresion").datepicker({  maxDate: new Date });
         $("#fechaCotizacion").datepicker({  maxDate: new Date });
 
 

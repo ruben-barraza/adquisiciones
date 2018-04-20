@@ -196,12 +196,10 @@ class Imgeneralmodel extends CI_Model
 
     public function get_imc_concepto($pog_id)
     {
-        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad');
+        $this->db->select('partida');
         $this->db->from('im_concepto');
-        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
-        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
-        $this->db->group_by("im_concepto.partida");
-        $this->db->where('im_concepto.idPog', $pog_id);
+        $this->db->group_by('partida');
+        $this->db->where('idPog', $pog_id);
         $this->db->order_by("partida", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){

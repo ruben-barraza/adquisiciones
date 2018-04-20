@@ -59,4 +59,15 @@ class Comboboxesmodel extends CI_Model{
             return $almacenes->result();
         }
     }
+
+    public function getAutorizaciones(){
+        $this->db->select('id, numero, año, descripcion');
+        $this->db->from('autorizacion');
+        $this->db->order_by('año', 'asc');
+        $this->db->order_by('numero', 'asc');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result();
+        }
+    }
 }
