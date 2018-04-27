@@ -77,7 +77,7 @@
                 <div class="form-group">
                     <label for="idAt2" class="col-md-2 control-label">Autorización 2</label>
                     <div class="col-md-4">
-                        <select id="idAt2" name="idAt2" class="form-control autorizacion">
+                        <select id="idAt2" name="idAt2" class="form-control autorizacion" disabled>
                             <option value="0"> Seleccione</option>
                             <?php
                             foreach($autorizacion as $at)
@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <label for="idAt3" class="col-md-2 control-label">Autorización 3</label>
                     <div class="col-md-4">
-                        <select id="idAt3" name="idAt3" class="form-control autorizacion">
+                        <select id="idAt3" name="idAt3" class="form-control autorizacion" disabled>
                             <option value="0"> Seleccione</option>
                             <?php
                             foreach($autorizacion as $at)
@@ -146,6 +146,26 @@
                     .attr('disabled', 'disabled');
             }
         });
+
+        $('#idAt1').on('change', function() {
+            if(this.value != 0){
+                $('#idAt2').prop("disabled", false);
+            } else {
+                $('#idAt2').prop("disabled", true);
+                $('#idAt3').prop("disabled", true);
+                $('#idAt2').val("0");
+                $('#idAt3').val("0");
+            }
+        })
+
+        $('#idAt2').on('change', function() {
+            if(this.value != 0){
+                $('#idAt3').prop("disabled", false);
+            } else {
+                $('#idAt3').prop("disabled", true);
+                $('#idAt3').val("0");
+            }
+        })
 
     });
 

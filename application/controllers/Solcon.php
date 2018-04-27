@@ -33,13 +33,25 @@ class Solcon extends CI_Controller{
 
         if($this->form_validation->run())
         {
-            $solcon = $this->input->post('solcon');
+
+            if($this->input->post('idAt2') === NULL) {
+                $idAt2 = 0;
+            } else {
+                $idAt2 = $this->input->post('idAt2');
+            }
+
+            if($this->input->post('idAt3') === NULL) {
+                $idAt3 = 0;
+            } else {
+                $idAt3 = $this->input->post('idAt3');
+            }
+
             $params = array(
                 'solcon' => $this->input->post('solcon'),
                 'origenRecurso' => $this->input->post('origenRecurso'),
                 'idAt1' => $this->input->post('idAt1'),
-                'idAt2' => $this->input->post('idAt2'),
-                'idAt3' => $this->input->post('idAt3'),
+                'idAt2' => $idAt2,
+                'idAt3' => $idAt3,
                 'tipoCompra' => $this->input->post('tipoCompra'),
             );
 

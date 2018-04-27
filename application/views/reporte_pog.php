@@ -118,8 +118,8 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // set auto page breaks
-    //$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-    $pdf->SetAutoPageBreak(FALSE);
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    //$pdf->SetAutoPageBreak(FALSE);
 
 
     // set image scale factor

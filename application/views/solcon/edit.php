@@ -17,8 +17,46 @@
                 </div>
                 <div class="form-group">
                     <label for="origenRecurso" class="col-md-2 control-label">Origen del Recurso</label>
-                    <div class="col-md-2">
-                        <input type="text" name="origenRecurso" value="<?php echo ($this->input->post('origenRecurso') ? $this->input->post('origenRecurso') : $solcon['origenRecurso']); ?>" class="form-control" id="origenRecurso" />
+                    <div class="col-md-4">
+                        <select id="origenRecurso" name="origenRecurso" class="form-control autorizacion">
+                            <option value="0"> Seleccione</option>
+                            <?php
+                            $origen_values = array(
+                                'PRO'=>'PROYECTO ADQUISICIONES LOCAL',
+                                'CON'=>'ADQUISICIONES CONSOLIDADAS',
+                            );
+
+                            foreach($origen_values as $value => $display_text)
+                            {
+                                $selected = ($value == $solcon['origenRecurso']) ? ' selected="selected"' : "";
+                                echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tipoCompra" class="col-md-2 control-label">Tipo de Compra</label>
+                    <div class="col-md-4">
+                        <select id="tipoCompra" name="tipoCompra" class="form-control autorizacion">
+                            <option value="0"> Seleccione</option>
+                            <?php
+                            $tipocompra_values = array(
+                                'NUE'=>'LOCAL NUEVO',
+                                'LOC'=>'AMPLIACIÓN LOCAL',
+                                'AMP'=>'AMPLIACIÓN CONSOLIDADA',
+                                'SOC'=>'AMPLIACIÓN OTRA SOCIEDAD',
+                                'MEX'=>'COMPRA MÉXICO',
+                                'CON'=>'CONSOLIDADA',
+                            );
+
+                            foreach($tipocompra_values as $value => $display_text)
+                            {
+                                $selected = ($value == $solcon['tipoCompra']) ? ' selected="selected"' : "";
+                                echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -64,12 +102,6 @@
                             }
                             ?>
                         </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="tipoCompra" class="col-md-2 control-label">Tipo de Compra</label>
-                    <div class="col-md-4">
-                        <input type="text" name="tipoCompra" value="<?php echo ($this->input->post('tipoCompra') ? $this->input->post('tipoCompra') : $solcon['tipoCompra']); ?>" class="form-control" id="tipoCompra" />
                     </div>
                 </div>
 

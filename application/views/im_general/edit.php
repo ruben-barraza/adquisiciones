@@ -134,6 +134,7 @@
                                 'R' => 'Recepción',
                                 'T' => 'Terminado',
                                 'C' => 'Cancelado',
+                                'D' => 'Desierto',
                             );
 
                             foreach ($estatus_values as $value => $display_text) {
