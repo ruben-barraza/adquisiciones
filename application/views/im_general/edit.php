@@ -322,13 +322,13 @@
                 </div>
 
                 <hr/>
-                <!--
+
 
 
                 <var>
                     <?php
 
-                /*
+
                 //var_dump($pmc);
 
                 echo "********************************************************************************************";
@@ -530,8 +530,11 @@
 
                             array_push($array_promedios, $frec_promedio);
                             $lim_inf = $lim_sup;
+                            echo "PRECIOS INERVALO";
+                            var_dump($precios_intervalo);
 
                         }
+
                         var_dump($array_promedios);
 
                         //Valor max de frecuencias
@@ -549,7 +552,7 @@
 
                         echo "Promedio frecuencias: ".round($prom_frec, 2);
                         echo "<br>";
-                        echo "Cotización más baja: ".$cot_mas_baja;
+                        echo "Cotización más baja EN EL INERVALO: ".$cot_mas_baja;
                         echo "<br>";
                         echo "<br>";
                         echo "PMC = ".$pmc;
@@ -565,7 +568,7 @@
                 }
             }
 
-            */
+
 
 
             //echo count($output2[0]);
@@ -689,7 +692,7 @@
 
                 ?>
                 </var>
-                -->
+
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-8">
                         <a href="<?php echo site_url('im_general/index/'); ?>" id="botonRegresar" class="btn btn-primary">
