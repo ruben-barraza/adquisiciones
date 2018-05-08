@@ -335,7 +335,7 @@
 
                 //var_dump($output2);
 
-
+/*
 
                 $subarraykeys = array_keys($output2[0]);
                 $removekeys = array();
@@ -370,7 +370,7 @@
                     }
                 }
 
-
+*/
                 $num_partidas = count($output2);
 
 
@@ -413,10 +413,7 @@
 
                         $array_promedios = array();
 
-                        //Contiene los promedios de los intervalos con mayor número de frecuencias
-                        $max_frec_prom = array();
 
-                        $prom_frec = 0;
 
                         $maxvalue = max($output2[$i]);
                         $minvalue = min($output2[$i]);

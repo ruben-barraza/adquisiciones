@@ -258,6 +258,140 @@ class Im_general extends CI_Controller
         }
         */
 
+
+        $num_partidas = count($output);
+
+
+
+        foreach($output as $row => $innerArray){
+            foreach($innerArray as $key => $value){
+                if($value == 0){
+                    unset($output[$row][$key]);
+                }
+            }
+        }
+
+
+
+        //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
+
+        if($num_partidas > 1) {
+            for ($i = 0; $i < $num_partidas; $i++)
+            {
+                if (count($output[$i]) <= 1){
+                    //NO NECESITA HACER NADA MAS PORQUE ESA PARTIDA SOLO TIENE UNA COTIZACION
+
+                } else{
+                    //NUMERO DE LAS COTIZACIONES POR PARTIDA - 1
+                    $num_intervalos = count($output[$i]) - 1;
+
+                    $array_promedios = array();
+
+
+                    $maxvalue = max($output[$i]);
+                    $minvalue = min($output[$i]);
+                    $val_diferencia = $maxvalue - $minvalue;
+                    $val_rango = $val_diferencia/$num_intervalos;
+
+                    for($j = 0; $j < $num_intervalos; $j++){
+                        if($j == 0)
+                            $lim_inf = $minvalue;
+
+                        $lim_sup = $lim_inf + $val_rango;
+
+                        $frec_promedio = array();
+                        $frecuencias = 0;
+                        $k = 0;
+                        $precios_intervalo = array();
+                        foreach($output[$i] as $proveedor => $precio){
+                            if($j == $num_intervalos - 1){
+                                if($precio >= $lim_inf && $precio <= $lim_sup){
+                                    $frecuencias++;
+                                    $precios_intervalo[$proveedor] = $precio;
+                                }
+                            } else {
+                                if($precio >= $lim_inf && $precio < $lim_sup) {
+                                    $frecuencias++;
+                                    $precios_intervalo[$proveedor] = $precio;
+                                }
+                            }
+
+                            $k++;
+                        }
+
+                        if (empty($precios_intervalo)){
+                            $prom_intervalo = 0;
+                        } else {
+                            $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                        }
+                        $frec_promedio['frecuencias'] = $frecuencias;
+                        $frec_promedio['promedio'] = round($prom_intervalo, 2);
+
+                        array_push($array_promedios, $frec_promedio);
+                        foreach ($precios_intervalo as $proveedor => $precio){
+                            $array_promedios[$j][$proveedor] = $precio;
+                        }
+                        $lim_inf = $lim_sup;
+
+                    }
+
+                    //Encontrar el array con el mayot número de frecuencias
+                    //Si es más de uno tomar el índice menor
+                    $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+
+
+                    $key = array_search($max_frecuencias, array_column($array_promedios, 'frecuencias'));
+
+
+                    //ESTE ES EL ARREGLO CON MAYOR NÚMERO DE FRECUENCIAS QUE SE TOMA A CONSIDERACIÓN PARA CALCULAR EL PMC
+                    $array_calc_pmc = $array_promedios[$key];
+                    //PROMEDIO DEL INERVALO CON MAYOR FRECUENCIAS
+                    $prom_intervalo_mayor_frec = $array_calc_pmc['promedio'];
+                    unset($array_calc_pmc['frecuencias']);
+                    unset($array_calc_pmc['promedio']);
+
+
+
+
+                    //VERIFICAR LAS COTIZACIONES REALES Y LAS HISTORICAS
+                    $cot_reales = array();
+                    $cot_historicas = array();
+
+                    foreach ($array_calc_pmc as $key => $value){
+                        if(preg_match('(6666|7777|8888|9999)', $key) === 1) {
+                            array_push($cot_historicas, $value);
+                        } else {
+                            array_push($cot_reales, $value);
+                        }
+                    }
+
+                    //SI EL ARREGLO DE COTIZACIONES REALES ESTÁ VACÍO HAY QUE SACAR EL PROMEDIO DE LAS COIZACIONES HISTORICAS
+                    //SI EL ARREGLO DE COIZACIONES HISTÓRICAS ESTÁ VACÍO EL MENOR VALOR
+
+                    if(empty($cot_reales)){
+                        $pmc = round(array_sum($cot_historicas)/count($cot_historicas), 2);
+                    } else {
+                        $cot_minima = min($cot_reales);
+                        if($cot_minima < $prom_intervalo_mayor_frec){
+                            $pmc = $cot_minima;
+                        } else {
+                            $pmc = $prom_intervalo_mayor_frec;
+                        }
+                    }
+                    array_push($array_pmc, $pmc);
+
+                }
+            }
+
+            //Guardar pmc en la tabla im_concepto
+            $this->Imgeneralmodel->update_pmc($array_pmc, $pog_id);
+
+            return $array_pmc;
+        }
+
+
+
+        /*
         //Array donde se guardan los PMC
         $array_pmc = array();
 
@@ -390,6 +524,7 @@ class Im_general extends CI_Controller
         $this->Imgeneralmodel->update_pmc($array_pmc, $pog_id);
 
         return $array_pmc;
+        */
     }
 
     //Obtener el tipo de cambio
