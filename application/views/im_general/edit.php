@@ -395,17 +395,7 @@
 
 
 
-            $i = 0;
-            foreach($iterator as $key => $val) {
-                if($val == 0) {
-                    unset($output3[$i][$key]);
-                }
-                $i++;
-            }
 
-
-
-            $array_sinHistorico = removeEmptyKeys($output3);
             removeEmptyKeys($output2);
 
             //FUNCION PARA QUITAR elementos vacios de los subarrays
