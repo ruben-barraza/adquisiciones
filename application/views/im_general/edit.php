@@ -753,7 +753,7 @@
                     var cotizaciones = returned.num_cotizaciones;
                     $("#cotizaciones").val(cotizaciones);
 
-                    //console.log(returned.pmc);
+                    console.log(returned.pmc);
 
                     var longitudArrPmc = returned.pmc.length;
 
