@@ -370,67 +370,21 @@
                     }
                 }
 
-                var_dump($output2);
 
                 $num_partidas = count($output2);
 
 
-                //ESTO YA NO SE DEBE HACER
 
-                //Este array va a contener solamente las cotizaciones, no incluye ningún precio histórico
-                //De aquí se toma el mínimo para la cotización más baja
-                $output3 = $output2;
-                $keys_historicos = array("idProveedor_6666", "idProveedor_7777", "idProveedor_8888", "idProveedor_9999");
-
-                //Quito los precios historicos del array output3
-                for ($i = 0; $i < count($output3); $i++){
-                    foreach($keys_historicos as $key) {
-                        unset($output3[$i][$key]);
-                    }
-                }
-                echo "ARRAY COTIZACIONES";
-                var_dump($output3);
-
-
-
-
-
-
-            removeEmptyKeys($output2);
-
-            //FUNCION PARA QUITAR elementos vacios de los subarrays
-            function removeEmptyKeys($array) {
-                foreach($array as $row => $innerArray){
-                    foreach($innerArray as $key => $value){
-                        if($value == 0){
-                            unset($array[$row][$key]);
+                    foreach($output2 as $row => $innerArray){
+                        foreach($innerArray as $key => $value){
+                            if($value == 0){
+                                unset($output2[$row][$key]);
+                            }
                         }
                     }
-                }
-                return $array;
-            }
 
 
-            //QUITA LOS PROVEEDORES QUE NO TIENEN COTIZACION
-            foreach($output3 as $row => $innerArray){
-                foreach($innerArray as $key => $value){
-                    if($value == 0){
-                        unset($output3[$row][$key]);
-                    }
-                }
-            }
 
-            foreach($output2 as $row => $innerArray){
-                foreach($innerArray as $key => $value){
-                    if($value == 0){
-                        unset($output2[$row][$key]);
-                    }
-                }
-            }
-
-
-            //DE OUTPUT 3 SE TOMA LA COTIZACION MÁS BAJA
-                var_dump($output3);
                 var_dump($output2);
 
             //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
