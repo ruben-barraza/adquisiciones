@@ -231,7 +231,7 @@ class Im_general extends CI_Controller
     }
 
     function calcularPMC($output, $num_cotizaciones, $pog_id){
-        
+
         //Array donde se guardan los PMC
         $array_pmc = array();
 
