@@ -333,7 +333,7 @@
 
                 echo "********************************************************************************************";
 
-                var_dump($output2);
+                //var_dump($output2);
 
 
 
@@ -374,6 +374,9 @@
 
                 $num_partidas = count($output2);
 
+
+                //ESTO YA NO SE DEBE HACER
+
                 //Este array va a contener solamente las cotizaciones, no incluye ningún precio histórico
                 //De aquí se toma el mínimo para la cotización más baja
                 $output3 = $output2;
@@ -387,9 +390,6 @@
                 }
                 echo "ARRAY COTIZACIONES";
                 var_dump($output3);
-
-
-                var_dump($output2);
 
 
 
@@ -499,16 +499,16 @@
                             $k = 0;
                             $precios_intervalo = array();
                             $prom_intervalo = 0;
-                            foreach($output2[$i] as $array){
+                            foreach($output2[$i] as $proveedor => $precio){
                                 if($j == $num_intervalos - 1){
-                                    if($array >= $lim_inf && $array <= $lim_sup){
+                                    if($precio >= $lim_inf && $precio <= $lim_sup){
                                         $frecuencias++;
-                                        array_push($precios_intervalo, $array);
+                                        $precios_intervalo[$proveedor] = $precio;
                                     }
                                 } else {
-                                    if($array >= $lim_inf && $array < $lim_sup) {
+                                    if($precio >= $lim_inf && $precio < $lim_sup) {
                                         $frecuencias++;
-                                        array_push($precios_intervalo, $array);
+                                        $precios_intervalo[$proveedor] = $precio;
                                     }
                                 }
 
@@ -529,13 +529,88 @@
                             $frec_promedio['promedio'] = round($prom_intervalo, 2);
 
                             array_push($array_promedios, $frec_promedio);
+                            foreach ($precios_intervalo as $proveedor => $precio){
+                                $array_promedios[$j][$proveedor] = $precio;
+                            }
                             $lim_inf = $lim_sup;
                             echo "PRECIOS INERVALO";
                             var_dump($precios_intervalo);
 
                         }
 
+                        echo "ARRAY PROMEDIOS";
                         var_dump($array_promedios);
+
+                        //Encontrar el array con el mayot número de frecuencias
+                        //Si es más de uno tomar el índice menor
+                        $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+
+                        echo "Número máximo de frecuencias: $max_frecuencias";
+                        echo "<br>";
+                        echo "<br>";
+
+                        $key = array_search($max_frecuencias, array_column($array_promedios, 'frecuencias'));
+
+                        echo "Index del array con el número máximo de frecuencias: $key";
+                        echo "<br>";
+                        echo "<br>";
+
+                        echo "DATOS DEL INTERVALO CON MAYOR FRECUENCIAS";
+                        echo "<br>";
+
+                        //PROMEDIO DEL INERVALO CON MAYOR FRECUENCIAS
+                        $prom_intervalo_mayor_frec = $array_calc_pmc['promedio'];
+
+                        //ESTE ES EL ARREGLO CON MAYOR NÚMERO DE FRECUENCIAS QUE SE TOMA A CONSIDERACIÓN PARA CALCULAR EL PMC
+                        $array_calc_pmc = $array_promedios[$key];
+                        //PROMEDIO DEL INERVALO CON MAYOR FRECUENCIAS
+                        $prom_intervalo_mayor_frec = $array_calc_pmc['promedio'];
+                        unset($array_calc_pmc['frecuencias']);
+                        unset($array_calc_pmc['promedio']);
+
+                        var_dump($array_calc_pmc);
+
+
+
+                        //VERIFICAR LAS COTIZACIONES REALES Y LAS HISTORICAS
+                        $cot_reales = array();
+                        $cot_historicas = array();
+
+                        foreach ($array_calc_pmc as $key => $value){
+                            if(preg_match('(6666|7777|8888|9999)', $key) === 1) {
+                                array_push($cot_historicas, $value);
+                            } else {
+                                array_push($cot_reales, $value);
+                            }
+                        }
+
+                        echo "COTIZACIONES HISTÓRICAS";
+                        var_dump($cot_historicas);
+                        echo "<br>";
+
+                        echo "COTIZACIONES REALES";
+                        var_dump($cot_reales);
+                        echo "<br>";
+                        echo "<br>";
+
+                        echo "PROMEDIO DEL INTERVALO CON MAYOR FRECUENCIA: " . $prom_intervalo_mayor_frec;
+                        echo "<br>";
+
+                        //SI EL ARREGLO DE COTIZACIONES REALES ESTÁ VACÍO HAY QUE SACAR EL PROMEDIO DE LAS COIZACIONES HISTORICAS
+                        //SI EL ARREGLO DE COIZACIONES HISTÓRICAS ESTÁ VACÍO EL MENOR VALOR
+
+                        if(empty($cot_reales)){
+                            $pmc = round(array_sum($cot_historicas)/count($cot_historicas), 2);
+                        } else {
+                            $cot_minima = min($cot_reales);
+                            if($cot_minima < $prom_intervalo_mayor_frec){
+                                $pmc = $cot_minima;
+                            } else {
+                                $pmc = $prom_intervalo_mayor_frec;
+                            }
+                        }
+
+                        /*
 
                         //Valor max de frecuencias
                         $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
@@ -545,14 +620,16 @@
                             }
                         }
 
+                        echo "ARRAY MAX FREC PROMEDIO";
+                        var_dump($max_frec_prom);
+
+
+
                         $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
                         $cot_mas_baja =  min($output3[$i]);
 
                         $pmc = min($prom_frec, $cot_mas_baja);
-
-                        echo "Promedio frecuencias: ".round($prom_frec, 2);
-                        echo "<br>";
-                        echo "Cotización más baja EN EL INERVALO: ".$cot_mas_baja;
+                        */
                         echo "<br>";
                         echo "<br>";
                         echo "PMC = ".$pmc;
