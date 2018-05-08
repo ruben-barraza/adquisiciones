@@ -362,26 +362,52 @@ class Im_general extends CI_Controller
                     $frec_promedio['promedio'] = round($prom_intervalo, 2);
 
                     array_push($array_promedios, $frec_promedio);
+                    foreach ($precios_intervalo as $proveedor => $precio){
+                        $array_promedios[$j][$proveedor] = $precio;
+                    }
                     $lim_inf = $lim_sup;
 
                 }
 
-                //Valor max de frecuencias
+                //Encontrar el array con el mayot número de frecuencias
+                //Si es más de uno tomar el índice menor
                 $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
-                //Checo el arreglo $array_promedios y todos los promedios que coincidan con el valor máximo de frecuencias
-                //se agregan a $max_frec_prom
-                foreach ($array_promedios as $row){
-                    if ($row['frecuencias'] == $max_frecuencias){
-                        array_push($max_frec_prom, $row['promedio']);
+
+                $key = array_search($max_frecuencias, array_column($array_promedios, 'frecuencias'));
+
+                //ESTE ES EL ARREGLO CON MAYOR NÚMERO DE FRECUENCIAS QUE SE TOMA A CONSIDERACIÓN PARA CALCULAR EL PMC
+                $array_calc_pmc = $array_promedios[$key];
+                //PROMEDIO DEL INTERVALO CON MAYOR FRECUENCIAS
+                $prom_intervalo_mayor_frec = $array_calc_pmc['promedio'];
+                unset($array_calc_pmc['frecuencias']);
+                unset($array_calc_pmc['promedio']);
+
+                //VERIFICAR LAS COTIZACIONES REALES Y LAS HISTORICAS
+                $cot_reales = array();
+                $cot_historicas = array();
+
+                foreach ($array_calc_pmc as $key => $value){
+                    if(preg_match('(6666|7777|8888|9999)', $key) === 1) {
+                        array_push($cot_historicas, $value);
+                    } else {
+                        array_push($cot_reales, $value);
                     }
                 }
 
-                //Saco el promedio de los promedios que tengan el máximo número de frecuencias
-                $prom_frec = array_sum($max_frec_prom)/count($max_frec_prom);
+                //SI EL ARREGLO DE COTIZACIONES REALES ESTÁ VACÍO HAY QUE SACAR EL PROMEDIO DE LAS COIZACIONES HISTORICAS
+                //SI EL ARREGLO DE COIZACIONES HISTÓRICAS ESTÁ VACÍO EL MENOR VALOR
 
-                $cot_mas_baja =  min(array_filter($array_cotizaciones[$i]));
+                if(empty($cot_reales)){
+                    $pmc = round(array_sum($cot_historicas)/count($cot_historicas), 2);
+                } else {
+                    $cot_minima = min($cot_reales);
+                    if($cot_minima < $prom_intervalo_mayor_frec){
+                        $pmc = $cot_minima;
+                    } else {
+                        $pmc = $prom_intervalo_mayor_frec;
+                    }
+                }
 
-                $pmc = min($prom_frec, $cot_mas_baja);
                 array_push($array_pmc, $pmc);
             }
         }
