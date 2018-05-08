@@ -231,7 +231,13 @@ class Im_general extends CI_Controller
     }
 
     function calcularPMC($output, $num_cotizaciones, $pog_id){
+        
+        //Array donde se guardan los PMC
+        $array_pmc = array();
+
         $num_partidas = count($output);
+
+
 
         foreach($output as $row => $innerArray){
             foreach($innerArray as $key => $value){
@@ -241,6 +247,8 @@ class Im_general extends CI_Controller
             }
         }
 
+
+
         //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
 
         if($num_partidas > 1) {
@@ -248,7 +256,7 @@ class Im_general extends CI_Controller
             {
                 if (count($output[$i]) <= 1){
                     //NO NECESITA HACER NADA MAS PORQUE ESA PARTIDA SOLO TIENE UNA COTIZACION
-
+                    array_push($array_pmc, 0);
                 } else{
                     //NUMERO DE LAS COTIZACIONES POR PARTIDA - 1
                     $num_intervalos = count($output[$i]) - 1;
@@ -356,7 +364,6 @@ class Im_general extends CI_Controller
 
             return $array_pmc;
         }
-
     }
 
     /*
