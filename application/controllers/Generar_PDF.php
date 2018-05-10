@@ -182,6 +182,10 @@ class Generar_PDF extends CI_Controller{
 
     }
 
+    function calculo_pmc($id){
+
+    }
+
 }
 
 ?>

@@ -74,6 +74,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -108,6 +109,10 @@
                             <td align="center">
                                 <a title="Cuadro Resumen ICM" href="<?php echo site_url('generar_pdf/resumen_icm/' . $i['id']); ?>"
                                    class="btn btn-primary btn-xs"><span class="fa fa-download"></span></a>
+                            </td>
+                            <td align="center">
+                                <a title="Cálculo PMC" href="<?php echo site_url('generar_pdf/calculo_pmc/' . $i['id']); ?>"
+                                   class="btn btn-primary btn-xs"><span class="fa fa-calculator"></span></a>
                             </td>
                         </tr>
                     <?php } ?>
