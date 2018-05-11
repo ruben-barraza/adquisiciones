@@ -371,21 +371,21 @@
                 }
 
 */
-                $num_partidas = count($output2);
+            $num_partidas = count($output2);
 
 
 
-                    foreach($output2 as $row => $innerArray){
-                        foreach($innerArray as $key => $value){
-                            if($value == 0){
-                                unset($output2[$row][$key]);
-                            }
-                        }
+            foreach($output2 as $row => $innerArray){
+                foreach($innerArray as $key => $value){
+                    if($value == 0){
+                        unset($output2[$row][$key]);
                     }
+                }
+            }
 
 
 
-                var_dump($output2);
+            var_dump($output2);
 
             //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
             echo "<br>";
