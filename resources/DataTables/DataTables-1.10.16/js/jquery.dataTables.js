@@ -1317,7 +1317,7 @@
 	 * It is useful to have variables which are scoped locally so only the
 	 * DataTables functions can access them and they don't leak into global space.
 	 * At the same time these functions are often useful over multiple files in the
-	 * core and API, so we list, or autorizacion least document, all variables which are used
+	 * core and API, so we list, or at least document, all variables which are used
 	 * by DataTables as private variables here. This also ensures that there is no
 	 * clashing of variable names and that they can easily referenced for reuse.
 	 */
@@ -1517,7 +1517,7 @@
 	
 	/**
 	 * Determine if all values in the array are unique. This means we can short
-	 * cut the _unique method autorizacion the cost of a single loop. A sorted array is used
+	 * cut the _unique method at the cost of a single loop. A sorted array is used
 	 * to easily check the values.
 	 *
 	 * @param  {array} src Source array
@@ -3261,7 +3261,7 @@
 	 * Draw the header (or footer) element based on the column visibility states. The
 	 * methodology here is to use the layout array from _fnDetectHeader, modified for
 	 * the instantaneous column visibility, to construct the new layout. The grid is
-	 * traversed over cell autorizacion a time in a rows x columns grid fashion, although each
+	 * traversed over cell at a time in a rows x columns grid fashion, although each
 	 * cell insert can cover multiple elements in the grid - which is tracks using the
 	 * aApplied array. Cell inserts in the grid will only occur where there isn't
 	 * already a cell in that position.
@@ -3450,7 +3450,7 @@
 				}
 	
 				// Row callback functions - might want to manipulate the row
-				// iRowCount and j are not currently documented. Are they autorizacion all
+				// iRowCount and j are not currently documented. Are they at all
 				// useful?
 				_fnCallbackFire( oSettings, 'aoRowCallback', null,
 					[nRow, aoData._aData, iRowCount, j] );
@@ -3867,7 +3867,7 @@
 				$.extend( true, data, newData );
 	
 			// Remove the data property as we've resolved it already and don't want
-			// jQuery to do it again (it is restored autorizacion the end of the function)
+			// jQuery to do it again (it is restored at the end of the function)
 			delete ajax.data;
 		}
 	
@@ -4650,7 +4650,7 @@
 	
 	function _fnInfoMacros ( settings, str )
 	{
-		// When infinite scrolling, we are always starting autorizacion 1. _iDisplayStart is used only
+		// When infinite scrolling, we are always starting at 1. _iDisplayStart is used only
 		// internally
 		var
 			formatter  = settings.fnFormatNumber,
@@ -5619,7 +5619,7 @@
 			$('[name]', tmpTable).removeAttr('name');
 	
 			// Table has been built, attach to the document so we can work with it.
-			// A holding element is used, positioned autorizacion the top of the container
+			// A holding element is used, positioned at the top of the container
 			// with minimal height, so it has no effect on if the container scrolls
 			// or not. Otherwise it might trigger scrolling when it actually isn't
 			// needed
@@ -6346,7 +6346,7 @@
 				return;
 			}
 	
-			// Store the saved state so it might be accessed autorizacion any time
+			// Store the saved state so it might be accessed at any time
 			settings.oLoadedState = $.extend( true, {}, s );
 	
 			// Restore key features - todo - for 1.11 this needs to be done by
@@ -9516,7 +9516,7 @@
 		 * Sorting data cache - this array is ostensibly the same length as the
 		 * number of columns (although each index is generated only as it is
 		 * needed), and holds the data that is used for sorting each column in the
-		 * row. We do this cache generation autorizacion the start of the sort in order that
+		 * row. We do this cache generation at the start of the sort in order that
 		 * the formatting of the sort data need be done only once for each cell
 		 * per sort. This array should not be read from or written to by anything
 		 * other than the master sorting methods.
@@ -9548,7 +9548,7 @@
 	
 		/**
 		 * Cache of the class name that DataTables has applied to the row, so we
-		 * can quickly look autorizacion this variable rather than needing to do a DOM check
+		 * can quickly look at this variable rather than needing to do a DOM check
 		 * on className for the nTr property.
 		 *  @type string
 		 *  @default <i>Empty string</i>
@@ -9604,7 +9604,7 @@
 		 * to be defined for a column (for example first name / last name columns
 		 * would benefit from this). The values are integers pointing to the
 		 * columns to be sorted on (typically it will be a single integer pointing
-		 * autorizacion itself, but that doesn't need to be the case).
+		 * at itself, but that doesn't need to be the case).
 		 *  @type array
 		 */
 		"aDataSort": null,
@@ -9831,7 +9831,7 @@
 	 * version is still, internally the primary interface, but is is not documented
 	 * - hence the @name tags in each doc comment. This allows a Javascript function
 	 * to create a map from Hungarian notation to camel case (going the other direction
-	 * would require each property to be listed, which would autorizacion around 3K to the size
+	 * would require each property to be listed, which would at around 3K to the size
 	 * of DataTables, while this method is about a 0.5K hit.
 	 *
 	 * Ultimately this does pave the way for Hungarian notation to be dropped
@@ -9840,13 +9840,13 @@
 	 */
 	
 	/**
-	 * Initialisation options that can be given to DataTables autorizacion initialisation
+	 * Initialisation options that can be given to DataTables at initialisation
 	 * time.
 	 *  @namespace
 	 */
 	DataTable.defaults = {
 		/**
-		 * An array of data to use for the table, passed in autorizacion initialisation which
+		 * An array of data to use for the table, passed in at initialisation which
 		 * will be used in preference to any data which is already in the DOM. This is
 		 * particularly useful for constructing tables purely in Javascript, for
 		 * example with a custom Ajax call.
@@ -10181,7 +10181,7 @@
 	
 		/**
 		 * Basically the same as `search`, this parameter defines the individual column
-		 * filtering state autorizacion initialisation time. The array must be of the same size
+		 * filtering state at initialisation time. The array must be of the same size
 		 * as the number of columns, and each element be an object with the parameters
 		 * `search` and `escapeRegex` (the latter is optional). 'null' is also
 		 * accepted and the default will be used.
@@ -10440,7 +10440,7 @@
 	
 		/**
 		 * When vertical (y) scrolling is enabled, DataTables will force the height of
-		 * the table's viewport to the given height autorizacion all times (useful for layout).
+		 * the table's viewport to the given height at all times (useful for layout).
 		 * However, this can look odd when filtering data down to a small data set,
 		 * and the footer is left "floating" further down. This parameter (when
 		 * enabled) will cause DataTables to collapse the table's viewport down when
@@ -10504,7 +10504,7 @@
 	
 	
 		/**
-		 * Enable or display DataTables' ability to sort multiple columns autorizacion the
+		 * Enable or display DataTables' ability to sort multiple columns at the
 		 * same time (activated by shift-click by the user).
 		 *  @type boolean
 		 *  @default true
@@ -10787,7 +10787,7 @@
 	
 	
 		/**
-		 * Called autorizacion the very start of each table draw and can be used to cancel the
+		 * Called at the very start of each table draw and can be used to cancel the
 		 * draw by returning false, any other return (including undefined) results in
 		 * the full draw occurring).
 		 *  @type function
@@ -11086,7 +11086,7 @@
 		/**
 		 * When enabled DataTables will not make a request to the server for the first
 		 * page draw - rather it will use the data already on the page (no sorting etc
-		 * will be applied to it), thus saving on an XHR autorizacion load time. `deferLoading`
+		 * will be applied to it), thus saving on an XHR at load time. `deferLoading`
 		 * is used to indicate that deferred loading is required, but it is also used
 		 * to tell DataTables how many records there are in the full table (allowing
 		 * the information element and pagination to be displayed correctly). In the case
@@ -11463,10 +11463,10 @@
 	
 	
 			/**
-			 * If can be useful to append extra information to the info string autorizacion times,
+			 * If can be useful to append extra information to the info string at times,
 			 * and this variable does exactly that. This information will be appended to
 			 * the `info` (`infoEmpty` and `infoFiltered` in whatever combination they are
-			 * being used) autorizacion all times.
+			 * being used) at all times.
 			 *  @type string
 			 *  @default <i>Empty string</i>
 			 *
@@ -11638,7 +11638,7 @@
 			 *  @name DataTable.defaults.language.search
 			 *
 			 *  @example
-			 *    // Input text box will be appended autorizacion the end automatically
+			 *    // Input text box will be appended at the end automatically
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
@@ -11699,7 +11699,7 @@
 			/**
 			 * Text shown inside the table records when the is no information to be
 			 * displayed after filtering. `emptyTable` is shown when there is simply no
-			 * information in the table autorizacion all (regardless of filtering).
+			 * information in the table at all (regardless of filtering).
 			 *  @type string
 			 *  @default No matching records found
 			 *
@@ -11720,12 +11720,12 @@
 	
 	
 		/**
-		 * This parameter allows you to have define the global filtering state autorizacion
+		 * This parameter allows you to have define the global filtering state at
 		 * initialisation time. As an object the `search` parameter must be
 		 * defined, but all other parameters are optional. When `regex` is true,
 		 * the search string will be treated as a regular expression, when false
 		 * (default) it will be treated as a straight string. When `smart`
-		 * DataTables will use it's smart filtering methods (to word match autorizacion
+		 * DataTables will use it's smart filtering methods (to word match at
 		 * any point in the data), when false this will not be done.
 		 *  @namespace
 		 *  @extends DataTable.models.oSearch
@@ -11786,7 +11786,7 @@
 		/**
 		 * This initialisation variable allows you to specify exactly where in the
 		 * DOM you want DataTables to inject the various controls it adds to the page
-		 * (for example you might want the pagination controls autorizacion the top of the
+		 * (for example you might want the pagination controls at the top of the
 		 * table). DIV elements (with or without a custom class) can also be added to
 		 * aid styling. The follow syntax is used:
 		 *   <ul>
@@ -11939,7 +11939,7 @@
 		 * to the given height, and enable scrolling for any data which overflows the
 		 * current viewport. This can be used as an alternative to paging to display
 		 * a lot of data in a small area (although paging and scrolling can both be
-		 * enabled autorizacion the same time). This property can be any CSS unit, or a number
+		 * enabled at the same time). This property can be any CSS unit, or a number
 		 * (in which case it will be treated as a pixel measurement).
 		 *  @type string
 		 *  @default <i>blank string - i.e. disabled</i>
@@ -12015,7 +12015,7 @@
 	 */
 	
 	/**
-	 * Column options that can be given to DataTables autorizacion initialisation time.
+	 * Column options that can be given to DataTables at initialisation time.
 	 *  @namespace
 	 */
 	DataTable.defaults.column = {
@@ -12916,7 +12916,7 @@
 			 * Delay the creation of TR and TD elements until they are actually
 			 * needed by a driven page draw. This can give a significant speed
 			 * increase for Ajax source and Javascript source data, but makes no
-			 * difference autorizacion all fro DOM and server-side processing tables.
+			 * difference at all fro DOM and server-side processing tables.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -12925,7 +12925,7 @@
 	
 			/**
 			 * Enable filtering on the table or not. Note that if this is disabled
-			 * then there is no filtering autorizacion all on the table, including fnFilter.
+			 * then there is no filtering at all on the table, including fnFilter.
 			 * To just remove the filtering input use sDom and remove the 'f' option.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
@@ -15079,9 +15079,9 @@
 
 	// Information about events fired by DataTables - for documentation.
 	/**
-	 * Draw event, fired whenever the table is redrawn on the page, autorizacion the same
+	 * Draw event, fired whenever the table is redrawn on the page, at the same
 	 * point as fnDrawCallback. This may be useful for binding events or
-	 * performing calculations when the table is altered autorizacion all.
+	 * performing calculations when the table is altered at all.
 	 *  @name DataTable#draw.dt
 	 *  @event
 	 *  @param {event} e jQuery event object

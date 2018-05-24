@@ -55,7 +55,7 @@
 
                 <hr/>
 
-  				<table id="table" class="table table-striped hidden">
+  				<table id="table" class="table table-striped">
                     <thead>
                         <tr>
 
@@ -133,20 +133,11 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
-            initComplete: function () {
-                // Apply the search
-                table.columns().every( function () {
-                    var that = this;
-                    $( 'input', this.footer() ).on( 'keyup change', function() {
-                        if ( that.search() !== this.value ) {
-                            that
-                                .search( this.value )
-                                .draw();
-                        }
-                    });
-                });
-            }
+            dom: 'Bfrtip',
+            buttons: [ 'copy', 'excel', 'pdf'],
         });
+
+        /*
 
         $('#idFamilia').change(function () {
             $('#table').removeClass("hidden");
@@ -163,6 +154,8 @@
 
             }
         });
+
+        */
 
         $('#status').change(function () {
             $('#table').DataTable().column(8).search($(this).val()).draw();

@@ -65,6 +65,7 @@ class Solcon extends CI_Controller{
         {
             $this->load->model('Comboboxesmodel');
             $data['autorizacion'] = $this->Comboboxesmodel->getAutorizaciones();
+            $data['familias'] = $this->Comboboxesmodel->getFamilias();
             $data['_view'] = 'solcon/add';
             $this->load->view('layouts/main',$data);
         }
@@ -107,6 +108,7 @@ class Solcon extends CI_Controller{
             {
                 $this->load->model('Comboboxesmodel');
                 $data['autorizacion'] = $this->Comboboxesmodel->getAutorizaciones();
+                $data['familias'] = $this->Comboboxesmodel->getFamilias();
                 $data['_view'] = 'solcon/edit';
                 $this->load->view('layouts/main',$data);
             }
