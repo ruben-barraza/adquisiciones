@@ -602,9 +602,11 @@
 
                                 array_push($arr_tablapmc, $pmc);
 
-                                for ($l = 0; $l < count($arr_intervalos_tabla); $l++){
-                                  $arr_intervalos_tabla[$l]["pmc"] = $arr_tablapmc[$l];
-                                }
+
+                            }
+
+                            for ($l = 0; $l < count($arr_intervalos_tabla); $l++){
+                                $arr_intervalos_tabla[$l]["pmc"] = $arr_tablapmc[$l];
                             }
                         }
                     }
