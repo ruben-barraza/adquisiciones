@@ -400,7 +400,7 @@
                                 $arr_intervalo_data["ls"] = "N/A";
                                 $arr_intervalo_data["num_frec"] = "N/A";
                                 $arr_intervalo_data["prom_inter"] = "N/A";
-                                $arr_intervalos_tabla[$i] = $arr_intervalo_data;
+                                $arr_intervalos_tabla[$i][0] = $arr_intervalo_data;
                                 array_push($arr_tablapmc, 0);
 
                             } else{
@@ -489,7 +489,7 @@
 
                                     //array_push($arr_intervalos_tabla, $arr_intervalo_data);
 
-                                    $arr_intervalos_tabla[$i] = $arr_intervalo_data;
+                                    $arr_intervalos_tabla[$i][$j] = $arr_intervalo_data;
                                     $lim_inf = $lim_sup;
 
 
@@ -606,7 +606,9 @@
                             }
 
                             for ($l = 0; $l < count($arr_intervalos_tabla); $l++){
-                                $arr_intervalos_tabla[$l]["pmc"] = $arr_tablapmc[$l];
+                                for ($m = 0; $m < count($arr_intervalos_tabla[$l]); $m++){
+                                    $arr_intervalos_tabla[$l][$m]["pmc"] = $arr_tablapmc[$l];
+                                }
                             }
                         }
                     }
@@ -616,6 +618,7 @@
                     var_dump($arr_intervalos_tabla);
 
                     ?>
+
 
                     <table id="table" class="table table-striped table-hover">
                         <thead>
@@ -632,24 +635,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php  foreach ($arr_intervalos_tabla as $subarray){ ?>
-                            <tr>
-                                <td align="center"><?php echo $subarray['partida']; ?></td>
-                                <?php $key = array_search($subarray['partida'], array_column($imcConcepto, 'partida')); ?>
-                                <td><?php echo $imcConcepto[$key]['codigo']; ?></td>
-                                <td><?php echo $imcConcepto[$key]['descripcion']; ?></td>
-                                <td align="center"><?php echo $subarray['intervalo']; ?></td>
-                                <td align="center"><?php echo $subarray['li']; ?></td>
-                                <td align="center"><?php echo $subarray['ls']; ?></td>
-                                <td align="center"><?php echo $subarray['num_frec']; ?></td>
-                                <td align="center"><?php echo $subarray['prom_inter']; ?></td>
-                                <td align="center"><?php echo $subarray['pmc']; ?></td>
-                            </tr>
+                        <?php  for($i = 0; $i < count($arr_intervalos_tabla); $i++){
+                                for($j = 0; $j < count($arr_intervalos_tabla[$i]); $j++){
+                                ?>
+                                <tr>
+                                    <td align="center"><?php echo $arr_intervalos_tabla[$i][$j]['partida']; ?></td>
+                                    <?php $key = array_search($arr_intervalos_tabla[$i][$j]['partida'], array_column($imcConcepto, 'partida')); ?>
+                                    <td><?php echo $imcConcepto[$key]['codigo']; ?></td>
+                                    <td><?php echo $imcConcepto[$key]['descripcion']; ?></td>
+                                    <td align="center"><?php echo [$i][$j]['intervalo']; ?></td>
+                                    <td align="center"><?php echo $arr_intervalos_tabla[$i][$j]['li']; ?></td>
+                                    <td align="center"><?php echo $arr_intervalos_tabla[$i][$j]['ls']; ?></td>
+                                    <td align="center"><?php echo $arr_intervalos_tabla[$i][$j]['num_frec']; ?></td>
+                                    <td align="center"><?php echo $arr_intervalos_tabla[$i][$j]['prom_inter']; ?></td>
+                                    <td align="center"><?php echo $arr_intervalos_tabla[$i][$j]['pmc']; ?></td>
+                                </tr>
+
+                            <?php } ?>
                             <tr class="blank_row"></tr>
                         <?php } ?>
 
                         </tbody>
                     </table>
+
 
                 </var>
 
