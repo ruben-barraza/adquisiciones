@@ -4,7 +4,9 @@ class Solcon extends CI_Controller{
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Autorizacionmodel');
         $this->load->model('Solconmodel');
+		$this->load->model('Sapmodel');
     }
 
     /*
@@ -13,13 +15,15 @@ class Solcon extends CI_Controller{
     function index()
     {
         $data['listaSolcon'] = $this->Solconmodel->get_all_listasolcon();
+        $data['listaAT'] = $this->Autorizacionmodel->get_all_listaautorizacion();
         $data['_view'] = 'solcon/index';
+		
         $this->load->view('layouts/main',$data);
     }
 
     /*
      * Agregar un nuevo solcon
-     */
+     */	 
     function add()
     {
         $this->load->library('form_validation');
@@ -30,6 +34,9 @@ class Solcon extends CI_Controller{
         $this->form_validation->set_rules('idAt2','IdAt2','integer');
         $this->form_validation->set_rules('idAt3','IdAt3','integer');
         $this->form_validation->set_rules('tipoCompra','TipoCompra','max_length[500]');
+        $this->form_validation->set_rules('idFamilia','IdFamilia');
+        $this->form_validation->set_rules('anioEjercicio','anioEjercicio','integer');
+
 
         if($this->form_validation->run())
         {
@@ -53,6 +60,8 @@ class Solcon extends CI_Controller{
                 'idAt2' => $idAt2,
                 'idAt3' => $idAt3,
                 'tipoCompra' => $this->input->post('tipoCompra'),
+                'idFamilia' => $this->input->post('idFamilia'),
+                'anioEjercicio' => $this->input->post('anioEjercicio')
             );
 
             print_r($_POST);
@@ -89,7 +98,8 @@ class Solcon extends CI_Controller{
             $this->form_validation->set_rules('idAt2','IdAt2','integer');
             $this->form_validation->set_rules('idAt3','IdAt3','integer');
             $this->form_validation->set_rules('tipoCompra','TipoCompra','max_length[500]');
-
+            $this->form_validation->set_rules('idFamilia','IdFamilia');
+            $this->form_validation->set_rules('anioEjercicio','anioEjercicio','integer');
             if($this->form_validation->run())
             {
                 $params = array(
@@ -99,6 +109,8 @@ class Solcon extends CI_Controller{
                     'idAt2' => $this->input->post('idAt2'),
                     'idAt3' => $this->input->post('idAt3'),
                     'tipoCompra' => $this->input->post('tipoCompra'),
+                    'idFamilia' => $this->input->post('idFamilia'),
+                    'anioEjercicio' => $this->input->post('anioEjercicio'),
                 );
 
                 $this->Solconmodel->update_solcon($id,$params);
@@ -133,4 +145,16 @@ class Solcon extends CI_Controller{
         else
             show_error('El solcon que está tratando de eliminar no existe.');
     }
+	
+	function buscarSolconSap($numeroSolcon) {
+		//$solcon = $this->Solconmodel->get_solcon($id);
+	}
+	
+    function buscarSolconDetalle()
+    {
+        $solcon = $_POST['solcon'];
+        $data['detalle'] = $this->Solconmodel->get_solconDetalle($solcon);
+        echo json_encode($data);
+    }
+	
 }

@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="justificacion" class="col-md-2 control-label">Justificación</label>
                     <div class="col-md-4">
-                        <textarea name="justificacion" class="form-control" id="justificacion" readonly="true" maxlength="1000" ></textarea>
+                        <textarea name="justificacion" class="form-control" id="justificacion" readonly="true" rows="6" maxlength="1000" ></textarea>
                     </div>
                 </div>
 

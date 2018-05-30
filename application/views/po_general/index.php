@@ -68,10 +68,10 @@
                 </form>
 
                 <hr/>
-                <table id="table" class="table table-striped table-hover">
+                <table id="table" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Familia</th>
+                            <th>Test</th>
                             <th>Título</th>
                             <th>Fecha de Elaboración</th>
                             <th></th>
@@ -98,7 +98,7 @@
                                    class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
                             </td>
                             <td>
-                                <a href="<?php echo site_url('generar_pdf/pdf/' . $p['id']); ?>"
+                                <a href="<?php echo site_url('Generar_pdf/pdf/' . $p['id']); ?>"
                                    class="btn btn-primary btn-xs"><span class="fa fa-download"></span></a>
                             </td>
                         </tr>

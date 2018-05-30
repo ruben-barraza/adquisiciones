@@ -6,6 +6,7 @@
 // Author: Rubén Barraza
 //============================================================+
 
+//echo dirname(__FILE__);
 
 
 
@@ -88,7 +89,7 @@ class MYPDF extends TCPDF {
 // a quienes se les enviará la POG.
 
 $num_contactos = sizeof($contactos);
-$tmp = ini_get('upload_tmp_dir');
+$tmp = dirname(__FILE__) . "/pdftemp";
 $archivos = array();
 $nombresArchivos = array();
 
@@ -118,8 +119,8 @@ for ($i = 0; $i < $num_contactos; $i++) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // set auto page breaks
-    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-    //$pdf->SetAutoPageBreak(FALSE);
+    //$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    $pdf->SetAutoPageBreak(FALSE);
 
 
     // set image scale factor
@@ -357,6 +358,7 @@ for ($i = 0; $i < $num_contactos; $i++) {
         $pdf->Cell(0, 0, $po_general[0]["municipio"].', '.$po_general[0]["estado"].', '.$dia.' de '.ucfirst($mes).' del '.$year, 0, false, 'R', 0, '', 0, false, 'M', 'M');
 
 
+
         $pdf->Ln(10);
 
         //Número de renglones que tendrá la tabla IM CONCEPTO
@@ -486,7 +488,8 @@ function create_zip($files = array(), $fileNames = array(), $zipName = '', $dest
         header('Content-Disposition: attachment; filename='.$zipName.'.zip');
         readfile($destination);
 
-        $tmp = ini_get('upload_tmp_dir');
+        //$tmp = ini_get('upload_tmp_dir');
+		$tmp =  dirname(__FILE__) . "/pdftemp";
 
         //Limpiar el folder tmp
         $files = glob($tmp.'/*'); // get all file names

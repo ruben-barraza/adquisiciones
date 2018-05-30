@@ -194,12 +194,36 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    public function get_img_prooveedores_cotizados($img_id)
+    {
+        $this->db->distinct();
+        $this->db->select('im_concepto.idProveedor, proveedor.razonSocial');
+        $this->db->from('im_concepto');
+        $this->db->join('proveedor', 'proveedor.id = im_concepto.idProveedor', 'inner');
+        $this->db->where('im_concepto.idImg', $img_id);
+        $this->db->where('im_concepto.importeIM !=', 0);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            $listaprov = $query->result_array();
+            $proveedores = array();
+            for ($i = 0; $i < count($listaprov); $i++){
+                $idProveedor = $listaprov[$i]["idProveedor"];
+                $razonSocial = $listaprov[$i]["razonSocial"];
+                $proveedores[$idProveedor] = $razonSocial;
+            }
+            return $proveedores;
+        }
+    }
+
+
     public function get_imc_concepto($pog_id)
     {
-        $this->db->select('partida');
+        $this->db->select('im_concepto.id, im_concepto.partida, articulo.codigo, articulo.descripcion, unidadmedida.clave, im_concepto.cantidad');
         $this->db->from('im_concepto');
-        $this->db->group_by('partida');
-        $this->db->where('idPog', $pog_id);
+        $this->db->join('articulo', 'im_concepto.idArticulo = articulo.id', 'inner');
+        $this->db->join('unidadmedida', 'articulo.idUnidadMedida = unidadmedida.id', 'inner');
+        $this->db->group_by("im_concepto.partida");
+        $this->db->where('im_concepto.idPog', $pog_id);
         $this->db->order_by("partida", "asc");
         $query = $this->db->get();
         if($query->num_rows() > 0){

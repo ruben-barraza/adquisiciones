@@ -15,6 +15,19 @@
                         <input type="text" name="solcon" value="<?php echo ($this->input->post('solcon') ? $this->input->post('solcon') : $solcon['solcon']); ?>" class="form-control" id="solcon" />
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label for="anioEjercicio" class="col-md-2 control-label">Año Ejercicio</label>
+                    <div class="col-md-2">
+                        <input type="text" name="anioEjercicio" value="<?php
+                        if ($solcon['anioEjercicio'] != 0)
+                            echo $solcon['anioEjercicio'];
+                        else
+                            echo "";
+                        ?>" class="form-control" id="anioEjercicio"/>
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <label for="origenRecurso" class="col-md-2 control-label">Origen del Recurso</label>
                     <div class="col-md-4">
@@ -54,6 +67,20 @@
                             {
                                 $selected = ($value == $solcon['tipoCompra']) ? ' selected="selected"' : "";
                                 echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="idFamilia" class="col-md-2 control-label">Familia</label>
+                    <div class="col-md-4">
+                        <select id="idFamilia" name="idFamilia" class="form-control">
+                            <option value="0">Seleccione</option>
+                            <?php
+                            foreach ($familias as $i) {
+                                $selected = ($i == $this->input->post('idFamilia')) ? ' selected="selected"' : "";
+                                echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
                             }
                             ?>
                         </select>

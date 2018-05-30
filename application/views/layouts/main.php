@@ -34,7 +34,6 @@
         <link href="<?php echo site_url('resources/wickedpicker/stylesheets/wickedpicker.css');?>" rel="stylesheet">
         <!-- include DataTable css-->
         <link href="<?php echo site_url('resources/DataTables/datatables.min.css');?>" rel="stylesheet">
-
         
         <script src="<?php echo site_url('resources/js/jquery-1.9.1.js');?>"></script>
         <script src="<?php echo site_url('resources/js/jquery-ui.js');?>"></script>
@@ -113,10 +112,7 @@
                                                 <a href="<?php echo site_url('po_general/index');?>"><i class="fa fa-table"></i> Petición de Oferta</a>
                                             </li>
                                             <li>
-                                                <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> IMC</a>
-                                            </li>
-                                            <li>
-                                                <a href="<?php echo site_url('solcon/index');?>"><i class="fa fa-table"></i> SOLCON</a>
+                                                <a href="<?php echo site_url('im_general/index');?>"><i class="fa fa-table"></i> ICM</a>
                                             </li>
                                             <!--
                                             <li>
@@ -143,8 +139,18 @@
                                         </ul>
                                     </li>
                                     <li class="divider"></li>  
+                                    <li><label class="tree-toggle nav-header"> Seguimiento Saldos</span></label>
+                                        <ul class="nav nav-list tree">                                    
+                                            <li>
+                                                <a href="<?php echo site_url('autorizacion/index');?>"><i class="fa fa-table"></i> AT</a>
+                                            </li>                                            
+                                            <li>                                            
+                                                <a href="<?php echo site_url('solcon/index');?>"><i class="fa fa-table"></i> Solcon</a>
+                                            </li>                                            
+                                        </ul>    
+                                    </li>
 
-
+                                    <li class="divider"></li>  
                                     <li><label class="tree-toggle nav-header"> Catálogos</label>
                                       <ul class="nav nav-list tree">
                                         <li>
@@ -152,9 +158,6 @@
                                         </li>
                                         <li>
                                             <a href="<?php echo site_url('articulo/index');?>"><i class="fa fa-table"></i> Artículo</a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo site_url('autorizacion/index');?>"><i class="fa fa-table"></i> AT</a>
                                         </li>
                                         <li>
                                             <a href="<?php echo site_url('categoria/index');?>"><i class="fa fa-table"></i> Categoría</a>

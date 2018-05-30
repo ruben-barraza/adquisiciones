@@ -224,7 +224,8 @@ for($i = 0; $i < $num_pags; $i++){
 
 }
 
-$pdf->Output('Reporte IMC.pdf', 'I');
+ob_clean();
+$pdf->Output('Reporte IMC.pdf',"I");
 
 
 

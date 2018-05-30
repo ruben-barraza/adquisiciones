@@ -13,6 +13,7 @@ class Im_general extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Imgeneralmodel');
+        $this->load->model('Abastecimientosmodel');
         $this->load->model('Comboboxesmodel');
         $this->load->helper('form');
     }
@@ -237,8 +238,6 @@ class Im_general extends CI_Controller
 
         $num_partidas = count($output);
 
-
-
         foreach($output as $row => $innerArray){
             foreach($innerArray as $key => $value){
                 if($value == 0){
@@ -246,9 +245,6 @@ class Im_general extends CI_Controller
                 }
             }
         }
-
-
-
         //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
 
         if($num_partidas > 1) {
@@ -281,7 +277,7 @@ class Im_general extends CI_Controller
                         $precios_intervalo = array();
                         foreach($output[$i] as $proveedor => $precio){
                             if($j == $num_intervalos - 1){
-                                if($precio >= $lim_inf && $precio <= $lim_sup){
+                                if($precio >= $lim_inf && $precio <= $maxvalue){
                                     $frecuencias++;
                                     $precios_intervalo[$proveedor] = $precio;
                                 }
@@ -367,35 +363,6 @@ class Im_general extends CI_Controller
     }
 
     /*
-    //Obtener el tipo de cambio
-    function get_TipoDeCambioPesoDolar() {
-
-        $resultado='';
-        $tc='0.00';
-        $client = new SoapClient(null, array('location' => 'http://www.banxico.org.mx:80/DgieWSWeb/DgieWS?WSDL',
-            'uri'      => 'http://DgieWSWeb/DgieWS?WSDL',
-            'encoding' => 'ISO-8859-1',
-            'trace'    => 1) );
-        try {
-            $resultado = $client->tiposDeCambioBanxico();
-        } catch (SoapFault $exception) {
-
-        }
-        if(!empty($resultado)) {
-            $dom = new DomDocument();
-            $dom->loadXML($resultado);
-            $xmlDatos = $dom->getElementsByTagName( "Obs" );
-            if($xmlDatos->length>1) {
-                $item = $xmlDatos->item(1);
-                $tc = $item->getAttribute('OBS_VALUE');
-            }
-        }
-
-        return $tc;
-    }
-    */
-
-    /*
      * Adding a new im_general
      */
     function add()
@@ -444,62 +411,82 @@ class Im_general extends CI_Controller
 
         // check if the im_general exists before trying to edit it
         $data['im_general'] = $this->Imgeneralmodel->get_im_general($id);
+        $data['listaanexo1'] = $this->Abastecimientosmodel->get_all_listaanexo1($id);
+        $data['listadetallesolcon'] = $this->Abastecimientosmodel->get_all_detallesolcon($id);
         $pog_id = $this->Imgeneralmodel->get_pog_id($id);
 
         if (isset($data['im_general']['id'])) {
 
+            $this->load->library('form_validation');
+
+            $this->form_validation->set_rules('titulo', 'Titulo', 'max_length[255]|required');
+            $this->form_validation->set_rules('empleadoFormula', 'empleadoFormula', 'required');
+            $this->form_validation->set_rules('empleadoAutoriza', 'empleadoAutoriza', 'required');
 
 
-                $this->load->library('form_validation');
-
-                $this->form_validation->set_rules('titulo', 'Titulo', 'max_length[255]|required');
-                $this->form_validation->set_rules('empleadoFormula', 'empleadoFormula', 'required');
-                $this->form_validation->set_rules('empleadoAutoriza', 'empleadoAutoriza', 'required');
+            if ($this->form_validation->run()) {
 
 
-                if ($this->form_validation->run()) {
+            } else {
+
+                $data['empleadoAutoriza'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
+                $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
+                $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
+                $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
 
 
-                } else {
+                //Arreglo que contiene los pmc al cargar la página inicialmente
+                $pmc_inicial = $this->Imgeneralmodel->get_pmc_array($pog_id);
 
-                    $data['empleadoAutoriza'] = $this->Imgeneralmodel->getEmpleadoAutoriza($id);
-                    $data['empleadoFormula'] = $this->Imgeneralmodel->getEmpleadoFormula($id);
-                    $data['imcProveedores'] = $this->Imgeneralmodel->get_img_proveedores($pog_id);
-                    $data['imcConcepto'] = $this->Imgeneralmodel->get_imc_concepto($pog_id);
+                $array_pmc_inicial = array();
+                foreach ($pmc_inicial as $partida){
+                    array_push($array_pmc_inicial, $partida["pmc"]);
+                }
 
+                $data['pmc_inicial'] = $array_pmc_inicial;
 
-                    //Arreglo que contiene los pmc al cargar la página inicialmente
-                    $pmc_inicial = $this->Imgeneralmodel->get_pmc_array($pog_id);
+                $arr = $this->Imgeneralmodel->get_pmc_data($id);
 
-                    $array_pmc_inicial = array();
-                    foreach ($pmc_inicial as $partida){
-                        array_push($array_pmc_inicial, $partida["pmc"]);
-                    }
+                $output = $this->formatPmcArray($arr);
 
-                    $data['pmc_inicial'] = $array_pmc_inicial;
+                $arr_cpp = $this->calcularCPP($output);
 
-                    $arr = $this->Imgeneralmodel->get_pmc_data($id);
+                $data['arr_cpp'] = $arr_cpp;
 
-                    $output = $this->formatPmcArray($arr);
-
-                    $arr_cpp = $this->calcularCPP($output);
-
-                    $data['arr_cpp'] = $arr_cpp;
+                //Check pmc
+                //Copia para ver el debug en edit var
+                $output2 = $output;
 
 
-                    //Tipo de cambio
-                    //CONSEGUIR EL TIPO DE CAMBIO DEL DÍA ALENTA LA PÁGINA
-                    //$tipo_cambio = $this->get_TipoDeCambioPesoDolar();
-                    //$data['tipo_cambio'] = $tipo_cambio;
+                $output = $this->formatPmcArray($arr);
+                $output2 = $output;
+                $num_cotizaciones = $this->calcularCotizaciones($output);
+                $arr_cpp = $this->calcularCPP($output);
+                $data['num_cotizaciones'] = $num_cotizaciones;
+                $data['arr_cpp'] = $arr_cpp;
+                $data['newOutput'] = $output;
+                if ($num_cotizaciones > 1){
+                    $pmc = $this->calcularPMC($output, $num_cotizaciones, $pog_id);
+                    $data['pmc'] = $pmc;
+                }
+                $data['output2'] = $output2;
+
+
+                $data['listaprov'] = $this->Imgeneralmodel->get_img_prooveedores_cotizados($id);
+
+
+                //Tipo de cambio
+                //CONSEGUIR EL TIPO DE CAMBIO DEL DÍA ALENTA LA PÁGINA
+                //$tipo_cambio = $this->get_TipoDeCambioPesoDolar();
+                //$data['tipo_cambio'] = $tipo_cambio;
 
 
                 $data['_view'] = 'im_general/edit';
                 $this->load->view('layouts/main', $data);
             }
-        } else
+        } else {
             show_error('The im_general you are trying to edit does not exist.');
-
-
+        }
     }
 
     /*

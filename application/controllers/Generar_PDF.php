@@ -5,7 +5,7 @@
  */
 
  
-class Generar_PDF extends CI_Controller{
+class Generar_pdf extends CI_Controller{
     
     function __construct()
     {
@@ -117,7 +117,14 @@ class Generar_PDF extends CI_Controller{
             for($j = 0; $j < $cot_por_prov; $j++){
                 $td = "";
                 for ($k = 0; $k < $num_provs; $k++){
-                    $td .= '<td align="right" valign="middle" width="95"> $ '. number_format($cot_split[$i][$k][$j]["preciounitarioIM"], 2, '.', ',')  . '</td>';
+                    $preciounitario = $cot_split[$i][$k][$j]["preciounitarioIM"];
+                    if ($preciounitario == "0.00"){
+                        $importe = "N/C";
+                    } else {
+                        $importe = " $ " . number_format($cot_split[$i][$k][$j]["preciounitarioIM"], 2, '.', ',');
+                        //$importe = "A";
+                    }
+                    $td .= '<td align="right" valign="middle" width="95">  '. $importe . '</td>';
                 }
                 //array_push($arr_td, $td);
                 $arr_td[$i][$j] = $td;
@@ -179,10 +186,6 @@ class Generar_PDF extends CI_Controller{
         $data['tbody'] = $tr;
         $this->load->view('reporte_resumenicm', $data);
         //$this->load->view('reporte_prueba_bd', $data);
-
-    }
-
-    function calculo_pmc($id){
 
     }
 
