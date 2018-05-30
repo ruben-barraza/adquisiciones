@@ -359,7 +359,41 @@
                                 </div>
                         
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                                <p>EN CONSTRUCCION </p>
+                                <table id="tabla_resumen" class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th align="center" valign="middle" ><b> Partida</b></th>
+                                            <th align="center" valign="middle" ><b> Código</b></th>
+                                            <th align="center" valign="middle" ><b> Descripción</b></th>
+                                            <th align="center" valign="middle" ><b> CANT</b></th>
+                                            <th align="center" valign="middle" ><b> UM</b></th>
+                                            <th align="center" valign="middle" ><b> Familia</b></th>
+                                            <?php echo $arr_th; ?>
+                                            <th align="center" valign="middle" ><b> PMC</b></th>
+                                            <th align="center" valign="middle" ><b> IMPORTE</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $tableRows = count($imc_data);
+                                    for($j = 0; $j < $tableRows; $j++)
+                                    {
+                                        $importe = $imc_data[$j]['pmc'] * $imc_data[$j]['cantidad'];
+                                    ?>
+                                        <tr nobr="true">
+                                        <td align="center"><?php echo $imc_data[$j]['partida'] ?></td>
+                                        <td align="center"><?php echo $imc_data[$j]['codigo'] ?></td>
+                                        <td align="center"><?php echo $imc_data[$j]['descripcion'] ?></td>
+                                        <td align="center"><?php echo $imc_data[$j]['cantidad'] ?></td>
+                                        <td align="center"><?php echo $imc_data[$j]['clave'] ?></td>
+                                        <td align="center"><?php echo $imc_data[$j]['familia'] ?></td>
+                                        <?php echo $arr_td[$j]; ?>
+                                        <td align="right"><?php echo "$".number_format($imc_data[$j]['pmc'], '2', '.', ',') ?></td>
+                                        <td align="right"><?php echo "$".number_format($importe, '2', '.', ',') ?></td>
+                                        </tr>';
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         
                         
@@ -948,6 +982,19 @@
             }],
         });
 
+        var table = $('#tabla_resumen').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "pageLength": 50,
+            "scrollX": true,
+            dom: 'Bfrtip',
+            buttons: [ 'copy', 'excel', {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            }],
+        });
 
 
         $("#fechaCotizacion").on("change", function(){

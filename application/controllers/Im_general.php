@@ -474,11 +474,63 @@ class Im_general extends CI_Controller
 
                 $data['listaprov'] = $this->Imgeneralmodel->get_img_prooveedores_cotizados($id);
 
+                //********** Datos para la tabla en pestaña Resumen **********
+                $this->load->model('Generarpdfmodel');
 
-                //Tipo de cambio
-                //CONSEGUIR EL TIPO DE CAMBIO DEL DÍA ALENTA LA PÁGINA
-                //$tipo_cambio = $this->get_TipoDeCambioPesoDolar();
-                //$data['tipo_cambio'] = $tipo_cambio;
+                $nombres_proveedores = $this->Generarpdfmodel->get_razonsocial($id);
+
+
+
+                $nombres_proveedores = $this->Generarpdfmodel->get_razonsocial($id);
+
+                //Arreglo donde se guarda el codigo html que se include en el header de cada tabla
+                $arr_th = "";
+
+                //EN ESTE ARRAY SE GUARDAN LAS COTIZACIONES POR PARTIDA DE CADA PROVEEDOR
+                $arr_cot = array();
+
+                //OBTIENE LAS COTIZACIONES DE CADA PROVEEDOR Y GUARDA CADA ARREGLO DE COTIZACIONES POR PROVEEDOR EN UN SOLO ARREGLO
+                for($j = 0; $j < count($nombres_proveedores); $j++){
+                    $cot_proveedor = $this->Generarpdfmodel->get_cotizacion($id, $nombres_proveedores[$j]['id']);
+                    array_push($arr_cot, $cot_proveedor);
+                }
+
+
+
+                foreach($nombres_proveedores as $proveedor){
+                    //$arr_th = "";
+                    $arr_th .= '<th align="center" valign="middle" width="95"><b>'.$proveedor['razonSocial'].'</b></th>';
+                    //array_push($arr_th, $th);
+                }
+
+
+
+                //NUMERO DE COTIZACIONES POR PROVEEDOR. CADA PROVEEDOR TIENE EL MISMO NUMERO DE COTIZACIONES.
+                $cot_por_prov = count($arr_cot[0]);
+
+                $arr_td = array();
+
+                //count($arr_width) nos dice cuantas páginas se van a generar
+
+                for($i = 0; $i < $cot_por_prov; $i++){
+                    $td = "";
+                    for ($j = 0; $j < count($arr_cot); $j++){
+                        $preciounitario = $arr_cot[$j][$i]["preciounitarioIM"];
+                        if ($preciounitario == "0.00"){
+                            $importe = "N/C";
+                        } else {
+                            $importe = "$ " . number_format($arr_cot[$j][$i]["preciounitarioIM"], 2, '.', ',');
+                        }
+                        $td .= '<td align="right" valign="middle">  '. $importe . '</td>';
+                    }
+                    $arr_td[$i] = $td;
+                }
+
+                $data['nombres'] = $this->Generarpdfmodel->get_razonsocial($id);
+                $data['arr_cot'] = $arr_cot;
+                $data['arr_td'] = $arr_td;
+                $data['arr_th'] = $arr_th;
+                $data['imc_data'] = $this->Generarpdfmodel->get_imcdata($id);
 
 
                 $data['_view'] = 'im_general/edit';
