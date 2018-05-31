@@ -747,6 +747,13 @@
 
                             <!-- PESTAÑA BITÁCORA PMC -->
                             <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <a id="imprimpirBitacoraPMC" href="<?php echo site_url('generar_pdf/bitacora_pmc/' . $i['id']); ?>" class="btn btn-info">
+                                            <span class="fa fa-download"></span> Bitácora en PDF
+                                        </a>
+                                    </div>
+                                </div>
                                 <?php echo $bitacora_pmc; ?>
                             </div>
 
@@ -1369,6 +1376,7 @@
 
             myAlertTop();
         });
+
     });
 
 

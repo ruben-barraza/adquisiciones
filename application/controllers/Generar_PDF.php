@@ -189,6 +189,291 @@ class Generar_pdf extends CI_Controller{
 
     }
 
+    function bitacora_pmc($id){
+        $this->load->model('Imgeneralmodel');
+
+        //Arreglo que contiene los pmc al cargar la página inicialmente
+        $pmc_inicial = $this->Imgeneralmodel->get_pmc_array($id);
+
+        $array_pmc_inicial = array();
+        foreach ($pmc_inicial as $partida){
+            array_push($array_pmc_inicial, $partida["pmc"]);
+        }
+
+        $data['pmc_inicial'] = $array_pmc_inicial;
+
+        $arr = $this->Imgeneralmodel->get_pmc_data($id);
+
+        $output2 = $this->formatPmcArray($arr);
+
+        $listaprov = $this->Imgeneralmodel->get_img_prooveedores_cotizados($id);
+
+        $bitacora_pmc = "";
+
+
+        $num_partidas = count($output2);
+
+        foreach($output2 as $row => $innerArray){
+            foreach($innerArray as $key => $value){
+                if($value == 0){
+                    unset($output2[$row][$key]);
+                }
+            }
+        }
+
+        $bitacora_pmc .= "NUMERO DE PARTIDAS: ".$num_partidas;
+        $bitacora_pmc .= "<br>";
+        $bitacora_pmc .= "--------------------------------------------------------------------------------------------------------------------------------------------";
+        $bitacora_pmc .= "<br>";
+
+
+
+        if($num_partidas >= 1) {
+            for ($i = 0; $i < $num_partidas; $i++)
+            {
+
+                $bitacora_pmc .= "<br>";
+                $bitacora_pmc .= "<br>";
+                $bitacora_pmc .= "<h2>Partida ".($i + 1)."</h2>";
+                $bitacora_pmc .= "<br>";
+
+                if (count($output2[$i]) <= 1){
+                    //NO NECESITA HACER NADA MAS PORQUE ESA PARTIDA SOLO TIENE UNA COTIZACION
+
+                    $bitacora_pmc .= "SOLO HAY UNA COTIZACION EN ESTA PARTIDA";
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<h4><b>PMC = 0</b></h4>";
+                    $bitacora_pmc .= "----------------------------------------------------------------------------------------------------------------------------------------------------------";
+
+
+                } else{
+                    //NUMERO DE LAS COTIZACIONES POR PARTIDA - 1
+                    $num_intervalos = count($output2[$i]) - 1;
+
+                    $array_promedios = array();
+
+
+
+                    $maxvalue = max($output2[$i]);
+                    $minvalue = min($output2[$i]);
+                    $val_diferencia = $maxvalue - $minvalue;
+                    $bitacora_pmc .= "VAL DIFERENCIA: $val_diferencia";
+                    $bitacora_pmc .= "<br>";
+                    $val_rango = $val_diferencia/$num_intervalos;
+                    //echo "VL: $val_rango";
+                    //echo "<br>";
+
+                    //ARRAY DE FILA PARA LA TABLA PMC
+                    $arr_filapmc = array();
+                    //$arr_filapmc["partida"] = $i + 1;
+
+
+
+                    for($j = 0; $j < $num_intervalos; $j++){
+
+
+                        $bitacora_pmc .= "<br>";
+                        $bitacora_pmc .= "<h3>Intervalo ".($j+1)."</h3>";
+                        $bitacora_pmc .= "<br>";
+
+                        if($j == 0)
+                            $lim_inf = $minvalue;
+
+                        $bitacora_pmc .= "Límite inferior: ".round($lim_inf, 2);
+                        $bitacora_pmc .= "<br>";
+                        $lim_sup = $lim_inf + $val_rango;
+
+                        $bitacora_pmc .= "Límite superior: ".round($lim_sup, 2);
+                        $bitacora_pmc .= "<br>";
+
+                        $frec_promedio = array();
+                        $frecuencias = 0;
+                        $k = 0;
+                        $precios_intervalo = array();
+                        $prom_intervalo = 0;
+                        foreach($output2[$i] as $proveedor => $precio){
+                            if($j == $num_intervalos - 1){
+                                if($precio >= $lim_inf && $precio <= $maxvalue){
+                                    $frecuencias++;
+                                    $precios_intervalo[$proveedor] = $precio;
+                                }
+                            } else {
+                                if($precio >= $lim_inf && $precio < $lim_sup) {
+                                    $frecuencias++;
+                                    $precios_intervalo[$proveedor] = $precio;
+                                }
+                            }
+
+                            $k++;
+                        }
+
+                        if (empty($precios_intervalo)){
+                            $prom_intervalo = 0;
+                        } else {
+                            $prom_intervalo = array_sum($precios_intervalo)/count($precios_intervalo);
+                        }
+
+                        $bitacora_pmc .= "Frecuencias en el intervalo: $frecuencias";
+                        $bitacora_pmc .= "<br>";
+                        $bitacora_pmc .= "Promedio del intervalo: ".round($prom_intervalo, 2);
+                        $bitacora_pmc .= "<br>";
+                        $bitacora_pmc .= "<br>";
+
+                        $frec_promedio['frecuencias'] = $frecuencias;
+                        $frec_promedio['promedio'] = round($prom_intervalo, 2);
+
+                        array_push($array_promedios, $frec_promedio);
+                        foreach ($precios_intervalo as $proveedor => $precio){
+                            $array_promedios[$j][$proveedor] = $precio;
+                        }
+
+
+                        $lim_inf = $lim_sup;
+
+
+                        $bitacora_pmc .= "PRECIOS DENTRO DEL INTERVALO ".($j+1);
+                        $bitacora_pmc .= "<br>";
+                        foreach ($precios_intervalo as $key => $value){
+                            $idProveedor = substr($key, strpos($key, "_") + 1);
+                            $bitacora_pmc .= $listaprov[$idProveedor].": $".$value;
+                            $bitacora_pmc .= "<br>";
+                        }
+                        $bitacora_pmc .= "<br>";
+                        $bitacora_pmc .= "****************************************************************************";
+                        $bitacora_pmc .= "<br>";
+
+
+                    }
+
+                    //echo "ARRAY PROMEDIOS";
+                    //var_dump($array_promedios);
+
+                    //Encontrar el array con el mayot número de frecuencias
+                    //Si es más de uno tomar el índice menor
+                    $max_frecuencias = max(array_column($array_promedios, 'frecuencias'));
+
+                    $bitacora_pmc .= "Número máximo de frecuencias: $max_frecuencias";
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<br>";
+
+                    $key = array_search($max_frecuencias, array_column($array_promedios, 'frecuencias'));
+
+                    $bitacora_pmc .= "Intervalo con el número máximo de frecuencias: ".($key+1);
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<br>";
+
+
+                    $bitacora_pmc .= "DATOS DEL INTERVALO CON MAYOR FRECUENCIAS";
+                    $bitacora_pmc .= "<br>";
+
+
+                    //ESTE ES EL ARREGLO CON MAYOR NÚMERO DE FRECUENCIAS QUE SE TOMA A CONSIDERACIÓN PARA CALCULAR EL PMC
+                    $array_calc_pmc = $array_promedios[$key];
+                    //PROMEDIO DEL INERVALO CON MAYOR FRECUENCIAS
+                    $prom_intervalo_mayor_frec = $array_calc_pmc['promedio'];
+                    unset($array_calc_pmc['frecuencias']);
+                    unset($array_calc_pmc['promedio']);
+
+                    //var_dump($array_calc_pmc);
+                    //echo "Promedio : ";
+
+
+                    //VERIFICAR LAS COTIZACIONES REALES Y LAS HISTORICAS
+                    $cot_reales = array();
+                    $cot_historicas = array();
+
+                    foreach ($array_calc_pmc as $key => $value){
+                        if(preg_match('(6666|7777|8888|9999)', $key) === 1) {
+                            array_push($cot_historicas, $value);
+                        } else {
+                            array_push($cot_reales, $value);
+                        }
+                    }
+
+
+                    $bitacora_pmc .= "COTIZACIONES HISTÓRICAS";
+                    //var_dump($cot_historicas);
+                    $bitacora_pmc .= "<br>";
+                    foreach ($cot_historicas as $key => $value){
+                        $bitacora_pmc .= "$ ".$value;
+                        $bitacora_pmc .= "<br>";
+                    }
+
+
+                    $bitacora_pmc .= "COTIZACIONES REALES";
+                    $bitacora_pmc .= "<br>";
+                    foreach ($cot_reales as $key => $value){
+                        $bitacora_pmc .= "$ ".$value;
+                        $bitacora_pmc .= "<br>";
+                    }
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<br>";
+
+                    $bitacora_pmc .= "PROMEDIO DEL INTERVALO CON MAYOR FRECUENCIA: " . $prom_intervalo_mayor_frec;
+                    $bitacora_pmc .= "<br>";
+
+
+                    //SI EL ARREGLO DE COTIZACIONES REALES ESTÁ VACÍO HAY QUE SACAR EL PROMEDIO DE LAS COIZACIONES HISTORICAS
+                    //SI EL ARREGLO DE COIZACIONES HISTÓRICAS ESTÁ VACÍO EL MENOR VALOR
+
+                    if(empty($cot_reales)){
+                        $pmc = round(array_sum($cot_historicas)/count($cot_historicas), 2);
+                    } else {
+                        $cot_minima = min($cot_reales);
+                        if($cot_minima < $prom_intervalo_mayor_frec){
+                            $pmc = $cot_minima;
+                        } else {
+                            $pmc = $prom_intervalo_mayor_frec;
+                        }
+                    }
+
+
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<h4><b>PMC = ".$pmc."</b></h4>";
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "<br>";
+                    $bitacora_pmc .= "----------------------------------------------------------------------------------------------------------------------------------------------------------";
+                    $bitacora_pmc .= "<br>";
+                    //echo $val_rango;
+                    $bitacora_pmc .= "<br>";
+                }
+            }
+        }
+
+        $data['bitacora'] = $bitacora_pmc;
+
+
+        $this->load->view('bitacora_pmc.php', $data);
+    }
+
+    function formatPmcArray($arr){
+
+        $output = array();
+
+        foreach($arr as $item){
+            if(in_array($item['partida'], array_column($output, 'partida'))){
+                // add store to already existing item
+                $key = array_search($item['partida'], array_column($arr, 'partida'));
+                $output[$key]['idProveedor_' . $item['idProveedor']] = floatval($item['preciounitarioIM']);
+            }else{
+                // add new item with store
+                $tmp = array(
+                    'partida' => $item['partida'],
+                    'idProveedor_' . $item['idProveedor'] => floatval($item['preciounitarioIM']),
+                );
+                $output[] = $tmp;
+            }
+        }
+
+        //Quito la llave "partida" del arreglo
+        foreach(array_keys($output) as $key) {
+            unset($output[$key]['partida']);
+        }
+
+        return $output;
+    }
 }
 
 ?>
