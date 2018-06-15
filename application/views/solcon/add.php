@@ -1,7 +1,3 @@
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
 <style>
 
     .hidden {
@@ -208,13 +204,13 @@
         //Oculta secciones dependiendo de la elección de tipo de proveedor
         $('#tipoCompra').change(function(){
             var val = $(this).val();
-            var origenRecurso = $("#origenRecurso").val();
 
-            if (val == "NUE" && origenRecurso == "PRO"){
+            if (val == "NUE" || val == "0"){
+                $('.seccion-oculta').hide();
+                $('#idFamilia').val("0");
+            } else {
                 $('.seccion-oculta').removeClass('hidden');
                 $('.seccion-oculta').show();
-            } else {
-                $('.seccion-oculta').hide();
             }
         });
 

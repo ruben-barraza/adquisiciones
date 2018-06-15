@@ -51,6 +51,21 @@ class Generar_pdf extends CI_Controller{
         $data['im_elabora'] = $this->Generarpdfmodel->get_im_empleado_elabora($id);
         $data['im_aprueba'] = $this->Generarpdfmodel->get_im_empleado_autoriza($id);
 
+        //obtener la fecha de impresion del reporte
+        $fechaimp = $this->Generarpdfmodel->get_imc_fecha_imp($id);
+
+        //si la fecha existe, se toma de la bd
+        //si no, se toma la fecha actual y se guarda en la bd
+
+        if($fechaimp == "0000-00-00"){
+            $fechaImpresion = date('Y-m-d');
+            $this->Generarpdfmodel->update_img_fechaimp($id, $fechaImpresion);
+        } else {
+            $fechaImpresion = $fechaimp;
+        }
+
+        $data['fechaImpresion'] = $fechaImpresion;
+
         $nombres_proveedores = $this->Generarpdfmodel->get_razonsocial($id);
 
         $data['nombres'] = $this->Generarpdfmodel->get_razonsocial($id);
@@ -331,7 +346,7 @@ class Generar_pdf extends CI_Controller{
                         $lim_inf = $lim_sup;
 
 
-                        $bitacora_pmc .= "PRECIOS DENTRO DEL INTERVALO ".($j+1);
+                        $bitacora_pmc .= "PRECIOS DENTRO DEL INTERVALO ";
                         $bitacora_pmc .= "<br>";
                         foreach ($precios_intervalo as $key => $value){
                             $idProveedor = substr($key, strpos($key, "_") + 1);
@@ -362,8 +377,6 @@ class Generar_pdf extends CI_Controller{
                     $bitacora_pmc .= "<br>";
                     $bitacora_pmc .= "<br>";
 
-
-                    $bitacora_pmc .= "DATOS DEL INTERVALO CON MAYOR FRECUENCIAS";
                     $bitacora_pmc .= "<br>";
 
 

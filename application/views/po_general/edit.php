@@ -1051,7 +1051,7 @@
             var longitudTablaArticulo = $("#tablaArticulos tr").length - 1;
 
             //Actualizar en la tabla IM CONCEPTO
-            for(l=0; l < longitudTabla; l++){
+            for(var l=0; l < longitudTabla; l++){
                 var cuentaActual1 = $("#tablaProveedores tbody tr:eq(" + l + ") input:first").attr("name").split("_").pop();
                 var clave = $("#clave_" + cuentaActual1).val();
                 for(k = 0; k < longitudTablaArticulo; k++){

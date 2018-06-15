@@ -161,12 +161,11 @@
                     <label for="fechaImpresion" class="col-sm-2 control-label">Fecha de Impresión</label>
                     <div class="col-md-2">
                         <input type="text" name="fechaImpresion" value="<?php
-                        //$fecha = $im_general['fechaElaboracion'];
-                        //$fechaElaboracion = date("d/m/Y", strtotime($fecha));
-                        //echo ($this->input->post('fechaElaboracion') ? $this->input->post('fechaElaboracion') : $fechaElaboracion); ?>" class="form-control" id="fechaImpresion" />
+                        $fecha = $im_general['fechaImpresion'];
+                        $fechaImpresion = date("d/m/Y", strtotime($fecha));
+                        echo ($fecha == "0000-00-00"  ? "" : $fechaImpresion); ?>" class="form-control" id="fechaImpresion" />
                     </div>
                 </div>
-
 				<br/>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
@@ -177,29 +176,27 @@
                     <div class="x_content">
                         <div class="" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Cotizaciones</a>
+                                <li role="presentation" class="active tab1"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Cotizaciones</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Resumen</a>
+                                <li role="presentation" class="tab2"><a href="#tab_content2" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Resumen</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Cálculo PMC</a>
+                                <li role="presentation" class="tab3"><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Cálculo PMC</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Bitácora PMC</a>
+                                <li role="presentation" class="tab4"><a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Bitácora PMC</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Anexo 1</a>
+                                <li role="presentation" class="tab5"><a href="#tab_content5" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Anexo 1</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Formulario Entrega</a>
+                                <li role="presentation" class="tab6"><a href="#tab_content6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Formulario Entrega</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content7" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Solcon</a>
+                                <li role="presentation" class="tab7"><a href="#tab_content7" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Solcon</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content8" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Archivos Anexos</a>
+                                <li role="presentation" class="tab8"><a href="#tab_content8" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Archivos Anexos</a>
                                 </li>
 
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-
                 			        <br />
-
                                     <div class="form-group">
                                         <label for="imc_proveedor" class="control-label col-sm-2">Proveedor</label>
                                         <div class="col-md-4">
@@ -214,9 +211,7 @@
                                             </select>
                                         </div>
                                     </div>
-                
-                                    <div class="form-group">
-                                    </div>
+
                                     <div id="tabla_total" class="">
                                         <div class="form-group">
                                             <label for="moneda" class="control-label col-sm-2">Moneda</label>
@@ -333,6 +328,7 @@
                                                 <?php } ?>
                                             </tbody>
                                         </table>
+
                 
                                         <hr />
                 
@@ -355,7 +351,18 @@
                                             </div>
                                         </div>
                                     </div>
-                
+                                    <hr/>
+                                    <hr/>
+                                    <div class="form-group saveim">
+                                        <div class="col-sm-offset-2 col-sm-8">
+                                            <a href="<?php echo site_url('im_general/index/'); ?>" id="botonRegresar" class="btn btn-primary">
+                                                <span class="fa fa-arrow-left"></span> Regresar
+                                            </a>
+                                            <a id="botonGuardar" class="btn btn-success">
+                                                <span class="fa fa-check"></span> Guardar
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                         
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
@@ -816,9 +823,10 @@
                                 } );
                                 </script>
                             </div>
-                            
+
+                            <!-- PESTAÑA CHECKLIST -->
                             <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="profile-tab">
-                                <p>EN CONSTRUCCION </p>
+                                <?php include __DIR__ . "\im_general_tabs\checklist.php";  ?>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content7" aria-labelledby="profile-tab">
                             	<!-- PESTAÑA SOLCON -->
@@ -855,7 +863,8 @@
                                                                 <td><?php echo $ds['descripcion']; ?></td>
                                                                 <td><?php echo $ds['unidadmedida']; ?></td>
                                                                 <td> <?php echo number_format($ds['cantidad'], 2, '.', ',');  ?></td>
-                                                                <td> <?php echo number_format($ds['pusolcon'], 2, '.', ',');  ?></td>                                                                <td> <?php echo number_format($ds['IMPORTE_PARTIDA_SOLPED'], 2, '.', ',');  ?></td>
+                                                                <td> <?php echo number_format($ds['pusolcon'], 2, '.', ',');  ?></td>
+                                                                <td> <?php echo number_format($ds['IMPORTE_PARTIDA_SOLPED'], 2, '.', ',');  ?></td>
                                                                 <td><?php echo $ds['pedido']; ?></td>
                                                                 <td><?php echo $ds['partidapedido']; ?></td>
                                                                 <td> <?php echo number_format($ds['pupedido'], 2, '.', ',');  ?></td>
@@ -899,19 +908,7 @@
                     </div>
                 </div>
 
-                <hr/>
-                <hr/>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-8">
-                        <a href="<?php echo site_url('im_general/index/'); ?>" id="botonRegresar" class="btn btn-primary">
-                            <span class="fa fa-arrow-left"></span> Regresar
-                        </a>
-                        <a id="botonGuardar" class="btn btn-success">
-                            <span class="fa fa-check"></span> Guardar
-                        </a>
-                    </div>
-                </div>
-                
+
                 
 
 
@@ -1156,7 +1153,6 @@
                     },
                     success: function (returned) {
                         var returned = JSON.parse(returned);
-
                         jQuery.each(returned.preciosimc, function( i, val ) {
 
                             $("#partida_" + (i+1)).val(val.partida);
@@ -1271,6 +1267,7 @@
             var solped = $("#solped").val();
             var imcestatus = $('#imc_estatus').val();
             var fechaElaboracion = $('#fechaElaboracion').val();
+            var fechaImpresion = $('#fechaImpresion').val();
 
 
             $.ajax({
@@ -1285,6 +1282,7 @@
                     solped: solped,
                     imcestatus: imcestatus,
                     fechaElaboracion: fechaElaboracion,
+                    fechaImpresion: fechaImpresion,
                 }
             });
 
@@ -1350,7 +1348,6 @@
                     var cotizaciones = returned.num_cotizaciones;
                     $("#cotizaciones").val(cotizaciones);
 
-                    console.log(returned.pmc);
 
                     var longitudArrPmc = returned.pmc.length;
 

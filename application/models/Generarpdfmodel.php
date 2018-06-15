@@ -199,6 +199,23 @@ class Generarpdfmodel extends CI_Model
         }
     }
 
+    function get_imc_fecha_imp($id){
+        $this->db->select('fechaImpresion');
+        $this->db->from('im_general');
+        $this->db->where('im_general.id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->row('fechaImpresion');
+        } else {
+            return 0;
+        }
+    }
+
+    function update_img_fechaimp($id, $fechaImpresion){
+        $this->db->where('id', $id);
+        $this->db->update('im_general', array('fechaImpresion' => $fechaImpresion));
+    }
+
     function get_im_empleado_elabora($id)
     {
         $this->db->select('empleado.titulo, empleado.nombre, empleado.apellidoPaterno, empleado.apellidoMaterno');

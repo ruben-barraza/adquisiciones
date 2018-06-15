@@ -147,6 +147,16 @@ class Im_general extends CI_Controller
         $fecharep = str_replace('/', '-', $fecha);
         $fechaelaboracion = date("Y-m-d", strtotime($fecharep));
 
+        $fechaimp = $_POST['fechaImpresion'];
+        $fechaimprep = str_replace('/', '-', $fechaimp);
+        $fechaimpresion = date("Y-m-d", strtotime($fechaimprep));
+
+        if($fechaimpresion == "1970-01-01"){
+            $fechaimpresion2 = "";
+        } else {
+            $fechaimpresion2 = $fechaimpresion;
+        }
+
         $idEmpleadoAutoriza = $this->Imgeneralmodel->get_idEmpleado($autorizaRpe);
         $idEmpleadoFormula = $this->Imgeneralmodel->get_idEmpleado($formulaRpe);
 
@@ -157,6 +167,7 @@ class Im_general extends CI_Controller
             'estatus' => $estatus,
             'SOLPED' => $solped,
             'fechaElaboracion' => $fechaelaboracion,
+            'fechaImpresion' => $fechaimpresion2,
         );
 
         $this->Imgeneralmodel->update_im_general($idimg, $params);
@@ -247,7 +258,7 @@ class Im_general extends CI_Controller
         }
         //CON OUTPUT 2 SE EMPIEZA A CALCULAR EL PMC
 
-        if($num_partidas > 1) {
+        if($num_partidas >= 1) {
             for ($i = 0; $i < $num_partidas; $i++)
             {
                 if (count($output[$i]) <= 1){

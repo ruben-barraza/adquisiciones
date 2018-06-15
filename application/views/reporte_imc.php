@@ -1,23 +1,23 @@
 <?php
 
-global $familia, $solped;
+global $familia, $solped, $fechaImp;
 $familia = $imc_header[0]["descripcion"];
 $solped = $imc_header[0]["SOLPED"];
+$fechaImp = $fechaImpresion;
 
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
-        global $familia, $solped;
+        global $familia, $solped, $fechaImp;
 
         //CONVERTIR LA FECHA DE ELABORACIÓN Y PRESENTACIÓN A TEXTO
         setlocale(LC_ALL,"es_ES.utf8","es_ES","esp");
-        $fechaElaboracion = date('Y-m-d');
 
-        $dia = strftime("%#d", strtotime($fechaElaboracion));
-        $mes = strftime("%B", strtotime($fechaElaboracion));
-        $year = strftime("%Y", strtotime($fechaElaboracion));
+        $dia = strftime("%#d", strtotime($fechaImp));
+        $mes = strftime("%B", strtotime($fechaImp));
+        $year = strftime("%Y", strtotime($fechaImp));
 
         $image_file = K_PATH_IMAGES.'logo3.gif';
         if (!$image_file)

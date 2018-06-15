@@ -64,9 +64,6 @@ class Solcon extends CI_Controller{
                 'anioEjercicio' => $this->input->post('anioEjercicio')
             );
 
-            print_r($_POST);
-            echo $this->input->post('origenRecurso');
-
             $this->Solconmodel->add_solcon($params);
             redirect('solcon/index');
         }

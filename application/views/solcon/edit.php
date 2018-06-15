@@ -72,18 +72,20 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="idFamilia" class="col-md-2 control-label">Familia</label>
-                    <div class="col-md-4">
-                        <select id="idFamilia" name="idFamilia" class="form-control">
-                            <option value="0">Seleccione</option>
-                            <?php
-                            foreach ($familias as $i) {
-                                $selected = ($i == $this->input->post('idFamilia')) ? ' selected="selected"' : "";
-                                echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
-                            }
-                            ?>
-                        </select>
+                <div class="seccion-oculta form-group hidden">
+                    <div class="form-group">
+                        <label for="idFamilia" class="col-md-2 control-label">Familia</label>
+                        <div class="col-md-4">
+                            <select id="idFamilia" name="idFamilia" class="form-control">
+                                <option value="0">Seleccione</option>
+                                <?php
+                                foreach ($familias as $i) {
+                                    $selected = ($i->id == $solcon["idFamilia"]) ? ' selected="selected"' : "";
+                                    echo '<option value="'. $i->id .'" '.$selected.'>'. $i->descripcion .'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -151,6 +153,38 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        var origenRecurso = $('#origenRecurso').val();
+        var tipoCompra = $('#tipoCompra').val();
+
+        if(origenRecurso == "PRO" && tipoCompra == "NUE"){
+            $('.seccion-oculta').hide();
+        }
+
+
+        //Oculta secciones dependiendo de la elección de tipo de proveedor
+        $('#origenRecurso').change(function(){
+            var val = $(this).val();
+            if (val != "PRO"){
+                $('#tipoCompra').val("0");
+                $('#idFamilia').val("0");
+                $('.seccion-oculta').hide();
+            }
+        });
+
+        //Oculta secciones dependiendo de la elección de tipo de proveedor
+        $('#tipoCompra').change(function(){
+            var val = $(this).val();
+
+            if (val == "NUE" || val == "0"){
+                $('.seccion-oculta').hide();
+                $('#idFamilia').val("0");
+            } else {
+                $('.seccion-oculta').removeClass('hidden');
+                $('.seccion-oculta').show();
+            }
+        });
+
         $('select.autorizacion').change(function() {
             var hidden = [];
             $('select.autorizacion').each(function() {
@@ -167,5 +201,25 @@
                     .attr('disabled', 'disabled');
             }
         });
+
+        $('#idAt1').on('change', function() {
+            if(this.value != 0){
+                $('#idAt2').prop("disabled", false);
+            } else {
+                $('#idAt2').prop("disabled", true);
+                $('#idAt3').prop("disabled", true);
+                $('#idAt2').val("0");
+                $('#idAt3').val("0");
+            }
+        })
+
+        $('#idAt2').on('change', function() {
+            if(this.value != 0){
+                $('#idAt3').prop("disabled", false);
+            } else {
+                $('#idAt3').prop("disabled", true);
+                $('#idAt3').val("0");
+            }
+        })
     });
 </script>
