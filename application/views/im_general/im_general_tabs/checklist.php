@@ -236,11 +236,15 @@
         </div>
     </div>
 </div>
-<hr/>
+<hr />
+<hr />
 <div class="form-group">
-    <div class="col-sm-offset-5 col-sm-8">
+    <div class="col-sm-offset-1 col-sm-8">
         <a id="botonGuardarChecklist" class="btn btn-success">
             <span class="fa fa-check"></span> Guardar Checklist
+        </a>
+        <a id="botonChecklistPdf" href="<?php echo site_url('generar_pdf/checklist/' . $im_general['id']); ?>" class="btn btn-primary">
+            <span class="fa fa-download"></span> PDF
         </a>
     </div>
 </div>
@@ -263,7 +267,7 @@
                 success: function (returned) {
                     var result = JSON.parse(returned);
 
-                    console.log(result);
+                    //console.log(result);
 
                     var concurso = (result.checklist)[0].concurso;
                     $("input[name=concurso][value=" + concurso + "]").prop('checked', 'checked');

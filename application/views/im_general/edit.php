@@ -1016,7 +1016,7 @@
                     var series = response.bmx.series;
                     var tipocambio = series[0].datos[0].dato;
                     $('#tipocambio').val(tipocambio);
-                    console.log(tipocambio);
+                    //console.log(tipocambio);
                 }
             });
         });
@@ -1356,7 +1356,7 @@
                     });
 
                     for (var i = 0; i < longitudArrPmc; i++){
-                        console.log(returned.pmc[i]);
+                        //console.log(returned.pmc[i]);
                         $("#pmc_" + (i+1)).val(formatter.format(returned.pmc[i]));
                     }
 
