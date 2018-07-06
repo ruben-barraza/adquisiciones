@@ -1019,8 +1019,6 @@
                     console.log(tipocambio);
                 }
             });
-
-
         });
 
         var $prov_id = $('#imc_proveedor').val();

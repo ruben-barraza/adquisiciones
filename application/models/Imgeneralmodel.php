@@ -366,7 +366,77 @@ class Imgeneralmodel extends CI_Model
         }
     }
 
+    function get_idConsecutivoChecklist()
+    {
+        $maxid = 1;
+        $row = $this->db->query("select max(id) as 'maxid' from checklist")->row();
+        if ($row) {
+            $maxid = $row->maxid + 1;
+        }
+        return $maxid;
+    }
 
+
+    public function update_checklist($idImg, $params){
+        $this->db->select('*');
+        $this->db->from('checklist');
+        $this->db->where('idImg', $idImg);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            $this->db->update('checklist', $params);
+        } else {
+            $params['id'] = $this->get_idConsecutivoChecklist();
+            $params['idImg'] = $idImg;
+            $this->db->insert('checklist', $params);
+        }
+    }
+
+    public function get_checklist($idImg){
+        $this->db->select('*');
+        $this->db->from('checklist');
+        $this->db->where('checklist.idImg', $idImg);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+    //PARA EL PDF
+    /*
+    public function get_checklist_descripcion($idImg){
+        $this->db->distinct();
+        $this->db->select('im_concepto.plazoEntrega, im_concepto.lugarEntrega, familia.descripcion');
+        $this->db->from('im_concepto');
+        $this->db->join('articulo', 'articulo.id = im_concepto.idArticulo', 'inner');
+        $this->db->join('familia', 'familia.id = articulo.idFamilia', 'inner');
+        $this->db->where('im_concepto.idImg', $idImg);
+        $this->db->where('im_concepto.idProveedor !=', '6666');
+        $this->db->where('im_concepto.idProveedor !=', '7777');
+        $this->db->where('im_concepto.idProveedor !=', '8888');
+        $this->db->where('im_concepto.idProveedor !=', '9999');
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+    }
+
+
+    public function get_checklist_data($idImg){
+        $this->db->select('im_general.SOLPED, checklist.concurso, checklist.fabricacionnacional, checklist.proveedoraprovado,
+                            checklist.prototipoaprovado, checklist.avisopruebas, checklist.bajodemanda, checklist.porcentajedemanda,
+                            checklist.preciosfijos, checklist.anticipo, checklist.garantiacumplimiento, checklist.porcentajegarantiacumplimiento,
+                            checklist.garantiacalidad, checklist.porcentajegarantiacalidad, checklist.sesionaclaraciones, checklist.requieremuestra,
+                            checklist.cuesttecnico, checklist.marcaespecifica, checklist.criterioevaluacion, checklist.tipotransporte');
+        $this->db->from('checklist');
+        $this->db->join('im_general', 'im_general.id = checklist.idImg', 'inner');
+        $this->db->where('checklist.idImg', $idImg);
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+    }
+    */
 
 
     public function GuardarDatosModel()

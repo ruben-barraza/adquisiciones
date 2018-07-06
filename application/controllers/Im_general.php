@@ -173,6 +173,70 @@ class Im_general extends CI_Controller
         $this->Imgeneralmodel->update_im_general($idimg, $params);
     }
 
+    function updateChecklist(){
+        $idImg = $_POST['idImg'];
+        $tipoconcurso = $_POST['concurso'];
+        $fabricacionnacional = $_POST['fabricacionnacional'];
+        $proveedoraprovado = $_POST['proveedoraprovado'];
+        $prototipoaprovado = $_POST['prototipoaprovado'];
+        $avisopruebas = $_POST['avisopruebas'];
+        $bajodemanda = $_POST['bajodemanda'];
+        $porcentajedemanda = $_POST['porcentajedemanda'];
+        $preciosfijos = $_POST['preciosfijos'];
+        $anticipo = $_POST['anticipo'];
+        $garantiacumplimiento = $_POST['garantiacumplimiento'];
+        $porcentajegarantiacumplimiento = $_POST['porcentajegarantiacumplimiento'];
+        $garantiacalidad = $_POST['garantiacalidad'];
+        $porcentajegarantiacalidad = $_POST['porcentajegarantiacalidad'];
+        $sesionaclaraciones = $_POST['sesionaclaraciones'];
+        $requieremuestra = $_POST['requieremuestra'];
+        $cuesttecnico = $_POST['cuesttecnico'];
+        $marcaespecifica = $_POST['marcaespecifica'];
+        $criterioevaluacion = $_POST['criterioevaluacion'];
+        $tipotransporte = $_POST['tipotransporte'];
+
+        $params = array(
+            'concurso' => $tipoconcurso,
+            'fabricacionnacional' => $fabricacionnacional,
+            'proveedoraprovado' => $proveedoraprovado,
+            'prototipoaprovado' => $prototipoaprovado,
+            'avisopruebas' => $avisopruebas,
+            'bajodemanda' => $bajodemanda,
+            'porcentajedemanda' => $porcentajedemanda,
+            'preciosfijos' => $preciosfijos,
+            'anticipo' => $anticipo,
+            'garantiacumplimiento' => $garantiacumplimiento,
+            'porcentajegarantiacumplimiento' => $porcentajegarantiacumplimiento,
+            'garantiacalidad' => $garantiacalidad,
+            'porcentajegarantiacalidad' => $porcentajegarantiacalidad,
+            'sesionaclaraciones' => $sesionaclaraciones,
+            'requieremuestra' => $requieremuestra,
+            'cuesttecnico' => $cuesttecnico,
+            'marcaespecifica' => $marcaespecifica,
+            'criterioevaluacion' => $criterioevaluacion,
+            'tipotransporte' => $tipotransporte,
+        );
+
+        $this->Imgeneralmodel->update_checklist($idImg, $params);
+
+    }
+
+    function getChecklist(){
+        $idImg = $_POST['idImg'];
+        $data['checklist'] = $this->Imgeneralmodel->get_checklist($idImg);
+        echo json_encode($data);
+    }
+
+    //PARA EL PDF
+    /*
+    function getChecklist(){
+        $idImg = $_POST['idImg'];
+        $data['checklistdesc'] = $this->Imgeneralmodel->get_checklist_descripcion($idImg);
+        $data['checklist'] = $this->Imgeneralmodel->get_checklist_data($idImg);
+        echo json_encode($data);
+    }
+    */
+
     function formatPmcArray($arr){
 
         $output = array();
