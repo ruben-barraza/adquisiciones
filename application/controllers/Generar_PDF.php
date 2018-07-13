@@ -491,6 +491,7 @@ class Generar_pdf extends CI_Controller{
     function checklist($id){
         $data['checklistdesc'] = $this->Generarpdfmodel->get_checklist_descripcion($id);
         $data['checklist'] = $this->Generarpdfmodel->get_checklist_data($id);
+        $data['im_elabora'] = $this->Generarpdfmodel->get_im_empleado_elabora($id);
         $this->load->view('reporte_checklist', $data);
     }
 

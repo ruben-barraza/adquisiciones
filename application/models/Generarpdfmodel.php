@@ -355,7 +355,7 @@ class Generarpdfmodel extends CI_Model
                             checklist.prototipoaprovado, checklist.avisopruebas, checklist.bajodemanda, checklist.porcentajedemanda,
                             checklist.preciosfijos, checklist.anticipo, checklist.garantiacumplimiento, checklist.porcentajegarantiacumplimiento,
                             checklist.garantiacalidad, checklist.porcentajegarantiacalidad, checklist.sesionaclaraciones, checklist.requieremuestra,
-                            checklist.cuesttecnico, checklist.marcaespecifica, checklist.criterioevaluacion, checklist.tipotransporte');
+                            checklist.cuesttecnico, checklist.marcaespecifica, checklist.criterioevaluacion, checklist.adjudicacion, checklist.tipotransporte');
         $this->db->from('checklist');
         $this->db->join('im_general', 'im_general.id = checklist.idImg', 'inner');
         $this->db->where('checklist.idImg', $idImg);

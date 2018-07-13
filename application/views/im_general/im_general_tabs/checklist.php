@@ -159,8 +159,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
         <div class="form-group">
             <label class="col-md-5 control-label">Muestra</label>
             <div class="col-md-4">
@@ -191,6 +189,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
         <div class="form-group">
             <label class="col-md-5 control-label">Criterio de evaluación</label>
             <div class="col-md-4">
@@ -206,19 +206,39 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-md-5 control-label">Forma de adjudicación</label>
+            <div class="col-md-4">
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="adjudicacion" class="formaadjudicacion" value="LIC" checked> Un solo licitante</label>
+                </div>
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="adjudicacion" class="formaadjudicacion" value="PAR"> Por partida</label>
+                </div>
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="adjudicacion" class="formaadjudicacion" value="LOT"> Por lote</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-md-5 control-label">Tipo de transporte</label>
             <div class="col-md-4">
                 <div class="radio">
                     <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="IND" checked> Indistinto</label>
                 </div>
                 <div class="radio">
-                    <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="PLA"> Plataforma</label>
-                </div>
-                <div class="radio">
                     <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="CAJAS"> Caja seca</label>
                 </div>
                 <div class="radio">
-                    <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="CAJASA"> Caja seca-aire</label>
+                    <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="CAJASA"> Caja suspensión de aire</label>
+                </div>
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="CAMA"> Cama baja</label>
+                </div>
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="PAQ"> Paquetería</label>
+                </div>
+                <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="PLA"> Plataforma con redilas desmontables</label>
                 </div>
                 <div class="radio">
                     <label class="radio-inline"><input type="radio" name="tipotransporte" class="tipotransporte" value="PLAP"> Plataforma patín</label>
@@ -239,7 +259,7 @@
 <hr />
 <hr />
 <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-8">
+    <div class="col-sm-offset-1 col-sm-8" style="padding-top:  3%">
         <a id="botonGuardarChecklist" class="btn btn-success">
             <span class="fa fa-check"></span> Guardar Checklist
         </a>
@@ -374,6 +394,9 @@
                     var criterioevaluacion = (result.checklist)[0].criterioevaluacion;
                     $("input[name=evaluacion][value=" + criterioevaluacion + "]").prop('checked', 'checked');
 
+                    var adjudicacion = (result.checklist)[0].adjudicacion;
+                    $("input[name=adjudicacion][value=" + adjudicacion + "]").prop('checked', 'checked');
+
                     var tipotransporte = (result.checklist)[0].tipotransporte;
                     $("input[name=tipotransporte][value=" + tipotransporte + "]").prop('checked', 'checked');
                 }
@@ -428,6 +451,7 @@
             var cuesttecnico = $('.cuesttecnico:checked').val() ? "S" : "N";
             var marcaespecifica = $('.marcaespecifica:checked').val() ? "S" : "N";
             var criterioevaluacion = $('.criterioevaluacion:checked').val();
+            var adjudicacion = $('.formaadjudicacion:checked').val();
             var tipotransporte = $('.tipotransporte:checked').val();
 
             $.ajax({
@@ -453,6 +477,7 @@
                     cuesttecnico: cuesttecnico,
                     marcaespecifica: marcaespecifica,
                     criterioevaluacion: criterioevaluacion,
+                    adjudicacion: adjudicacion,
                     tipotransporte: tipotransporte,
                 },
                 success: function(){

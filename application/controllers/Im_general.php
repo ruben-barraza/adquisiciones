@@ -193,6 +193,7 @@ class Im_general extends CI_Controller
         $cuesttecnico = $_POST['cuesttecnico'];
         $marcaespecifica = $_POST['marcaespecifica'];
         $criterioevaluacion = $_POST['criterioevaluacion'];
+        $adjudicacion = $_POST['adjudicacion'];
         $tipotransporte = $_POST['tipotransporte'];
 
         $params = array(
@@ -214,6 +215,7 @@ class Im_general extends CI_Controller
             'cuesttecnico' => $cuesttecnico,
             'marcaespecifica' => $marcaespecifica,
             'criterioevaluacion' => $criterioevaluacion,
+            'adjudicacion' => $adjudicacion,
             'tipotransporte' => $tipotransporte,
         );
 
