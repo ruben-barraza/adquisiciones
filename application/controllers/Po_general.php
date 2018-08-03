@@ -12,6 +12,8 @@ class Po_general extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Pogeneralmodel');
+        $this->config->config["pageTitle"] = "Petición de Oferta";
+        
     }
 
     //Crea las relaciones en las tablas po_acuse y po_aclaracion
@@ -397,6 +399,8 @@ class Po_general extends CI_Controller{
         $data['listapo_general'] = $this->Pogeneralmodel->get_all_listapo_general();
         $this->load->model('Comboboxesmodel');
         $data['familias'] = $this->Comboboxesmodel->getFamilias();
+
+
 
         $data['_view'] = 'po_general/index';
         $this->load->view('layouts/main',$data);

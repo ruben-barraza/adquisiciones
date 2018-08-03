@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Adquisiciones</title>
+        <title><?=$this->config->config["pageTitle"]?></title>
 
         <!-- Bootstrap -->
         <link href="<?php echo site_url('resources/css/bootstrap.min.css');?>" rel="stylesheet">
@@ -192,12 +192,21 @@
                                             <a href="<?php echo site_url('proveedor/index');?>"><i class="fa fa-table"></i> Proveedor</a>
                                         </li>
                                       </ul>
-                                    </li>  
+                                    </li>
+
+                                    <li class="divider"></li>
+                                    <li><label class="tree-toggle nav-header"> Herramientas</label>
+                                        <ul class="nav nav-list tree">
+                                            <li>
+                                                <a href="<?php echo site_url('configuracion/index');?>"><i class="fa fa-table"></i> Configuración</a>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <!-- /sidebar menu -->
-                    </div>
+                    </div>/
                 </div>
 
                 <!-- top navigation -->
@@ -223,7 +232,7 @@
                     </div>
                 </div>
                 <!-- /top navigation -->
-
+                
                 <!-- page content -->
                 <div class="right_col" role="main">
                     <div class="">
@@ -233,7 +242,6 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-
                             <?php                            
                             if(isset($_view) && $_view)
                                 $this->load->view($_view);
