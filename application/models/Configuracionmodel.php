@@ -46,9 +46,68 @@ class Configuracionmodel extends CI_Model
         return $mySAP->query($sql)->result_array();
     }
 
+    function updateSolcon($datosSolcon)
+    {
+        //Insertar los datos de datosSolcon en solcondetalle_tmp
+        $this->insertSolcon($datosSolcon, 'solcondetalle_tmp');
+
+        //Borrar los contenidos de solcondetalle
+        $this->deleteSolconTable();
+
+        //Copiar los datos de solcondetalle_tmp a solcondetalle
+        $this->insertSolcon($datosSolcon, 'solcondetalle');
+    }
+
+    function insertSolcon($datosSolcon, $tableName)
+    {
+        $local = $this->load->database('default', TRUE);
+        foreach ($datosSolcon as $row){
+            $params = array(
+                'BANFN' => $row['BANFN'],
+                'BNFPO' => $row['BNFPO'],
+                'MATNR' => $row['MATNR'],
+                'TXZ01' => $row['TXZ01'],
+                'MSEH3' => $row['MSEH3'],
+                'PREIS' => $row['PREIS'],
+                'MENGE' => $row['MENGE'],
+                'EBELN_S' => $row['EBELN'],
+                'AFNAM' => $row['AFNAM'],
+                'WERKS' => $row['WERKS'],
+                'LGORT' => $row['LGORT'],
+                'BWTAR' => $row['BWTAR'],
+                'EBELP' => $row['EBELP'],
+                'WAERS' => $row['WAERS'],
+                'IMPORTE_PARTIDA_SOLPED' => $row['IMPORTE_PARTIDA_SOLPED'],
+                'LOEKZ' => $row['LOEKZ'],
+                'TXZ01_P' => $row['TXZ01'],
+                'MATNR_P' => $row['MATNR'],
+                'BUKRS' => $row['BUKRS'],
+                'WERKS_P' => $row['WERKS'],
+                'MENGE_P' => $row['MENGE'],
+                'MSEH3_P' => $row['MSEH3'],
+                'NETPR' => $row['NETPR'],
+                'NETWR' => $row['NETWR'],
+                'KONNR' => $row['KONNR']
+            );
+
+            $local->insert($tableName, $params);
+        }
+
+    }
+
+    function deleteTmpTable()
+    {
+        $local = $this->load->database('default', TRUE);
+        $local->empty_table('solcondetalle_tmp');
+    }
+
+    function deleteSolconTable()
+    {
+        $local = $this->load->database('default', TRUE);
+        $local->empty_table('solcondetalle');
+    }
+
 }
-
-
 
 
 

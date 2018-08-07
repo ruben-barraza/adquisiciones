@@ -16,10 +16,24 @@ class Configuracion extends CI_Controller{
      */
     function index()
     {
-        $data['update'] = $this->Configuracionmodel->get_solconupdate();
 
         $data['_view'] = 'configuracion/index';
         $this->load->view('layouts/main',$data);
+    }
+
+    function updateDatos()
+    {
+        //1. Borrar los datos existentes en la tabla solcondetalle_tmp
+        $this->Configuracionmodel->deleteTmpTable();
+
+        //2. Obtener los datos actualizados
+        $datosSolcon = $this->Configuracionmodel->get_solconupdate();
+
+        //Si el arreglo datosSolcon no está vacio actualizar las tablas
+        if (!empty($datosSolcon)) {
+            $this->Configuracionmodel->updateSolcon($datosSolcon);
+        }
+
     }
 
 }
